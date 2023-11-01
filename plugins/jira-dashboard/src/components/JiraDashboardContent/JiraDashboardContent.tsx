@@ -32,7 +32,7 @@ import { useJira } from '../../hooks/useJira';
 import {
   JiraDataResponse,
   PROJECT_KEY_ANNOTATION,
-} from '@backstage/plugin-jira-dashboard-common';
+} from '@internal/plugin-jira-dashboard-common';
 
 export const JiraDashboardContent = () => {
   const { entity } = useEntity();

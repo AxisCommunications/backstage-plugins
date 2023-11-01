@@ -24,7 +24,7 @@ import {
   JiraResponse,
   PROJECT_KEY_ANNOTATION,
   Project,
-} from '@backstage/plugin-jira-dashboard-common';
+} from '@internal/plugin-jira-dashboard-common';
 import { getProjectAvatar } from '../api';
 import stream from 'stream';
 

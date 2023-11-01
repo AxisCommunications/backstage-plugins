@@ -17,7 +17,7 @@ import React from 'react';
 import { Card, Box, Divider, Typography } from '@material-ui/core';
 import { Avatar } from '@backstage/core-components';
 import { LinkButton } from '@backstage/core-components';
-import { Project } from '@backstage/plugin-jira-dashboard-common';
+import { Project } from '@internal/plugin-jira-dashboard-common';
 import { getProjectUrl } from '../../lib';
 import { ProjectInfoLabel } from './ProjectInfoLabel';
 

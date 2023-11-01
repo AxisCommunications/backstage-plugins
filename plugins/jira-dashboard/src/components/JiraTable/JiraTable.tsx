@@ -16,7 +16,7 @@
 
 import React from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
-import { JiraDataResponse } from '@backstage/plugin-jira-dashboard-common';
+import { JiraDataResponse } from '@internal/plugin-jira-dashboard-common';
 import { ErrorPanel, Table } from '@backstage/core-components';
 import { capitalize } from 'lodash';
 import { columns } from './columns';
