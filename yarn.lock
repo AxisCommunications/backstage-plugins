@@ -2094,6 +2094,15 @@
     yauzl "^2.10.0"
     yn "^4.0.0"
 
+"@backstage/backend-defaults@^0.2.6":
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@backstage/backend-defaults/-/backend-defaults-0.2.6.tgz#05e44c88e763eb208f809ddbacf76cbea9a4d7ea"
+  integrity sha512-Vp3yCJFgCYF8hdsAVjsrd4Lw2nTOLlh0x4GdpBUONHrTFyT2vBCec8oZHvbEZ+4ctqf51KeGmdqhanvtzen3YQ==
+  dependencies:
+    "@backstage/backend-app-api" "^0.5.6"
+    "@backstage/backend-common" "^0.19.8"
+    "@backstage/backend-plugin-api" "^0.6.6"
+
 "@backstage/backend-dev-utils@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@backstage/backend-dev-utils/-/backend-dev-utils-0.1.2.tgz#357f2b669bed0452d9dca511e35a61071c57ea20"
