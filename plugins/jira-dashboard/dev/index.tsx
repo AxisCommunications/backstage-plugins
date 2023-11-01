@@ -1,12 +1,12 @@
 import React from 'react';
 import { createDevApp } from '@backstage/dev-utils';
-import { jiraDashboardPlugin, JiraDashboardPage } from '../src/plugin';
+import { EntityJiraDashboardContent, jiraDashboardPlugin } from '../src';
 
 createDevApp()
   .registerPlugin(jiraDashboardPlugin)
   .addPage({
-    element: <JiraDashboardPage />,
+    element: <EntityJiraDashboardContent />,
     title: 'Root Page',
-    path: '/jira-dashboard'
+    path: '/jira-dashboard',
   })
   .render();

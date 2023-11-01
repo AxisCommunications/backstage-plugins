@@ -10,12 +10,7 @@ import { Logger } from 'winston';
 import { CatalogClient } from '@backstage/catalog-client';
 import { DiscoveryApi } from '@backstage/plugin-permission-common';
 import { IdentityApi } from '@backstage/plugin-auth-node';
-import {
-  getFiltersFromAnnotations,
-  getIssuesFromComponents,
-  getIssuesFromFilters,
-  getProjectResponse,
-} from './service';
+
 import { getDefaultFilters } from '../filters';
 import {
   COMPONENT_ANNOTATION,
@@ -25,8 +20,14 @@ import {
   PROJECT_KEY_ANNOTATION,
   Project,
 } from '@internal/plugin-jira-dashboard-common';
-import { getProjectAvatar } from '../api';
 import stream from 'stream';
+import { getProjectAvatar } from '../api';
+import {
+  getProjectResponse,
+  getFiltersFromAnnotations,
+  getIssuesFromFilters,
+  getIssuesFromComponents,
+} from './service';
 
 /**
  * @public
