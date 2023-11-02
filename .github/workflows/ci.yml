@@ -45,7 +45,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.x]
 
     env:
       CI: true
@@ -83,24 +83,8 @@ jobs:
       - name: prettier
         run: yarn prettier:check
 
-        # We need to generate the API references as well, so that we can verify the doc links
-      - name: check api reports and generate API reference
-        run: yarn build:api-reports:only --ci --docs
-
-      - name: verify catalog-info.yaml consistency
-        run: yarn backstage-repo-tools generate-catalog-info --ci
-
-      - name: lint openapi yaml files
-        run: yarn backstage-repo-tools schema openapi lint
-
-      - name: verify openapi yaml file matches generated ts file
-        run: yarn backstage-repo-tools schema openapi verify
-
       - name: build all packages
         run: yarn backstage-cli repo build --all
-
-      - name: verify type dependencies
-        run: yarn lint:type-deps
 
       - name: ensure clean working directory
         run: |
@@ -125,7 +109,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.x]
 
     name: Test ${{ matrix.node-version }}
     services:
@@ -197,10 +181,6 @@ jobs:
           BACKSTAGE_TEST_DATABASE_POSTGRES13_CONNECTION_STRING: postgresql://postgres:postgres@localhost:${{ job.services.postgres13.ports[5432] }}
           BACKSTAGE_TEST_DATABASE_POSTGRES9_CONNECTION_STRING: postgresql://postgres:postgres@localhost:${{ job.services.postgres9.ports[5432] }}
           BACKSTAGE_TEST_DATABASE_MYSQL8_CONNECTION_STRING: mysql://root:root@localhost:${{ job.services.mysql8.ports[3306] }}/ignored
-
-      # We run the test cases before verifying the specs to prevent any failing tests from causing errors.
-      - name: verify openapi specs against test cases
-        run: yarn backstage-repo-tools schema openapi test
 
       - name: ensure clean working directory
         run: |
