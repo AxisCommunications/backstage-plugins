@@ -2,7 +2,7 @@
 
 A plugin that makes requests to [Atlassian REST API](https://developer.atlassian.com/server/jira/platform/rest-apis/) to get issues and project information from Jira.
 
-The frontend plugin that displays this information is [Jira Dashboard](https://github.com/backstage/backstage/tree/master/plugins/jira-dashboard).
+The frontend plugin that displays this information is [Jira Dashboard](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard).
 
 ## Setup
 

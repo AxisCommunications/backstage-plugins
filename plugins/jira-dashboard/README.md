@@ -12,7 +12,7 @@ By default, the issue views that are provided are **incoming issues**, **open is
 
 ## Note
 
-You will **need** to also perform the installation instructions in [Jira Dashboard Backend](https://github.com/backstage/backstage/tree/master/plugins/jira-dashboard-backend) in order for this plugin to work.
+You will **need** to also perform the installation instructions in [Jira Dashboard Backend](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend) in order for this plugin to work.
 
 ## Getting Started
 
