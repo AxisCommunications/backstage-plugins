@@ -19,14 +19,23 @@ export const JiraTable = ({ tableContent }: Props) => {
   const classes = useStyles();
 
   if (!tableContent) {
-    return <ErrorPanel error={Error('Table could not be rendered')} />;
+    return (
+      <ErrorPanel
+        data-testid="error-panel"
+        error={Error('Table could not be rendered')}
+      />
+    );
   }
   const nbrOfIssues = tableContent?.issues?.length ?? 0;
 
   return (
     <div className={classes.root}>
       <Table
-        title={`${capitalize(tableContent.name)} (${nbrOfIssues})`}
+        title={
+          <Typography data-testid="table-header">
+            `${capitalize(tableContent.name)} (${nbrOfIssues})`
+          </Typography>
+        }
         options={{
           paging: false,
           padding: 'dense',
