@@ -1,0 +1,52 @@
+name: Basic workflow
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  format:
+    name: Formatting and type checking
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: prettier
+        run: yarn prettier:check
+
+      - name: linting
+        run: yarn lint
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Test
+        run: yarn test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: type checking and generate .d.ts files before packaging
+        run: yarn tsc
+
+      - name: Build all
+        run: yarn build:all
+
+      - name: Build image
+        run: yarn workspace backend build-image
