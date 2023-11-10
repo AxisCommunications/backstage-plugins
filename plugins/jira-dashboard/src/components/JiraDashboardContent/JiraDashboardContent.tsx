@@ -52,14 +52,24 @@ export const JiraDashboardContent = () => {
         </SupportButton>
       </ContentHeader>
       <Grid container spacing={3}>
-        <Grid item md={6} xs={12}>
-          <JiraProjectCard project={jiraResponse.project} />
-        </Grid>
-        {jiraResponse.data.map((value: JiraDataResponse) => (
-          <Grid item key={value.name} md={6} xs={12}>
-            <JiraTable tableContent={value} />
-          </Grid>
-        ))}
+        {jiraResponse && jiraResponse.data && (
+          <>
+            <Grid item md={6} xs={12} data-testid="project-card">
+              <JiraProjectCard project={jiraResponse.project} />
+            </Grid>
+            {jiraResponse.data.map((value: JiraDataResponse) => (
+              <Grid
+                data-testid="issue-table"
+                item
+                key={value.name}
+                md={6}
+                xs={12}
+              >
+                <JiraTable tableContent={value} />
+              </Grid>
+            ))}
+          </>
+        )}
       </Grid>
     </Content>
   );
