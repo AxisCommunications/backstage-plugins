@@ -1,6 +1,6 @@
-# Contributing to Axis Backstage plugins 
+# Contributing to Axis Backstage plugins
 
-Contributions are welcome, and they are greatly appreciated! 
+Contributions are welcome, and they are greatly appreciated!
 
 Axis Backstage plugins are released under the Apache 2.0 License, and original creations contributed to this repo are accepted under the same license.
 
