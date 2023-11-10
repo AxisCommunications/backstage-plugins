@@ -1,0 +1,16 @@
+{
+  "apiVersion": "backstage.io/v1alpha1",
+  "kind": "Component",
+  "metadata": {
+    "name": "backstage",
+    "description": "backstage.io",
+    "annotation": {
+      "jira/issue-collector": "file: ./.jira/config.yaml"
+    }
+  },
+  "spec": {
+    "lifecycle": "production",
+    "type": "service",
+    "owner": "user:guest"
+  }
+}

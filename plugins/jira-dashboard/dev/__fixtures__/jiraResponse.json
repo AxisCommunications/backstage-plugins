@@ -1,0 +1,141 @@
+{
+  "project": {
+    "name": "Backstage",
+    "key": "BS",
+    "description": "This is our Backstage project",
+    "avatarUrls": {
+      "48x48": "https://api.dicebear.com/6.x/open-peeps/svg?seed=Duane"
+    },
+    "projectTypeKey": "Software",
+    "projectCategory": {
+      "name": "Software Portals"
+    },
+    "lead": {
+      "key": "fridaja",
+      "displayName": "Frida Jacobsson"
+    },
+    "self": "https://jira.com/project/123"
+  },
+  "data": [
+    {
+      "name": "Open Issues",
+      "type": "filter",
+      "issues": [
+        {
+          "key": "BS-1",
+          "self": "https://jira.com/project/123",
+          "fields": {
+            "summary": "This would be really good to add",
+            "status": {
+              "name": "In Review"
+            },
+            "assignee": {
+              "name": "fridaja@backstage",
+              "self": "https://jira.com/user/fridaja"
+            },
+            "issuetype": {
+              "name": "Task",
+              "iconUrl": ""
+            }
+          }
+        },
+        {
+          "key": "BS-2",
+          "self": "https://jira.com/project/123",
+          "fields": {
+            "summary": "Something is not working",
+            "status": {
+              "name": "In Progress"
+            },
+            "assignee": {
+              "name": "fridaja@backstage",
+              "self": "https://jira.com/user/fridaja"
+            },
+            "issuetype": {
+              "name": "Bug",
+              "iconUrl": ""
+            }
+          }
+        },
+        {
+          "key": "BS-3",
+          "self": "https://jira.com/project/123",
+          "fields": {
+            "summary": "As an user I want to be able to add new data",
+            "status": {
+              "name": "In Progress"
+            },
+            "assignee": {
+              "name": "fridaja@backstage",
+              "self": "https://jira.com/user/fridaja"
+            },
+            "issuetype": {
+              "name": "Story",
+              "iconUrl": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "New Issues",
+      "type": "filter",
+      "issues": [
+        {
+          "key": "BS-1",
+          "self": "https://jira.com/project/123",
+          "fields": {
+            "summary": "This would be really good to add",
+            "status": {
+              "name": "New"
+            },
+            "assignee": {
+              "name": "fridaja@backstage",
+              "self": "https://jira.com/user/fridaja"
+            },
+            "issuetype": {
+              "name": "Task",
+              "iconUrl": ""
+            }
+          }
+        },
+        {
+          "key": "BS-2",
+          "self": "https://jira.com/project/123",
+          "fields": {
+            "summary": "Something is not working",
+            "status": {
+              "name": "Selected for development"
+            },
+            "assignee": {
+              "name": "fridaja@backstage",
+              "self": "https://jira.com/user/fridaja"
+            },
+            "issuetype": {
+              "name": "Bug",
+              "iconUrl": ""
+            }
+          }
+        },
+        {
+          "key": "BS-3",
+          "self": "https://jira.com/project/123",
+          "fields": {
+            "summary": "As an user I want to be able to add new data",
+            "status": {
+              "name": "New"
+            },
+            "assignee": {
+              "name": "fridaja@backstage",
+              "self": "https://jira.com/user/fridaja"
+            },
+            "issuetype": {
+              "name": "Story",
+              "iconUrl": ""
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
