@@ -13,4 +13,3 @@ At Axis, we've developed our own set of plugins exclusively available to us. Now
 If you want to contribute to our plugins, read the Contribution guidelines here: - [Contributing to Axis Backstage plugins](https://github.com/AxisCommunications/backstage-plugins/blob/main/CONTRIBUTING.md).
 
 ## Contact
-
