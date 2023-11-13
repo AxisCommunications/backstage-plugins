@@ -1,0 +1,17 @@
+{
+  "name": "Backstage",
+  "key": "BS",
+  "description": "This is our Backstage project",
+  "avatarUrls": {
+    "48x48": "https://api.dicebear.com/6.x/open-peeps/svg?seed=Duane"
+  },
+  "projectTypeKey": "Software",
+  "projectCategory": {
+    "name": "Software Portals"
+  },
+  "lead": {
+    "key": "fridaja",
+    "displayName": "Frida Jacobsson"
+  },
+  "self": "https://jira.com/project/123"
+}
