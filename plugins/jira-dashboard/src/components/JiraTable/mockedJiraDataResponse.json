@@ -1,0 +1,60 @@
+{
+  "name": "Open Issues",
+  "type": "filter",
+  "issues": [
+    {
+      "key": "BS-1",
+      "self": "https://jira.com/project/123",
+      "fields": {
+        "summary": "This would be really good to add",
+        "status": {
+          "name": "In Review"
+        },
+        "assignee": {
+          "name": "fridaja@backstage",
+          "self": "https://jira.com/user/fridaja"
+        },
+        "issuetype": {
+          "name": "Task",
+          "iconUrl": ""
+        }
+      }
+    },
+    {
+      "key": "BS-2",
+      "self": "https://jira.com/project/123",
+      "fields": {
+        "summary": "Something is not working",
+        "status": {
+          "name": "In Progress"
+        },
+        "assignee": {
+          "name": "fridaja@backstage",
+          "self": "https://jira.com/user/fridaja"
+        },
+        "issuetype": {
+          "name": "Bug",
+          "iconUrl": ""
+        }
+      }
+    },
+    {
+      "key": "BS-3",
+      "self": "https://jira.com/project/123",
+      "fields": {
+        "summary": "As an user I want to be able to add new data",
+        "status": {
+          "name": "In Progress"
+        },
+        "assignee": {
+          "name": "fridaja@backstage",
+          "self": "https://jira.com/user/fridaja"
+        },
+        "issuetype": {
+          "name": "Story",
+          "iconUrl": ""
+        }
+      }
+    }
+  ]
+}
