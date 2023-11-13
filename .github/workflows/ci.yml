@@ -40,7 +40,7 @@ jobs:
         run: yarn test
 
   format:
-    name: Formatting and type checking
+    name: Formatting and linting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
