@@ -15,10 +15,10 @@ import { getDefaultFilters } from '../filters';
 import {
   COMPONENT_ANNOTATION,
   FILTER_ANNOTATION,
-  Filter,
-  JiraResponse,
+  type Filter,
+  type JiraResponse,
   PROJECT_KEY_ANNOTATION,
-  Project,
+  type Project,
 } from '@internal/plugin-jira-dashboard-common';
 import stream from 'stream';
 import { getProjectAvatar } from '../api';
