@@ -24,13 +24,17 @@
     "postpack": "backstage-cli package postpack"
   },
   "dependencies": {
+    "@backstage/catalog-model": "^1.4.3",
     "@backstage/core-components": "^0.13.6",
     "@backstage/core-plugin-api": "^1.7.0",
-    "@internal/plugin-jira-dashboard-common": "0.1.0",
+    "@backstage/errors": "^1.2.3",
+    "@backstage/plugin-catalog-react": "^1.8.5",
     "@backstage/theme": "^0.4.3",
+    "@internal/plugin-jira-dashboard-common": "0.1.0",
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "4.0.0-alpha.61",
+    "lodash": "^4.17.21",
     "react-use": "^17.2.4"
   },
   "peerDependencies": {
@@ -40,6 +44,7 @@
     "@backstage/cli": "^0.23.0",
     "@backstage/core-app-api": "^1.11.0",
     "@backstage/dev-utils": "^1.0.22",
+    "@backstage/plugin-catalog-react": "^1.8.5",
     "@backstage/test-utils": "^1.4.4",
     "@testing-library/jest-dom": "^5.10.1",
     "@testing-library/react": "^12.1.3",

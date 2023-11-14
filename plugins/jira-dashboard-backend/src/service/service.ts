@@ -1,9 +1,9 @@
 import { CacheClient } from '@backstage/backend-common';
 import { Config } from '@backstage/config';
 import {
-  Filter,
-  JiraDataResponse,
-  Project,
+  type Filter,
+  type JiraDataResponse,
+  type Project,
 } from '@internal/plugin-jira-dashboard-common';
 import {
   getFilterById,
