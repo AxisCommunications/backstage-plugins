@@ -13,7 +13,7 @@ import { IdentityApi } from '@backstage/plugin-auth-node';
 
 import { getDefaultFilters } from '../filters';
 import {
-  type COMPONENT_ANNOTATION,
+  COMPONENT_ANNOTATION,
   FILTER_ANNOTATION,
   type Filter,
   type JiraResponse,
