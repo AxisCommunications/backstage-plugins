@@ -6,7 +6,7 @@ At Axis, we've developed our own set of plugins exclusively available to us. Now
 
 ## Provided plugins
 
-- [The Jira Dashboard plugin](link)
+- [The Jira Dashboard plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard/README.md)
 
 ## Contribute to development
 
