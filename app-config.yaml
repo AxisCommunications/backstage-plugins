@@ -1,9 +1,9 @@
 app:
-  title: Axis Backstage
+  title: Backstage
   baseUrl: http://localhost:3000
 
 organization:
-  name: Axis Communications
+  name: My Organization
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
