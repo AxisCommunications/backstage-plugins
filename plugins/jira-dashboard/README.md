@@ -20,7 +20,7 @@ You will **need** to also perform the installation instructions in [Jira Dashboa
 
 ```bash
 # From your Backstage root directory
-yarn add --cwd packages/app @backstage/plugin-jira-dashboard
+yarn add --cwd packages/app @axis-backstage/plugin-jira-dashboard
 ```
 
 2. Then, modify your entity page in `EntityPage.tsx` to include the `EntityJiraDashboardContent` component and the `isJiraDashboardAvailable` function. Both are exported from the plugin.
@@ -31,8 +31,8 @@ The example below show how you can add the plugin to the `defaultEntityPage`:
 
 ```tsx
 // In packages/app/src/components/catalog/Entity.tsx
-import { EntityJiraDashboardContent } from '@backstage/plugin-jira-dashboard';
-import { isJiraDashboardAvailable } from '@backstage/plugin-jira-dashboard';
+import { EntityJiraDashboardContent } from '@axis-backstage/plugin-jira-dashboard';
+import { isJiraDashboardAvailable } from '@axis-backstage/plugin-jira-dashboard';
 
 const defaultEntityPage = (
   <EntityLayout.Route
