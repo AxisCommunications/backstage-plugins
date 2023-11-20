@@ -1,4 +1,10 @@
-import { createServiceBuilder } from '@backstage/backend-common';
+import {
+  createServiceBuilder,
+  loadBackendConfig,
+  HostDiscovery,
+  ServerTokenManager,
+  UrlReaders,
+} from '@backstage/backend-common';
 import { Server } from 'http';
 import { Logger } from 'winston';
 import { createRouter } from './router';
@@ -14,8 +20,18 @@ export async function startStandaloneServer(
 ): Promise<Server> {
   const logger = options.logger.child({ service: 'readme-backend' });
   logger.debug('Starting application server...');
+  const config = await loadBackendConfig({ logger, argv: process.argv });
+  const discovery = HostDiscovery.fromConfig(config);
+  const reader = UrlReaders.default({ logger, config });
+  const tokenManager = ServerTokenManager.fromConfig(config, {
+    logger,
+  });
   const router = await createRouter({
     logger,
+    config,
+    discovery,
+    tokenManager,
+    reader,
   });
 
   let service = createServiceBuilder(module)
