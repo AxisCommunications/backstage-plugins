@@ -1,5 +1,3 @@
 # This is a comment.
 
-*               @backstage/maintainers
--               @rnd-tools-backstage-maintainers
-/plugins/readme @AxisCommunications/backstage-plugins-maintainers
+*             @AxisCommunications/backstage-plugins-maintainers
