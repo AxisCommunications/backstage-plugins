@@ -12,7 +12,7 @@ import {
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import mockedEntity from '../../../dev/__fixtures__/entity.json';
 import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
-import mockedReadmeContent from '../../../dev/__fixtures__/mockedReadmeContent.json';
+import mockedReadmeContent from '../../../dev/__fixtures__/mockedReadmeContent.md';
 import { readmeApiRef } from '../../api/ReadmeApi';
 import { ReadmeClient } from '../../api/ReadmeClient';
 import { IdentityApi, ProfileInfo } from '@backstage/core-plugin-api';
