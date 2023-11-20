@@ -1,5 +1,5 @@
 import useAsync from 'react-use/lib/useAsync';
-import { JiraResponse } from '@internal/plugin-jira-dashboard-common';
+import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraDashboardApi } from '../api';
 
 export function useJira(

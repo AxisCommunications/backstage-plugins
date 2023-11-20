@@ -35,7 +35,7 @@
     "@backstage/plugin-search-backend-module-pg": "^0.5.15",
     "@backstage/plugin-search-backend-node": "^1.2.10",
     "@backstage/plugin-techdocs-backend": "^1.8.0",
-    "@internal/plugin-jira-dashboard-backend": "0.1.0",
+    "@axis-backstage/plugin-jira-dashboard-backend": "0.1.0",
     "app": "link:../app",
     "better-sqlite3": "^8.0.0",
     "dockerode": "^3.3.1",

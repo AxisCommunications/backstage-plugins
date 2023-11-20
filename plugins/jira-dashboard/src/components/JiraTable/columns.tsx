@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, TableColumn } from '@backstage/core-components';
-import { Issue } from '@internal/plugin-jira-dashboard-common';
+import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { Typography } from '@material-ui/core';
 import { getIssueUrl } from '../../lib';
 

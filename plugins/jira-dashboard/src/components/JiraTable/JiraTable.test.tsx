@@ -2,7 +2,7 @@ import React from 'react';
 import { renderInTestApp } from '@backstage/test-utils';
 import { JiraTable } from './JiraTable';
 import mockedJiraDataResponse from './mockedJiraDataResponse.json';
-import type { JiraDataResponse } from '@internal/plugin-jira-dashboard-common';
+import type { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 
 describe('JiraTable', () => {
   it('renders header', async () => {

@@ -19,7 +19,7 @@ import {
   type JiraResponse,
   PROJECT_KEY_ANNOTATION,
   type Project,
-} from '@internal/plugin-jira-dashboard-common';
+} from '@axis-backstage/plugin-jira-dashboard-common';
 import stream from 'stream';
 import { getProjectAvatar } from '../api';
 import {
