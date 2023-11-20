@@ -14,7 +14,7 @@ Install the plugin by following the example below:
 
 ```bash
 # From your Backstage root directory
-yarn add --cwd packages/backend @backstage/plugin-jira-dashboard-backend
+yarn add --cwd packages/backend @axis-backstage/plugin-jira-dashboard-backend
 ```
 
 ### Configuration
@@ -42,7 +42,7 @@ Here's how to get the backend plugin up and running:
 1. Create a new file named `packages/backend/src/plugins/jiraDashboard.ts`, and add the following to it:
 
    ```ts
-   import { createRouter } from '@backstage/plugin-jira-dashboard-backend';
+   import { createRouter } from '@axis-backstage/plugin-jira-dashboard-backend';
    import { Router } from 'express';
    import { PluginEnvironment } from '../types';
 
@@ -85,7 +85,7 @@ The Jira Dashboard backend plugin has support for the [new backend system](https
 In your `packages/backend/src/index.ts` make the following changes:
 
 ```diff
-+ import { jiraDashboardPlugin } from '@backstage/plugin-jira-dashboard-backend';
++ import { jiraDashboardPlugin } from '@axis-backstage/plugin-jira-dashboard-backend';
 
 const backend = createBackend();
 + backend.add(jiraDashboardPlugin());
