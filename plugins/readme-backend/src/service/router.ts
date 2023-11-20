@@ -12,6 +12,7 @@ import { ScmIntegrations } from '@backstage/integration';
 import { getEntitySourceLocation } from '@backstage/catalog-model';
 import { CatalogClient } from '@backstage/catalog-client';
 import { DiscoveryApi } from '@backstage/plugin-permission-common';
+import { isSymLink } from '../lib';
 
 export interface RouterOptions {
   logger: Logger;
@@ -22,7 +23,6 @@ export interface RouterOptions {
 }
 
 const DEFAULT_TTL = 1800 * 1000;
-const DETECT_SYMLINKS_REGEX = '^(w+|.|/|-)+$';
 
 interface FileType {
   name: string;
@@ -114,12 +114,12 @@ export async function createRouter(
         content = (await urlResponse.buffer()).toString('utf-8');
 
         if (isSymLink(content)) {
-          const url = integration.resolveUrl({
+          const symLinkUrl = integration.resolveUrl({
             url: content,
             base: source.target,
           });
-          const urlResponse = await reader.readUrl(url);
-          content = (await urlResponse.buffer()).toString('utf-8');
+          const symLinkUrlResponse = await reader.readUrl(symLinkUrl);
+          content = (await symLinkUrlResponse.buffer()).toString('utf-8');
         }
 
         cache.set(entityRef, {
@@ -150,13 +150,3 @@ export async function createRouter(
   router.use(errorHandler());
   return router;
 }
-
-const isSymLink = (content: string): boolean => {
-  const lines = content.split('\n');
-  if (lines.length > 1) return false;
-  const line = lines[0];
-  if (line.includes(' ')) return false;
-
-  const regex = RegExp(DETECT_SYMLINKS_REGEX);
-  return regex.test(content);
-};
