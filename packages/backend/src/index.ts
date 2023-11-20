@@ -8,6 +8,6 @@ backend.add(import('@backstage/plugin-proxy-backend/alpha'));
 backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
 backend.add(import('@backstage/plugin-search-backend/alpha'));
 backend.add(import('@backstage/plugin-app-backend/alpha'));
-backend.add(import('@internal/plugin-jira-dashboard-backend'));
+backend.add(import('@axis-backstage/plugin-jira-dashboard-backend'));
 
 backend.start();

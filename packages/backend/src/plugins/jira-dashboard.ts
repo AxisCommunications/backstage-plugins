@@ -1,4 +1,4 @@
-import { createRouter } from '@internal/plugin-jira-dashboard-backend';
+import { createRouter } from '@axis-backstage/plugin-jira-dashboard-backend';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
 

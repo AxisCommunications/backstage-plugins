@@ -1,4 +1,4 @@
-import { Project } from '@internal/plugin-jira-dashboard-common';
+import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 
 /**
  * Get the URL to a Jira project.

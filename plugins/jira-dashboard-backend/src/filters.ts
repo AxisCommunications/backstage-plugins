@@ -1,6 +1,6 @@
 import { Config } from '@backstage/config';
 import { resolveUserEmailSuffix } from './config';
-import { Filter } from '@internal/plugin-jira-dashboard-common';
+import { Filter } from '@axis-backstage/plugin-jira-dashboard-common';
 
 const getUsernameFromRef = (userRef: string) => {
   return userRef?.split('/').slice(1)[0];

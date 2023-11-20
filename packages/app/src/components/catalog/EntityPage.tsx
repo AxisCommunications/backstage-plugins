@@ -60,7 +60,7 @@ import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import {
   EntityJiraDashboardContent,
   isJiraDashboardAvailable,
-} from '@internal/plugin-jira-dashboard';
+} from '@axis-backstage/plugin-jira-dashboard';
 
 const techdocsContent = (
   <EntityTechdocsContent>

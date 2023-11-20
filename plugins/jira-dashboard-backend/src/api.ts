@@ -1,6 +1,10 @@
 import { Config } from '@backstage/config';
 import fetch from 'node-fetch';
-import { Filter, Issue, Project } from '@internal/plugin-jira-dashboard-common';
+import {
+  Filter,
+  Issue,
+  Project,
+} from '@axis-backstage/plugin-jira-dashboard-common';
 import { resolveJiraBaseUrl, resolveJiraToken } from './config';
 
 export const getProjectInfo = async (

@@ -4,7 +4,7 @@ import {
   type Filter,
   type JiraDataResponse,
   type Project,
-} from '@internal/plugin-jira-dashboard-common';
+} from '@axis-backstage/plugin-jira-dashboard-common';
 import {
   getFilterById,
   getIssuesByComponent,

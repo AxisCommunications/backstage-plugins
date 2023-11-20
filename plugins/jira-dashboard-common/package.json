@@ -1,5 +1,5 @@
 {
-  "name": "@internal/plugin-jira-dashboard-common",
+  "name": "@axis-backstage/plugin-jira-dashboard-common",
   "description": "Common functionalities for the jira-dashboard plugin",
   "version": "0.1.0",
   "main": "src/index.ts",

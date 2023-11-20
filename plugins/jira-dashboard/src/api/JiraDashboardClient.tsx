@@ -1,5 +1,5 @@
 import { DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
-import { JiraResponse } from '@internal/plugin-jira-dashboard-common';
+import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraDashboardApi } from './JiraDashboardApi';
 import { ResponseError } from '@backstage/errors';
 
