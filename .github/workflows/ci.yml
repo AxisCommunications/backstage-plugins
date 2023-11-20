@@ -21,9 +21,6 @@ jobs:
       - name: Build all
         run: yarn build:all
 
-      - name: Build image
-        run: yarn workspace backend build-image
-
   test:
     name: Tests
     runs-on: ubuntu-latest
