@@ -43,12 +43,12 @@ export const FetchComponent = () => {
     return (
       <Box>
         <Typography variant="body2" style={{ paddingBottom: 15 }}>
-          No README.md file found at source location:
+          No README.md file found at source location:{' '}
           {location && <strong>{location}</strong>}
         </Typography>
         <Typography variant="body2">
-          Need help? Go to our
-          <Link to="/docs/default/component/backstage/plugins/">
+          Need help? Go to our{' '}
+          <Link to="https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/README.md">
             documentation
           </Link>
         </Typography>
