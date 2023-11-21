@@ -56,3 +56,9 @@ jobs:
 
       - name: Linting
         run: yarn lint
+
+      - name: lint openapi yaml files
+        run: yarn backstage-repo-tools schema openapi lint
+
+      - name: check api reports
+        run: yarn build:api-reports:only --ci
