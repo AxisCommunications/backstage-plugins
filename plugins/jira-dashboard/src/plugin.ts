@@ -18,7 +18,9 @@ import { JiraDashboardClient, jiraDashboardApiRef } from './api';
 export const isJiraDashboardAvailable = (entity: Entity) =>
   Boolean(entity.metadata.annotations?.[PROJECT_KEY_ANNOTATION]);
 
-/** @public */
+/**
+ * Plugin that provides the Jira Dashboard api
+ * @public */
 export const jiraDashboardPlugin = createPlugin({
   id: 'jira-dashboard',
   apis: [
@@ -34,7 +36,9 @@ export const jiraDashboardPlugin = createPlugin({
   },
 });
 
-/** @public */
+/**
+ * Jira content exported from the Jira Dashboard plugin
+ * @public */
 export const EntityJiraDashboardContent = jiraDashboardPlugin.provide(
   createRoutableExtension({
     name: 'EntityJiraDashboardContent',

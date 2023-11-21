@@ -30,19 +30,41 @@ import {
 } from './service';
 
 /**
+ * Constructs a jira dashboard router.
  * @public
  */
 export interface RouterOptions {
+  /**
+   * Implementation of Winston logger
+   */
   logger: Logger;
+
+  /**
+   * Backstage config object
+   */
   config: Config;
+
+  /**
+   * Backstage discovery api instance
+   */
   discovery: DiscoveryApi;
+
+  /**
+   * Backstage identity api instance
+   */
   identity: IdentityApi;
+
+  /**
+   * Backstage token manager instance
+   */
   tokenManager: TokenManager;
 }
 
 const DEFAULT_TTL = 1000 * 60;
 
 /**
+ * Constructs a jira dashboard router.
+ *
  * @public
  */
 export async function createRouter(
