@@ -13,7 +13,7 @@
     "build:all": "backstage-cli repo build --all",
     "build-image": "yarn workspace backend build-image",
     "build:api-reports": "yarn build:api-reports:only --tsc",
-    "build:api-reports:only": "backstage-repo-tools api-reports --allow-warnings 'packages/core-components,plugins/+(catalog|catalog-import|git-release-manager|jenkins|kubernetes)' -o ae-wrong-input-file-type --validate-release-tags",
+    "build:api-reports:only": "backstage-repo-tools api-reports --allow-warnings 'plugins/+(catalog|catalog-import|git-release-manager|jenkins|kubernetes)' -o ae-wrong-input-file-type --validate-release-tags",
     "tsc": "tsc",
     "tsc:full": "tsc --skipLibCheck false --incremental false",
     "clean": "backstage-cli repo clean",
