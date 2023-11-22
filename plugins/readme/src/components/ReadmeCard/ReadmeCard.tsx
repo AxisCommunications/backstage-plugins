@@ -16,6 +16,7 @@ export const ReadmeCard = () => {
         action={
           <IconButton
             onClick={() => setDisplayDialog(true)}
+            role="dialog-button"
             title="Open in dialog"
           >
             <OpenInNewIcon />
@@ -28,6 +29,7 @@ export const ReadmeCard = () => {
           </Box>
         </div>
       </InfoCard>
+
       <ReadmeDialog
         open={displayDialog}
         onClose={() => setDisplayDialog(false)}

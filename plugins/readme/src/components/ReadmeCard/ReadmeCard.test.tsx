@@ -12,10 +12,11 @@ import {
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import mockedEntity from '../../../dev/__fixtures__/entity.json';
 import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
-import mockedReadmeContent from '../../../dev/__fixtures__/mockedReadmeContent.md';
+import mockedReadmeContent from '../../../dev/__fixtures__/mockedReadmeContent.json';
 import { readmeApiRef } from '../../api/ReadmeApi';
 import { ReadmeClient } from '../../api/ReadmeClient';
 import { IdentityApi, ProfileInfo } from '@backstage/core-plugin-api';
+import userEvent from '@testing-library/user-event';
 
 describe('ReadmeCard', () => {
   const server = setupServer();
@@ -48,7 +49,7 @@ describe('ReadmeCard', () => {
     apis = TestApiRegistry.from([readmeApiRef, readmeClient]);
     server.use(
       rest.get(`${mockBaseUrl}/:entityRef`, (_, res, ctx) =>
-        res(ctx.status(200), ctx.json({ mockedReadmeContent })),
+        res(ctx.status(200), ctx.json(mockedReadmeContent)),
       ),
     );
   });
@@ -57,7 +58,7 @@ describe('ReadmeCard', () => {
 
   afterAll(() => server.close());
 
-  it('should render', async () => {
+  it('should render card title', async () => {
     await renderInTestApp(
       <EntityProvider entity={mockedEntity}>
         <ApiProvider apis={apis}>
@@ -66,5 +67,17 @@ describe('ReadmeCard', () => {
       </EntityProvider>,
     );
     expect(screen.getByText('README')).toBeInTheDocument();
+  });
+
+  it('should open dialog on click', async () => {
+    const rendered = await renderInTestApp(
+      <EntityProvider entity={mockedEntity}>
+        <ApiProvider apis={apis}>
+          <ReadmeCard />,
+        </ApiProvider>
+      </EntityProvider>,
+    );
+    await userEvent.click(rendered.getByRole('dialog-button'));
+    expect(screen.getByRole('readme-dialog')).toBeInTheDocument();
   });
 });

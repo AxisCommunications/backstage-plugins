@@ -16,8 +16,8 @@ type Props = {
 
 export const ReadmeDialog = ({ open, onClose }: Props) => {
   return (
-    <Dialog maxWidth="md" open={open} onClose={onClose}>
-      <DialogTitle>
+    <Dialog maxWidth="md" open={open} onClose={onClose} role="readme-dialog">
+      <DialogTitle disableTypography>
         <Typography variant="h4">README</Typography>
       </DialogTitle>
       <DialogContent>

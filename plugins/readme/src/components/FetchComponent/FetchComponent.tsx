@@ -70,5 +70,9 @@ export const FetchComponent = () => {
     return <MarkdownContent content={content[0]} />;
   }
   // probably text/plain
-  return <CodeSnippet text={content[0]} language="plaintext" />;
+  return (
+    <div data-testid="readme-content">
+      <CodeSnippet text={content[0]} language="plaintext" />
+    </div>
+  );
 };

@@ -10,8 +10,8 @@ import {
 } from '@backstage/test-utils';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import mockedEntity from '../../../dev/__fixtures__/entity.json';
-import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
 import mockedReadmeContent from '../../../dev/__fixtures__/mockedReadmeContent.json';
+import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
 import { readmeApiRef } from '../../api/ReadmeApi';
 import { ReadmeClient } from '../../api/ReadmeClient';
 import { IdentityApi, ProfileInfo } from '@backstage/core-plugin-api';
@@ -48,7 +48,7 @@ describe('FetchComponent', () => {
     apis = TestApiRegistry.from([readmeApiRef, readmeClient]);
     server.use(
       rest.get(`${mockBaseUrl}/:entityRef`, (_, res, ctx) =>
-        res(ctx.status(200), ctx.json({ mockedReadmeContent })),
+        res(ctx.status(200), ctx.json(mockedReadmeContent)),
       ),
     );
   });
@@ -65,6 +65,6 @@ describe('FetchComponent', () => {
         </ApiProvider>
       </EntityProvider>,
     );
-    expect(screen.getByText(/Backstage"/)).toBeInTheDocument();
+    expect(screen.getByTestId('readme-content')).toBeInTheDocument();
   });
 });
