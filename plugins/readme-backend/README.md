@@ -2,7 +2,19 @@
 
 Welcome to the readme backend plugin!
 
-A plugin that fetch README.md files at the entity source location. The frontend plugin that displays this information is [Readme plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme). The plugin can handle symlinks.
+The plugin retrieves README.md files from the entity source location. The corresponding frontend plugin responsible for displaying this information is the [Readme plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme).
+
+The plugin searches for a README file in the entity source location with any of the following file types:
+
+```ts
+{ name: 'README', type: 'text/plain' },
+{ name: 'README.md', type: 'text/markdown' },
+{ name: 'README.rst', type: 'text/plain' },
+{ name: 'README.txt', type: 'text/plain' },
+{ name: 'README.MD', type: 'text/markdown' },
+```
+
+The plugin can also handle symlinks.
 
 ## Setup
 
@@ -75,3 +87,28 @@ const backend = createBackend();
 
 backend.start();
 ```
+
+### Troubleshooting
+
+If the backend fails to provide README content for an entity, it could be due to several reasons.
+
+#### No Integration Found for Entity
+
+This error message indicates that there is no current integration with the external provider where the README file is located, such as GitHub, GitLab, or Gerrit. When the integration is missing, the backend does not have permission to access the README content.
+
+To resolve this issue, set up the integration for the external provider where the README file is located. You can find more information about Backstage integrations in the [Backstage upstream documentation](https://backstage.io/docs/integrations/).
+
+#### Not a Valid Location for Source Target
+
+This error means that the entity source location cannot be found or is not a valid URL. The `entity source location` is always the same directory as the catalog-info.yaml file.
+
+To debug this error, ensure that the entity source location is valid for the current entity. You can find the entity source location in the entity's catalog-info.yaml file. See the example below:
+
+```yaml
+annotations:
+  backstage.io/source-location: url:https://github.com/AxisCommunications/backstage-plugins/blob/main/
+```
+
+#### README Not Found for Entity
+
+This error indicates that no README, README.md, README.rst, README.txt, or README.MD file was found for that entity. To resolve this error, ensure that there is a README file located in the entity source location with one of the following formats: **md**, **rst**, or **txt**.
