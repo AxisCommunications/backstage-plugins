@@ -16,7 +16,8 @@ export const ReadmeCard = () => {
         action={
           <IconButton
             onClick={() => setDisplayDialog(true)}
-            role="dialog-button"
+            aria-label="open dialog"
+            role="button"
             title="Open in dialog"
           >
             <OpenInNewIcon />

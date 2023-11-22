@@ -77,7 +77,7 @@ describe('ReadmeCard', () => {
         </ApiProvider>
       </EntityProvider>,
     );
-    await userEvent.click(rendered.getByRole('dialog-button'));
-    expect(screen.getByRole('readme-dialog')).toBeInTheDocument();
+    await userEvent.click(rendered.getByRole('button'));
+    expect(screen.getByTestId('content-dialog')).toBeInTheDocument();
   });
 });

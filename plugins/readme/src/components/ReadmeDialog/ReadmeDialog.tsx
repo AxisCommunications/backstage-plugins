@@ -15,13 +15,23 @@ type Props = {
 
 export const ReadmeDialog = ({ open, onClose }: Props) => {
   return (
-    <Dialog maxWidth="md" open={open} onClose={onClose} role="readme-dialog">
+    <Dialog
+      maxWidth="md"
+      open={open}
+      onClose={onClose}
+      data-testid="content-dialog"
+    >
       <DialogTitle>README</DialogTitle>
       <DialogContent dividers>
         <FetchComponent />
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" color="primary" onClick={onClose}>
+        <Button
+          variant="contained"
+          color="primary"
+          aria-label="close"
+          onClick={onClose}
+        >
           Close
         </Button>
       </DialogActions>
