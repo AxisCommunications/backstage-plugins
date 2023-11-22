@@ -31,7 +31,7 @@ export const FetchComponent = () => {
     loading,
     error,
   } = useAsync(
-    async (): Promise<any> =>
+    async (): Promise<string[]> =>
       await readmeApi.getReadmeContent(stringifyEntityRef(entity)),
     [entity],
   );

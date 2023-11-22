@@ -65,6 +65,6 @@ describe('FetchComponent', () => {
         </ApiProvider>
       </EntityProvider>,
     );
-    expect(screen.getByText(/"hello":"hello"/)).toBeInTheDocument();
+    expect(screen.getByText(/Backstage"/)).toBeInTheDocument();
   });
 });

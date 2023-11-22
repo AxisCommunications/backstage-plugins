@@ -5,7 +5,8 @@ import { EntityProvider } from '@backstage/plugin-catalog-react';
 import mockEntity from './__fixtures__/entity.json';
 import { Content } from '@backstage/core-components';
 import { readmeApiRef } from '../src/api/ReadmeApi';
-import mockedReadmeContent from './__fixtures__/mockedReadmeContent.md';
+import mockedReadmeContent from './__fixtures__/mockedReadmeContent.json';
+import { Grid } from '@material-ui/core';
 
 createDevApp()
   .registerPlugin(readmePlugin)
@@ -21,7 +22,9 @@ createDevApp()
     element: (
       <Content>
         <EntityProvider entity={mockEntity}>
-          <ReadmeCard />
+          <Grid md={6} xs={12}>
+            <ReadmeCard />
+          </Grid>
         </EntityProvider>
       </Content>
     ),
