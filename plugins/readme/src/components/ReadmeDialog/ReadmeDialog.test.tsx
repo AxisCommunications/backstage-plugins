@@ -65,6 +65,6 @@ describe('ReadmeDialog', () => {
         </ApiProvider>
       </EntityProvider>,
     );
-    expect(screen.getByText('README')).toBeInTheDocument();
+    expect(screen.getByText(/Backstage/)).toBeInTheDocument();
   });
 });
