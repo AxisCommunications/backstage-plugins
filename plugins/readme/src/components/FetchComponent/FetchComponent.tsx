@@ -3,6 +3,7 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 import { useApi } from '@backstage/core-plugin-api';
 import {
   CodeSnippet,
+  ErrorPanel,
   Link,
   MarkdownContent,
   Progress,
@@ -10,7 +11,6 @@ import {
 import useAsync from 'react-use/lib/useAsync';
 import { readmeApiRef } from '../../api/ReadmeApi';
 import { stringifyEntityRef } from '@backstage/catalog-model';
-import { Alert } from '@material-ui/lab';
 import { getEntitySourceLocation } from '@backstage/catalog-model';
 import { Box, Typography } from '@material-ui/core';
 
@@ -55,17 +55,15 @@ export const FetchComponent = () => {
       </Box>
     );
   }
-  if (error as unknown) {
-    return (
-      // @ts-ignore
-      <Alert severity="error">{error.message ? error.message : error}</Alert>
-    );
+
+  if (error) {
+    return <ErrorPanel error={error} />;
   }
   if (!content) {
-    return <Alert severity="error">Error</Alert>;
+    return <ErrorPanel error={Error('Unknown error')} />;
   }
-  if (content[1] === 'error') {
-    return <Alert severity="info">{content[0]}</Alert>;
+  if (!content[1] || content[1] === 'error') {
+    return <ErrorPanel error={Error(content[1] ?? 'Unknown error')} />;
   } else if (content[1].startsWith('text/markdown')) {
     return <MarkdownContent content={content[0]} />;
   }

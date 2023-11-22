@@ -40,8 +40,6 @@ export class ReadmeClient implements ReadmeApi {
     if (resp.status === 404) {
       throw new Error('404');
     }
-    throw new Error(
-      `Failed to get readme for ${entityRef}, ${resp.status} ${resp.statusText}`,
-    );
+    throw new Error(`${resp.status}: ${resp.statusText}`);
   }
 }
