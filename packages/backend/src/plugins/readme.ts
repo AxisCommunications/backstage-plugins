@@ -1,4 +1,4 @@
-import { createRouter } from '@internal/plugin-readme-backend';
+import { createRouter } from '@axis-backstage/plugin-readme-backend';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
 

@@ -61,7 +61,7 @@ import {
   EntityJiraDashboardContent,
   isJiraDashboardAvailable,
 } from '@axis-backstage/plugin-jira-dashboard';
-import { ReadmeCard } from '@internal/plugin-readme';
+import { ReadmeCard } from '@axis-backstage/plugin-readme';
 
 const techdocsContent = (
   <EntityTechdocsContent>
