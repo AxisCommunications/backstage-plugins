@@ -14,11 +14,34 @@ import { CatalogClient } from '@backstage/catalog-client';
 import { DiscoveryApi } from '@backstage/plugin-permission-common';
 import { isSymLink } from '../lib';
 
+/**
+ * Constructs a readme router.
+ * @public
+ */
 export interface RouterOptions {
+  /**
+   * Implementation of Winston logger
+   */
   logger: Logger;
+
+  /**
+   * Backstage config object
+   */
   config: Config;
+
+  /**
+   * Backstage url reader instance
+   */
   reader: UrlReader;
+
+  /**
+   * Backstage discovery api instance
+   */
   discovery: DiscoveryApi;
+
+  /**
+   * Backstage token manager instance
+   */
   tokenManager: TokenManager;
 }
 
@@ -42,6 +65,11 @@ const README_TYPES: FileType[] = [
   { name: 'README.MD', type: 'text/markdown' },
 ];
 
+/**
+ * Constructs a readme router.
+ *
+ * @public
+ */
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
