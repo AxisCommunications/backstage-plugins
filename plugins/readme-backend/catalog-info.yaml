@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: axis-backstage-plugin-readme-backend
+  title: '@axis-backstage/plugin-readme-backend'
+spec:
+  lifecycle: experimental
+  type: backstage-backend-plugin
+  owner: backstage-plugins-maintainers
