@@ -55,8 +55,6 @@ interface ReadmeFile extends FileType {
   content: string;
 }
 
-// The readme types are based on what is most common via Zoekt
-// https://zoekt.se.axis.com/search?q=f%3A%5EREADME%5C..*
 const README_TYPES: FileType[] = [
   { name: 'README', type: 'text/plain' },
   { name: 'README.md', type: 'text/markdown' },
