@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: axis-backstage-plugin-jira-dashboard
+  title: '@axis-backstage/plugin-jira-dashboard'
+spec:
+  lifecycle: experimental
+  type: backstage-frontend-plugin
+  owner: backstage-plugins-maintainers
