@@ -1,0 +1,4 @@
+[
+  "# [Backstage](https://backstage.io)\n\n## What is Backstage?\n\nBackstage is a portal for developers, by developers. It's a way to minimize context switching and make discoverability of everything developer related far easier. Ever struggling to find the correct documentation, Jenkins job, URLs or Jira-project? Backstage is here solve all of that - and more.\n\n## Prerequisites\n\nAll prerequisites that need to be installed on your development machine can be found in the [Backstage.io documentation](https://backstage.io/docs/getting-started/#prerequisites).\n\n## Getting started\n\nTo start the app, run:\n\n```sh\nyarn install\nyarn dev\n```\n\n## Contribute to development\n\n[Contributing to Backstage](https://backstage.se.com/catalog/default/component/backstage/docs/development/) - Start here if you want to contribute\n",
+  "text/markdown; charset=utf-8"
+]
