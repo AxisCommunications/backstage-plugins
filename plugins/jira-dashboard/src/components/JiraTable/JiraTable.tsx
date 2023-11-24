@@ -32,7 +32,7 @@ export const JiraTable = ({ tableContent }: Props) => {
     <div className={classes.root}>
       <Table
         title={
-          <Typography variant="h5" data-testid="table-header">
+          <Typography component="div" variant="h5" data-testid="table-header">
             {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
           </Typography>
         }
