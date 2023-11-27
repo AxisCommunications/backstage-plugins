@@ -12,21 +12,7 @@ This project adheres to the [CNCF Code of Conduct][code-of-conduct]. By particip
 
 ## Get Started!
 
-To clone the repository and start the app and backend, please follow the Backstage offical [Contributing guide](https://github.com/backstage/backstage/edit/master/CONTRIBUTING.md). Here you also find information about coding guidelines, like prettier, and how to run the project locally.
-
-## Changesets
-
-Just like Backstage upstream, we use [changesets](https://github.com/changesets/changesets) to help us prepare releases. By using changsets we can make sure that the process generating releases is easy, and that every change gets a proper version number.
-
-If you wish to know more about the use of **changesets** in Backstage, please read the [official Backstage documentation about changesets](https://github.com/backstage/backstage/blob/master/CONTRIBUTING.md#creating-changesets).
-
-### How to create a changeset
-
-1. Run `yarn changeset` from the root of the repo
-2. Select which packages you want to include a changeset for
-3. Select if you wish to use the `minor`, `major`, or `patch` impact. Read more [here](https://semver.org/#semantic-versioning-specification-semver) about when to use which impact.
-4. Describe your changes in the generated changeset. Backstage upstream has [a well-written guide](https://github.com/backstage/backstage/blob/master/CONTRIBUTING.md#Writing changesets) for how to write these descriptions.
-5. Add generated changeset to Git and push this commit to the branch associated with your PR.
+1. Cloning the repository and start the app and backend. Please follow the Backstage offical [Contributing guide](https://github.com/backstage/backstage/edit/master/CONTRIBUTING.md). Here you also find information about coding guidelines, like prettier, and how to run the project locally.
 
 ## Api reports
 
