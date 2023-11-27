@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: axis-backstage-plugin-jira-dashboard-common
+  title: '@axis-backstage/plugin-jira-dashboard-common'
+  description: Common functionalities for the jira-dashboard plugin
+spec:
+  lifecycle: experimental
+  type: backstage-common-library
+  owner: backstage-plugins-maintainers
