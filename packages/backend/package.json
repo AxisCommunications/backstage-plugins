@@ -16,6 +16,8 @@
     "build-image": "docker build ../.. -f Dockerfile --tag backstage"
   },
   "dependencies": {
+    "@axis-backstage/plugin-jira-dashboard-backend": "0.1.0",
+    "@axis-backstage/plugin-readme-backend": "0.1.0",
     "@backstage/backend-common": "^0.19.8",
     "@backstage/backend-defaults": "^0.2.6",
     "@backstage/backend-plugin-api": "^0.6.6",
@@ -35,8 +37,6 @@
     "@backstage/plugin-search-backend-module-pg": "^0.5.15",
     "@backstage/plugin-search-backend-node": "^1.2.10",
     "@backstage/plugin-techdocs-backend": "^1.8.0",
-    "@axis-backstage/plugin-jira-dashboard-backend": "0.1.0",
-    "@axis-backstage/plugin-readme-backend": "0.1.0",
     "app": "link:../app",
     "better-sqlite3": "^8.0.0",
     "dockerode": "^3.3.1",
