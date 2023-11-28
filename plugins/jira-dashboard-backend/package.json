@@ -22,13 +22,13 @@
     "postpack": "backstage-cli package postpack"
   },
   "dependencies": {
+    "@axis-backstage/plugin-jira-dashboard-common": "^0.1.0",
     "@backstage/backend-common": "^0.19.8",
     "@backstage/backend-plugin-api": "^0.6.6",
     "@backstage/catalog-client": "^1.4.5",
     "@backstage/config": "^1.1.1",
     "@backstage/plugin-auth-node": "^0.4.0",
     "@backstage/plugin-permission-common": "^0.7.9",
-    "@axis-backstage/plugin-jira-dashboard-common": "^0.1.0",
     "@types/express": "*",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
