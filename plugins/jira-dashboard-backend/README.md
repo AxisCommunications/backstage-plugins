@@ -14,7 +14,7 @@ Install the plugin by following the example below:
 
 ```bash
 # From your Backstage root directory
-yarn add --cwd packages/backend @axis-backstage/plugin-jira-dashboard-backend
+yarn --cwd packages/backend add @axis-backstage/plugin-jira-dashboard-backend
 ```
 
 ### Configuration
