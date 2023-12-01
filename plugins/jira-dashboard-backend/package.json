@@ -23,12 +23,12 @@
   },
   "dependencies": {
     "@axis-backstage/plugin-jira-dashboard-common": "^0.1.0",
-    "@backstage/backend-common": "^0.19.8",
-    "@backstage/backend-plugin-api": "^0.6.6",
-    "@backstage/catalog-client": "^1.4.5",
+    "@backstage/backend-common": "^0.19.9",
+    "@backstage/backend-plugin-api": "^0.6.7",
+    "@backstage/catalog-client": "^1.4.6",
     "@backstage/config": "^1.1.1",
-    "@backstage/plugin-auth-node": "^0.4.0",
-    "@backstage/plugin-permission-common": "^0.7.9",
+    "@backstage/plugin-auth-node": "^0.4.1",
+    "@backstage/plugin-permission-common": "^0.7.10",
     "@types/express": "*",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
@@ -37,7 +37,7 @@
     "yn": "^4.0.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.23.0",
+    "@backstage/cli": "^0.24.0",
     "@types/supertest": "^2.0.12",
     "msw": "^1.0.0",
     "supertest": "^6.2.4"
