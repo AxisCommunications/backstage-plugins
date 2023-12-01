@@ -36,7 +36,7 @@
     ]
   },
   "devDependencies": {
-    "@backstage/cli": "^0.23.0",
+    "@backstage/cli": "^0.24.0",
     "@backstage/e2e-test-utils": "^0.1.0",
     "@backstage/repo-tools": "^0.4.0",
     "@changesets/cli": "^2.26.2",
