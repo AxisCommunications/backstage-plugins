@@ -22,7 +22,7 @@
     "postpack": "backstage-cli package postpack"
   },
   "dependencies": {
-    "@axis-backstage/plugin-jira-dashboard-common": "^0.1.0",
+    "@axis-backstage/plugin-jira-dashboard-common": "workspace:^",
     "@backstage/backend-common": "^0.19.9",
     "@backstage/backend-plugin-api": "^0.6.7",
     "@backstage/catalog-client": "^1.4.6",
