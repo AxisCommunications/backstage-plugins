@@ -81,9 +81,15 @@ export const columns: TableColumn[] = [
     width: '10%',
 
     render: (issue: Partial<Issue>) => {
-      if (!issue.fields?.assignee)
-        return <Typography style={{ color: 'grey' }}>Unassigned</Typography>;
-      return <>{issue.fields?.assignee.name.split('@')[0]}</>;
+      if (issue.fields?.assignee?.name) {
+        return (
+          <Typography>{issue.fields.assignee.name.split('@')[0]}</Typography>
+        );
+      }
+      if (issue.fields?.assignee?.key) {
+        return <Typography>{issue.fields.assignee.key}</Typography>;
+      }
+      return <Typography style={{ color: 'grey' }}>Unassigned</Typography>;
     },
   },
 ];

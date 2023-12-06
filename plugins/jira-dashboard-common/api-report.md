@@ -28,6 +28,7 @@ export type Issue = {
     assignee: {
       name: string;
       self: string;
+      key: string;
     };
     issuetype: {
       name: string;
@@ -58,7 +59,7 @@ export type Project = {
     '48x48': string;
   };
   projectTypeKey: string;
-  projectCategory: {
+  projectCategory?: {
     name: string;
   };
   lead: {
