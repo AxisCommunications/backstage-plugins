@@ -6,6 +6,10 @@ import { Page, Content } from '@backstage/core-components';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import mockEntity from './__fixtures__/entity.json';
 import mockJiraResponse from './__fixtures__/jiraResponse.json';
+/* Use to test with Jira Cloud
+
+import mockJiraCloudResponse from './__fixtures__/jiraCloudResponse.json'; 
+*/
 
 createDevApp()
   .registerPlugin(jiraDashboardPlugin)

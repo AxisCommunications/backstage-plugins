@@ -8,6 +8,8 @@ Welcome to the Jira Dashboard plugin!
 
 The **Jira Dashboard** plugin allows you to fetch and display Jira issues for your entity. You get quickly access to issue summaries to achieve better task visibility and more efficient project management. The issue overview that is provided can be customized to display the information that is relevant for your entity, by defining Jira filters and components.
 
+This plugin supports both **Jira Software** and **Jira Cloud**.
+
 By default, the issue views that are provided are **incoming issues**, **open issues** and **assigned to you**.
 
 ## Note
