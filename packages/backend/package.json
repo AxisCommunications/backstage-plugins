@@ -16,8 +16,8 @@
     "build-image": "docker build ../.. -f Dockerfile --tag backstage"
   },
   "dependencies": {
-    "@axis-backstage/plugin-jira-dashboard-backend": "0.1.0",
-    "@axis-backstage/plugin-readme-backend": "0.1.0",
+    "@axis-backstage/plugin-jira-dashboard-backend": "workspace:^",
+    "@axis-backstage/plugin-readme-backend": "workspace:^",
     "@backstage/backend-common": "^0.19.9",
     "@backstage/backend-defaults": "^0.2.7",
     "@backstage/backend-plugin-api": "^0.6.7",
