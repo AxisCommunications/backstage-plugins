@@ -6,7 +6,11 @@ Welcome to the readme plugin!
 
 ## Introduction
 
-The `README-plugin` enables easy access and viewing of the README.md file. By having information such as the project's purpose, usage instructions, or installation details as a central part of the EntityPage, we hope to improve the `onboarding and understanding of entities`.
+The `Readme-plugin` enables easy access and viewing of the README file. By having information such as the project's purpose, usage instructions, or installation details as a central part of the EntityPage, we hope to improve the `onboarding and understanding of entities`.
+
+The plugin **supports all ScmIntegrations**, like Gerrit & GitLab. This makes it possible for organizations with many Source Code Integrations to use the same plugin.
+
+It also supports various file extentions such as README.md, README.MD, README.txt, README, and README.rst.
 
 ### Where can the plugin find my README file?
 
