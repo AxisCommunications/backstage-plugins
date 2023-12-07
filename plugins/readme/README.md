@@ -6,7 +6,7 @@ Welcome to the readme plugin!
 
 ## Introduction
 
-The `Readme-plugin` enables easy access and viewing of the README file. By having information such as the project's purpose, usage instructions, or installation details as a central part of the EntityPage, we hope to improve the `onboarding and understanding of entities`. 
+The `Readme-plugin` enables easy access and viewing of the README file. By having information such as the project's purpose, usage instructions, or installation details as a central part of the EntityPage, we hope to improve the `onboarding and understanding of entities`.
 
 The plugin **supports all ScmIntegrations**, like Gerrit & GitLab. This makes it possible for organizations with many Source Code Integrations to use the same plugin.
 
@@ -18,7 +18,7 @@ The README.md file is always retrieved from the same directory as the `catalog-i
 
 The displays README files with one of the following file types: **md**, **MD**, **rst**, or **txt**. The plugin can also handle symlinks.
 
-Currently, placing your README.md file elsewhere than in the same directory as the `catalog-info.yaml file` repository is not supported. 
+Currently, placing your README.md file elsewhere than in the same directory as the `catalog-info.yaml file` repository is not supported.
 
 ## Note
 
