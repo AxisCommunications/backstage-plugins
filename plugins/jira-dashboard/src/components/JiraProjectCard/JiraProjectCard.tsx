@@ -29,7 +29,7 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
       <Box ml={1}>
         <Divider style={{ marginBottom: 10 }} />
         <ProjectInfoLabel label="Project key" value={project.key} />
-        {project.projectCategory.name && (
+        {project.projectCategory?.name && (
           <ProjectInfoLabel
             label="Category"
             value={project.projectCategory.name}
@@ -38,7 +38,7 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
         {project.description && (
           <ProjectInfoLabel label="Description" value={project.description} />
         )}
-        {project.lead.key && (
+        {project.lead?.key && (
           <ProjectInfoLabel label="Project lead" value={project.lead.key} />
         )}
 

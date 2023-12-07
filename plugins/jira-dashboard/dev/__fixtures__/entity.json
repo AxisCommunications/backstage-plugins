@@ -4,8 +4,8 @@
   "metadata": {
     "name": "backstage",
     "description": "backstage.io",
-    "annotation": {
-      "jira/issue-collector": "file: ./.jira/config.yaml"
+    "annotations": {
+      "jira.com/project-key": "BS"
     }
   },
   "spec": {
