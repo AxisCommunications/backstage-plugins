@@ -12,6 +12,12 @@ At Axis, we've developed our own set of plugins exclusively available to us. Now
 - [The Jira Dashboard plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard/README.md)
 - [The Readme plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/README.md)
 
+## Keeping your Axis-Backstage plugins updated
+
+To stay in sync with the latest releases of our plugins, you can use the Backstage CLI command. This will bump all @axis-backstage/plugins to their latest releases.
+
+    yarn backstage-cli versions:bump --pattern "@axis-backstage/*"
+
 ## Contribute to development
 
 If you want to contribute to our plugins, read the Contribution guidelines here: - [Contributing to Axis Backstage plugins](https://github.com/AxisCommunications/backstage-plugins/blob/main/CONTRIBUTING.md) ✨
