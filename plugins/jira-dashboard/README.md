@@ -2,7 +2,7 @@
 
 Welcome to the Jira Dashboard plugin!
 
-![home](media/project-card.png)
+![project-card](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard/media/project-card.png)
 
 ## Introduction
 
@@ -75,4 +75,4 @@ metadata:
 
 The issue overview is located under the tab "Jira Dashboard" on the entity page. The overview displays information about the specific Jira project, and then renders one table for each type of issue view. In each view you can see the priority, assignee and status for that issue.
 
-![home](media/overview.png)
+![overview](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard/media/overview.png)

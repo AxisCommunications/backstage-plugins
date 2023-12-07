@@ -2,7 +2,7 @@
 
 Welcome to the readme plugin!
 
-![home](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/media/readme-card.png)
+![readme-card](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/media/readme-card.png)
 
 ## Introduction
 
@@ -52,9 +52,9 @@ const overviewContent = (
 
 The readme card is located in the overview page on the entity page. From the card header it is also possible to open a dialog displaying the full README.md.
 
-![home](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/media/readme-card.png)
+![readme-card](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/media/readme-card.png)
 
-![home](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/media/readme-dialog.png)
+![readme-dialog](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/media/readme-dialog.png)
 
 ### Troubleshooting
 
