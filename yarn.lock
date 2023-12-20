@@ -1036,11 +1036,6 @@ __metadata:
     "@backstage/plugin-catalog-react": "npm:^1.9.2"
     "@backstage/test-utils": "npm:^1.4.6"
     "@backstage/theme": "npm:^0.5.0"
-    "@emotion/react": "npm:^11.11.1"
-    "@emotion/styled": "npm:^11.11.0"
-    "@material-ui/core": "npm:^4.12.2"
-    "@material-ui/icons": "npm:^4.9.1"
-    "@material-ui/lab": "npm:4.0.0-alpha.61"
     "@mui/material": "npm:^5.15.1"
     "@mui/styles": "npm:^5.15.1"
     "@testing-library/jest-dom": "npm:^5.10.1"
@@ -1050,6 +1045,8 @@ __metadata:
     msw: "npm:^1.0.0"
     react-use: "npm:^17.2.4"
   peerDependencies:
+    "@emotion/react": ^11.11.1
+    "@emotion/styled": ^11.11.0
     react: ^16.13.1 || ^17.0.0
   languageName: unknown
   linkType: soft
@@ -5363,7 +5360,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.10.5, @emotion/react@npm:^11.11.1":
+"@emotion/react@npm:^11.10.5":
   version: 11.11.1
   resolution: "@emotion/react@npm:11.11.1"
   dependencies:
@@ -5404,7 +5401,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/styled@npm:^11.10.5, @emotion/styled@npm:^11.11.0":
+"@emotion/styled@npm:^11.10.5":
   version: 11.11.0
   resolution: "@emotion/styled@npm:11.11.0"
   dependencies:
