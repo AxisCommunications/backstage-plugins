@@ -36,6 +36,8 @@
     "react-use": "^17.2.4"
   },
   "peerDependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "react": "^16.13.1 || ^17.0.0"
   },
   "devDependencies": {
