@@ -6,7 +6,7 @@ import mockEntity from './__fixtures__/entity.json';
 import { Content } from '@backstage/core-components';
 import { readmeApiRef } from '../src/api/ReadmeApi';
 import mockedReadmeContent from './__fixtures__/mockedReadmeContent.json';
-import { Grid } from '@material-ui/core';
+import Grid from '@mui/material/Grid';
 
 createDevApp()
   .registerPlugin(readmePlugin)

@@ -12,7 +12,8 @@ import useAsync from 'react-use/lib/useAsync';
 import { readmeApiRef } from '../../api/ReadmeApi';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { getEntitySourceLocation } from '@backstage/catalog-model';
-import { Box, Typography } from '@material-ui/core';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export const FetchComponent = () => {
   const { entity } = useEntity();
