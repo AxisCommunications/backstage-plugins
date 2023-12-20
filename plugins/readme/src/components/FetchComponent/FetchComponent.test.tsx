@@ -1,21 +1,21 @@
-import React from 'react';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
-import { screen } from '@testing-library/react';
+import mockedEntity from '../../../dev/__fixtures__/entity.json';
+import mockedReadmeContent from '../../../dev/__fixtures__/mockedReadmeContent.json';
+import { readmeApiRef } from '../../api/ReadmeApi';
+import { ReadmeClient } from '../../api/ReadmeClient';
+import { FetchComponent } from './FetchComponent';
+import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
+import { IdentityApi, ProfileInfo } from '@backstage/core-plugin-api';
+import { EntityProvider } from '@backstage/plugin-catalog-react';
 import {
   setupRequestMockHandlers,
   renderInTestApp,
   TestApiRegistry,
   MockFetchApi,
 } from '@backstage/test-utils';
-import { EntityProvider } from '@backstage/plugin-catalog-react';
-import mockedEntity from '../../../dev/__fixtures__/entity.json';
-import mockedReadmeContent from '../../../dev/__fixtures__/mockedReadmeContent.json';
-import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
-import { readmeApiRef } from '../../api/ReadmeApi';
-import { ReadmeClient } from '../../api/ReadmeClient';
-import { IdentityApi, ProfileInfo } from '@backstage/core-plugin-api';
-import { FetchComponent } from './FetchComponent';
+import { screen } from '@testing-library/react';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+import React from 'react';
 
 describe('FetchComponent', () => {
   const server = setupServer();

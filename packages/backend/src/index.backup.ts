@@ -5,8 +5,14 @@
  *
  * Happy hacking!
  */
-
-import Router from 'express-promise-router';
+import app from './plugins/app';
+import auth from './plugins/auth';
+import catalog from './plugins/catalog';
+import proxy from './plugins/proxy';
+import scaffolder from './plugins/scaffolder';
+import search from './plugins/search';
+import techdocs from './plugins/techdocs';
+import { PluginEnvironment } from './types';
 import {
   createServiceBuilder,
   loadBackendConfig,
@@ -21,16 +27,9 @@ import {
 } from '@backstage/backend-common';
 import { TaskScheduler } from '@backstage/backend-tasks';
 import { Config } from '@backstage/config';
-import app from './plugins/app';
-import auth from './plugins/auth';
-import catalog from './plugins/catalog';
-import scaffolder from './plugins/scaffolder';
-import proxy from './plugins/proxy';
-import techdocs from './plugins/techdocs';
-import search from './plugins/search';
-import { PluginEnvironment } from './types';
-import { ServerPermissionClient } from '@backstage/plugin-permission-node';
 import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
+import { ServerPermissionClient } from '@backstage/plugin-permission-node';
+import Router from 'express-promise-router';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();

@@ -1,6 +1,6 @@
+import { PluginEnvironment } from '../types';
 import { createRouter } from '@axis-backstage/plugin-jira-dashboard-backend';
 import { Router } from 'express';
-import { PluginEnvironment } from '../types';
 
 export default async function createPlugin(
   env: PluginEnvironment,

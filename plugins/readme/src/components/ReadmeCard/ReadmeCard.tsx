@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Box, IconButton } from '@material-ui/core';
-import { InfoCard } from '@backstage/core-components';
 import { FetchComponent } from '../FetchComponent';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { ReadmeDialog } from '../ReadmeDialog/ReadmeDialog';
+import { InfoCard } from '@backstage/core-components';
+import { Box, IconButton } from '@material-ui/core';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import React, { useState } from 'react';
 
 export const ReadmeCard = () => {
   const [displayDialog, setDisplayDialog] = useState(false);

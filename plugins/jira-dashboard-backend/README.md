@@ -42,9 +42,9 @@ Here's how to get the backend plugin up and running:
 1. Create a new file named `packages/backend/src/plugins/jiraDashboard.ts`, and add the following to it:
 
    ```ts
+   import { PluginEnvironment } from '../types';
    import { createRouter } from '@axis-backstage/plugin-jira-dashboard-backend';
    import { Router } from 'express';
-   import { PluginEnvironment } from '../types';
 
    export default async function createPlugin(
      env: PluginEnvironment,

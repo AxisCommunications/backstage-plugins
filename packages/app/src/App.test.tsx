@@ -1,6 +1,6 @@
-import React from 'react';
-import { renderWithEffects } from '@backstage/test-utils';
 import App from './App';
+import { renderWithEffects } from '@backstage/test-utils';
+import React from 'react';
 
 describe('App', () => {
   it('should render', async () => {

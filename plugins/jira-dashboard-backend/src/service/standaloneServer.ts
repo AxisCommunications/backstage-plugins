@@ -1,13 +1,13 @@
+import { createRouter } from './router';
 import {
   HostDiscovery,
   ServerTokenManager,
   createServiceBuilder,
   loadBackendConfig,
 } from '@backstage/backend-common';
+import { IdentityApi } from '@backstage/plugin-auth-node';
 import { Server } from 'http';
 import { Logger } from 'winston';
-import { createRouter } from './router';
-import { IdentityApi } from '@backstage/plugin-auth-node';
 
 export interface ServerOptions {
   port: number;

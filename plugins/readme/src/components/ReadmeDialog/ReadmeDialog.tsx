@@ -1,4 +1,4 @@
-import React from 'react';
+import { FetchComponent } from '../FetchComponent';
 import {
   Button,
   Dialog,
@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogTitle,
 } from '@material-ui/core';
-import { FetchComponent } from '../FetchComponent';
+import React from 'react';
 
 type Props = {
   open: boolean;

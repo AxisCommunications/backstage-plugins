@@ -1,18 +1,18 @@
+import { isSymLink } from '../lib';
 import {
   errorHandler,
   TokenManager,
   UrlReader,
 } from '@backstage/backend-common';
-import { Config } from '@backstage/config';
 import { CacheManager } from '@backstage/backend-common';
+import { CatalogClient } from '@backstage/catalog-client';
+import { getEntitySourceLocation } from '@backstage/catalog-model';
+import { Config } from '@backstage/config';
+import { ScmIntegrations } from '@backstage/integration';
+import { DiscoveryApi } from '@backstage/plugin-permission-common';
 import express from 'express';
 import Router from 'express-promise-router';
 import { Logger } from 'winston';
-import { ScmIntegrations } from '@backstage/integration';
-import { getEntitySourceLocation } from '@backstage/catalog-model';
-import { CatalogClient } from '@backstage/catalog-client';
-import { DiscoveryApi } from '@backstage/plugin-permission-common';
-import { isSymLink } from '../lib';
 
 /**
  * Constructs a readme router.

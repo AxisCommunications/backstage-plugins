@@ -1,10 +1,10 @@
-import React from 'react';
-import { Card, Box, Divider, Typography } from '@material-ui/core';
+import { getProjectUrl } from '../../lib';
+import { ProjectInfoLabel } from './ProjectInfoLabel';
+import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 import { Avatar } from '@backstage/core-components';
 import { LinkButton } from '@backstage/core-components';
-import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
-import { ProjectInfoLabel } from './ProjectInfoLabel';
-import { getProjectUrl } from '../../lib';
+import { Card, Box, Divider, Typography } from '@material-ui/core';
+import React from 'react';
 
 type JiraProjectCardProps = {
   project: Project;

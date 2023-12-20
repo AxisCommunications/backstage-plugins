@@ -1,9 +1,9 @@
-import React from 'react';
-import { Typography, makeStyles } from '@material-ui/core';
+import { columns } from './columns';
 import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 import { ErrorPanel, Table } from '@backstage/core-components';
+import { Typography, makeStyles } from '@material-ui/core';
 import { capitalize } from 'lodash';
-import { columns } from './columns';
+import React from 'react';
 
 type Props = {
   tableContent: JiraDataResponse;

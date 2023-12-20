@@ -1,9 +1,9 @@
+import { createRouter } from './service/router';
 import { loggerToWinstonLogger } from '@backstage/backend-common';
 import {
   coreServices,
   createBackendPlugin,
 } from '@backstage/backend-plugin-api';
-import { createRouter } from './service/router';
 
 /**
  * The Jira Dashboard backend plugin.

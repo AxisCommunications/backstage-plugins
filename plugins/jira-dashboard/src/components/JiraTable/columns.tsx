@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link, TableColumn } from '@backstage/core-components';
-import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
-import { Typography } from '@material-ui/core';
 import { getIssueUrl } from '../../lib';
+import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
+import { Link, TableColumn } from '@backstage/core-components';
+import { Typography } from '@material-ui/core';
+import React from 'react';
 
 export const columns: TableColumn[] = [
   {

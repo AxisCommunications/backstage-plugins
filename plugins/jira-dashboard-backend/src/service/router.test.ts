@@ -1,16 +1,16 @@
+import { createRouter } from './router';
 import {
   PluginEndpointDiscovery,
   ServerTokenManager,
   getVoidLogger,
 } from '@backstage/backend-common';
-import express from 'express';
-import request from 'supertest';
-import { createRouter } from './router';
+import { ConfigReader } from '@backstage/config';
 import {
   BackstageIdentityResponse,
   IdentityApiGetIdentityRequest,
 } from '@backstage/plugin-auth-node';
-import { ConfigReader } from '@backstage/config';
+import express from 'express';
+import request from 'supertest';
 
 const testDiscovery: jest.Mocked<PluginEndpointDiscovery> = {
   getBaseUrl: jest

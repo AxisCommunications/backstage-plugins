@@ -1,3 +1,12 @@
+import { jiraDashboardApiRef } from '../../api';
+import { useJira } from '../../hooks/useJira';
+import { JiraProjectCard } from '../JiraProjectCard';
+import { JiraTable } from '../JiraTable';
+import {
+  JiraDataResponse,
+  PROJECT_KEY_ANNOTATION,
+} from '@axis-backstage/plugin-jira-dashboard-common';
+import { stringifyEntityRef } from '@backstage/catalog-model';
 import {
   Content,
   ContentHeader,
@@ -5,19 +14,10 @@ import {
   ResponseErrorPanel,
   SupportButton,
 } from '@backstage/core-components';
-import { Grid } from '@material-ui/core';
-import React from 'react';
-import { JiraProjectCard } from '../JiraProjectCard';
-import { JiraTable } from '../JiraTable';
 import { useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
-import { stringifyEntityRef } from '@backstage/catalog-model';
-import { jiraDashboardApiRef } from '../../api';
-import { useJira } from '../../hooks/useJira';
-import {
-  JiraDataResponse,
-  PROJECT_KEY_ANNOTATION,
-} from '@axis-backstage/plugin-jira-dashboard-common';
+import { Grid } from '@material-ui/core';
+import React from 'react';
 
 export const JiraDashboardContent = () => {
   const { entity } = useEntity();

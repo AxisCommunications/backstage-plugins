@@ -1,3 +1,4 @@
+import { PluginEnvironment } from '../types';
 import { DockerContainerRunner } from '@backstage/backend-common';
 import {
   createRouter,
@@ -7,7 +8,6 @@ import {
 } from '@backstage/plugin-techdocs-backend';
 import Docker from 'dockerode';
 import { Router } from 'express';
-import { PluginEnvironment } from '../types';
 
 export default async function createPlugin(
   env: PluginEnvironment,

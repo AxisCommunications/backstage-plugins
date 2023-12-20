@@ -1,3 +1,4 @@
+import { createRouter } from './router';
 import {
   getVoidLogger,
   HostDiscovery,
@@ -7,8 +8,6 @@ import {
 import { ConfigReader } from '@backstage/config';
 import express from 'express';
 import request from 'supertest';
-
-import { createRouter } from './router';
 
 describe('createRouter', () => {
   let app: express.Express;

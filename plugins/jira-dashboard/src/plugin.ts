@@ -1,3 +1,7 @@
+import { JiraDashboardClient, jiraDashboardApiRef } from './api';
+import { rootRouteRef } from './routes';
+import { PROJECT_KEY_ANNOTATION } from '@axis-backstage/plugin-jira-dashboard-common';
+import { Entity } from '@backstage/catalog-model';
 import {
   createPlugin,
   createRoutableExtension,
@@ -5,10 +9,6 @@ import {
   createApiFactory,
   fetchApiRef,
 } from '@backstage/core-plugin-api';
-import { rootRouteRef } from './routes';
-import { Entity } from '@backstage/catalog-model';
-import { PROJECT_KEY_ANNOTATION } from '@axis-backstage/plugin-jira-dashboard-common';
-import { JiraDashboardClient, jiraDashboardApiRef } from './api';
 
 /**
  * Checks if the entity has a jira.com project-key annotation.

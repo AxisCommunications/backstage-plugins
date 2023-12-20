@@ -1,16 +1,16 @@
-import { CacheClient } from '@backstage/backend-common';
-import { Config } from '@backstage/config';
-import {
-  type Filter,
-  type JiraDataResponse,
-  type Project,
-} from '@axis-backstage/plugin-jira-dashboard-common';
 import {
   getFilterById,
   getIssuesByComponent,
   getIssuesByFilter,
   getProjectInfo,
 } from '../api';
+import {
+  type Filter,
+  type JiraDataResponse,
+  type Project,
+} from '@axis-backstage/plugin-jira-dashboard-common';
+import { CacheClient } from '@backstage/backend-common';
+import { Config } from '@backstage/config';
 
 export const getProjectResponse = async (
   projectKey: string,

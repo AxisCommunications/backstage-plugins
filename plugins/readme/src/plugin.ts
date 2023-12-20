@@ -1,3 +1,6 @@
+import { readmeApiRef } from './api/ReadmeApi';
+import { ReadmeClient } from './api/ReadmeClient';
+import { rootRouteRef } from './routes';
 import {
   createApiFactory,
   createPlugin,
@@ -6,10 +9,6 @@ import {
   fetchApiRef,
   identityApiRef,
 } from '@backstage/core-plugin-api';
-
-import { rootRouteRef } from './routes';
-import { readmeApiRef } from './api/ReadmeApi';
-import { ReadmeClient } from './api/ReadmeClient';
 
 /**
  * Plugin that provides the Readme api

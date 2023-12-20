@@ -1,8 +1,8 @@
-import React from 'react';
-import { renderInTestApp } from '@backstage/test-utils';
 import { JiraProjectCard } from './JiraProjectCard';
-import mockedProject from './mockedProject.json';
 import mockedJiraCloudProject from './mockedJiraCloudProject.json';
+import mockedProject from './mockedProject.json';
+import { renderInTestApp } from '@backstage/test-utils';
+import React from 'react';
 
 describe('JiraDashboardContent', () => {
   it('renders component without error', async () => {

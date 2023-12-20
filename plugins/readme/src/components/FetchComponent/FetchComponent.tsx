@@ -1,6 +1,6 @@
-import React from 'react';
-import { useEntity } from '@backstage/plugin-catalog-react';
-import { useApi } from '@backstage/core-plugin-api';
+import { readmeApiRef } from '../../api/ReadmeApi';
+import { stringifyEntityRef } from '@backstage/catalog-model';
+import { getEntitySourceLocation } from '@backstage/catalog-model';
 import {
   CodeSnippet,
   ErrorPanel,
@@ -8,11 +8,11 @@ import {
   MarkdownContent,
   Progress,
 } from '@backstage/core-components';
-import useAsync from 'react-use/lib/useAsync';
-import { readmeApiRef } from '../../api/ReadmeApi';
-import { stringifyEntityRef } from '@backstage/catalog-model';
-import { getEntitySourceLocation } from '@backstage/catalog-model';
+import { useApi } from '@backstage/core-plugin-api';
+import { useEntity } from '@backstage/plugin-catalog-react';
 import { Box, Typography } from '@material-ui/core';
+import React from 'react';
+import useAsync from 'react-use/lib/useAsync';
 
 export const FetchComponent = () => {
   const { entity } = useEntity();

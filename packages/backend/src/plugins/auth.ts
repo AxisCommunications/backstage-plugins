@@ -1,10 +1,10 @@
+import { PluginEnvironment } from '../types';
 import {
   createRouter,
   providers,
   defaultAuthProviderFactories,
 } from '@backstage/plugin-auth-backend';
 import { Router } from 'express';
-import { PluginEnvironment } from '../types';
 
 export default async function createPlugin(
   env: PluginEnvironment,

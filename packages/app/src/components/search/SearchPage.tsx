@@ -1,21 +1,3 @@
-import React from 'react';
-import { makeStyles, Theme, Grid, Paper } from '@material-ui/core';
-
-import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
-import {
-  catalogApiRef,
-  CATALOG_FILTER_EXISTS,
-} from '@backstage/plugin-catalog-react';
-import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
-
-import { SearchType } from '@backstage/plugin-search';
-import {
-  SearchBar,
-  SearchFilter,
-  SearchResult,
-  SearchPagination,
-  useSearch,
-} from '@backstage/plugin-search-react';
 import {
   CatalogIcon,
   Content,
@@ -24,6 +6,22 @@ import {
   Page,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
+import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
+import {
+  catalogApiRef,
+  CATALOG_FILTER_EXISTS,
+} from '@backstage/plugin-catalog-react';
+import { SearchType } from '@backstage/plugin-search';
+import {
+  SearchBar,
+  SearchFilter,
+  SearchResult,
+  SearchPagination,
+  useSearch,
+} from '@backstage/plugin-search-react';
+import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
+import { makeStyles, Theme, Grid, Paper } from '@material-ui/core';
+import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) => ({
   bar: {

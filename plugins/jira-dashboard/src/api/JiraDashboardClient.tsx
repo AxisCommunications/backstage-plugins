@@ -1,6 +1,6 @@
-import { DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
-import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraDashboardApi } from './JiraDashboardApi';
+import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
+import { DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
 import { ResponseError } from '@backstage/errors';
 
 export class JiraDashboardClient implements JiraDashboardApi {

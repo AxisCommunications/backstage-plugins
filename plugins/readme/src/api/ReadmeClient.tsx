@@ -1,9 +1,9 @@
+import { ReadmeApi } from './ReadmeApi';
 import {
   DiscoveryApi,
   FetchApi,
   IdentityApi,
 } from '@backstage/core-plugin-api';
-import { ReadmeApi } from './ReadmeApi';
 
 export class ReadmeClient implements ReadmeApi {
   private readonly discoveryApi: DiscoveryApi;

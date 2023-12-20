@@ -1,5 +1,5 @@
-import { createApiRef } from '@backstage/core-plugin-api';
 import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
+import { createApiRef } from '@backstage/core-plugin-api';
 
 export const jiraDashboardApiRef = createApiRef<JiraDashboardApi>({
   id: 'plugin.jira-dashboard',

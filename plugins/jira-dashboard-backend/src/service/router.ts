@@ -1,17 +1,11 @@
-import {
-  CacheManager,
-  TokenManager,
-  errorHandler,
-} from '@backstage/backend-common';
-import express from 'express';
-import Router from 'express-promise-router';
-import { Config } from '@backstage/config';
-import { Logger } from 'winston';
-import { CatalogClient } from '@backstage/catalog-client';
-import { DiscoveryApi } from '@backstage/plugin-permission-common';
-import { IdentityApi } from '@backstage/plugin-auth-node';
-
+import { getProjectAvatar } from '../api';
 import { getDefaultFilters } from '../filters';
+import {
+  getProjectResponse,
+  getFiltersFromAnnotations,
+  getIssuesFromFilters,
+  getIssuesFromComponents,
+} from './service';
 import {
   COMPONENT_ANNOTATION,
   FILTER_ANNOTATION,
@@ -20,14 +14,19 @@ import {
   PROJECT_KEY_ANNOTATION,
   type Project,
 } from '@axis-backstage/plugin-jira-dashboard-common';
-import stream from 'stream';
-import { getProjectAvatar } from '../api';
 import {
-  getProjectResponse,
-  getFiltersFromAnnotations,
-  getIssuesFromFilters,
-  getIssuesFromComponents,
-} from './service';
+  CacheManager,
+  TokenManager,
+  errorHandler,
+} from '@backstage/backend-common';
+import { CatalogClient } from '@backstage/catalog-client';
+import { Config } from '@backstage/config';
+import { IdentityApi } from '@backstage/plugin-auth-node';
+import { DiscoveryApi } from '@backstage/plugin-permission-common';
+import express from 'express';
+import Router from 'express-promise-router';
+import stream from 'stream';
+import { Logger } from 'winston';
 
 /**
  * Constructs a jira dashboard router.

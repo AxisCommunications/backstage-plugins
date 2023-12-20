@@ -1,7 +1,8 @@
-import React from 'react';
+import mockedEntity from '../../../dev/__fixtures__/entity.json';
+import mockedJiraResponse from '../../../dev/__fixtures__/jiraResponse.json';
+import { JiraDashboardClient, jiraDashboardApiRef } from '../../api';
 import { JiraDashboardContent } from './JiraDashboardContent';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
+import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import {
   MockFetchApi,
@@ -9,10 +10,9 @@ import {
   renderInTestApp,
   setupRequestMockHandlers,
 } from '@backstage/test-utils';
-import { JiraDashboardClient, jiraDashboardApiRef } from '../../api';
-import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
-import mockedJiraResponse from '../../../dev/__fixtures__/jiraResponse.json';
-import mockedEntity from '../../../dev/__fixtures__/entity.json';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+import React from 'react';
 
 describe('JiraDashboardContent', () => {
   const server = setupServer();
