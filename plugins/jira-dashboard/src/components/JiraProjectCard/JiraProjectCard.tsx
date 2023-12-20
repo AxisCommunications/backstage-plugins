@@ -1,6 +1,8 @@
 import React from 'react';
-import { Card, Box, Divider, Typography } from '@material-ui/core';
-import { Avatar } from '@backstage/core-components';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import { Avatar, InfoCard } from '@backstage/core-components';
 import { LinkButton } from '@backstage/core-components';
 import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 import { ProjectInfoLabel } from './ProjectInfoLabel';
@@ -12,8 +14,8 @@ type JiraProjectCardProps = {
 
 export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
   return (
-    <Card style={{ padding: 20, height: '100%' }}>
-      <Box display="inline-flex" alignItems="center" mb={2}>
+    <InfoCard variant="fullHeight">
+      <Stack direction="row" gap={1} alignItems="center" mb={1}>
         <Avatar
           picture={project.avatarUrls['48x48']}
           customStyles={{
@@ -22,12 +24,12 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
           }}
         />
 
-        <Typography style={{ fontSize: 20, marginLeft: 3 }}>
+        <Typography fontSize={20}>
           {project.name} | {project.projectTypeKey ?? ''}
         </Typography>
-      </Box>
-      <Box ml={1}>
-        <Divider style={{ marginBottom: 10 }} />
+      </Stack>
+      <Divider />
+      <Stack gap={2} ml={1} my={2}>
         <ProjectInfoLabel label="Project key" value={project.key} />
         {project.projectCategory?.name && (
           <ProjectInfoLabel
@@ -41,16 +43,14 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
         {project.lead?.key && (
           <ProjectInfoLabel label="Project lead" value={project.lead.key} />
         )}
-
-        <LinkButton
-          color="primary"
-          variant="contained"
-          to={getProjectUrl(project)}
-          style={{ marginTop: 35 }}
-        >
-          Go to project
-        </LinkButton>
-      </Box>
-    </Card>
+      </Stack>
+      <LinkButton
+        color="primary"
+        variant="contained"
+        to={getProjectUrl(project)}
+      >
+        Go to project
+      </LinkButton>
+    </InfoCard>
   );
 };

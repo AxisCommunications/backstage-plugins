@@ -1,7 +1,6 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
-
-const labelColor = '#A9A9A9';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 type ProjectInfoLabelProps = {
   label: string;
@@ -10,9 +9,14 @@ type ProjectInfoLabelProps = {
 
 export const ProjectInfoLabel = ({ label, value }: ProjectInfoLabelProps) => {
   return (
-    <Box mt={2}>
-      <Typography style={{ color: labelColor }}>{label}</Typography>
-      <Typography style={{ fontWeight: 800, marginTop: 1.5 }}>
+    <Box>
+      <Typography
+        variant="body1"
+        sx={{ color: theme => theme.palette.text.disabled }}
+      >
+        {label}
+      </Typography>
+      <Typography variant="body1" fontWeight={900}>
         {value}
       </Typography>
     </Box>
