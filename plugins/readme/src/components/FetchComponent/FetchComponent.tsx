@@ -43,7 +43,7 @@ export const FetchComponent = () => {
   if (error?.message === '404') {
     return (
       <Box>
-        <Typography variant="body2" style={{ paddingBottom: 15 }}>
+        <Typography pb={2} variant="body2">
           No README.md file found at source location:{' '}
           {location && <strong>{location}</strong>}
         </Typography>

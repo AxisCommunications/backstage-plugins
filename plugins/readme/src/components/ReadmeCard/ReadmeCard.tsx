@@ -27,7 +27,7 @@ export const ReadmeCard = () => {
         }
       >
         <div style={{ overflow: 'auto' }}>
-          <Box sx={{ maxHeight: 235 }}>
+          <Box maxHeight={235}>
             <FetchComponent />
           </Box>
         </div>
