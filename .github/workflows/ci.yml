@@ -39,6 +39,9 @@ jobs:
       - name: Test
         run: yarn test
 
+      - name: Test e2e
+        run: yarn test:e2e
+
   format:
     name: Formatting and linting
     runs-on: ubuntu-latest
