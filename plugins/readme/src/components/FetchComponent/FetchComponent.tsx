@@ -12,7 +12,8 @@ import useAsync from 'react-use/lib/useAsync';
 import { readmeApiRef } from '../../api/ReadmeApi';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { getEntitySourceLocation } from '@backstage/catalog-model';
-import { Box, Typography } from '@material-ui/core';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export const FetchComponent = () => {
   const { entity } = useEntity();
@@ -42,7 +43,7 @@ export const FetchComponent = () => {
   if (error?.message === '404') {
     return (
       <Box>
-        <Typography variant="body2" style={{ paddingBottom: 15 }}>
+        <Typography pb={2} variant="body2">
           No README.md file found at source location:{' '}
           {location && <strong>{location}</strong>}
         </Typography>
