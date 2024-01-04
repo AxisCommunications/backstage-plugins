@@ -5,7 +5,7 @@ import {
   ResponseErrorPanel,
   SupportButton,
 } from '@backstage/core-components';
-import { Grid } from '@material-ui/core';
+import Grid from '@mui/material/Grid';
 import React from 'react';
 import { JiraProjectCard } from '../JiraProjectCard';
 import { JiraTable } from '../JiraTable';

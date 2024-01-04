@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, TableColumn } from '@backstage/core-components';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
-import { Typography } from '@material-ui/core';
+import Typography from '@mui/material/Typography';
 import { getIssueUrl } from '../../lib';
 
 export const columns: TableColumn[] = [
@@ -89,7 +89,14 @@ export const columns: TableColumn[] = [
       if (issue.fields?.assignee?.key) {
         return <Typography>{issue.fields.assignee.key}</Typography>;
       }
-      return <Typography style={{ color: 'grey' }}>Unassigned</Typography>;
+      return (
+        <Typography
+          sx={{ color: theme => theme.palette.text.disabled }}
+          color="divider"
+        >
+          Unassigned
+        </Typography>
+      );
     },
   },
 ];
