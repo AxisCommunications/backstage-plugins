@@ -1,5 +1,17 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 0.3.0
+
+### Minor Changes
+
+- 23ff76a: Bumped Backstage version to v.1.21.0 in whole monorepo
+- df948b1: Bumped Jira Dashboard frontend plugin to use Material UI v.5 components. Made necessary changes to the code.
+
+### Patch Changes
+
+- Updated dependencies [23ff76a]
+  - @axis-backstage/plugin-jira-dashboard-common@0.2.0
+
 ## 0.2.0
 
 ### Minor Changes

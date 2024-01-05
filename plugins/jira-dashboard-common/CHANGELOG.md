@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-common
 
+## 0.2.0
+
+### Minor Changes
+
+- 23ff76a: Bumped Backstage version to v.1.21.0 in whole monorepo
+
 ## 0.1.1
 
 ### Patch Changes
