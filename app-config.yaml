@@ -1,6 +1,14 @@
 app:
   title: Backstage
   baseUrl: http://localhost:3000
+  support:
+    url: https://github.com/AxisCommunications/backstage-plugins/issues # Used by common ErrorPage
+    items: # Used by common SupportButton component
+      - title: Issues
+        icon: github
+        links:
+          - url: https://github.com/AxisCommunications/backstage-plugins/issues
+            title: GitHub Issues
 
 organization:
   name: My Organization
