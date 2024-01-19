@@ -6,6 +6,9 @@ import {
   SupportButton,
 } from '@backstage/core-components';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 import React from 'react';
 import { JiraProjectCard } from '../JiraProjectCard';
 import { JiraTable } from '../JiraTable';
@@ -48,7 +51,19 @@ export const JiraDashboardContent = () => {
     <Content>
       <ContentHeader title="Jira Dashboard">
         <SupportButton>
-          Jira Dashboard plugin lets you track Jira tickets
+          <Box>
+            <Typography variant="h6">How it works</Typography>
+            The Jira Dashboard plugin provides quickly access to Jira issue
+            summaries. You can add Jira components and filters of your choice by
+            defining annotations to your entity's catalog-info.yaml file.
+            <Typography mt={1} variant="h6">
+              Documentation
+            </Typography>
+            You find the documentation{' '}
+            <Link href="https://github.com/AxisCommunications/backstage-plugins/tree/main/plugins/jira-dashboard">
+              here.
+            </Link>
+          </Box>
         </SupportButton>
       </ContentHeader>
       <Grid container spacing={3}>

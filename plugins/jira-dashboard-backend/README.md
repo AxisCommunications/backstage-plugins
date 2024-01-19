@@ -24,8 +24,8 @@ The Jira Dashboard plugin requires the following YAML to be added to your app-co
 ```yaml
 jiraDashboard:
   token: ${JIRA_TOKEN}
-  baseUrl: ${JIRA_BASE_URL}'
-  userEmailSuffix: ${JIRA_EMAIL_SUFFIX}'
+  baseUrl: ${JIRA_BASE_URL}
+  userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
 ```
 
 Configuration Details:
