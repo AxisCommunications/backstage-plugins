@@ -1,5 +1,19 @@
 # app
 
+## 0.3.0
+
+### Minor Changes
+
+- 864d983: Bumped Backstage version to v.1.22.0
+
+### Patch Changes
+
+- Updated dependencies [864d983]
+- Updated dependencies [27da24e]
+  - @axis-backstage/plugin-jira-dashboard-common@0.3.0
+  - @axis-backstage/plugin-jira-dashboard@0.4.0
+  - @axis-backstage/plugin-readme@0.4.0
+
 ## 0.2.0
 
 ### Minor Changes

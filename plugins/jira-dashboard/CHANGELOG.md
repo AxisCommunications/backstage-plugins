@@ -1,5 +1,17 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 0.4.0
+
+### Minor Changes
+
+- 864d983: Bumped Backstage version to v.1.22.0
+
+### Patch Changes
+
+- 27da24e: Added information about documentation and support to the SupportButton
+- Updated dependencies [864d983]
+  - @axis-backstage/plugin-jira-dashboard-common@0.3.0
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.4.0
+
+### Minor Changes
+
+- 864d983: Bumped Backstage version to v.1.22.0
+
 ## 0.3.0
 
 ### Minor Changes
