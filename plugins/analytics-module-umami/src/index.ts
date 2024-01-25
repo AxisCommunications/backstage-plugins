@@ -1,1 +1,2 @@
-export { analyticsModuleUmamiPlugin, AnalyticsModuleUmamiPage } from './plugin';
+export { analyticsModuleUmamiPlugin } from './plugin';
+export { UmamiAnalytics } from './apis/implementations/';

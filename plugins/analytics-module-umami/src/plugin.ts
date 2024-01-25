@@ -1,4 +1,4 @@
-import { createPlugin, createRoutableExtension } from '@backstage/core-plugin-api';
+import { createPlugin } from '@backstage/core-plugin-api';
 
 import { rootRouteRef } from './routes';
 
@@ -8,12 +8,3 @@ export const analyticsModuleUmamiPlugin = createPlugin({
     root: rootRouteRef,
   },
 });
-
-export const AnalyticsModuleUmamiPage = analyticsModuleUmamiPlugin.provide(
-  createRoutableExtension({
-    name: 'AnalyticsModuleUmamiPage',
-    component: () =>
-      import('./components/ExampleComponent').then(m => m.ExampleComponent),
-    mountPoint: rootRouteRef,
-  }),
-);
