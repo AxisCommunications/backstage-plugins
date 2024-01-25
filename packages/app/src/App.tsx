@@ -33,7 +33,6 @@ import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
-import { AnalyticsModuleUmamiPage } from '@internal/plugin-analytics-module-umami';
 
 const app = createApp({
   apis,
@@ -94,7 +93,6 @@ const routes = (
     </Route>
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
-    <Route path="/analytics-module-umami" element={<AnalyticsModuleUmamiPage />} />
   </FlatRoutes>
 );
 
