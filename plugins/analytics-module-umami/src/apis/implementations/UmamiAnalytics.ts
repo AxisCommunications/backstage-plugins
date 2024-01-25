@@ -82,6 +82,7 @@ export class UmamiAnalytics implements AnalyticsApi {
    * applied as they should be (set on pageview, merged object on events).
    */
   async captureEvent(event: AnalyticsEvent) {
+    const NAME_PROPS = 'name';
     // No configuration is set. Do nothing.
     if (!this.trackingId || !this.host) {
       return;
@@ -109,10 +110,11 @@ export class UmamiAnalytics implements AnalyticsApi {
 
     /* Add extra data for Umami data events */
     if (action !== 'navigate') {
-      payload.payload['name'] = `${subject}-${action}`;
+      payload.payload[NAME_PROPS] = `${subject}-${action}`;
     }
 
     if (this.debug) {
+      // eslint-disable-next-line no-console
       console.debug(`Umami event: ${payload}`);
     }
     /* Do not send anything in test mode */
@@ -126,6 +128,7 @@ export class UmamiAnalytics implements AnalyticsApi {
           body: JSON.stringify(payload),
         });
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.warn(error);
       }
     }

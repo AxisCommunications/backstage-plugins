@@ -6476,6 +6476,7 @@ __metadata:
   resolution: "@internal/plugin-analytics-module-umami@workspace:plugins/analytics-module-umami"
   dependencies:
     "@backstage/cli": "npm:^0.25.1"
+    "@backstage/config": "npm:^1.1.1"
     "@backstage/core-app-api": "npm:^1.11.3"
     "@backstage/core-components": "npm:^0.13.10"
     "@backstage/core-plugin-api": "npm:^1.8.2"
