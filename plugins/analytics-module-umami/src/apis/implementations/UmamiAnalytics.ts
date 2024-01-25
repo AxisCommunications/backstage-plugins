@@ -27,7 +27,7 @@ interface IPayload {
  */
 export class UmamiAnalytics implements AnalyticsApi {
   private readonly fetchApi: FetchApi;
-  private host: string;
+  private dataDomain: string;
   private trackingId: string;
   private debug: boolean;
   private testMode: boolean;
@@ -38,13 +38,13 @@ export class UmamiAnalytics implements AnalyticsApi {
   private constructor(options: {
     fetchApi: FetchApi;
     trackingId: string;
-    host: string;
+    dataDomain: string;
     debug?: boolean;
     testMode?: boolean;
   }) {
-    const { fetchApi, trackingId, host, debug, testMode } = options;
+    const { fetchApi, trackingId, dataDomain, debug, testMode } = options;
     this.fetchApi = fetchApi;
-    this.host = host;
+    this.dataDomain = dataDomain;
     this.trackingId = trackingId;
     this.testMode = testMode || false;
     this.debug = debug || false;
@@ -63,14 +63,15 @@ export class UmamiAnalytics implements AnalyticsApi {
 
     const trackingId =
       config.getOptionalString('app.analytics.umami.trackingId') || '';
-    const host = config.getOptionalString('app.analytics.umami.host') || '';
+    const dataDomain =
+      config.getOptionalString('app.analytics.umami.dataDomain') || '';
     const debug = config.getOptionalBoolean('app.analytics.umami.debug');
     const testMode = config.getOptionalBoolean('app.analytics.umami.testMode');
 
     return new UmamiAnalytics({
       fetchApi,
       trackingId,
-      host,
+      dataDomain,
       debug,
       testMode,
     });
@@ -84,7 +85,7 @@ export class UmamiAnalytics implements AnalyticsApi {
   async captureEvent(event: AnalyticsEvent) {
     const NAME_PROPS = 'name';
     // No configuration is set. Do nothing.
-    if (!this.trackingId || !this.host) {
+    if (!this.trackingId || !this.dataDomain) {
       return;
     }
     const {
@@ -120,7 +121,7 @@ export class UmamiAnalytics implements AnalyticsApi {
     /* Do not send anything in test mode */
     if (!this.testMode) {
       try {
-        await this.fetchApi.fetch(`${this.host}/api/send`, {
+        await this.fetchApi.fetch(`${this.dataDomain}/api/send`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

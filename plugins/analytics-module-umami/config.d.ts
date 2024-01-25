@@ -13,10 +13,10 @@ export interface Config {
         trackingId: string;
 
         /**
-         * Umami host.
+         * Umami data domain
          * @visibility frontend
          */
-        host: string;
+        dataDomain: string;
 
         /**
          * Whether or not to log analytics debug statements to the console.
