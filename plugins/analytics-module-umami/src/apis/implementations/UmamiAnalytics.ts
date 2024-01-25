@@ -1,9 +1,25 @@
 import {
   AnalyticsApi,
   AnalyticsEvent,
+  AnalyticsEventAttributes,
   FetchApi,
 } from '@backstage/core-plugin-api';
 import { Config } from '@backstage/config';
+
+interface IPayload {
+  payload: {
+    hostname: string;
+    language: string;
+    referrer: string;
+    screen: string;
+    title: string;
+    url: string;
+    website: string;
+    name?: string;
+    data: AnalyticsEventAttributes | undefined;
+  };
+  type: string;
+}
 
 /**
  * Umami Analytics API provider for the Backstage Analytics API.
@@ -70,33 +86,36 @@ export class UmamiAnalytics implements AnalyticsApi {
     if (!this.trackingId || !this.host) {
       return;
     }
-    // Only track the naviagation updates for now.
-    if (event.action !== 'navigate') {
-      return;
-    }
     const {
       screen: { width, height },
       navigator: { language },
     } = window;
     const { hostname } = location;
+    const { context, subject, action, attributes } = event;
 
-    const payload = {
+    const payload: IPayload = {
       payload: {
         hostname,
         language,
         referrer: '',
         screen: `${width}x${height}`,
-        title: 'dashboard',
-        url: event.subject,
+        title: context.pluginId,
+        url: window.location.pathname,
         website: this.trackingId,
+        data: attributes,
       },
       type: 'event',
     };
 
+    /* Add extra data for Umami data events */
+    if (action !== 'navigate') {
+      payload.payload['name'] = `${subject}-${action}`;
+    }
+
     if (this.debug) {
       console.debug(`Umami event: ${payload}`);
     }
-    // Do not send anything in test mode.
+    /* Do not send anything in test mode */
     if (!this.testMode) {
       try {
         await this.fetchApi.fetch(`${this.host}/api/send`, {
