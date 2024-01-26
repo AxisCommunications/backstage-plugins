@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: axis-backstage-plugin-analytics-module-umami
+  title: '@axis-backstage/plugin-analytics-module-umami'
+spec:
+  lifecycle: experimental
+  type: backstage-frontend-plugin
+  owner: backstage-plugins-maintainers
