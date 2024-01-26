@@ -4,26 +4,26 @@ Welcome to the Analytics Module Umami plugin!
 
 ## Introduction
 
-Backstage comes with an event-based analytics API that enables to collect and analyize Backstage usage. Currently, it supports analytics platform such as Google Analytics and New Relic. This plugin adds support for using [Umami](https://umami.is/) as analytics platform.
+This plugin is an implementation of the Backstage [AnalyticsAPI](https://backstage.io/docs/reference/core-plugin-api.analyticsapi/).
 
-### This plugin:
-
-- Is an implementation of the Backstage [AnalyticsAPI](https://backstage.io/docs/reference/core-plugin-api.analyticsapi/)
+Backstage comes with an event-based analytics API that enables to collect and analyze Backstage usage. Currently, it supports analytics platform such as Google Analytics and New Relic. This plugin adds support for instead using the open-source web analytics platforms [Umami](https://umami.is/) with Backstage.
 
 ## Why Umami?
 
-Umami describes themselves as "a simple, fast, privacy-focused, open-source analytics solution". It has support for tracking both events and routing.
+Umami describes themselves as "a simple, fast, privacy-focused, open-source analytics solution".
 
 ## Getting started
 
-1. First, install the plugin into your app:
+In order to start tracking events in Backstage and send them to your Umami instance, you will need to:
+
+1. Install the plugin into your app:
 
 ```bash
 # From your Backstage root directory
 yarn --cwd packages/app add @axis-backstage/plugin-analytics-module-umami
 ```
 
-2. Then, add the following code to your `apis.ts` file.
+2. Add the plugin to your Backstage instance by adding the following code to your `apis.ts` file.
 
 ```tsx
 // packages/app/src/apis.ts
@@ -50,11 +50,9 @@ export const apis: AnyApiFactory[] = [
 
 3. Configure the plugin in your `app-config.yaml`:
 
-On Umami's offical website can read more about how to [create a website in Umami](https://umami.is/docs/add-a-website) and [retreive the tracking code](https://umami.is/docs/collect-data).
+You need to configure the **Umami tracking id** to your `app-config.yaml` file to start sending analytics events to your Umami instance. If you do not know how to find your tracking code, Umami's offical website explain how to [create a website](https://umami.is/docs/add-a-website) and [retreive the tracking code](https://umami.is/docs/collect-data).
 
-If you want the tracker to only run on specific domains, you can add a [data-domain](https://umami.is/docs/tracker-configuration).
-
-When you have your dataDomain and trackingId, add the following minimum configuration to start sending analyticsevents to Umami.
+You also need to add a [data-domain](https://umami.is/docs/tracker-configuration) in order to only track data on specific domains.
 
 ```yaml
 # app-config.yaml
@@ -65,12 +63,17 @@ app:
       trackingId: edo7byeh-ca66-461d-b2d5-78b71bdcl667
 ```
 
-## Configuration
+## Usage
 
-### Debugging and testing
+Just like all Backstage AnalyticsAPI implementation, this plugin tracks the following events: `click`, `navigate`, `create`, `search`, `discover`, and `not-found`. You can read more about the key events in Backstage analytics in the [upstream documentation](https://backstage.io/docs/plugins/analytics/#key-events)
 
-You may wish to set additional configurations in your `app-config.local.yaml` file. For instance, you can turn off reporting to Analytics and/or print debug statements to the
-console. You can do so like this:
+In this plugin, all `navigation` events are handled as Umami pageviews. Other events, such as click and discover, are handled as [Umami events](https://umami.is/docs/track-events). In Umami documentation you can read more on how to track events that occur on your website.
+
+## Debugging and testing
+
+You may wish to set additional configurations in your `app-config.local.yaml` file.
+
+For instance, you can turn off reporting to Analytics and/or print debug statements to the console. You can do so like this:
 
 ```yaml
 app:
