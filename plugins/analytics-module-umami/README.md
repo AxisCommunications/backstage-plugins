@@ -6,15 +6,15 @@ Welcome to the Analytics Module Umami plugin!
 
 This plugin is an implementation of the Backstage [AnalyticsAPI](https://backstage.io/docs/reference/core-plugin-api.analyticsapi/).
 
-Backstage comes with an event-based analytics API that enables to collect and analyze Backstage usage. Currently, it supports analytics platform such as Google Analytics and New Relic. This plugin adds support for instead using the open-source web analytics platforms [Umami](https://umami.is/) with Backstage.
+Backstage comes with an event-based analytics API that enables to collect and analyze Backstage usage. Currently, it supports analytics platforms such as Google Analytics and New Relic. This plugin adds support for using the open-source web analytics platforms [Umami](https://umami.is/) with Backstage.
 
-## Why Umami?
+## What is Umami?
 
-Umami describes themselves as "a simple, fast, privacy-focused, open-source analytics solution".
+Umami describes themselves as "a simple, fast, privacy-focused, open-source analytics solution". It supports tracking events and route changes.
 
 ## Getting started
 
-In order to start tracking events in Backstage and send them to your Umami instance, you will need to:
+In order to start tracking events in Backstage and send them to your Umami instance, you need to:
 
 1. Install the plugin into your app:
 
@@ -50,9 +50,11 @@ export const apis: AnyApiFactory[] = [
 
 3. Configure the plugin in your `app-config.yaml`:
 
-You need to configure the **Umami tracking id** to your `app-config.yaml` file to start sending analytics events to your Umami instance. If you do not know how to find your tracking code, Umami's offical website explain how to [create a website](https://umami.is/docs/add-a-website) and [retreive the tracking code](https://umami.is/docs/collect-data).
+You need to add the **Umami tracking id** and **data domain** to your `app-config.yaml` file in order to start sending analytics events to your Umami instance.
 
-You also need to add a [data-domain](https://umami.is/docs/tracker-configuration) in order to only track data on specific domains.
+If you do not know how to find your tracking id, Umami's offical website explain how to [create a website](https://umami.is/docs/add-a-website) and [retreive the tracking code](https://umami.is/docs/collect-data).
+
+You need to specify the [data-domain](https://umami.is/docs/tracker-configuration) to `app-config.yaml` in order to only track data on specific domains.
 
 ```yaml
 # app-config.yaml
@@ -65,9 +67,9 @@ app:
 
 ## Usage
 
-Just like all Backstage AnalyticsAPI implementation, this plugin tracks the following events: `click`, `navigate`, `create`, `search`, `discover`, and `not-found`. You can read more about the key events in Backstage analytics in the [upstream documentation](https://backstage.io/docs/plugins/analytics/#key-events)
+Just like all Backstage AnalyticsAPI implementation, this plugin tracks the following events: `click`, `navigate`, `create`, `search`, `discover`, and `not-found`. You can read more about the key events in Backstage analytics in the [upstream documentation](https://backstage.io/docs/plugins/analytics/#key-events).
 
-In this plugin, all `navigation` events are handled as Umami pageviews. Other events, such as click and discover, are handled as [Umami events](https://umami.is/docs/track-events). In Umami documentation you can read more on how to track events that occur on your website.
+In this plugin, all `navigation` events are handled as Umami pageviews. Other events, such as click and discover, are handled as Umami events. In Umami documentation you can read more on how to track [events] (https://umami.is/docs/track-events)that occur on your website.
 
 ## Debugging and testing
 
@@ -82,11 +84,3 @@ app:
       testMode: true # Prevents data being sent to Umami
       debug: true # Logs analytics event to the web console
 ```
-
-## Developing
-
-This plugin has been added to the example app in this repository, meaning you'll be able to access it by running `yarn start` in the root directory, and then navigating to [/analytics-module-umami](http://localhost:3000/analytics-module-umami).
-
-You can also serve the plugin in isolation by running `yarn start` in the plugin directory.
-This method of serving the plugin provides quicker iteration speed and a faster startup and hot reloads.
-It is only meant for local development, and the setup for it can be found inside the [/dev](./dev) directory.
