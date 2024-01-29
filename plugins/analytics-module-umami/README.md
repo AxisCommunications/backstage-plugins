@@ -32,7 +32,7 @@ import {
   configApiRef,
   identityApiRef,
 } from '@backstage/core-plugin-api';
-import { GoogleAnalytics4 } from '@backstage/plugin-analytics-module-ga4';
+import { UmamiAnalytics } from '@backstage/plugin-analytics-module-umami';
 
 export const apis: AnyApiFactory[] = [
   // Instantiate and register the Umami API Implementation.
