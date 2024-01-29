@@ -10,7 +10,7 @@ import {
   createApiFactory,
   fetchApiRef,
 } from '@backstage/core-plugin-api';
-import { UmamiAnalytics } from '@internal/plugin-analytics-module-umami';
+import { UmamiAnalytics } from '@axis-backstage/plugin-analytics-module-umami';
 
 export const apis: AnyApiFactory[] = [
   createApiFactory({
