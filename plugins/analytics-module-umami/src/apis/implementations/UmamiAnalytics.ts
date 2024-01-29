@@ -83,6 +83,7 @@ export class UmamiAnalytics implements AnalyticsApi {
    * applied as they should be (set on pageview, merged object on events).
    */
   async captureEvent(event: AnalyticsEvent) {
+    const NAME_PROPS = 'name';
     // No configuration is set. Do nothing.
     if (!this.trackingId || !this.dataDomain) {
       return;
@@ -110,7 +111,7 @@ export class UmamiAnalytics implements AnalyticsApi {
 
     /* Add extra data for Umami data events */
     if (action !== 'navigate') {
-      payload.payload['name'] = `${subject}-${action}`;
+      payload.payload[NAME_PROPS] = `${subject}-${action}`;
     }
 
     if (this.debug) {
