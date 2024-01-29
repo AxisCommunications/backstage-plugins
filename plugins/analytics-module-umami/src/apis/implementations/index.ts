@@ -1,0 +1,1 @@
+export { UmamiAnalytics } from './UmamiAnalytics';

@@ -14,6 +14,7 @@
     "lint": "backstage-cli package lint"
   },
   "dependencies": {
+    "@axis-backstage/plugin-analytics-module-umami": "workspace:^",
     "@axis-backstage/plugin-jira-dashboard": "workspace:^",
     "@axis-backstage/plugin-jira-dashboard-common": "workspace:^",
     "@axis-backstage/plugin-readme": "workspace:^",
