@@ -33,7 +33,7 @@ export class UmamiAnalytics implements AnalyticsApi {
   private testMode: boolean;
 
   /**
-   * Instantiate the implementation and initialize ReactGA.
+   * Instantiate the implementation and initialize Umami.
    */
   private constructor(options: {
     fetchApi: FetchApi;
@@ -51,7 +51,7 @@ export class UmamiAnalytics implements AnalyticsApi {
   }
 
   /**
-   * Instantiate a fully configured GA Analytics API implementation.
+   * Instantiate a fully configured Umami Analytics API implementation.
    */
   static fromConfig(
     config: Config,
@@ -83,7 +83,6 @@ export class UmamiAnalytics implements AnalyticsApi {
    * applied as they should be (set on pageview, merged object on events).
    */
   async captureEvent(event: AnalyticsEvent) {
-    const NAME_PROPS = 'name';
     // No configuration is set. Do nothing.
     if (!this.trackingId || !this.dataDomain) {
       return;
@@ -111,7 +110,7 @@ export class UmamiAnalytics implements AnalyticsApi {
 
     /* Add extra data for Umami data events */
     if (action !== 'navigate') {
-      payload.payload[NAME_PROPS] = `${subject}-${action}`;
+      payload.payload['name'] = `${subject}-${action}`;
     }
 
     if (this.debug) {
