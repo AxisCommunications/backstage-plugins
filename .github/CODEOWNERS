@@ -1,4 +1,3 @@
 # This is a comment.
 
-*                               @backstage/maintainers
-/plugins/analytics-module-umami @AxisCommunications/backstage-plugins-maintainers
+*             @AxisCommunications/backstage-plugins-maintainers
