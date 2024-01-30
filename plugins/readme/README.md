@@ -41,7 +41,7 @@ import { ReadmeCard } from '@axis-backstage/plugin-readme';
 
 const overviewContent = (
 ...
-  <Grid item md={6} sx={12}>
+  <Grid item md={6} xs={12}>
       <ReadmeCard />
   </Grid>
   ...
