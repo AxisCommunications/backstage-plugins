@@ -28,6 +28,7 @@ import {
   getIssuesFromFilters,
   getIssuesFromComponents,
 } from './service';
+import { resolveAnnotationPrefix } from '../config';
 
 /**
  * Constructs a jira dashboard router.
@@ -91,6 +92,7 @@ export async function createRouter(
       const entityRef = request.params.entityRef;
       const { token } = await tokenManager.getToken();
       const entity = await catalogClient.getEntityByRef(entityRef, { token });
+      const annotationPrefix = resolveAnnotationPrefix(config);
 
       if (!entity) {
         logger.info(`No entity found for ${entityRef}`);
@@ -100,7 +102,10 @@ export async function createRouter(
         return;
       }
 
-      const projectKey = entity.metadata.annotations?.[PROJECT_KEY_ANNOTATION]!;
+      const projectKey =
+        entity.metadata.annotations?.[
+          `${annotationPrefix}/${PROJECT_KEY_ANNOTATION}`
+        ]!;
 
       if (!projectKey) {
         const error = `No jira.com/project-key annotation found for ${entityRef}`;
@@ -130,7 +135,9 @@ export async function createRouter(
       let filters: Filter[] = [];
 
       const customFilterAnnotations =
-        entity.metadata.annotations?.[FILTER_ANNOTATION]?.split(',')!;
+        entity.metadata.annotations?.[
+          `${annotationPrefix}/${FILTER_ANNOTATION}`
+        ]?.split(',')!;
 
       filters = getDefaultFilters(
         config,
@@ -146,7 +153,9 @@ export async function createRouter(
       let issues = await getIssuesFromFilters(projectKey, filters, config);
 
       const componentAnnotations =
-        entity.metadata.annotations?.[COMPONENT_ANNOTATION]?.split(',')!;
+        entity.metadata.annotations?.[
+          `${annotationPrefix}/${COMPONENT_ANNOTATION}`
+        ]?.split(',')!;
 
       if (componentAnnotations) {
         const componentIssues = await getIssuesFromComponents(
@@ -169,6 +178,7 @@ export async function createRouter(
     const { entityRef } = request.params;
     const { token } = await tokenManager.getToken();
     const entity = await catalogClient.getEntityByRef(entityRef, { token });
+    const annotationPrefix = resolveAnnotationPrefix(config);
 
     if (!entity) {
       logger.info(`No entity found for ${entityRef}`);
@@ -176,7 +186,10 @@ export async function createRouter(
       return;
     }
 
-    const projectKey = entity.metadata.annotations?.[PROJECT_KEY_ANNOTATION]!;
+    const projectKey =
+      entity.metadata.annotations?.[
+        `${annotationPrefix}/${PROJECT_KEY_ANNOTATION}`
+      ]!;
 
     const projectResponse = await getProjectResponse(projectKey, config, cache);
 

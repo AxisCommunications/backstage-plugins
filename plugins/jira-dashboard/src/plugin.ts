@@ -16,7 +16,7 @@ import { JiraDashboardClient, jiraDashboardApiRef } from './api';
  * @param entity - The entity to check for the jira.com project-key annotation.
  */
 export const isJiraDashboardAvailable = (entity: Entity) =>
-  Boolean(entity.metadata.annotations?.[PROJECT_KEY_ANNOTATION]);
+  Boolean(entity.metadata.annotations?.[`jira.com/${PROJECT_KEY_ANNOTATION}`]);
 
 /**
  * Plugin that provides the Jira Dashboard api
