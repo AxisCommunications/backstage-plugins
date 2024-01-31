@@ -26,6 +26,7 @@ jiraDashboard:
   token: ${JIRA_TOKEN}
   baseUrl: ${JIRA_BASE_URL}
   userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
+  annotationPrefix?: ${JIRA_ANNOTATION_PREFIX}
 ```
 
 Configuration Details:
@@ -34,6 +35,7 @@ Configuration Details:
   > Note: The JIRA_TOKEN variable from [Roadie's Backstage Jira plugin](https://roadie.io/backstage/plugins/jira) can not be reused here because of the added encoding in this token.
 - `JIRA_BASE_URL`: The base url for Jira in your company, including the API version. For instance: https://jira.se.your-company.com/rest/api/2/'
 - `JIRA_EMAIL_SUFFIX`: The email suffix used for retrieving a specific Jira user in a company. For instance: @your-company.com
+- `JIRA_ANNOTATION_PREFIX`: Optional annotation prefix for retrieving a custom annotation to use when retreving Jira information. For instance 'jira'. Defaut value is jira.com
 
 ### Integrating
 

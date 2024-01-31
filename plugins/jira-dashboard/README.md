@@ -29,6 +29,23 @@ yarn --cwd packages/app add @axis-backstage/plugin-jira-dashboard
 
 ```tsx
 // In packages/app/src/components/catalog/EntityPage.tsx
+import { EntityJiraDashboardContent} from '@axis-backstage/plugin-jira-dashboard';
+
+const defaultEntityPage = (
+  <EntityLayout.Route
+    path="/jira-dashboard"
+    title="Jira Dashboard"
+  >
+    <EntityJiraDashboardContent />
+  </EntityLayout.Route>
+  ...
+);
+```
+
+OPTIONAL: You can choose to only display the Jira Dashboard tab if a specific annotation is available in the entity. The example below checks how to use the `isJiraDashboardAvailable` function to check for the `jira.com` annotation. It is also possible to define a custom function to check for other annotations.
+
+```tsx
+// In packages/app/src/components/catalog/EntityPage.tsx
 import { EntityJiraDashboardContent, isJiraDashboardAvailable } from '@axis-backstage/plugin-jira-dashboard';
 
 const defaultEntityPage = (
