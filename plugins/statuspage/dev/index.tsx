@@ -5,7 +5,7 @@ import { statuspagePlugin, StatuspagePage } from '../src/plugin';
 createDevApp()
   .registerPlugin(statuspagePlugin)
   .addPage({
-    element: <StatuspagePage name="rndtools" />,
+    element: <StatuspagePage name="your-instance-name" />,
     title: 'Root Page',
     path: '/statuspage',
   })

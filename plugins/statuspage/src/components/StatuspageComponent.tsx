@@ -5,7 +5,7 @@ import {
   ResponseErrorPanel,
 } from '@backstage/core-components';
 import useAsync from 'react-use/lib/useAsync';
-import {
+import type {
   Component,
   ComponentGroup,
   ComponentStatus,

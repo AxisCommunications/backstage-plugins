@@ -9,7 +9,10 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ComponentsTable } from './ComponentsTable';
 import { ComponentGroupStatusChips } from './ComponentGroupStatusChips';
-import { Component, ComponentGroup } from '@axis-backstage/plugin-statuspage-common';
+import type {
+  Component,
+  ComponentGroup,
+} from '@axis-backstage/plugin-statuspage-common';
 
 export type ComponentGroupProps = {
   components: Component[];

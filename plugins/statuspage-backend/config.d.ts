@@ -12,7 +12,7 @@ export interface Config {
       name: string;
 
       /**
-       * The name of the instance
+       * The page id of the your statuspage
        * @visibility backend
        */
       pageid: string;
@@ -26,7 +26,7 @@ export interface Config {
       /**
        * Link to the statuspage
        */
-      link: string;
+      link?: string;
     }[];
   };
 }

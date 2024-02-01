@@ -1,7 +1,10 @@
 import React from 'react';
 import { Stack } from '@mui/material';
 import { ComponentGroupCard } from './ComponentGroupCard';
-import { Component, ComponentGroup } from '@axis-backstage/plugin-statuspage-common';
+import type {
+  Component,
+  ComponentGroup,
+} from '@axis-backstage/plugin-statuspage-common';
 
 export type ComponentGroupListProps = {
   components: Component[];

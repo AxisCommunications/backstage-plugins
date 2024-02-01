@@ -5,7 +5,10 @@ import {
   ResponseErrorPanel,
 } from '@backstage/core-components';
 import useAsync from 'react-use/lib/useAsync';
-import { Component, ComponentGroup } from '@axis-backstage/plugin-statuspage-common';
+import type {
+  Component,
+  ComponentGroup,
+} from '@axis-backstage/plugin-statuspage-common';
 import { statuspageApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';

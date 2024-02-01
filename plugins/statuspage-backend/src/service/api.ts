@@ -1,6 +1,9 @@
 import fetch from 'cross-fetch';
 import { Config } from '@backstage/config';
-import { Component, ComponentGroup } from '@axis-backstage/plugin-statuspage-common';
+import type {
+  Component,
+  ComponentGroup,
+} from '@axis-backstage/plugin-statuspage-common';
 
 const BASE_URL = 'https://api.statuspage.io/v1/pages/';
 

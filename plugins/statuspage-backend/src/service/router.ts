@@ -10,8 +10,8 @@ export interface RouterOptions {
   config: Config;
 }
 
-const COMPONENT_GROUPS_KEY = 'rndtools-component-groups';
-const COMPONENTS_KEY = 'rndtools-components';
+const COMPONENT_GROUPS_KEY = 'component-groups';
+const COMPONENTS_KEY = 'components';
 
 export async function createRouter(
   options: RouterOptions,

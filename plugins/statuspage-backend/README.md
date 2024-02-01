@@ -24,18 +24,18 @@ Here's how to get the backend plugin up and running:
 1. Create a new file named `packages/backend/src/plugins/statuspage.ts`, and add the following to it:
 
    ```ts
-    import { PluginEnvironment } from '../types';
-    import { createRouter } from '@internal/plugin-statuspage-backend';
-    import { Router } from 'express';
+   import { PluginEnvironment } from '../types';
+   import { createRouter } from '@internal/plugin-statuspage-backend';
+   import { Router } from 'express';
 
-    export default async function createPlugin(
-        env: PluginEnvironment,
-    ): Promise<Router> {
-        return await createRouter({
-            logger: env.logger,
-            config: env.config,
-        });
-    }
+   export default async function createPlugin(
+     env: PluginEnvironment,
+   ): Promise<Router> {
+     return await createRouter({
+       logger: env.logger,
+       config: env.config,
+     });
+   }
    ```
 
 2. Wire this into the overall backend router by adding the following to `packages/backend/src/index.ts`:

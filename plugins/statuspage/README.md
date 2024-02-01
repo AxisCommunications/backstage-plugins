@@ -10,7 +10,7 @@ There is a React-card, `<StatuspageEntityComponent />`, that is suitable for the
 
 ![entity-card](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/statuspage/media/entity-card.png)
 
-And also one card, `<StatuspageComponent instance="myinstance"/>`, for easy integration of a complete Statuspage. This component is *not* dependent
+And also one card, `<StatuspageComponent instance="myinstance"/>`, for easy integration of a complete Statuspage. This component is _not_ dependent
 on the `useEntity()`-hook, making it easy to integrate on the Home-page (or some other portal).
 
 ![full-status](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/statuspage/media/full-status.png)
