@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStatus } from '@internal/plugin-statuspage-common';
+import { ComponentStatus } from '@axis-backstage/plugin-statuspage-common';
 import { Chip } from '@mui/material';
 import { statusColorMap } from './StatuspageComponent';
 
