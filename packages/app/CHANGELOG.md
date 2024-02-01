@@ -1,5 +1,13 @@
 # app
 
+## 0.4.2
+
+### Patch Changes
+
+- 1d3fad2: Add Umami plugins to our Provided plugins in mono repo README.md
+- Updated dependencies [e72edfb]
+  - @axis-backstage/plugin-analytics-module-umami@0.2.1
+
 ## 0.4.1
 
 ### Patch Changes
