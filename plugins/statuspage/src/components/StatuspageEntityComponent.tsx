@@ -18,6 +18,12 @@ import { ComponentGroupsList } from './ComponentGroupsList';
 import { IconButton, Typography } from '@mui/material';
 import { STATUSPAGE_ANNOTATION } from '@axis-backstage/plugin-statuspage-common';
 
+/**
+ * Statuspage card intended for the EntityPage. Allows embedding of specific
+ * statuspage components and component groups.
+ *
+ * @public
+ */
 export const StatuspageEntityComponent = () => {
   const statuspageApi = useApi(statuspageApiRef);
   const { entity } = useEntity();

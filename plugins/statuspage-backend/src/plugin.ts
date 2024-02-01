@@ -5,6 +5,11 @@ import {
 } from '@backstage/backend-plugin-api';
 import { createRouter } from './service/router';
 
+/**
+ * Entrypoint for our plugin.
+ *
+ * @public
+ */
 export const statuspagePlugin = createBackendPlugin({
   pluginId: 'status-page',
   register(env) {

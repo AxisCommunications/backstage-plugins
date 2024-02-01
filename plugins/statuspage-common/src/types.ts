@@ -1,6 +1,8 @@
 /**
  * Represents the detailed status of a page, including various timestamps,
  * status information, and related metadata.
+ *
+ * @public
  */
 export type Incident = {
   name: string;
@@ -36,6 +38,8 @@ export type Incident = {
 /**
  * Describes a component within a Statuspage, including its status,
  * descriptive information, and related timestamps.
+ *
+ * @public
  */
 export type Component = {
   id: string;
@@ -57,6 +61,8 @@ export type Component = {
 /**
  * Enumerates the possible status values for a component or service,
  * indicating its operational state.
+ *
+ * @public
  */
 export type ComponentStatus =
   | 'under_maintenance'
@@ -68,6 +74,8 @@ export type ComponentStatus =
 /**
  * Contains information about an update to an incident, including
  * the update's status, content, and relevant timestamps.
+ *
+ * @public
  */
 export type IncidentUpdate = {
   status: string;
@@ -88,6 +96,8 @@ export type IncidentUpdate = {
 /**
  * Details a component affected by an incident, including its status
  * before and after the incident.
+ *
+ * @public
  */
 export type AffectedComponent = {
   code: string;
@@ -96,8 +106,18 @@ export type AffectedComponent = {
   new_status: ComponentStatus;
 };
 
+/**
+ * Status of an incident.
+ *
+ * @public
+ */
 export type IncidentStatus = 'completed' | 'resolved' | 'postmortem';
 
+/**
+ * Type that describes an ComponentGroup.
+ *
+ * @public
+ */
 export type ComponentGroup = {
   id: string;
   page_id: string;

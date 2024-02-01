@@ -16,10 +16,20 @@ import { ComponentGroupsList } from './ComponentGroupsList';
 import { IconButton } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
-type StatuspageProps = {
+/**
+ * StatuspageComponent props.
+ *
+ * @public
+ */
+export type StatuspageProps = {
   name: string;
 };
 
+/**
+ * Maps statuspage component statuses to MUI colors.
+ *
+ * @public
+ */
 export const statusColorMap: { [key in ComponentStatus]: string } = {
   under_maintenance: 'info',
   operational: 'success',
@@ -28,6 +38,12 @@ export const statusColorMap: { [key in ComponentStatus]: string } = {
   major_outage: 'error',
 };
 
+/**
+ * Visualizes a full statuspage.
+ *
+ * @param name - instance name from app config.
+ * @public
+ */
 export const StatuspageComponent = ({ name }: StatuspageProps) => {
   const statuspageApi = useApi(statuspageApiRef);
 

@@ -11,9 +11,19 @@ import { StatuspageClient, statuspageApiRef } from './api';
 import { STATUSPAGE_ANNOTATION } from '@axis-backstage/plugin-statuspage-common';
 import { Entity } from '@backstage/catalog-model';
 
+/**
+ * Checks availability of a statuspage component
+ *
+ * @public
+ */
 export const isStatuspageAvailable = (entity: Entity) =>
   Boolean(entity.metadata.annotations?.[STATUSPAGE_ANNOTATION]);
 
+/**
+ * Create the plugin.
+ *
+ * @public
+ */
 export const statuspagePlugin = createPlugin({
   id: 'statuspage',
   routes: {
@@ -32,6 +42,11 @@ export const statuspagePlugin = createPlugin({
   ],
 });
 
+/**
+ * Routable extension for StatuspageComponent.
+ *
+ * @public
+ */
 export const StatuspagePage = statuspagePlugin.provide(
   createRoutableExtension({
     name: 'StatuspagePage',

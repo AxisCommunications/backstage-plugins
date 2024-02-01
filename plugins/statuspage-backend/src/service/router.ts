@@ -5,14 +5,26 @@ import { Logger } from 'winston';
 import { fetchComponentGroups, fetchComponents, getLink } from './api';
 import { Config } from '@backstage/config';
 
+/**
+ * Router options.
+ *
+ * @public
+ */
 export interface RouterOptions {
+  /** The logger instance */
   logger: Logger;
+  /** Backstage config object */
   config: Config;
 }
 
 const COMPONENT_GROUPS_KEY = 'component-groups';
 const COMPONENTS_KEY = 'components';
 
+/**
+ * Create the router.
+ *
+ * @public
+ */
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
