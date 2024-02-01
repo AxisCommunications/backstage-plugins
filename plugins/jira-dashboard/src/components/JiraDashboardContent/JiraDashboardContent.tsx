@@ -17,21 +17,17 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { jiraDashboardApiRef } from '../../api';
 import { useJira } from '../../hooks/useJira';
-import {
-  JiraDataResponse,
-  PROJECT_KEY_ANNOTATION,
-} from '@axis-backstage/plugin-jira-dashboard-common';
+import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 
 export const JiraDashboardContent = () => {
   const { entity } = useEntity();
-  const projectKey = entity?.metadata.annotations?.[PROJECT_KEY_ANNOTATION]!;
   const api = useApi(jiraDashboardApiRef);
 
   const {
     data: jiraResponse,
     loading,
     error,
-  } = useJira(stringifyEntityRef(entity), projectKey, api);
+  } = useJira(stringifyEntityRef(entity), api);
 
   if (loading) {
     return <Progress />;
@@ -41,7 +37,7 @@ export const JiraDashboardContent = () => {
     return (
       <ResponseErrorPanel
         error={Error(
-          `Could not fetch Jira Dashboard content for project key: ${projectKey}`,
+          'Could not fetch Jira Dashboard content for defined project key',
         )}
       />
     );
