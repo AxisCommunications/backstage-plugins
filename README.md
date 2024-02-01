@@ -11,6 +11,7 @@ At Axis, we've developed our own set of plugins exclusively available to us. Now
 
 - [The Jira Dashboard plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard/README.md)
 - [The Readme plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/README.md)
+- [The Umami Anlytics plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/analytics-module-umami/README.md)
 
 ## Keeping your Axis-Backstage plugins updated
 
