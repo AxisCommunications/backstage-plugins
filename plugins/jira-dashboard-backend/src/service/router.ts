@@ -13,11 +13,11 @@ import { IdentityApi } from '@backstage/plugin-auth-node';
 
 import { getDefaultFilters } from '../filters';
 import {
-  COMPONENT_ANNOTATION,
-  FILTER_ANNOTATION,
+  COMPONENTS_NAME,
+  FILTERS_NAME,
   type Filter,
   type JiraResponse,
-  PROJECT_KEY_ANNOTATION,
+  PROJECT_KEY_NAME,
   type Project,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 import stream from 'stream';
@@ -104,7 +104,7 @@ export async function createRouter(
 
       const projectKey =
         entity.metadata.annotations?.[
-          `${annotationPrefix}/${PROJECT_KEY_ANNOTATION}`
+          `${annotationPrefix}/${PROJECT_KEY_NAME}`
         ]!;
 
       if (!projectKey) {
@@ -136,7 +136,7 @@ export async function createRouter(
 
       const customFilterAnnotations =
         entity.metadata.annotations?.[
-          `${annotationPrefix}/${FILTER_ANNOTATION}`
+          `${annotationPrefix}/${FILTERS_NAME}`
         ]?.split(',')!;
 
       filters = getDefaultFilters(
@@ -154,7 +154,7 @@ export async function createRouter(
 
       const componentAnnotations =
         entity.metadata.annotations?.[
-          `${annotationPrefix}/${COMPONENT_ANNOTATION}`
+          `${annotationPrefix}/${COMPONENTS_NAME}`
         ]?.split(',')!;
 
       if (componentAnnotations) {
@@ -187,9 +187,7 @@ export async function createRouter(
     }
 
     const projectKey =
-      entity.metadata.annotations?.[
-        `${annotationPrefix}/${PROJECT_KEY_ANNOTATION}`
-      ]!;
+      entity.metadata.annotations?.[`${annotationPrefix}/${PROJECT_KEY_NAME}`]!;
 
     const projectResponse = await getProjectResponse(projectKey, config, cache);
 

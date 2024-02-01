@@ -7,7 +7,7 @@ import {
 } from '@backstage/core-plugin-api';
 import { rootRouteRef } from './routes';
 import { Entity } from '@backstage/catalog-model';
-import { PROJECT_KEY_ANNOTATION } from '@axis-backstage/plugin-jira-dashboard-common';
+import { PROJECT_KEY_NAME } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraDashboardClient, jiraDashboardApiRef } from './api';
 
 /**
@@ -21,7 +21,7 @@ export const isJiraDashboardAvailable = (
 ) =>
   Boolean(
     entity.metadata.annotations?.[
-      `${annotationPrefix ?? 'jira.com'}/${PROJECT_KEY_ANNOTATION}`
+      `${annotationPrefix ?? 'jira.com'}/${PROJECT_KEY_NAME}`
     ],
   );
 

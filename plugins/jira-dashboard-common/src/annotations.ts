@@ -1,18 +1,18 @@
 /**
- * The key of the Jira project to track for this entity
+ * The annotation name used to provide the key of the Jira project to track for this entity
  *
  *  @public
  */
-export const PROJECT_KEY_ANNOTATION = 'project-key';
+export const PROJECT_KEY_NAME = 'project-key';
 
 /**
- * Jira components to track for this entity
+ * The annotation name used to provide the Jira components to track for this entity
  *  @public
  */
-export const COMPONENT_ANNOTATION = 'components';
+export const COMPONENTS_NAME = 'components';
 
 /**
- * Jira filter ids to track for this entity
+ * The annotation name used to provide the Jira filter ids to track for this entity
  *  @public
  */
-export const FILTER_ANNOTATION = 'filter-ids';
+export const FILTERS_NAME = 'filter-ids';
