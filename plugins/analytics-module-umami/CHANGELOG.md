@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-analytics-module-umami
 
+## 0.2.1
+
+### Patch Changes
+
+- e72edfb: Fix incorrect import in README.md
+
 ## 0.2.0
 
 ### Minor Changes
