@@ -18,7 +18,7 @@ export interface Config {
     userEmailSuffix: string;
 
     /**
-     * Optional annotation prefix for retrieving a custom annotation to use when retreving Jira information. Defaut value is jira.com
+     * Optional annotation prefix for retrieving a custom annotation. Defaut value is jira.com
      */
     annotationPrefix?: string;
   };
