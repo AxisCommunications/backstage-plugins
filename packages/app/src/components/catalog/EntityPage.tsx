@@ -212,7 +212,7 @@ const websiteEntityPage = (
     </EntityLayout.Route>
 
     <EntityLayout.Route
-      if={isJiraDashboardAvailable}
+      if={entity => isJiraDashboardAvailable(entity, 'jira')}
       path="/jira-dashboard"
       title="Jira Dashboard"
     >
