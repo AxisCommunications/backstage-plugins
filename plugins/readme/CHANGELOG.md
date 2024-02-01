@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme
 
+## 0.5.0
+
+### Minor Changes
+
+- 08961a1: Bump to react v.18 in app and plugins, and updated dependencies. "peer" is now react 18 + 17. Removed react v. 16.13.1
+
 ## 0.4.0
 
 ### Minor Changes
