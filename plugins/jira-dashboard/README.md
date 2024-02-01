@@ -43,7 +43,7 @@ const defaultEntityPage = (
 );
 ```
 
-OPTIONAL: The function `isJiraDashboardAvailable` checks for the annotation `axis.com`. You can choose to check for other existing annotation by padding the prop `annotationPrefix` into the function. See example below.
+OPTIONAL: The function `isJiraDashboardAvailable` checks for the annotation `axis.com`. You can choose to check for another annotation by passing the prop `annotationPrefix` into the function. See example below.
 
 ```tsx
 // In packages/app/src/components/catalog/EntityPage.tsx
