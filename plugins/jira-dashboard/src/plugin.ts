@@ -7,7 +7,7 @@ import {
 } from '@backstage/core-plugin-api';
 import { rootRouteRef } from './routes';
 import { Entity } from '@backstage/catalog-model';
-import { PROJECT_KEY_ANNOTATION } from '@axis-backstage/plugin-jira-dashboard-common';
+import { PROJECT_KEY_NAME } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraDashboardClient, jiraDashboardApiRef } from './api';
 
 /**
@@ -15,8 +15,15 @@ import { JiraDashboardClient, jiraDashboardApiRef } from './api';
  * @public
  * @param entity - The entity to check for the jira.com project-key annotation.
  */
-export const isJiraDashboardAvailable = (entity: Entity) =>
-  Boolean(entity.metadata.annotations?.[PROJECT_KEY_ANNOTATION]);
+export const isJiraDashboardAvailable = (
+  entity: Entity,
+  annotationPrefix?: string,
+) =>
+  Boolean(
+    entity.metadata.annotations?.[
+      `${annotationPrefix ?? 'jira.com'}/${PROJECT_KEY_NAME}`
+    ],
+  );
 
 /**
  * Plugin that provides the Jira Dashboard api

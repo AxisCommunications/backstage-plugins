@@ -6,9 +6,6 @@ export const jiraDashboardApiRef = createApiRef<JiraDashboardApi>({
 });
 
 export type JiraDashboardApi = {
-  getJiraResponseByEntity(
-    entityRef: string,
-    projectKey: string,
-  ): Promise<JiraResponse>;
+  getJiraResponseByEntity(entityRef: string): Promise<JiraResponse>;
   getProjectAvatar(entityRef: string): any;
 };
