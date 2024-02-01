@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ComponentStatus } from '@axis-backstage/plugin-statuspage-common';
-import { Chip } from '@mui/material';
+import Chip from '@mui/material/Chip';
 import { statusColorMap } from './StatuspageComponent';
 
 type StatusChipProps = {

@@ -13,7 +13,7 @@ import type {
 import { statuspageApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { ComponentGroupsList } from './ComponentGroupsList';
-import { IconButton } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 /**

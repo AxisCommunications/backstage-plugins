@@ -25,8 +25,10 @@
   },
   "dependencies": {
     "@axis-backstage/plugin-statuspage-common": "workspace:^",
+    "@backstage/catalog-model": "^1.4.3",
     "@backstage/core-components": "^0.13.10",
     "@backstage/core-plugin-api": "^1.8.2",
+    "@backstage/plugin-catalog-react": "^1.9.3",
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.6",
     "react-use": "^17.2.4"

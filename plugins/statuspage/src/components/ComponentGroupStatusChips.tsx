@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import { StatusChip } from './StatusChip';
 import { ComponentsTableProps } from './ComponentsTable';
 

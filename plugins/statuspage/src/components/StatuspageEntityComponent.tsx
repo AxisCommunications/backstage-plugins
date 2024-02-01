@@ -15,7 +15,8 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { ComponentsTable } from './ComponentsTable';
 import { ComponentGroupsList } from './ComponentGroupsList';
-import { IconButton, Typography } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import { STATUSPAGE_ANNOTATION } from '@axis-backstage/plugin-statuspage-common';
 
 /**
@@ -27,11 +28,8 @@ import { STATUSPAGE_ANNOTATION } from '@axis-backstage/plugin-statuspage-common'
 export const StatuspageEntityComponent = () => {
   const statuspageApi = useApi(statuspageApiRef);
   const { entity } = useEntity();
-  const componentsStr = entity.metadata.annotations?.[STATUSPAGE_ANNOTATION];
-  if (!componentsStr) {
-    return null;
-  }
-  const [name, wantedComponentsStr] = componentsStr.split(':');
+  const [name, wantedComponentsStr] =
+    entity.metadata.annotations?.[STATUSPAGE_ANNOTATION]?.split(':')!;
   const wantedComponents = wantedComponentsStr?.split(',').map(it => it.trim());
 
   const { value, loading, error } = useAsync(async (): Promise<{
@@ -78,14 +76,14 @@ export const StatuspageEntityComponent = () => {
       c => fullStatuspage || wantedComponents.includes(c.id),
     ) || [];
   const noComponents =
-    (!filteredComponents || filteredComponentGroups.length == 0) &&
+    (!filteredComponents || filteredComponentGroups.length === 0) &&
     filteredComponents &&
-    filteredComponents.length == 0;
+    filteredComponents.length === 0;
 
   if (noComponents) {
     return (
       <InfoCard title="Service Status" action={linkAction}>
-        <Typography variant="body2" color={'#FF5555'}>
+        <Typography variant="body2" color="#FF5555">
           The specified statuspage.io components could not be found. Check your
           annotation.
         </Typography>
