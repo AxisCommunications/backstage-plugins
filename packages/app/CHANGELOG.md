@@ -1,5 +1,13 @@
 # app
 
+## 0.4.1
+
+### Patch Changes
+
+- Updated dependencies [97f5bf4]
+  - @axis-backstage/plugin-jira-dashboard-common@0.4.0
+  - @axis-backstage/plugin-jira-dashboard@0.6.0
+
 ## 0.4.0
 
 ### Minor Changes
