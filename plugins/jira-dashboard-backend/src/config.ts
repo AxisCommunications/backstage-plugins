@@ -31,5 +31,5 @@ export function resolveUserEmailSuffix(config: Config): string {
 
 export function resolveAnnotationPrefix(config: Config): string {
   const annotationPrefix = config.getOptionalString(JIRA_ANNOTATION);
-  return annotationPrefix ?? 'axis.com';
+  return annotationPrefix ?? 'jira.com';
 }
