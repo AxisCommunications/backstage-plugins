@@ -20,7 +20,7 @@ export const StatuspageComponent: ({
 }: StatuspageProps) => React_2.JSX.Element;
 
 // @public
-export const StatuspageEntityComponent: () => React_2.JSX.Element | null;
+export const StatuspageEntityComponent: () => React_2.JSX.Element;
 
 // @public
 export const StatuspagePage: ({ name }: StatuspageProps) => JSX_2.Element;
