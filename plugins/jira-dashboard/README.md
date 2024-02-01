@@ -43,6 +43,24 @@ const defaultEntityPage = (
 );
 ```
 
+OPTIONAL: The function `isJiraDashboardAvailable` checks for the annotation `jira.com`. You can choose to check for another annotation by passing the prop `annotationPrefix` into the function. See example below.
+
+```tsx
+// In packages/app/src/components/catalog/EntityPage.tsx
+import { EntityJiraDashboardContent, isJiraDashboardAvailable } from '@axis-backstage/plugin-jira-dashboard';
+
+const defaultEntityPage = (
+  <EntityLayout.Route
+    if={entity => isJiraDashboardAvailable(entity, 'jira')}
+    path="/jira-dashboard"
+    title="Jira Dashboard"
+  >
+    <EntityJiraDashboardContent />
+  </EntityLayout.Route>
+  ...
+);
+```
+
 ### Integration with the Catalog
 
 To enable the Jira Dashboard plugin for your entity, the entity yaml must have the following annotation:

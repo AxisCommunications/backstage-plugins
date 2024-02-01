@@ -1,5 +1,36 @@
 # app
 
+## 0.4.2
+
+### Patch Changes
+
+- 1d3fad2: Add Umami plugins to our Provided plugins in mono repo README.md
+- Updated dependencies [e72edfb]
+  - @axis-backstage/plugin-analytics-module-umami@0.2.1
+
+## 0.4.1
+
+### Patch Changes
+
+- Updated dependencies [97f5bf4]
+  - @axis-backstage/plugin-jira-dashboard-common@0.4.0
+  - @axis-backstage/plugin-jira-dashboard@0.6.0
+
+## 0.4.0
+
+### Minor Changes
+
+- 08961a1: Bump to react v.18 in app and plugins, and updated dependencies. "peer" is now react 18 + 17. Removed react v. 16.13.1
+
+### Patch Changes
+
+- c99ed43: Added e2e-tests for Jira Dashboard plugin
+- Updated dependencies [08961a1]
+- Updated dependencies [0e95e93]
+  - @axis-backstage/plugin-analytics-module-umami@0.2.0
+  - @axis-backstage/plugin-jira-dashboard@0.5.0
+  - @axis-backstage/plugin-readme@0.5.0
+
 ## 0.3.0
 
 ### Minor Changes
