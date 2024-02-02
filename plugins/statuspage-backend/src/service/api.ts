@@ -1,16 +1,14 @@
 import fetch from 'cross-fetch';
-import { Config } from '@backstage/config';
 import type {
   Component,
   ComponentGroup,
 } from '@axis-backstage/plugin-statuspage-common';
+import { StatuspageConfig } from '../types';
 
 const BASE_URL = 'https://api.statuspage.io/v1/pages/';
 
-const getInstance = (config: Config, name: string) => {
-  const instance = config
-    .getConfigArray(`statuspage.instances`)
-    .find(i => i.getString('name') === name);
+const getInstance = (config: StatuspageConfig, name: string) => {
+  const instance = config.instances.find(i => i.name === name);
 
   if (!instance) {
     throw new Error(
@@ -38,23 +36,26 @@ const fetchData = async <T>(url: string, token: string): Promise<T> => {
 
 export const fetchComponents = async (
   name: string,
-  config: Config,
+  config: StatuspageConfig,
 ): Promise<Component[]> => {
   const instance = getInstance(config, name);
-  const url = `${BASE_URL}${instance.getString('pageid')}/components`;
-  return fetchData<Component[]>(url, instance.getString('token'));
+  const url = `${BASE_URL}${instance.pageid}/components`;
+  return fetchData<Component[]>(url, instance.token);
 };
 
 export const fetchComponentGroups = async (
   name: string,
-  config: Config,
+  config: StatuspageConfig,
 ): Promise<ComponentGroup[]> => {
   const instance = getInstance(config, name);
-  const url = `${BASE_URL}${instance.getString('pageid')}/component-groups`;
-  return fetchData(url, instance.getString('token'));
+  const url = `${BASE_URL}${instance.pageid}/component-groups`;
+  return fetchData(url, instance.token);
 };
 
-export const getLink = (name: string, config: Config): string | undefined => {
+export const getLink = (
+  name: string,
+  config: StatuspageConfig,
+): string | undefined => {
   const instance = getInstance(config, name);
-  return instance.getOptionalString('link');
+  return instance.link;
 };

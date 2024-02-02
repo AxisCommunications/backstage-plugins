@@ -55,3 +55,6 @@ site
 
 # E2E test reports
 e2e-test-report/
+
+# For local examples not suitable for sharing
+local_examples/

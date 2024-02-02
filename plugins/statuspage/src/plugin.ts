@@ -6,10 +6,12 @@ import {
   fetchApiRef,
 } from '@backstage/core-plugin-api';
 
-import { rootRouteRef } from './routes';
-import { StatuspageClient, statuspageApiRef } from './api';
 import { STATUSPAGE_ANNOTATION } from '@axis-backstage/plugin-statuspage-common';
 import { Entity } from '@backstage/catalog-model';
+
+import { rootRouteRef } from './routes';
+import { statuspageApiRef } from './api/StatuspageApi';
+import { StatuspageClient } from './api/StatuspageClient';
 
 /**
  * Checks availability of a statuspage component
@@ -26,9 +28,6 @@ export const isStatuspageAvailable = (entity: Entity) =>
  */
 export const statuspagePlugin = createPlugin({
   id: 'statuspage',
-  routes: {
-    root: rootRouteRef,
-  },
   apis: [
     createApiFactory({
       api: statuspageApiRef,
@@ -40,6 +39,9 @@ export const statuspagePlugin = createPlugin({
         new StatuspageClient({ discoveryApi, fetchApi }),
     }),
   ],
+  routes: {
+    root: rootRouteRef,
+  },
 });
 
 /**
@@ -50,7 +52,26 @@ export const statuspagePlugin = createPlugin({
 export const StatuspagePage = statuspagePlugin.provide(
   createRoutableExtension({
     name: 'StatuspagePage',
-    component: () => import('./components').then(m => m.StatuspageComponent),
+    component: () =>
+      import('./components/StatuspageComponent').then(
+        m => m.StatuspageComponent,
+      ),
+    mountPoint: rootRouteRef,
+  }),
+);
+
+/**
+ * Routable extension for StatuspageComponent.
+ *
+ * @public
+ */
+export const StatuspageEntityComponent = statuspagePlugin.provide(
+  createRoutableExtension({
+    name: 'StatuspagePage',
+    component: () =>
+      import('./components/StatuspageEntityComponent').then(
+        m => m.StatuspageEntityComponent,
+      ),
     mountPoint: rootRouteRef,
   }),
 );

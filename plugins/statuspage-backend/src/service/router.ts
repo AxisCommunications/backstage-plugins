@@ -4,6 +4,7 @@ import Router from 'express-promise-router';
 import { Logger } from 'winston';
 import { fetchComponentGroups, fetchComponents, getLink } from './api';
 import { Config } from '@backstage/config';
+import { getStatuspageConfig } from '../config';
 
 /**
  * Router options.
@@ -29,10 +30,9 @@ export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
   const { logger, config } = options;
-  logger.debug('Setting up router for statuspage-backend');
-
+  logger.info('Setting up router for statuspage-backend');
   const pluginCache = CacheManager.fromConfig(config).forPlugin('statuspage');
-  const cache = pluginCache.getClient({ defaultTtl: 1000 * 60 * 5 });
+  const cache = pluginCache.getClient({ defaultTtl: 1000 * 60 * 2 });
 
   const router = Router();
   router.use(express.json());
@@ -41,7 +41,7 @@ export async function createRouter(
     const name = request.params.name;
     let components = (await cache.get(COMPONENTS_KEY)) as any;
     if (!components) {
-      components = await fetchComponents(name, config);
+      components = await fetchComponents(name, getStatuspageConfig(config));
       await cache.set(COMPONENTS_KEY, components);
     }
     response.json(components);
@@ -51,7 +51,10 @@ export async function createRouter(
     const name = request.params.name;
     let componentGroups = (await cache.get(COMPONENT_GROUPS_KEY)) as any;
     if (!componentGroups) {
-      componentGroups = await fetchComponentGroups(name, config);
+      componentGroups = await fetchComponentGroups(
+        name,
+        getStatuspageConfig(config),
+      );
       await cache.set(COMPONENT_GROUPS_KEY, componentGroups);
     }
     response.json(componentGroups);
@@ -59,7 +62,7 @@ export async function createRouter(
 
   router.get('/fetch-link/:name', (request, response) => {
     const name = request.params.name;
-    response.json({ url: getLink(name, config) || '' });
+    response.json({ url: getLink(name, getStatuspageConfig(config)) || '' });
   });
 
   router.use(errorHandler());

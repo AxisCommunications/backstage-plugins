@@ -9,7 +9,7 @@ import type {
   Component,
   ComponentGroup,
 } from '@axis-backstage/plugin-statuspage-common';
-import { statuspageApiRef } from '../api';
+import { statuspageApiRef } from '../api/StatuspageApi';
 import { useApi } from '@backstage/core-plugin-api';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useEntity } from '@backstage/plugin-catalog-react';
@@ -26,8 +26,8 @@ import { STATUSPAGE_ANNOTATION } from '@axis-backstage/plugin-statuspage-common'
  * @public
  */
 export const StatuspageEntityComponent = () => {
-  const statuspageApi = useApi(statuspageApiRef);
   const { entity } = useEntity();
+  const statuspageApi = useApi(statuspageApiRef);
   const [name, wantedComponentsStr] =
     entity.metadata.annotations?.[STATUSPAGE_ANNOTATION]?.split(':')!;
   const wantedComponents = wantedComponentsStr?.split(',').map(it => it.trim());

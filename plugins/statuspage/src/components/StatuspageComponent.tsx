@@ -10,7 +10,7 @@ import type {
   ComponentGroup,
   ComponentStatus,
 } from '@axis-backstage/plugin-statuspage-common';
-import { statuspageApiRef } from '../api';
+import { statuspageApiRef } from '../api/StatuspageApi';
 import { useApi } from '@backstage/core-plugin-api';
 import { ComponentGroupsList } from './ComponentGroupsList';
 import IconButton from '@mui/material/IconButton';

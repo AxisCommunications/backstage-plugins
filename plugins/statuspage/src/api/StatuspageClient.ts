@@ -1,22 +1,9 @@
+import { DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
+import { StatuspageApi } from './StatuspageApi';
 import {
-  createApiRef,
-  DiscoveryApi,
-  FetchApi,
-} from '@backstage/core-plugin-api';
-import type {
   Component,
   ComponentGroup,
 } from '@axis-backstage/plugin-statuspage-common';
-
-export interface StatuspageApi {
-  getComponents(name: string): Promise<Component[]>;
-  getComponentGroups(name: string): Promise<ComponentGroup[]>;
-  getLink(name: string): Promise<{ url: string }>;
-}
-
-export const statuspageApiRef = createApiRef<StatuspageApi>({
-  id: 'statuspage',
-});
 
 export class StatuspageClient implements StatuspageApi {
   private readonly discoveryApi: DiscoveryApi;

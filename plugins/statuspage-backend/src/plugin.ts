@@ -11,7 +11,7 @@ import { createRouter } from './service/router';
  * @public
  */
 export const statuspagePlugin = createBackendPlugin({
-  pluginId: 'status-page',
+  pluginId: 'statuspage',
   register(env) {
     env.registerInit({
       deps: {

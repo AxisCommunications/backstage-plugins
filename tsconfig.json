@@ -10,6 +10,7 @@
   "compilerOptions": {
     "outDir": "dist-types",
     "rootDir": ".",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true
   }
 }
