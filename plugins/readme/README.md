@@ -20,9 +20,9 @@ The displays README files with one of the following file types: **md**, **MD**, 
 
 Currently, placing your README.md file elsewhere than in the same directory as the `catalog-info.yaml file` repository is not supported.
 
-## Note
+## Readme Backend
 
-You will **need** to also perform the installation instructions in [Readme Backend](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme-backend) in order for this plugin to work.
+You **need** to set up the [Readme Backend](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme-backend) plugin before you move forward with any of these steps if you haven't already.
 
 ## Getting started
 

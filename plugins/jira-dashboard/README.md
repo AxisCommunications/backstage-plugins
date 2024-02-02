@@ -12,9 +12,9 @@ This plugin supports both **Jira Software** and **Jira Cloud**.
 
 By default, the issue views that are provided are **incoming issues**, **open issues** and **assigned to you**.
 
-## Note
+## Jira Dashboard backend
 
-You will **need** to also perform the installation instructions in [Jira Dashboard Backend](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend) in order for this plugin to work.
+You **need** to set up the [Jira Dashboard Backend](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend) plugin before you move forward with any of these steps if you haven't already.
 
 ## Getting Started
 
