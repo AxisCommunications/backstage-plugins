@@ -39,23 +39,23 @@ export async function createRouter(
 
   router.get('/fetch-components/:name', async (request, response) => {
     const name = request.params.name;
-    let components = (await cache.get(COMPONENTS_KEY)) as any;
+    let components = (await cache.get(`${COMPONENTS_KEY}-${name}`)) as any;
     if (!components) {
       components = await fetchComponents(name, getStatuspageConfig(config));
-      await cache.set(COMPONENTS_KEY, components);
+      await cache.set(`${COMPONENTS_KEY}-${name}`, components);
     }
     response.json(components);
   });
 
   router.get('/fetch-component-groups/:name', async (request, response) => {
     const name = request.params.name;
-    let componentGroups = (await cache.get(COMPONENT_GROUPS_KEY)) as any;
+    let componentGroups = (await cache.get(`${COMPONENT_GROUPS_KEY}-${name}`)) as any;
     if (!componentGroups) {
       componentGroups = await fetchComponentGroups(
         name,
         getStatuspageConfig(config),
       );
-      await cache.set(COMPONENT_GROUPS_KEY, componentGroups);
+      await cache.set(`${COMPONENT_GROUPS_KEY}-${name}`, componentGroups);
     }
     response.json(componentGroups);
   });
