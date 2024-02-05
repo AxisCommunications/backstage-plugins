@@ -1,10 +1,6 @@
-export type StatuspageInstance = {
+export type StatuspageConfig = {
   name: string;
   pageid: string;
   token: string;
   link?: string;
-};
-
-export type StatuspageConfig = {
-  instances: StatuspageInstance[];
-};
+}[];

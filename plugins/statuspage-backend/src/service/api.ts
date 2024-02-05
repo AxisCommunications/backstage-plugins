@@ -8,7 +8,7 @@ import { StatuspageConfig } from '../types';
 const BASE_URL = 'https://api.statuspage.io/v1/pages/';
 
 const getInstance = (config: StatuspageConfig, name: string) => {
-  const instance = config.instances.find(i => i.name === name);
+  const instance = config.find(i => i.name === name);
 
   if (!instance) {
     throw new Error(

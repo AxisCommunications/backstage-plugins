@@ -32,6 +32,7 @@ export async function createRouter(
   const { logger, config } = options;
   logger.info('Setting up router for statuspage-backend');
   const pluginCache = CacheManager.fromConfig(config).forPlugin('statuspage');
+  const statuspageConfig = getStatuspageConfig(config);
   const cache = pluginCache.getClient({ defaultTtl: 1000 * 60 * 2 });
 
   const router = Router();
@@ -41,7 +42,7 @@ export async function createRouter(
     const name = request.params.name;
     let components = (await cache.get(`${COMPONENTS_KEY}-${name}`)) as any;
     if (!components) {
-      components = await fetchComponents(name, getStatuspageConfig(config));
+      components = await fetchComponents(name, statuspageConfig);
       await cache.set(`${COMPONENTS_KEY}-${name}`, components);
     }
     response.json(components);
@@ -49,11 +50,13 @@ export async function createRouter(
 
   router.get('/fetch-component-groups/:name', async (request, response) => {
     const name = request.params.name;
-    let componentGroups = (await cache.get(`${COMPONENT_GROUPS_KEY}-${name}`)) as any;
+    let componentGroups = (await cache.get(
+      `${COMPONENT_GROUPS_KEY}-${name}`,
+    )) as any;
     if (!componentGroups) {
       componentGroups = await fetchComponentGroups(
         name,
-        getStatuspageConfig(config),
+        statuspageConfig,
       );
       await cache.set(`${COMPONENT_GROUPS_KEY}-${name}`, componentGroups);
     }
@@ -62,7 +65,7 @@ export async function createRouter(
 
   router.get('/fetch-link/:name', (request, response) => {
     const name = request.params.name;
-    response.json({ url: getLink(name, getStatuspageConfig(config)) || '' });
+    response.json({ url: getLink(name, statuspageConfig) || '' });
   });
 
   router.use(errorHandler());
