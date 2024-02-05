@@ -4,17 +4,11 @@ import {
   Progress,
   ResponseErrorPanel,
 } from '@backstage/core-components';
-import useAsync from 'react-use/lib/useAsync';
-import type {
-  Component,
-  ComponentGroup,
-  ComponentStatus,
-} from '@axis-backstage/plugin-statuspage-common';
-import { statuspageApiRef } from '../api/StatuspageApi';
-import { useApi } from '@backstage/core-plugin-api';
+import type { ComponentStatus } from '@axis-backstage/plugin-statuspage-common';
 import { ComponentGroupsList } from './ComponentGroupsList';
 import IconButton from '@mui/material/IconButton';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { useComponents } from '../hooks/useComponents';
 
 /**
  * StatuspageComponent props.
@@ -45,22 +39,7 @@ export const statusColorMap: { [key in ComponentStatus]: string } = {
  * @public
  */
 export const StatuspageComponent = ({ name }: StatuspageProps) => {
-  const statuspageApi = useApi(statuspageApiRef);
-
-  const { value, loading, error } = useAsync(async (): Promise<{
-    components: Component[];
-    componentGroups: ComponentGroup[];
-    url?: string;
-  }> => {
-    const components = await statuspageApi.getComponents(name);
-    const componentGroups = await statuspageApi.getComponentGroups(name);
-    const { url } = await statuspageApi.getLink(name);
-    return {
-      components,
-      componentGroups,
-      url,
-    };
-  }, [name]);
+  const { loading, error, value } = useComponents(name);
 
   if (loading) {
     return <Progress />;

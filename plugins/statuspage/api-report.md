@@ -14,7 +14,7 @@ import { RouteRef } from '@backstage/core-plugin-api';
 export const isStatuspageAvailable: (entity: Entity) => boolean;
 
 // @public
-export const StatuspageEntityComponent: () => JSX_2.Element;
+export const StatuspageEntityCard: () => JSX_2.Element;
 
 // @public
 export const StatuspagePage: ({ name }: StatuspageProps) => JSX_2.Element;

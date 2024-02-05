@@ -54,10 +54,7 @@ export async function createRouter(
       `${COMPONENT_GROUPS_KEY}-${name}`,
     )) as any;
     if (!componentGroups) {
-      componentGroups = await fetchComponentGroups(
-        name,
-        statuspageConfig,
-      );
+      componentGroups = await fetchComponentGroups(name, statuspageConfig);
       await cache.set(`${COMPONENT_GROUPS_KEY}-${name}`, componentGroups);
     }
     response.json(componentGroups);

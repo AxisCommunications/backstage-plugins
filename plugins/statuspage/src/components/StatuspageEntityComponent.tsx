@@ -4,13 +4,6 @@ import {
   Progress,
   ResponseErrorPanel,
 } from '@backstage/core-components';
-import useAsync from 'react-use/lib/useAsync';
-import type {
-  Component,
-  ComponentGroup,
-} from '@axis-backstage/plugin-statuspage-common';
-import { statuspageApiRef } from '../api/StatuspageApi';
-import { useApi } from '@backstage/core-plugin-api';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { ComponentsTable } from './ComponentsTable';
@@ -18,6 +11,7 @@ import { ComponentGroupsList } from './ComponentGroupsList';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { STATUSPAGE_ANNOTATION } from '@axis-backstage/plugin-statuspage-common';
+import { useComponents } from '../hooks/useComponents';
 
 /**
  * Statuspage card intended for the EntityPage. Allows embedding of specific
@@ -27,25 +21,18 @@ import { STATUSPAGE_ANNOTATION } from '@axis-backstage/plugin-statuspage-common'
  */
 export const StatuspageEntityComponent = () => {
   const { entity } = useEntity();
-  const statuspageApi = useApi(statuspageApiRef);
   const [name, wantedComponentsStr] =
     entity.metadata.annotations?.[STATUSPAGE_ANNOTATION]?.split(':')!;
   const wantedComponents = wantedComponentsStr?.split(',').map(it => it.trim());
 
-  const { value, loading, error } = useAsync(async (): Promise<{
-    components: Component[];
-    componentGroups: ComponentGroup[];
-    url?: string;
-  }> => {
-    const components = await statuspageApi.getComponents(name);
-    const componentGroups = await statuspageApi.getComponentGroups(name);
-    const { url } = await statuspageApi.getLink(name);
-    return {
-      components,
-      componentGroups,
-      url,
-    };
-  }, [name]);
+  const { loading, error, value } = useComponents(name);
+
+  if (loading) {
+    return <Progress />;
+  }
+  if (error) {
+    return <ResponseErrorPanel error={error} />;
+  }
 
   if (loading) {
     return <Progress />;

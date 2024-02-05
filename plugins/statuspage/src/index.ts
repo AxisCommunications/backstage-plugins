@@ -7,6 +7,6 @@ export {
   isStatuspageAvailable,
   statuspagePlugin,
   StatuspagePage,
-  StatuspageEntityComponent,
+  StatuspageEntityCard,
 } from './plugin';
 export type { StatuspageProps } from './components';

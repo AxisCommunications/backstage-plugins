@@ -65,9 +65,9 @@ export const StatuspagePage = statuspagePlugin.provide(
  *
  * @public
  */
-export const StatuspageEntityComponent = statuspagePlugin.provide(
+export const StatuspageEntityCard = statuspagePlugin.provide(
   createRoutableExtension({
-    name: 'StatuspagePage',
+    name: 'StatuspageEntityCard',
     component: () =>
       import('./components/StatuspageEntityComponent').then(
         m => m.StatuspageEntityComponent,

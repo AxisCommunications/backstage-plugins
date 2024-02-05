@@ -59,7 +59,7 @@ import {
 import { ReadmeCard } from '@axis-backstage/plugin-readme';
 import {
   isStatuspageAvailable,
-  StatuspageEntityComponent,
+  StatuspageEntityCard,
 } from '@axis-backstage/plugin-statuspage';
 
 const techdocsContent = (
@@ -107,7 +107,7 @@ const overviewContent = (
     <EntitySwitch>
       <EntitySwitch.Case if={isStatuspageAvailable}>
         <Grid md={6}>
-          <StatuspageEntityComponent />
+          <StatuspageEntityCard />
         </Grid>
       </EntitySwitch.Case>
     </EntitySwitch>
