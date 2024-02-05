@@ -32,11 +32,10 @@ yarn --cwd packages/app add @axis-backstage/plugin-statuspage
 
 ```yaml
 statuspage:
-  instances:
-    - name: mystatuspageinstance
-      pageid: abc123foo456
-      token: ${STATUSPAGE_TOKEN}
-      link: https://<your statuspage>.statuspage.io # Optional
+  - name: mystatuspageinstance
+    pageid: abc123foo456
+    token: ${STATUSPAGE_TOKEN}
+    link: https://<your statuspage>.statuspage.io # Optional
 ```
 
 If you have access to the Statuspage.io dashboard, your page ID is usually visible in the URL when you're logged in and managing your page. Look for a segment in the URL that appears after `/manage/pages/`. The format usually looks something like `https://manage.statuspage.io/pages/YOUR_PAGE_ID`.
