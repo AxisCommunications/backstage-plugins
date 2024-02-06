@@ -9,6 +9,8 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "outDir": "dist-types",
-    "rootDir": "."
+    "rootDir": ".",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true
   }
 }

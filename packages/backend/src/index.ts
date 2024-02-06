@@ -10,5 +10,5 @@ backend.add(import('@backstage/plugin-search-backend/alpha'));
 backend.add(import('@backstage/plugin-app-backend/alpha'));
 backend.add(import('@axis-backstage/plugin-jira-dashboard-backend'));
 backend.add(import('@axis-backstage/plugin-readme-backend'));
-
+backend.add(import('@axis-backstage/plugin-statuspage-backend'));
 backend.start();

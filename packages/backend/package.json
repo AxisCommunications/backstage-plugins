@@ -18,6 +18,7 @@
   "dependencies": {
     "@axis-backstage/plugin-jira-dashboard-backend": "workspace:^",
     "@axis-backstage/plugin-readme-backend": "workspace:^",
+    "@axis-backstage/plugin-statuspage-backend": "workspace:^",
     "@backstage/backend-common": "^0.20.1",
     "@backstage/backend-defaults": "^0.2.9",
     "@backstage/backend-plugin-api": "^0.6.9",
