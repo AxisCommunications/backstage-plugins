@@ -1,5 +1,12 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 0.6.1
+
+### Patch Changes
+
+- 0613d84: Updated the notes in the README.md about backend installation and setup in Jira Dashboard plugin and README plugin
+- b445aaa: Update @mui & @emotion dependencies
+
 ## 0.6.0
 
 ### Minor Changes
