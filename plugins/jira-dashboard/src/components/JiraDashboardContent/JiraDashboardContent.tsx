@@ -5,7 +5,7 @@ import {
   ResponseErrorPanel,
   SupportButton,
 } from '@backstage/core-components';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
@@ -65,17 +65,11 @@ export const JiraDashboardContent = () => {
       <Grid container spacing={3}>
         {jiraResponse && jiraResponse.data && (
           <>
-            <Grid item md={6} xs={12} data-testid="project-card">
+            <Grid md={6} xs={12} data-testid="project-card">
               <JiraProjectCard project={jiraResponse.project} />
             </Grid>
             {jiraResponse.data.map((value: JiraDataResponse) => (
-              <Grid
-                data-testid="issue-table"
-                item
-                key={value.name}
-                md={6}
-                xs={12}
-              >
+              <Grid data-testid="issue-table" key={value.name} md={6} xs={12}>
                 <JiraTable tableContent={value} />
               </Grid>
             ))}
