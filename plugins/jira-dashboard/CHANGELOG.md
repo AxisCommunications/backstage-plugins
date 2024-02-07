@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 0.6.2
+
+### Patch Changes
+
+- 050e48d: Replace all Mui Grid v1 with v2
+
 ## 0.6.1
 
 ### Patch Changes
