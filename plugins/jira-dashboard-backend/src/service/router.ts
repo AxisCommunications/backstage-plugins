@@ -89,8 +89,12 @@ export async function createRouter(
       const entityRef = request.params.entityRef;
       const { token } = await tokenManager.getToken();
       const entity = await catalogClient.getEntityByRef(entityRef, { token });
-      const { projectKeyAnnotation, componentsAnnotation, filtersAnnotation } =
-        getAnnotations(config);
+      const {
+        projectKeyAnnotation,
+        componentsAnnotation,
+        componentRoadieAnnotation,
+        filtersAnnotation,
+      } = getAnnotations(config);
 
       if (!entity) {
         logger.info(`No entity found for ${entityRef}`);
@@ -148,7 +152,12 @@ export async function createRouter(
       const componentAnnotations =
         entity.metadata.annotations?.[componentsAnnotation]?.split(',')!;
 
-      if (componentAnnotations) {
+      /*   Adding support for Roadie's component annotation */
+      const allComponentAnnotations = componentAnnotations.concat(
+        entity.metadata.annotations?.[componentRoadieAnnotation]?.split(',')!,
+      );
+
+      if (allComponentAnnotations) {
         const componentIssues = await getIssuesFromComponents(
           projectKey,
           componentAnnotations,
