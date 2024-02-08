@@ -26,7 +26,16 @@ jiraDashboard:
   token: ${JIRA_TOKEN}
   baseUrl: ${JIRA_BASE_URL}
   userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
-  annotationPrefix?: ${JIRA_ANNOTATION_PREFIX}
+```
+
+OPTIONAL: If you wish to define a custom Jira Dashboard annotation, you can use the annotationPrefix config as following:
+
+```yaml
+jiraDashboard:
+  token: ${JIRA_TOKEN}
+  baseUrl: ${JIRA_BASE_URL}
+  userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
+  annotationPrefix: ${JIRA_ANNOTATION_PREFIX}
 ```
 
 Configuration Details:
