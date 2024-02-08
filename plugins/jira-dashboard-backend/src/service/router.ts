@@ -149,18 +149,19 @@ export async function createRouter(
 
       let issues = await getIssuesFromFilters(projectKey, filters, config);
 
-      const componentAnnotations =
-        entity.metadata.annotations?.[componentsAnnotation]?.split(',')!;
+      let components =
+        entity.metadata.annotations?.[componentsAnnotation]?.split(',') ?? [];
 
       /*   Adding support for Roadie's component annotation */
-      const allComponentAnnotations = componentAnnotations.concat(
-        entity.metadata.annotations?.[componentRoadieAnnotation]?.split(',')!,
+      components = components.concat(
+        entity.metadata.annotations?.[componentRoadieAnnotation]?.split(',') ??
+          [],
       );
 
-      if (allComponentAnnotations) {
+      if (components) {
         const componentIssues = await getIssuesFromComponents(
           projectKey,
-          componentAnnotations,
+          components,
           config,
         );
         issues = issues.concat(componentIssues);
