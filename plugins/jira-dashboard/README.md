@@ -85,7 +85,7 @@ metadata:
   # ...
   annotations:
     jira.com/project-key: value # The key of the Jira project to track for this entity
-    jira.com/components: component,component,component # Jira component name separated with a comma
+    jira.com/components: component,component,component # Jira component name separated with a comma. The Roadie Backstage Jira Plugin Jira annotation `/component` is also supported here by default
     jira.com/filter-ids: 12345,67890 # Jira filter id separated with a comma
 ```
 
