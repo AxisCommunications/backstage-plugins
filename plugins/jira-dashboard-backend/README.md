@@ -26,16 +26,22 @@ jiraDashboard:
   token: ${JIRA_TOKEN}
   baseUrl: ${JIRA_BASE_URL}
   userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
-  annotationPrefix?: ${JIRA_ANNOTATION_PREFIX}
+  annotationPrefix: ${JIRA_ANNOTATION_PREFIX} # Optional
 ```
 
-Configuration Details:
+#### Configuration Details:
 
 - `JIRA_TOKEN`: The API token to authenticate towards Jira. It can be found by visiting Atlassians page at https://developer.atlassian.com/cloud/jira/platform/basic-auth-for-rest-apis/. In case you are using a Bearer or Basic token, you need to add it in the beginning of the token. For instance: `Bearer your-secret-token`
   > Note: The JIRA_TOKEN variable from [Roadie's Backstage Jira plugin](https://roadie.io/backstage/plugins/jira) can not be reused here because of the added encoding in this token.
-- `JIRA_BASE_URL`: The base url for Jira in your company, including the API version. For instance: https://jira.se.your-company.com/rest/api/2/'
+- `JIRA_BASE_URL`: The base url for Jira in your company, including the API version. For instance: https://jira.se.your-company.com/rest/api/2/
 - `JIRA_EMAIL_SUFFIX`: The email suffix used for retrieving a specific Jira user in a company. For instance: @your-company.com
-- `JIRA_ANNOTATION_PREFIX`: Optional annotation prefix for retrieving a custom annotation. For instance 'jira'. Defaut value is jira.com
+- `JIRA_ANNOTATION_PREFIX`: Optional annotation prefix for retrieving a custom annotation. Defaut value is jira.com. If you want to configure the plugin to be compatible with [Roadie's Backstage Jira Plugin](https://roadie.io/backstage/plugins/jira/), use the following annotation prefix:
+
+```yaml
+jiraDashboard:
+   {/* required configs... */}
+  annotationPrefix: jira
+```
 
 ### Integrating
 
