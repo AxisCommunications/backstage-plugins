@@ -3,6 +3,7 @@ import {
   TokenManager,
   errorHandler,
 } from '@backstage/backend-common';
+import { stringifyEntityRef } from '@backstage/catalog-model';
 import express from 'express';
 import Router from 'express-promise-router';
 import { Config } from '@backstage/config';
@@ -84,9 +85,10 @@ export async function createRouter(
   });
 
   router.get(
-    '/dashboards/by-entity-ref/:entityRef',
+    '/dashboards/by-entity-ref/:kind/:namespace/:name',
     async (request, response) => {
-      const entityRef = request.params.entityRef;
+      const { kind, namespace, name } = request.params;
+      const entityRef = stringifyEntityRef({ kind, namespace, name });
       const { token } = await tokenManager.getToken();
       const entity = await catalogClient.getEntityByRef(entityRef, { token });
       const { projectKeyAnnotation, componentsAnnotation, filtersAnnotation } =
@@ -165,8 +167,9 @@ export async function createRouter(
     },
   );
 
-  router.get('/avatar/by-entity-ref/:entityRef', async (request, response) => {
-    const { entityRef } = request.params;
+  router.get('/avatar/by-entity-ref/:kind/:namespace/:name', async (request, response) => {
+    const { kind, namespace, name } = request.params;
+    const entityRef = stringifyEntityRef({ kind, namespace, name });
     const { token } = await tokenManager.getToken();
     const entity = await catalogClient.getEntityByRef(entityRef, { token });
     const { projectKeyAnnotation } = getAnnotations(config);
