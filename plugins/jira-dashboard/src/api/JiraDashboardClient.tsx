@@ -33,6 +33,9 @@ export class JiraDashboardClient implements JiraDashboardApi {
 
   async getProjectAvatar(entityRef: string): Promise<string> {
     const apiUrl = await this.discoveryApi.getBaseUrl('jira-dashboard');
+    const { kind, name, namespace } = parseEntityRef(entityRef, {
+      defaultNamespace: DEFAULT_NAMESPACE,
+    });
     return `${apiUrl}/avatar/by-entity-ref/${kind}/${namespace}/${name}`;
   }
 }
