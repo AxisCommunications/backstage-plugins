@@ -25,7 +25,7 @@ Here's how to get the backend plugin up and running:
 
    ```ts
    import { PluginEnvironment } from '../types';
-   import { createRouter } from '@internal/plugin-statuspage-backend';
+   import { createRouter } from '@axis-backstage/plugin-statuspage-backend';
    import { Router } from 'express';
 
    export default async function createPlugin(
