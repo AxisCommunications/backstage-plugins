@@ -167,48 +167,57 @@ export async function createRouter(
     },
   );
 
-  router.get('/avatar/by-entity-ref/:kind/:namespace/:name', async (request, response) => {
-    const { kind, namespace, name } = request.params;
-    const entityRef = stringifyEntityRef({ kind, namespace, name });
-    const { token } = await tokenManager.getToken();
-    const entity = await catalogClient.getEntityByRef(entityRef, { token });
-    const { projectKeyAnnotation } = getAnnotations(config);
+  router.get(
+    '/avatar/by-entity-ref/:kind/:namespace/:name',
+    async (request, response) => {
+      const { kind, namespace, name } = request.params;
+      const entityRef = stringifyEntityRef({ kind, namespace, name });
+      const { token } = await tokenManager.getToken();
+      const entity = await catalogClient.getEntityByRef(entityRef, { token });
+      const { projectKeyAnnotation } = getAnnotations(config);
 
-    if (!entity) {
-      logger.info(`No entity found for ${entityRef}`);
-      response.status(500).json({ error: `No entity found for ${entityRef}` });
-      return;
-    }
-
-    const projectKey = entity.metadata.annotations?.[projectKeyAnnotation]!;
-
-    const projectResponse = await getProjectResponse(projectKey, config, cache);
-
-    if (!projectResponse) {
-      logger.error('Could not find project in Jira');
-      response.status(400).json({
-        error: `No Jira project found for project key ${projectKey}`,
-      });
-      return;
-    }
-
-    const url = projectResponse.avatarUrls['48x48'];
-
-    const avatar = await getProjectAvatar(url, config);
-
-    const ps = new stream.PassThrough();
-    const val = avatar.headers.get('content-type');
-
-    response.setHeader('content-type', val ?? '');
-    stream.pipeline(avatar.body, ps, err => {
-      if (err) {
-        logger.error(err);
-        response.sendStatus(400);
+      if (!entity) {
+        logger.info(`No entity found for ${entityRef}`);
+        response
+          .status(500)
+          .json({ error: `No entity found for ${entityRef}` });
+        return;
       }
-      return;
-    });
-    ps.pipe(response);
-  });
+
+      const projectKey = entity.metadata.annotations?.[projectKeyAnnotation]!;
+
+      const projectResponse = await getProjectResponse(
+        projectKey,
+        config,
+        cache,
+      );
+
+      if (!projectResponse) {
+        logger.error('Could not find project in Jira');
+        response.status(400).json({
+          error: `No Jira project found for project key ${projectKey}`,
+        });
+        return;
+      }
+
+      const url = projectResponse.avatarUrls['48x48'];
+
+      const avatar = await getProjectAvatar(url, config);
+
+      const ps = new stream.PassThrough();
+      const val = avatar.headers.get('content-type');
+
+      response.setHeader('content-type', val ?? '');
+      stream.pipeline(avatar.body, ps, err => {
+        if (err) {
+          logger.error(err);
+          response.sendStatus(400);
+        }
+        return;
+      });
+      ps.pipe(response);
+    },
+  );
   router.use(errorHandler());
   return router;
 }
