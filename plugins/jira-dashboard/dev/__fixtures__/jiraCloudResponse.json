@@ -62,7 +62,7 @@
       "Administrators": "https://issues.jenkins.io/rest/api/2/project/10200/role/10002",
       "Users": "https://issues.jenkins.io/rest/api/2/project/10200/role/10000"
     },
-    "avatarUrls": "http://localhost:7007/api/jira-dashboard/avatar/by-entity-ref/component%3Adefault%2Fexample-website",
+    "avatarUrls": "http://localhost:7007/api/jira-dashboard/avatar/by-entity-ref/component/default/example-website",
     "projectTypeKey": "software",
     "archived": false
   },

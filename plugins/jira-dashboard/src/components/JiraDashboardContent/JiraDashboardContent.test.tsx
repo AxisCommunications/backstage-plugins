@@ -27,10 +27,10 @@ describe('JiraDashboardContent', () => {
   const setupHandlers = () => {
     server.use(
       rest.get(
-        `${mockBaseUrl}/dashboards/by-entity-ref/:entityRef`,
+        `${mockBaseUrl}/dashboards/by-entity-ref/:kind/:namespace/:name`,
         (req, res, ctx) => {
-          const { entityRef } = req.params;
-          if (entityRef) {
+          const { kind, namespace, name } = req.params;
+          if (kind && namespace && name) {
             return res(ctx.json(mockedJiraResponse));
           }
           return res(ctx.status(400));

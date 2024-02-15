@@ -13,9 +13,13 @@ export const getAnnotations = (config: Config) => {
   const componentsAnnotation = `${prefix}/${COMPONENTS_NAME}`;
   const filtersAnnotation = `${prefix}/${FILTERS_NAME}`;
 
+  /*   Adding support for Roadie's component annotation */
+  const componentRoadieAnnotation = `${prefix}/component`;
+
   return {
     projectKeyAnnotation,
     componentsAnnotation,
+    componentRoadieAnnotation,
     filtersAnnotation,
   };
 };
