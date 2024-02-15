@@ -8,13 +8,14 @@
 import { BackstagePlugin } from '@backstage/core-plugin-api';
 import { Entity } from '@backstage/catalog-model';
 import { JSX as JSX_2 } from 'react';
+import { default as React_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
 
 // @public
 export const isStatuspageAvailable: (entity: Entity) => boolean;
 
 // @public
-export const StatuspageEntityCard: () => JSX_2.Element;
+export const StatuspageEntityCard: () => React_2.JSX.Element;
 
 // @public
 export const StatuspagePage: ({ name }: StatuspageProps) => JSX_2.Element;

@@ -19,7 +19,7 @@ import { useComponents } from '../hooks/useComponents';
  *
  * @public
  */
-export const StatuspageEntityComponent = () => {
+export const StatuspageEntityCard = () => {
   const { entity } = useEntity();
   const [name, wantedComponentsStr] =
     entity.metadata.annotations?.[STATUSPAGE_ANNOTATION]?.split(':')!;

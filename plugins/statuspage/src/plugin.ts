@@ -59,19 +59,3 @@ export const StatuspagePage = statuspagePlugin.provide(
     mountPoint: rootRouteRef,
   }),
 );
-
-/**
- * Routable extension for StatuspageComponent.
- *
- * @public
- */
-export const StatuspageEntityCard = statuspagePlugin.provide(
-  createRoutableExtension({
-    name: 'StatuspageEntityCard',
-    component: () =>
-      import('./components/StatuspageEntityComponent').then(
-        m => m.StatuspageEntityComponent,
-      ),
-    mountPoint: rootRouteRef,
-  }),
-);

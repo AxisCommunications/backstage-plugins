@@ -6,11 +6,11 @@ Welcome to the Statuspage.io plugin!
 
 The **Statuspage** plugin allows you to embedd https://statuspage.io components, component groups and dashboards in Backstage.
 
-There is a React-card, `<StatuspageEntityComponent />`, that is suitable for the Entity component/service overview page:
+There is a React-card, `<StatuspageEntityCard />`, that is suitable for the Entity component/service overview page:
 
 ![entity-card](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/statuspage/media/entity-card.png)
 
-And also one card, `<StatuspageComponent instance="myinstance"/>`, for easy integration of a complete Statuspage. This component is _not_ dependent
+And also one card, `<StatuspagePage name="myinstance"/>`, for easy integration of a complete Statuspage. This component is _not_ dependent
 on the `useEntity()`-hook, making it easy to integrate on the Home-page (or some other portal).
 
 ![full-status](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/statuspage/media/full-status.png)
@@ -50,7 +50,7 @@ const defaultEntityPage = (
       <EntitySwitch>
         <EntitySwitch.Case if={isStatuspageAvailable}>
           <Grid item xs={12}>
-            <StatuspageEntityComponent />
+            <StatuspageEntityCard />
           </Grid>
         </EntitySwitch.Case>
       </EntitySwitch>
