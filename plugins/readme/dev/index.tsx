@@ -22,8 +22,10 @@ createDevApp()
     element: (
       <Content>
         <EntityProvider entity={mockEntity}>
-          <Grid md={6} xs={12}>
-            <ReadmeCard />
+          <Grid container>
+            <Grid md={6} xs={6}>
+              <ReadmeCard />
+            </Grid>
           </Grid>
         </EntityProvider>
       </Content>
