@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 0.7.0
+
+### Minor Changes
+
+- 33497c0: Dashboard and Avatar backend APIs adjusted to consume entityRef as /:kind/:namespace/:name. Fixes a 404 routing issue where a proxy like oauth2Proxy could decode the URI encoded path parameter /:entityRef known to contain the reserved path delimiter '/'.
+
 ## 0.6.2
 
 ### Patch Changes

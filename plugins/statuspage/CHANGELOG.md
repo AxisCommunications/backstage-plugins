@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-statuspage
 
+## 0.3.0
+
+### Minor Changes
+
+- 32683b9: StatuspageEntityCard was route mounted incorrectly, which broke the component in certain cases.
+
 ## 0.2.1
 
 ### Patch Changes
