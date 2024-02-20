@@ -42,7 +42,7 @@ export const JiraTable = ({ tableContent }: Props) => {
       style={{
         height: '500px',
         padding: '20px',
-        overflowY: 'scroll',
+        overflowY: 'auto',
         width: '100%',
       }}
     />
