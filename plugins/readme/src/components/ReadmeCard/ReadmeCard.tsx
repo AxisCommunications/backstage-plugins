@@ -6,7 +6,13 @@ import { FetchComponent } from '../FetchComponent';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { ReadmeDialog } from '../ReadmeDialog/ReadmeDialog';
 
-type ReadmeCardProps = {
+/**
+ * ReadmeCardProps props.
+ *
+ * @public
+ */
+
+export type ReadmeCardProps = {
   variant?: InfoCardVariants;
 };
 

@@ -5,3 +5,4 @@
  */
 
 export { readmePlugin, ReadmeCard } from './plugin';
+export type { ReadmeCardProps } from './components/ReadmeCard';
