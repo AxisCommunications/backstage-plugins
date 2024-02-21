@@ -18,6 +18,7 @@ export const ReadmeCard = ({ variant }: ReadmeCardProps) => {
     <>
       <InfoCard
         title="README"
+        // fullHeight to use in a separate page
         variant={variant || "flex"}
         action={
           <IconButton
