@@ -48,6 +48,19 @@ const overviewContent = (
 )
 ```
 
+To use `ReadmeCard` in a seperate page with full height":
+
+```tsx
+import { ReadmeCard } from '@axis-backstage/plugin-readme';
+
+const defaultEntityPage = (
+...
+    <EntityLayout.Route path="/readme" title="README">
+      <ReadmeCard variant="fullHeight" />
+    </EntityLayout.Route>
+...
+```
+
 ## Layout
 
 The readme card is located in the overview page on the entity page. From the card header it is also possible to open a dialog displaying the full README.md.
