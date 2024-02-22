@@ -48,7 +48,7 @@ const overviewContent = (
 )
 ```
 
-To use `ReadmeCard` in a seperate page with full height":
+To use `ReadmeCard` in a seperate page with full height:
 
 ```tsx
 import { ReadmeCard } from '@axis-backstage/plugin-readme';
