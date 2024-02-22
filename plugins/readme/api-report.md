@@ -6,11 +6,17 @@
 /// <reference types="react" />
 
 import { BackstagePlugin } from '@backstage/core-plugin-api';
+import { InfoCardVariants } from '@backstage/core-components';
 import { JSX as JSX_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
 
 // @public
-export const ReadmeCard: () => JSX_2.Element;
+export const ReadmeCard: ({ variant }: ReadmeCardProps) => JSX_2.Element;
+
+// @public
+export type ReadmeCardProps = {
+  variant?: InfoCardVariants;
+};
 
 // @public
 export const readmePlugin: BackstagePlugin<
