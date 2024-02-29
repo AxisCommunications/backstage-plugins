@@ -48,7 +48,7 @@ const overviewContent = (
 )
 ```
 
-To use `ReadmeCard` in a seperate page with full height":
+To use `ReadmeCard` in a seperate page with full height:
 
 ```tsx
 import { ReadmeCard } from '@axis-backstage/plugin-readme';
@@ -74,3 +74,16 @@ The readme card is located in the overview page on the entity page. From the car
 #### "No README.md file found at the source location..."
 
 This message indicates that the backend cannot find your README.md file. Ensure that the README.md file is indeed located in the same directory as the `catalog-info.yaml file`. If you are still unable to locate it, try scheduling an entity refresh by clicking the "Schedule Entity Refresh" button in the AboutCard of the entity.
+
+Addition to this; ensure that `backstage:source-location` value has the trailing slash.
+
+```yaml
+...
+metadata:
+  annotations:
+    # This will not work
+    backstage:source-location: https://bitbucket.org/org-name/repo-id/src/master
+    # This value will work.
+    backstage:source-location: https://bitbucket.org/org-name/repo-id/src/master/
+...
+```
