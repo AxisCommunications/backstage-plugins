@@ -10,3 +10,4 @@ export {
 } from './plugin';
 export type { StatuspageProps } from './components';
 export { StatuspageEntityCard } from './components';
+export * from './api';
