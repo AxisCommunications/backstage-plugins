@@ -1,17 +1,17 @@
 import { Config } from '@backstage/config';
-import fetch from 'node-fetch';
 import {
   Filter,
-  Issue,
+  JiraAPIResponce,
   Project,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 import { resolveJiraBaseUrl, resolveJiraToken } from './config';
+import { Logger } from 'winston';
 
 export const getProjectInfo = async (
   projectKey: string,
   config: Config,
 ): Promise<Project> => {
-  const response = await fetch(
+  const response = (await fetch(
     `${resolveJiraBaseUrl(config)}project/${projectKey}`,
     {
       method: 'GET',
@@ -20,7 +20,7 @@ export const getProjectInfo = async (
         Accept: 'application/json',
       },
     },
-  );
+  )) as any;
   if (response.status !== 200) {
     throw Error(`${response.status}`);
   }
@@ -39,21 +39,23 @@ export const getFilterById = async (
     },
   });
   if (response.status !== 200) {
-    throw Error(`${response.status}`);
+    // Return filter id with issues as query so as Error will be logged later
+    return {
+      name: `Filter-id "${id}" not found`,
+      query: `filter = ${id}`,
+    } as Filter;
   }
-  const jsonResponse = await response.json();
+  const jsonResponse = (await response.json()) as any;
   return { name: jsonResponse.name, query: jsonResponse.jql } as Filter;
 };
 
 export const getIssuesByFilter = async (
-  projectKey: string,
   query: string,
   config: Config,
-): Promise<Issue[]> => {
+  logger: Logger,
+): Promise<JiraAPIResponce> => {
   const response = await fetch(
-    `${resolveJiraBaseUrl(
-      config,
-    )}search?jql=project=${projectKey} AND ${query}`,
+    `${resolveJiraBaseUrl(config)}search?jql=${query}`,
     {
       method: 'GET',
       headers: {
@@ -61,28 +63,10 @@ export const getIssuesByFilter = async (
         Accept: 'application/json',
       },
     },
-  ).then(resp => resp.json());
-  return response.issues;
-};
-
-export const getIssuesByComponent = async (
-  projectKey: string,
-  componentKey: string,
-  config: Config,
-): Promise<Issue[]> => {
-  const response = await fetch(
-    `${resolveJiraBaseUrl(
-      config,
-    )}search?jql=project=${projectKey} AND component = "${componentKey}"`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: resolveJiraToken(config),
-        Accept: 'application/json',
-      },
-    },
-  ).then(resp => resp.json());
-  return response.issues;
+  ).then((resp: { json: () => any }) => resp.json() as any);
+  if (response.errorMessages?.length > 0)
+    response.errorMessages.map((err: string) => logger.error(err));
+  return response;
 };
 
 export async function getProjectAvatar(url: string, config: Config) {

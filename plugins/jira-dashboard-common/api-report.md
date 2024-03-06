@@ -4,7 +4,7 @@
 
 ```ts
 // @public
-export const COMPONENTS_NAME = 'components';
+export const COMPONENTS_ANNOTATION = 'jira.com/components';
 
 // @public
 export type Filter = {
@@ -14,7 +14,7 @@ export type Filter = {
 };
 
 // @public
-export const FILTERS_NAME = 'filter-ids';
+export const FILTERS_ANNOTATION = 'jira.com/filter-ids';
 
 // @public
 export type Issue = {
@@ -26,9 +26,9 @@ export type Issue = {
       name: string;
     };
     assignee: {
+      displayName: string;
       name: string;
       self: string;
-      key: string;
     };
     issuetype: {
       name: string;
@@ -38,10 +38,18 @@ export type Issue = {
 };
 
 // @public
+export type JiraAPIResponce = {
+  issues: Issue[] | undefined;
+  errorMessages: string[] | undefined;
+};
+
+// @public
 export type JiraDataResponse = {
   name: string;
   type: 'component' | 'filter';
-  issues: Issue[];
+  issues: Issue[] | undefined;
+  query: string;
+  errorMessages: string[] | undefined;
 };
 
 // @public
@@ -59,7 +67,7 @@ export type Project = {
     '48x48': string;
   };
   projectTypeKey: string;
-  projectCategory?: {
+  projectCategory: {
     name: string;
   };
   lead: {
@@ -70,5 +78,5 @@ export type Project = {
 };
 
 // @public
-export const PROJECT_KEY_NAME = 'project-key';
+export const PROJECT_KEY_ANNOTATION = 'jira.com/project-keys';
 ```

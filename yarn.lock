@@ -1055,6 +1055,7 @@ __metadata:
     "@backstage/plugin-catalog-react": "npm:^1.9.3"
     "@backstage/test-utils": "npm:^1.4.7"
     "@backstage/theme": "npm:^0.5.0"
+    "@material-ui/lab": "npm:^4.0.0-alpha.61"
     "@mui/material": "npm:^5.15.7"
     "@mui/styles": "npm:^5.15.7"
     "@testing-library/jest-dom": "npm:6.0.0"
@@ -6981,7 +6982,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/lab@npm:4.0.0-alpha.61":
+"@material-ui/lab@npm:4.0.0-alpha.61, @material-ui/lab@npm:^4.0.0-alpha.61":
   version: 4.0.0-alpha.61
   resolution: "@material-ui/lab@npm:4.0.0-alpha.61"
   dependencies:

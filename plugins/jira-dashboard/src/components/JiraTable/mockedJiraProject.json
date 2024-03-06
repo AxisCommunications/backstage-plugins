@@ -1,0 +1,10 @@
+{
+  "name": "Mock Project",
+  "key": "MKP",
+  "description": "Mock project description",
+  "avatarUrls": { "48x48": "mock-avatar-url" },
+  "projectTypeKey": "mock-type-key",
+  "projectCategory": { "name": "test-data" },
+  "lead": { "key": "lead-key", "displayName": "Lead Name" },
+  "self": "https://example.com/mock-self-url"
+}

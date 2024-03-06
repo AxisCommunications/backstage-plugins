@@ -27,10 +27,12 @@ describe('JiraDashboardContent', () => {
   const setupHandlers = () => {
     server.use(
       rest.get(
-        `${mockBaseUrl}/dashboards/by-entity-ref/:kind/:namespace/:name`,
+        `${mockBaseUrl}/dashboards/by-entity-ref/:entityRef`,
         (req, res, ctx) => {
-          const { kind, namespace, name } = req.params;
-          if (kind && namespace && name) {
+          const { entityRef } = req.params;
+          const projectKey =
+            mockedEntity.metadata.annotations['jira.com/project-key'];
+          if (entityRef && projectKey) {
             return res(ctx.json(mockedJiraResponse));
           }
           return res(ctx.status(400));

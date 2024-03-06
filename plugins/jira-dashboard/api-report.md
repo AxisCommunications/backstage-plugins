@@ -14,10 +14,7 @@ import { RouteRef } from '@backstage/core-plugin-api';
 export const EntityJiraDashboardContent: () => JSX_2.Element;
 
 // @public
-export const isJiraDashboardAvailable: (
-  entity: Entity,
-  annotationPrefix?: string,
-) => boolean;
+export const isJiraDashboardAvailable: (entity: Entity) => boolean;
 
 // @public
 export const jiraDashboardPlugin: BackstagePlugin<

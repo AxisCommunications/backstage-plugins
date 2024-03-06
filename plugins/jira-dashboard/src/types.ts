@@ -1,7 +1,3 @@
-/**
- * Type for defining a Jira issue
- *  @public
- */
 export type Issue = {
   key: string;
   self: string;
@@ -11,7 +7,6 @@ export type Issue = {
       name: string;
     };
     assignee: {
-      displayName: string;
       name: string;
       self: string;
     };
@@ -22,46 +17,23 @@ export type Issue = {
   };
 };
 
-/**
- * Type for defining a Jira filter
- *  @public
- */
 export type Filter = {
   name: string;
   query: string;
-  shortName: string;
 };
 
-/**
- * Type for defining JiraAPIResponce
- *  @public
- */
-export type JiraAPIResponce = {
-  issues: Issue[] | undefined;
-  errorMessages: string[] | undefined;
-};
-
-/**
- * Type for defining JiraDataResponse
- *  @public
- */
 export type JiraDataResponse = {
   name: string;
   type: 'component' | 'filter';
-  issues: Issue[] | undefined;
+  issues: Issue[];
   query: string;
-  errorMessages: string[] | undefined;
 };
 
-/**
- * Type for defining a Jira project
- *  @public
- */
 export type Project = {
   name: string;
   key: string;
   description: string;
-  avatarUrls: { '48x48': string };
+  avatarUrls: string;
   projectTypeKey: string;
   projectCategory: {
     name: string;
@@ -73,10 +45,6 @@ export type Project = {
   self: string;
 };
 
-/**
- * Type for defining JiraResponse
- *  @public
- */
 export type JiraResponse = {
   project: Project;
   data: JiraDataResponse[];

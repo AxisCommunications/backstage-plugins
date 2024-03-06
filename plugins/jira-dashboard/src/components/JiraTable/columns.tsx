@@ -3,6 +3,7 @@ import { Link, TableColumn } from '@backstage/core-components';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import Typography from '@mui/material/Typography';
 import { getIssueUrl } from '../../lib';
+import { EntityPeekAheadPopover } from '@backstage/plugin-catalog-react';
 
 export const columns: TableColumn[] = [
   {
@@ -58,44 +59,25 @@ export const columns: TableColumn[] = [
     highlight: true,
     type: 'string',
     width: '30%',
-
-    render: (issue: Partial<Issue>) => {
-      if (!issue.self || !issue.key) {
-        return null;
-      }
-      return (
-        <Link
-          to={getIssueUrl(issue.self, issue.key)}
-          title="Go to issue in Jira"
-        >
-          {issue.fields?.status.name}
-        </Link>
-      );
-    },
   },
   {
     title: 'Assignee',
-    field: 'fields.assignee.name',
+    field: 'fields.assignee.displayName',
     highlight: true,
     type: 'string',
     width: '10%',
 
     render: (issue: Partial<Issue>) => {
-      if (issue.fields?.assignee?.name) {
-        return (
-          <Typography>{issue.fields.assignee.name.split('@')[0]}</Typography>
-        );
-      }
-      if (issue.fields?.assignee?.key) {
-        return <Typography>{issue.fields.assignee.key}</Typography>;
-      }
+      if (!issue.fields?.assignee)
+        return <Typography style={{ color: 'grey' }}>Unassigned</Typography>;
       return (
-        <Typography
-          sx={{ color: theme => theme.palette.text.disabled }}
-          color="divider"
+        <EntityPeekAheadPopover
+          entityRef={`user:default/${issue.fields?.assignee.name}`}
         >
-          Unassigned
-        </Typography>
+          <Link to={`/catalog/default/user/${issue.fields?.assignee.name}`}>
+            {issue.fields?.assignee.displayName}
+          </Link>
+        </EntityPeekAheadPopover>
       );
     },
   },

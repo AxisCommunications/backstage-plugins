@@ -2,7 +2,6 @@ import { DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
 import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraDashboardApi } from './JiraDashboardApi';
 import { ResponseError } from '@backstage/errors';
-import { DEFAULT_NAMESPACE, parseEntityRef } from '@backstage/catalog-model';
 
 export class JiraDashboardClient implements JiraDashboardApi {
   private readonly discoveryApi: DiscoveryApi;
@@ -15,11 +14,8 @@ export class JiraDashboardClient implements JiraDashboardApi {
 
   async getJiraResponseByEntity(entityRef: string): Promise<JiraResponse> {
     const apiUrl = await this.discoveryApi.getBaseUrl('jira-dashboard');
-    const { kind, name, namespace } = parseEntityRef(entityRef, {
-      defaultNamespace: DEFAULT_NAMESPACE,
-    });
     const resp = await this.fetchApi.fetch(
-      `${apiUrl}/dashboards/by-entity-ref/${kind}/${namespace}/${name}`,
+      `${apiUrl}/dashboards/by-entity-ref/${encodeURIComponent(entityRef)}`,
       {
         method: 'GET',
         headers: {
@@ -33,9 +29,6 @@ export class JiraDashboardClient implements JiraDashboardApi {
 
   async getProjectAvatar(entityRef: string): Promise<string> {
     const apiUrl = await this.discoveryApi.getBaseUrl('jira-dashboard');
-    const { kind, name, namespace } = parseEntityRef(entityRef, {
-      defaultNamespace: DEFAULT_NAMESPACE,
-    });
-    return `${apiUrl}/avatar/by-entity-ref/${kind}/${namespace}/${name}`;
+    return `${apiUrl}/avatar/by-entity-ref/${encodeURIComponent(entityRef)}`;
   }
 }

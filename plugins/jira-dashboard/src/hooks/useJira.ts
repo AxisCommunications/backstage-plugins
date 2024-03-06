@@ -4,6 +4,7 @@ import { JiraDashboardApi } from '../api';
 
 export function useJira(
   entityRef: string,
+  projectKey: string,
   jiraDashboardApi: JiraDashboardApi,
 ): {
   data: JiraResponse | undefined;
@@ -15,7 +16,10 @@ export function useJira(
     loading,
     error,
   } = useAsync(async (): Promise<any> => {
-    const response = await jiraDashboardApi.getJiraResponseByEntity(entityRef);
+    const response = await jiraDashboardApi.getJiraResponseByEntity(
+      entityRef,
+      projectKey,
+    );
     response.project.avatarUrls = await jiraDashboardApi.getProjectAvatar(
       entityRef,
     );

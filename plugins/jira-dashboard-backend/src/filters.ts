@@ -1,5 +1,5 @@
 import { Config } from '@backstage/config';
-import { resolveUserEmailSuffix } from './config';
+import { resolveUserEmailSuffix, resolveJiraFilters } from './config';
 import { Filter } from '@axis-backstage/plugin-jira-dashboard-common';
 
 const getUsernameFromRef = (userRef: string) => {
@@ -30,7 +30,24 @@ export const getDefaultFilters = (
   if (!username) {
     return [openFilter, incomingFilter];
   }
+  const jiraUser = `${username}${resolveUserEmailSuffix(config)}`;
+  const defaultFiltersConfig: Config[] | undefined = resolveJiraFilters(config);
 
+  if (defaultFiltersConfig) {
+    const filterArray: Filter[] = [];
+    for (const filter of defaultFiltersConfig) {
+      const filterOnUser = filter.getOptionalBoolean('filterOnUser')
+        ? `(assignee = ${jiraUser} OR "Additional Assignees" in (${jiraUser})) AND `
+        : '';
+      const jiraFilter: Filter = {
+        name: filter.getString('name'),
+        query: `${filterOnUser} ${filter.getString('query')}`,
+        shortName: filter.getString('shortName'),
+      };
+      filterArray.push(jiraFilter);
+    }
+    return filterArray;
+  }
   const assignedToMeFilter: Filter = {
     name: 'Assigned to me',
     shortName: 'ME',
@@ -38,6 +55,5 @@ export const getDefaultFilters = (
       config,
     )}" AND resolution = Unresolved ORDER BY updated DESC`,
   };
-
   return [openFilter, incomingFilter, assignedToMeFilter];
 };

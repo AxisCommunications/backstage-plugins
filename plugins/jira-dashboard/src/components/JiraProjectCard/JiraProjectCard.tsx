@@ -40,7 +40,7 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
         {project.description && (
           <ProjectInfoLabel label="Description" value={project.description} />
         )}
-        {project.lead?.key && (
+        {project.lead.key && (
           <ProjectInfoLabel label="Project lead" value={project.lead.key} />
         )}
       </Stack>

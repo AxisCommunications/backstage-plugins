@@ -1,16 +1,13 @@
 import { CacheClient } from '@backstage/backend-common';
 import { Config } from '@backstage/config';
 import {
+  JiraAPIResponce,
   type Filter,
   type JiraDataResponse,
   type Project,
 } from '@axis-backstage/plugin-jira-dashboard-common';
-import {
-  getFilterById,
-  getIssuesByComponent,
-  getIssuesByFilter,
-  getProjectInfo,
-} from '../api';
+import { getFilterById, getIssuesByFilter, getProjectInfo } from '../api';
+import { Logger } from 'winston';
 
 export const getProjectResponse = async (
   projectKey: string,
@@ -52,31 +49,52 @@ export const getFiltersFromAnnotations = async (
   }
   return filters;
 };
-
 export const getIssuesFromFilters = async (
-  projectKey: string,
   filters: Filter[],
+  queryPrefix: string,
   config: Config,
+  logger: Logger,
 ): Promise<JiraDataResponse[]> => {
   return await Promise.all(
-    filters.map(async filter => ({
-      name: filter.name,
-      type: 'filter',
-      issues: await getIssuesByFilter(projectKey, filter.query, config),
-    })),
+    filters.map(async filter => {
+      const query = `${queryPrefix}${filter.query}`;
+      const response: JiraAPIResponce = await getIssuesByFilter(
+        query,
+        config,
+        logger,
+      );
+      return {
+        name: filter.name,
+        type: 'filter',
+        issues: response.issues,
+        query,
+        errorMessages: response.errorMessages,
+      };
+    }),
   );
 };
 
 export const getIssuesFromComponents = async (
-  projectKey: string,
+  queryPrefix: string,
   componentAnnotations: string[],
   config: Config,
+  logger: Logger,
 ): Promise<JiraDataResponse[]> => {
   return await Promise.all(
-    componentAnnotations.map(async componentKey => ({
-      name: componentKey,
-      type: 'component',
-      issues: await getIssuesByComponent(projectKey, componentKey, config),
-    })),
+    componentAnnotations.map(async componentKey => {
+      const query = `${queryPrefix}'${componentKey}'`;
+      const response: JiraAPIResponce = await getIssuesByFilter(
+        query,
+        config,
+        logger,
+      );
+      return {
+        name: `All open issues on jira component "${componentKey}"`,
+        type: 'component',
+        issues: response.issues,
+        query,
+        errorMessages: response.errorMessages,
+      };
+    }),
   );
 };

@@ -18,16 +18,18 @@ import { stringifyEntityRef } from '@backstage/catalog-model';
 import { jiraDashboardApiRef } from '../../api';
 import { useJira } from '../../hooks/useJira';
 import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
+import { PROJECT_KEY_ANNOTATION } from '@axis-backstage/plugin-jira-dashboard-common';
 
 export const JiraDashboardContent = () => {
   const { entity } = useEntity();
+  const projectKey =
+    entity?.metadata.annotations?.[PROJECT_KEY_ANNOTATION]?.split(',')[0]!;
   const api = useApi(jiraDashboardApiRef);
-
   const {
     data: jiraResponse,
     loading,
     error,
-  } = useJira(stringifyEntityRef(entity), api);
+  } = useJira(stringifyEntityRef(entity), projectKey, api);
 
   if (loading) {
     return <Progress />;
@@ -37,7 +39,7 @@ export const JiraDashboardContent = () => {
     return (
       <ResponseErrorPanel
         error={Error(
-          'Could not fetch Jira Dashboard content for defined project key',
+          'Could not fetch Jira Dashboard content for project key: ${projectKey}`',
         )}
       />
     );
@@ -63,18 +65,14 @@ export const JiraDashboardContent = () => {
         </SupportButton>
       </ContentHeader>
       <Grid container spacing={3}>
-        {jiraResponse && jiraResponse.data && (
-          <>
-            <Grid md={6} xs={12} data-testid="project-card">
-              <JiraProjectCard project={jiraResponse.project} />
-            </Grid>
-            {jiraResponse.data.map((value: JiraDataResponse) => (
-              <Grid data-testid="issue-table" key={value.name} md={6} xs={12}>
-                <JiraTable tableContent={value} />
-              </Grid>
-            ))}
-          </>
-        )}
+        <Grid md={6} xs={12} data-testid="project-card">
+          <JiraProjectCard project={jiraResponse.project} />
+        </Grid>
+        {jiraResponse.data.map((value: JiraDataResponse) => (
+          <Grid data-testid="issue-table" key={value.name} md={6} xs={12}>
+            <JiraTable tableContent={value} project={jiraResponse.project} />
+          </Grid>
+        ))}
       </Grid>
     </Content>
   );

@@ -1,6 +1,14 @@
 import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 
 /**
+ * Get the URL to the Jira host.
+ */
+export const getJiraUrl = (project: Project) => {
+  const url = new URL(project.self);
+  return `https://${url.host}/`;
+};
+
+/**
  * Get the URL to a Jira project.
  */
 export const getProjectUrl = (project: Project) => {
