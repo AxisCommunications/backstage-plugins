@@ -5,14 +5,41 @@
 ```ts
 /// <reference types="react" />
 
+import { ApiRef } from '@backstage/core-plugin-api';
 import { BackstagePlugin } from '@backstage/core-plugin-api';
+import { Component } from '@axis-backstage/plugin-statuspage-common';
+import { ComponentGroup } from '@axis-backstage/plugin-statuspage-common';
+import { DiscoveryApi } from '@backstage/core-plugin-api';
 import { Entity } from '@backstage/catalog-model';
+import { FetchApi } from '@backstage/core-plugin-api';
 import { JSX as JSX_2 } from 'react';
 import { default as React_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
 
 // @public
 export const isStatuspageAvailable: (entity: Entity) => boolean;
+
+// @public
+export type StatuspageApi = {
+  getComponents(name: string): Promise<Component[]>;
+  getComponentGroups(name: string): Promise<ComponentGroup[]>;
+  getLink(name: string): Promise<{
+    url: string;
+  }>;
+};
+
+// @public
+export const statuspageApiRef: ApiRef<StatuspageApi>;
+
+// @public
+export class StatuspageClient implements StatuspageApi {
+  constructor(options: { discoveryApi: DiscoveryApi; fetchApi: FetchApi });
+  getComponentGroups(name: string): Promise<ComponentGroup[]>;
+  getComponents(name: string): Promise<Component[]>;
+  getLink(name: string): Promise<{
+    url: string;
+  }>;
+}
 
 // @public
 export const StatuspageEntityCard: () => React_2.JSX.Element;

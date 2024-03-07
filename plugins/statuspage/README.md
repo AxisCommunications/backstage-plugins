@@ -28,7 +28,24 @@ You will **need** to also perform the installation instructions in [Statuspage B
 yarn --cwd packages/app add @axis-backstage/plugin-statuspage
 ```
 
-2. Setup configuration
+1. Setup the API-factory.
+
+```ts
+// packages/app/src/apis.ts:
+
+createApiFactory({
+    api: statuspageApiRef,
+    deps: {
+      discoveryApi: discoveryApiRef,
+      fetchApi: fetchApiRef,
+    },
+    factory: ({ discoveryApi, fetchApi }) =>
+      new StatuspageClient({ discoveryApi, fetchApi }),
+  }),
+
+```
+
+1. Setup configuration
 
 ```yaml
 statuspage:
@@ -40,7 +57,7 @@ statuspage:
 
 If you have access to the Statuspage.io dashboard, your page ID is usually visible in the URL when you're logged in and managing your page. Look for a segment in the URL that appears after `/manage/pages/`. The format usually looks something like `https://manage.statuspage.io/pages/YOUR_PAGE_ID`.
 
-3. Then, modify your entity page in `EntityPage.tsx` to include the `StatuspageEntityComponent` component and the `isStatuspageAvailable` function. Both are exported from the plugin. The example below show how you can add the plugin to the `defaultEntityPage`:
+1. Then, modify your entity page in `EntityPage.tsx` to include the `StatuspageEntityComponent` component and the `isStatuspageAvailable` function. Both are exported from the plugin. The example below show how you can add the plugin to the `defaultEntityPage`:
 
 ```tsx
 // In packages/app/src/components/catalog/EntityPage.tsx
@@ -60,7 +77,7 @@ const defaultEntityPage = (
 
 ### Integration with the Catalog
 
-To enable the Jira Dashboard plugin for your entity, the entity yaml must have the following annotation:
+To enable the StatuspageEntityCard for your entity, the entity yaml must have the following annotation:
 
 ```yaml
 apiVersion: backstage.io/v1alpha1
@@ -76,3 +93,11 @@ The `instance` here is the `statuspage.instance.nam` config value.
 The `component_id` could be the id of either a component or a component group. This can be found in your statuspage.io management interface:
 
 ![component_id](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/statuspage/media/component_id.png)
+
+### Setup a complete StatuspagePage with all components
+
+```tsx
+// In packages/app/src/App.tsx:
+
+<Route path="/statuspage" element={<StatuspagePage name="myid" />} />
+```

@@ -23,6 +23,12 @@ const DenseAccordion = styled(Accordion)({
   borderRadius: '2px',
 });
 
+const DenseAccordionSummary = styled(AccordionSummary)({
+  '&.Mui-expanded': {
+    minHeight: '48px !important',
+  },
+});
+
 export const ComponentGroupCard = ({
   components,
   componentGroup,
@@ -30,13 +36,10 @@ export const ComponentGroupCard = ({
 }: ComponentGroupProps) => {
   return (
     <DenseAccordion key={componentGroup.id} defaultExpanded={expanded}>
-      <AccordionSummary
-        style={{ padding: '0 10px !important', display: 'flex !important' }}
-        expandIcon={<ExpandMoreIcon />}
-      >
-        <Typography>{componentGroup.name}</Typography>
+      <DenseAccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="subtitle1">{componentGroup.name}</Typography>
         <ComponentGroupStatusChips components={components} />
-      </AccordionSummary>
+      </DenseAccordionSummary>
       <AccordionDetails>
         <ComponentsTable components={components} />
       </AccordionDetails>
