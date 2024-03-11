@@ -7,3 +7,7 @@ CODEOWNERS
 
 .yarnrc.yml
 .yarn/
+
+**/CHANGELOG.md
+
+.changeset/*.json
