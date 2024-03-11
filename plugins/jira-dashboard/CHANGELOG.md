@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 0.7.1
+
+### Patch Changes
+
+- ccae506: The scroll behavior on JiraTable have been set to auto, in order to only display the scrollbar if it is used. Otherwise, it is hidden.
+
 ## 0.7.0
 
 ### Minor Changes

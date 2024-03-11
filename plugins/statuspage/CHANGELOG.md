@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-statuspage
 
+## 0.3.1
+
+### Patch Changes
+
+- 73b296f: Better README and small UI-fixes
+
 ## 0.3.0
 
 ### Minor Changes

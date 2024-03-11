@@ -1,5 +1,13 @@
 # @axis-backstage/plugin-readme
 
+## 0.5.3
+
+### Patch Changes
+
+- e6a9982: Troubleshooting "no readme file" error
+- f09fe96: Added fullpage support
+- b3faeda: Fixed so that Readme Dialog always have a min width. In that case, if it is not smuch markdown content, the dialog wont be weirdly small.
+
 ## 0.5.2
 
 ### Patch Changes
