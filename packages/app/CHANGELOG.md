@@ -1,5 +1,18 @@
 # app
 
+## 0.4.6
+
+### Patch Changes
+
+- Updated dependencies [e6a9982]
+- Updated dependencies [f09fe96]
+- Updated dependencies [b3faeda]
+- Updated dependencies [ccae506]
+- Updated dependencies [73b296f]
+  - @axis-backstage/plugin-readme@0.5.3
+  - @axis-backstage/plugin-jira-dashboard@0.7.1
+  - @axis-backstage/plugin-statuspage@0.3.1
+
 ## 0.4.5
 
 ### Patch Changes
