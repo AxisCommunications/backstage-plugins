@@ -13,9 +13,9 @@ export interface Config {
     baseUrl: string;
 
     /**
-     * The email suffix used for retreiving a specific Jira user in a company. For instance @your-company.com
+     * Optional email suffix used for retreiving a specific Jira user in a company. For instance @your-company.com. Default value is ''
      */
-    userEmailSuffix: string;
+    userEmailSuffix?: string;
 
     /**
      * Optional annotation prefix for retrieving a custom annotation. Defaut value is jira.com

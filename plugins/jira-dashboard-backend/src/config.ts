@@ -22,11 +22,7 @@ export function resolveJiraToken(config: Config): string {
 }
 
 export function resolveUserEmailSuffix(config: Config): string {
-  try {
-    return config.getString(JIRA_USER_CONFIG_EMAIL_SUFFIX);
-  } catch (error) {
-    throw new Error(`Invalid Jira user path, ${error}`);
-  }
+  return config.getOptionalString(JIRA_USER_CONFIG_EMAIL_SUFFIX) || '';
 }
 
 export function resolveAnnotationPrefix(config: Config): string {
