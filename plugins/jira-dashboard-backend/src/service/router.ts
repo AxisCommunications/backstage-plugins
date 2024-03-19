@@ -106,7 +106,8 @@ export async function createRouter(
         return;
       }
 
-      const projectKey = entity.metadata.annotations?.[projectKeyAnnotation]!;
+      const projectKey =
+        entity.metadata.annotations?.[projectKeyAnnotation]?.split(',')!;
 
       if (!projectKey) {
         const error = `No jira.com/project-key annotation found for ${entityRef}`;
@@ -118,11 +119,15 @@ export async function createRouter(
       let projectResponse;
 
       try {
-        projectResponse = await getProjectResponse(projectKey, config, cache);
+        projectResponse = await getProjectResponse(
+          projectKey[0],
+          config,
+          cache,
+        );
       } catch (err) {
-        logger.error(`Could not find Jira project ${projectKey}`);
+        logger.error(`Could not find Jira project ${projectKey[0]}`);
         response.status(404).json({
-          error: `No Jira project found with key ${projectKey}`,
+          error: `No Jira project found with key ${projectKey[0]}`,
         });
         return;
       }
@@ -149,7 +154,7 @@ export async function createRouter(
         );
       }
 
-      let issues = await getIssuesFromFilters(projectKey, filters, config);
+      let issues = await getIssuesFromFilters(projectKey[0], filters, config);
 
       let components =
         entity.metadata.annotations?.[componentsAnnotation]?.split(',') ?? [];
@@ -162,7 +167,7 @@ export async function createRouter(
 
       if (components) {
         const componentIssues = await getIssuesFromComponents(
-          projectKey,
+          projectKey[0],
           components,
           config,
         );
@@ -194,10 +199,11 @@ export async function createRouter(
         return;
       }
 
-      const projectKey = entity.metadata.annotations?.[projectKeyAnnotation]!;
+      const projectKey =
+        entity.metadata.annotations?.[projectKeyAnnotation]?.split(',')!;
 
       const projectResponse = await getProjectResponse(
-        projectKey,
+        projectKey[0],
         config,
         cache,
       );
@@ -205,7 +211,7 @@ export async function createRouter(
       if (!projectResponse) {
         logger.error('Could not find project in Jira');
         response.status(400).json({
-          error: `No Jira project found for project key ${projectKey}`,
+          error: `No Jira project found for project key ${projectKey[0]}`,
         });
         return;
       }
