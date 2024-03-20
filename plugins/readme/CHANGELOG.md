@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme
 
+## 0.5.4
+
+### Patch Changes
+
+- ae965c0: Fix broken workspace dependencies
+
 ## 0.5.3
 
 ### Patch Changes
