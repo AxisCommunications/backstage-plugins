@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-statuspage
 
+## 0.3.2
+
+### Patch Changes
+
+- 60b6270: Fix broken release
+
 ## 0.3.1
 
 ### Patch Changes
