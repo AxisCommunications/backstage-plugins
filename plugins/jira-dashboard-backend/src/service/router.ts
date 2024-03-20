@@ -154,10 +154,14 @@ export async function createRouter(
         );
       }
 
-      let issues = await getIssuesFromFilters(projectKey[0], filters, config);
-
       let components =
         entity.metadata.annotations?.[componentsAnnotation]?.split(',') ?? [];
+      let issues = await getIssuesFromFilters(
+        projectKey[0],
+        components,
+        filters,
+        config,
+      );
 
       /*   Adding support for Roadie's component annotation */
       components = components.concat(
