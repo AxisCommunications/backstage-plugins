@@ -1,5 +1,12 @@
 # app
 
+## 0.4.7
+
+### Patch Changes
+
+- Updated dependencies [60b6270]
+  - @axis-backstage/plugin-statuspage@0.3.2
+
 ## 0.4.6
 
 ### Patch Changes
