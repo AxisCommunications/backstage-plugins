@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 0.7.1
+
+### Patch Changes
+
+- ae965c0: Fix broken workspace dependencies
+
 ## 0.7.0
 
 ### Minor Changes
