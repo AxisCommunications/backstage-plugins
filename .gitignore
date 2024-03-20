@@ -61,3 +61,7 @@ local_examples/
 
 # No distribution files
 **/package.tgz
+
+# no npm _release-folders
+**/_release
+

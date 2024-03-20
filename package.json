@@ -24,10 +24,12 @@
     "fix": "backstage-cli repo fix",
     "lint": "backstage-cli repo lint --since origin/main",
     "lint:all": "backstage-cli repo lint",
+    "pack": "yarn workspaces foreach -A -v pack",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "release": "changeset version && yarn prettier --write '{packages,plugins}/*/package.json' && yarn install --no-immutable",
-    "github-release": "yarn tsc && yarn build:all && yarn workspaces foreach -A -v pack && changeset publish",
+    "publish:prepare": "yarn workspaces foreach -A pack && yarn workspaces foreach -A exec \"rm -rf _release && mkdir _release && tar zxvf package.tgz --directory _release && rm package.tgz\"",
+    "publish:github": "yarn tsc && yarn build:all && yarn publish:prepare && changeset publish",
     "new": "backstage-cli new --scope internal"
   },
   "workspaces": {
