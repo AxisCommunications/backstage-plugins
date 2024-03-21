@@ -1,5 +1,13 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 0.7.2
+
+### Patch Changes
+
+- 5bb3330: Added and exported a function `searchJira` that searches for Jira issues using
+  JQL. This can be used outside this plugin to search for issues. For more information about the available options see the API documentation at
+  [issue search](https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issue-search/#api-rest-api-2-search-post).
+
 ## 0.7.1
 
 ### Patch Changes
