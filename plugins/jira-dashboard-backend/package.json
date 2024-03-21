@@ -7,7 +7,8 @@
   "publishConfig": {
     "access": "public",
     "main": "dist/index.cjs.js",
-    "types": "dist/index.d.ts"
+    "types": "dist/index.d.ts",
+    "directory": "_release/package"
   },
   "backstage": {
     "role": "backend-plugin"
