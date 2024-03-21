@@ -8,6 +8,7 @@ import { Config } from '@backstage/config';
 import { DiscoveryApi } from '@backstage/plugin-permission-common';
 import express from 'express';
 import { IdentityApi } from '@backstage/plugin-auth-node';
+import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { Logger } from 'winston';
 import { TokenManager } from '@backstage/backend-common';
 
@@ -26,4 +27,22 @@ export interface RouterOptions {
   logger: Logger;
   tokenManager: TokenManager;
 }
+
+// @public
+export const searchJira: (
+  config: Config,
+  jqlQuery: string,
+  options: SearchOptions,
+) => Promise<Issue[]>;
+
+// @public
+export type SearchOptions = {
+  expand?: string[];
+  fields?: string[];
+  fieldsByKey?: boolean;
+  properties?: string[];
+  startAt?: number;
+  maxResults?: number;
+  validateQuery?: string;
+};
 ```

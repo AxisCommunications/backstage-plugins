@@ -6,3 +6,5 @@
 
 export * from './service/router';
 export { jiraDashboardPlugin as default } from './plugin';
+export { searchJira } from './api';
+export type { SearchOptions } from './api';
