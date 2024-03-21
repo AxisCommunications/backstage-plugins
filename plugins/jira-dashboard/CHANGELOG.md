@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 0.7.3
+
+### Patch Changes
+
+- c108b55: Refactor: Update default project lead name from 'key' to 'displayName' for clarity and consistency.
+
 ## 0.7.2
 
 ### Patch Changes

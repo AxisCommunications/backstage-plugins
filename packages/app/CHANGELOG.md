@@ -1,5 +1,12 @@
 # app
 
+## 0.4.9
+
+### Patch Changes
+
+- Updated dependencies [c108b55]
+  - @axis-backstage/plugin-jira-dashboard@0.7.3
+
 ## 0.4.8
 
 ### Patch Changes
