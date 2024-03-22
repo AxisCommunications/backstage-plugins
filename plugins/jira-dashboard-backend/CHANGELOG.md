@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 0.7.4
+
+### Patch Changes
+
+- f23bacd: added content type header to searchJira call
+
 ## 0.7.3
 
 ### Patch Changes
