@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 0.7.3
+
+### Patch Changes
+
+- f3203e9: Fix dependencies in published packages
+
 ## 0.7.2
 
 ### Patch Changes
