@@ -104,6 +104,7 @@ export const searchJira = async (
     headers: {
       Authorization: resolveJiraToken(config),
       Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
   }).then(resp => resp.json());
   return response.issues;
