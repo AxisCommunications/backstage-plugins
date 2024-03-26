@@ -23,7 +23,6 @@ export const ReadmeCard = (props: ReadmeCardProps) => {
     maxHeight = 235,
   } = props;
 
-
   const [displayDialog, setDisplayDialog] = useState(false);
 
   return (
