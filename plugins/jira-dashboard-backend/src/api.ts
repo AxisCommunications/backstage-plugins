@@ -47,13 +47,18 @@ export const getFilterById = async (
 
 export const getIssuesByFilter = async (
   projectKey: string,
+  components: string[],
   query: string,
   config: Config,
 ): Promise<Issue[]> => {
+  let componentQuery = '';
+  if (components.length) {
+    componentQuery = `AND component in (${components})`;
+  }
   const response = await fetch(
     `${resolveJiraBaseUrl(
       config,
-    )}search?jql=project=${projectKey} AND ${query}`,
+    )}search?jql=project in (${projectKey}) ${componentQuery} AND ${query}`,
     {
       method: 'GET',
       headers: {

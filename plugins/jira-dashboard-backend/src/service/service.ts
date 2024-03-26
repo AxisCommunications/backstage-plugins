@@ -55,6 +55,7 @@ export const getFiltersFromAnnotations = async (
 
 export const getIssuesFromFilters = async (
   projectKey: string,
+  components: string[],
   filters: Filter[],
   config: Config,
 ): Promise<JiraDataResponse[]> => {
@@ -62,7 +63,12 @@ export const getIssuesFromFilters = async (
     filters.map(async filter => ({
       name: filter.name,
       type: 'filter',
-      issues: await getIssuesByFilter(projectKey, filter.query, config),
+      issues: await getIssuesByFilter(
+        projectKey,
+        components,
+        filter.query,
+        config,
+      ),
     })),
   );
 };
