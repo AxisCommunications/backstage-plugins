@@ -18,10 +18,7 @@ export type ReadmeCardProps = {
 };
 
 export const ReadmeCard = (props: ReadmeCardProps) => {
-  const {
-    variant = 'gridItem',
-    maxHeight = 235,
-  } = props;
+  const { variant = 'gridItem', maxHeight = 235 } = props;
 
   const [displayDialog, setDisplayDialog] = useState(false);
 
