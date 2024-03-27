@@ -1,17 +1,21 @@
 import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 
+const getJiraBaseUrl = (a: string) => {
+  const url = new URL(a);
+  const path = url.pathname.split('/rest/api/2/')[0];
+  return url.origin + path;
+};
+
 /**
  * Get the URL to a Jira project.
  */
 export const getProjectUrl = (project: Project) => {
-  const url = new URL(project.self);
-  return `https://${url.host}/browse/${project.key}`;
+  return `${getJiraBaseUrl(project.self)}/browse/${project.key}`;
 };
 
 /**
  * Get the URL to a issue.
  */
 export const getIssueUrl = (issueUrl: string, issueKey: string) => {
-  const url = new URL(issueUrl);
-  return `https://${url.host}/browse/${issueKey}`;
+  return `${getJiraBaseUrl(issueUrl)}/browse/${issueKey}`;
 };
