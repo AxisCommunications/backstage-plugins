@@ -1,6 +1,6 @@
 import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 
-const getJiraBaseUrl = (a: string) => {
+export const getJiraBaseUrl = (a: string) => {
   const url = new URL(a);
   const path = url.pathname.split('/rest/api/2/')[0];
   return url.origin + path;
