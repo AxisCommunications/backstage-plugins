@@ -40,13 +40,12 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
         {project.description && (
           <ProjectInfoLabel label="Description" value={project.description} />
         )}
-        {project.lead?.key ||
-          (project?.lead?.displayName && (
-            <ProjectInfoLabel
-              label="Project lead"
-              value={project?.lead?.displayName || project?.lead?.key}
-            />
-          ))}
+        {(project?.lead?.key || project?.lead?.displayName) && (
+          <ProjectInfoLabel
+            label="Project lead"
+            value={project?.lead?.displayName || project?.lead?.key}
+          />
+        )}
       </Stack>
       <LinkButton
         color="primary"

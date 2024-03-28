@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, TableColumn } from '@backstage/core-components';
+import { Avatar, Link, TableColumn } from '@backstage/core-components';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import Typography from '@mui/material/Typography';
 import { getIssueUrl } from '../../lib';
@@ -75,18 +75,31 @@ export const columns: TableColumn[] = [
   },
   {
     title: 'Assignee',
-    field: 'fields.assignee.name',
+    field: 'fields.assignee.displayName',
     highlight: true,
     type: 'string',
     width: '10%',
 
     render: (issue: Partial<Issue>) => {
-      if (issue.fields?.assignee?.name) {
+      if (issue.fields?.assignee?.displayName) {
+        return (
+          <div style={{ display: 'flex' }}>
+            <Avatar
+              picture={issue.fields?.assignee?.avatarUrls['48x48']}
+              customStyles={{
+                width: 35,
+                height: 35,
+                marginRight: 5,
+              }}
+            />
+            <Typography>{issue.fields.assignee.displayName}</Typography>
+          </div>
+        );
+      } else if (issue.fields?.assignee?.name) {
         return (
           <Typography>{issue.fields.assignee.name.split('@')[0]}</Typography>
         );
-      }
-      if (issue.fields?.assignee?.key) {
+      } else if (issue.fields?.assignee?.key) {
         return <Typography>{issue.fields.assignee.key}</Typography>;
       }
       return (
