@@ -2,5 +2,4 @@
 '@axis-backstage/plugin-readme': minor
 ---
 
-Added an ability to provide max height for the readme box via new `maxHeight` property.
-By default the `maxHeight` is set to 235px and accept both string and number values, that is to support options as `none` to remove max height restriction.
+Updated the max height in case of variant `fullHeight` to be `none` by default. That is needed to really occupy the full height of the container.

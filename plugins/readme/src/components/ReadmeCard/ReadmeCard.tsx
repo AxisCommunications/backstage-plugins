@@ -14,11 +14,11 @@ import { ReadmeDialog } from '../ReadmeDialog/ReadmeDialog';
 
 export type ReadmeCardProps = {
   variant?: InfoCardVariants;
-  maxHeight?: string | number;
 };
 
 export const ReadmeCard = (props: ReadmeCardProps) => {
-  const { variant = 'gridItem', maxHeight = 235 } = props;
+  const { variant = 'gridItem' } = props;
+  const maxHeight = variant === 'fullHeight' ? 'none' : '235px';
 
   const [displayDialog, setDisplayDialog] = useState(false);
 
