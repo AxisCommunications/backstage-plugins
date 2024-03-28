@@ -11,7 +11,7 @@ import { JSX as JSX_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
 
 // @public
-export const ReadmeCard: ({ variant }: ReadmeCardProps) => JSX_2.Element;
+export const ReadmeCard: (props: ReadmeCardProps) => JSX_2.Element;
 
 // @public
 export type ReadmeCardProps = {
