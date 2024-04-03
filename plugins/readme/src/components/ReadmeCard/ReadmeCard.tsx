@@ -16,14 +16,17 @@ export type ReadmeCardProps = {
   variant?: InfoCardVariants;
 };
 
-export const ReadmeCard = ({ variant }: ReadmeCardProps) => {
+export const ReadmeCard = (props: ReadmeCardProps) => {
+  const { variant = 'gridItem' } = props;
+  const maxHeight = variant === 'fullHeight' ? 'none' : '235px';
+
   const [displayDialog, setDisplayDialog] = useState(false);
 
   return (
     <>
       <InfoCard
         title="README"
-        variant={variant || 'gridItem'}
+        variant={variant}
         action={
           variant !== 'fullHeight' ? (
             <IconButton
@@ -39,7 +42,7 @@ export const ReadmeCard = ({ variant }: ReadmeCardProps) => {
         }
       >
         <div style={{ overflow: 'auto' }}>
-          <Box maxHeight={variant !== 'fullHeight' ? 235 : 500}>
+          <Box maxHeight={maxHeight}>
             <FetchComponent />
           </Box>
         </div>
