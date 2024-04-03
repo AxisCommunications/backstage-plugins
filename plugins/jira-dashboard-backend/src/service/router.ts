@@ -19,7 +19,7 @@ import {
   type Project,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 import stream from 'stream';
-import { getProjectAvatar } from '../api';
+import { SearchOptions, getProjectAvatar, searchJira } from '../api';
 import {
   getProjectResponse,
   getFiltersFromAnnotations,
@@ -238,6 +238,60 @@ export async function createRouter(
       ps.pipe(response);
     },
   );
+
+  /**
+   * Retrieves Jira issues based on the provided JQL query and query parameters.
+   *
+   * @param {string} jqlQuery - The JQL query string.
+   * @param {string} fields - The fields to return in the search results.
+   * @param {string} startAt - The index of the first issue to return (0-based).
+   * @param {string} maxResults - The maximum number of issues to return per response.
+   * @param {Config} config - The configuration object containing Jira settings.
+   * @param {Logger} logger - The logger object to log any errors.
+   * @returns {Promise<any>} A Promise that resolves with the Jira response data.
+   */
+
+  router.get('/jira/search', async (request, response) => {
+    const jqlQuery = request.query.jql as string;
+    const searchOptions: SearchOptions = {
+      fields: request.query.fields
+        ? (request.query.fields as string).split(',')
+        : [],
+      startAt: parseInt(request.query.startAt as string, 10) || 0,
+      maxResults: parseInt(request.query.maxResults as string, 10) || 50,
+    };
+
+    try {
+      if (!jqlQuery || jqlQuery.trim() === '') {
+        return response.status(400).json({
+          results: {
+            errorMessages: [
+              'Bad Request: The jql query parameter is missing in the request. ' +
+                'Please include the jql parameter to perform the search.',
+            ],
+          },
+        });
+      }
+
+      const issues = await searchJira(config, jqlQuery, searchOptions);
+      return response.status(200).json({
+        results: issues,
+      });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'An unexpected error occurred';
+      logger.error(
+        `Encountered error: ${errorMessage} for jql query: ${jqlQuery}`,
+      );
+
+      return response.status(500).json({
+        results: {
+          errorMessages: [`${errorMessage}`],
+        },
+      });
+    }
+  });
+
   router.use(errorHandler());
   return router;
 }
