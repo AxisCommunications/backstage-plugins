@@ -70,3 +70,28 @@ export type JiraResponse = {
   project: Project;
   data: JiraDataResponse[];
 };
+
+/**
+ * Type definition for a Jira search result & the recieved HTTP status code
+ * @public
+ */
+export type SearchJiraResponse = {
+  results: JiraQueryResults;
+  statusCode: number;
+};
+
+/**
+ * Type definition for a paginated Jira search response
+ * @public
+ */
+export type JiraQueryResults = {
+  expand: string;
+  names: object;
+  schema: object;
+  issues: Issue[];
+  total: number;
+  startAt: number;
+  maxResults: number;
+  warningMessages?: string[];
+  errorMessages?: string[];
+};

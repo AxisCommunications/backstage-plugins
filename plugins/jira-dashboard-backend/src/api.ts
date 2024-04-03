@@ -3,9 +3,12 @@ import fetch from 'node-fetch';
 import {
   Filter,
   Issue,
+  JiraQueryResults,
   Project,
+  SearchJiraResponse,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 import { resolveJiraBaseUrl, resolveJiraToken } from './config';
+import { Logger } from 'winston';
 
 export const getProjectInfo = async (
   projectKey: string,
@@ -88,32 +91,61 @@ export type SearchOptions = {
 /**
  * Search for Jira issues using JQL.
  *
- * For more information about the available options see the API
- * documentation at:
- * https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issue-search/#api-rest-api-2-search-post
+ * This function sends a POST request to the Jira API's search endpoint
+ * to find issues based on the provided JQL query and query options.
  *
- * @param config - A Backstage config
- * @param jqlQuery - A string containing the jql query.
- * @param options - Query options that will be passed on to the POST request.
+ * For more information about the available options, refer to the API
+ * documentation at: {@link https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issue-search/#api-rest-api-2-search-post}
  *
+ * @param config - A Backstage config containing Jira base URL and authentication token.
+ * @param jqlQuery - A string containing the JQL (Jira Query Language) query.
+ * @param options - Additional search options to customize the query. See {@link SearchOptions}.
+ * @param logger - An optional logger for error handling and debugging purposes.
+ * @returns A promise that resolves with the search results and status code.
+ * @throws If an error occurs during the search process.
  * @public
  */
 export const searchJira = async (
-  config: Config,
   jqlQuery: string,
   options: SearchOptions,
-): Promise<Issue[]> => {
-  const response = await fetch(`${resolveJiraBaseUrl(config)}search`, {
-    method: 'POST',
-    body: JSON.stringify({ jql: jqlQuery, ...options }),
-    headers: {
-      Authorization: resolveJiraToken(config),
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  }).then(resp => resp.json());
-  return response.issues;
+  config: Config,
+  logger: Logger,
+): Promise<SearchJiraResponse> => {
+  try {
+    const response = await fetch(`${resolveJiraBaseUrl(config)}search`, {
+      method: 'POST',
+      body: JSON.stringify({ jql: jqlQuery, ...options }),
+      headers: {
+        Authorization: resolveJiraToken(config),
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    const jsonResponse = await response.json();
+
+    return {
+      results: toPaginatedResponse(jsonResponse),
+      statusCode: response.status,
+    } as SearchJiraResponse;
+  } catch (error) {
+    logger.error(error);
+    throw error;
+  }
 };
+
+function toPaginatedResponse(response: any): JiraQueryResults {
+  return {
+    expand: response.expand,
+    names: response.names,
+    schema: response.schema,
+    issues: response.issues,
+    total: response.total,
+    startAt: response.startAt,
+    maxResults: response.maxResults,
+    warningMessages: response.warningMessages,
+    errorMessages: response.errorMessages,
+  };
+}
 
 export const getIssuesByComponent = async (
   projectKey: string,
