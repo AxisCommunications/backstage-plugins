@@ -94,3 +94,5 @@ metadata:
 The issue overview is located under the tab "Jira Dashboard" on the entity page. The overview displays information about the specific Jira project, and then renders one table for each type of issue view. In each view you can see the priority, assignee and status for that issue.
 
 ![overview](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard/media/overview.png)
+
+![quickview](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard/media/quick-view.png)

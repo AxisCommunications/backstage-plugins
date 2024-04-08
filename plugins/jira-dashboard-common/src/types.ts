@@ -14,6 +14,8 @@ export type Issue = {
       name: string;
       self: string;
       key: string;
+      displayName: string;
+      avatarUrls: { '48x48': string };
     };
     issuetype: {
       name: string;
