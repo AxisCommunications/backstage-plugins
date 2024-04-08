@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.0.1
+
+### Patch Changes
+
+- 12f407b: Changed assignee font size in JiraTable to 14px so it would match the other text in the component.
+
 ## 1.0.0
 
 ### Major Changes
