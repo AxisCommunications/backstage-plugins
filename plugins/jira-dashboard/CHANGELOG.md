@@ -1,5 +1,17 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.0.0
+
+### Major Changes
+
+- 517c68a: Update default project lead name from 'key' to 'displayName' for clarity and consistency Additionally, this commit introduces provisions for displaying the image of the assignee, enhancing the user interface and providing visual context alongside the assignee's display name.
+
+### Patch Changes
+
+- 5457a70: Added the url pathname as part of the base URL for all links to Jira. This because Jira Server have additional path in the Jira base URl and links were broken.
+- Updated dependencies [517c68a]
+  - @axis-backstage/plugin-jira-dashboard-common@1.0.0
+
 ## 0.7.4
 
 ### Patch Changes
