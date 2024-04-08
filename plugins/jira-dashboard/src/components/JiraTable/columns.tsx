@@ -92,20 +92,27 @@ export const columns: TableColumn[] = [
                 height: 35,
               }}
             />
-            <Typography>{issue.fields.assignee.displayName}</Typography>
+            <Typography variant="body2">
+              {issue.fields.assignee.displayName}
+            </Typography>
           </Stack>
         );
       } else if (issue.fields?.assignee?.name) {
         return (
-          <Typography>{issue.fields.assignee.name.split('@')[0]}</Typography>
+          <Typography variant="body2">
+            {issue.fields.assignee.name.split('@')[0]}
+          </Typography>
         );
       } else if (issue.fields?.assignee?.key) {
-        return <Typography>{issue.fields.assignee.key}</Typography>;
+        return (
+          <Typography variant="body2">{issue.fields.assignee.key}</Typography>
+        );
       }
       return (
         <Typography
           sx={{ color: theme => theme.palette.text.disabled }}
           color="divider"
+          variant="body2"
         >
           Unassigned
         </Typography>
