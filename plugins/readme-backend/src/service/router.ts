@@ -9,7 +9,10 @@ import express from 'express';
 import Router from 'express-promise-router';
 import { Logger } from 'winston';
 import { ScmIntegrations } from '@backstage/integration';
-import { getEntitySourceLocation, stringifyEntityRef } from '@backstage/catalog-model';
+import {
+  getEntitySourceLocation,
+  stringifyEntityRef,
+} from '@backstage/catalog-model';
 import { CatalogClient } from '@backstage/catalog-client';
 import { DiscoveryApi } from '@backstage/plugin-permission-common';
 import { isSymLink } from '../lib';
