@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.5.0
+
+### Minor Changes
+
+- 371f5fd: Readme backend APIs adjusted to consume entityRef as /:kind/:namespace/:name. Fixes a 404 routing issue where a proxy like oauth2Proxy could decode the URI encoded path parameter /:entityRef known to contain the reserved path delimiter '/'.
+
 ## 0.4.0
 
 ### Minor Changes
