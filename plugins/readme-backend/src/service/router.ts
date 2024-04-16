@@ -9,7 +9,10 @@ import express from 'express';
 import Router from 'express-promise-router';
 import { Logger } from 'winston';
 import { ScmIntegrations } from '@backstage/integration';
-import { getEntitySourceLocation } from '@backstage/catalog-model';
+import {
+  getEntitySourceLocation,
+  stringifyEntityRef,
+} from '@backstage/catalog-model';
 import { CatalogClient } from '@backstage/catalog-client';
 import { DiscoveryApi } from '@backstage/plugin-permission-common';
 import { isSymLink } from '../lib';
@@ -86,8 +89,9 @@ export async function createRouter(
     response.json({ status: 'ok' });
   });
 
-  router.get('/:entityRef', async (request, response) => {
-    const { entityRef } = request.params;
+  router.get('/:kind/:namespace/:name', async (request, response) => {
+    const { kind, namespace, name } = request.params;
+    const entityRef = stringifyEntityRef({ kind, namespace, name });
     const cacheDoc = (await cache.get(entityRef)) as ReadmeFile | undefined;
 
     if (cacheDoc) {
