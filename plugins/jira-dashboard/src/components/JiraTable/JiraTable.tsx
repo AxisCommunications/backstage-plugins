@@ -1,12 +1,16 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
+import {
+  JiraDataResponse,
+  Project,
+} from '@axis-backstage/plugin-jira-dashboard-common';
 import { ErrorPanel, Table } from '@backstage/core-components';
 import { capitalize } from 'lodash';
 import { columns } from './columns';
 
 type Props = {
   tableContent: JiraDataResponse;
+  project?: Project;
 };
 
 export const JiraTable = ({ tableContent }: Props) => {

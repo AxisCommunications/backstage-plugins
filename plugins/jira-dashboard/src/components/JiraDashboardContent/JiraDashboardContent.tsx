@@ -17,17 +17,22 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { jiraDashboardApiRef } from '../../api';
 import { useJira } from '../../hooks/useJira';
-import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
+import {
+  JiraDataResponse,
+  PROJECT_KEY_NAME,
+} from '@axis-backstage/plugin-jira-dashboard-common';
 
 export const JiraDashboardContent = () => {
   const { entity } = useEntity();
+  const projectKey =
+    entity?.metadata.annotations?.[PROJECT_KEY_NAME]?.split(',')[0]!;
   const api = useApi(jiraDashboardApiRef);
 
   const {
     data: jiraResponse,
     loading,
     error,
-  } = useJira(stringifyEntityRef(entity), api);
+  } = useJira(stringifyEntityRef(entity), projectKey, api);
 
   if (loading) {
     return <Progress />;
@@ -37,7 +42,7 @@ export const JiraDashboardContent = () => {
     return (
       <ResponseErrorPanel
         error={Error(
-          'Could not fetch Jira Dashboard content for defined project key',
+          `Could not fetch Jira Dashboard content for project key: ${projectKey}`,
         )}
       />
     );
@@ -70,7 +75,10 @@ export const JiraDashboardContent = () => {
             </Grid>
             {jiraResponse.data.map((value: JiraDataResponse) => (
               <Grid data-testid="issue-table" key={value.name} md={6} xs={12}>
-                <JiraTable tableContent={value} />
+                <JiraTable
+                  tableContent={value}
+                  project={jiraResponse.project}
+                />
               </Grid>
             ))}
           </>
