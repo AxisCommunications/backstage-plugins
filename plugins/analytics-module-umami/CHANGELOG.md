@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-analytics-module-umami
 
+## 0.2.2
+
+### Patch Changes
+
+- 0535af4: Bumped backstage dependencies to match 1.26.0
+
 ## 0.2.1
 
 ### Patch Changes

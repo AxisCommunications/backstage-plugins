@@ -1,5 +1,13 @@
 # @axis-backstage/plugin-statuspage
 
+## 0.3.4
+
+### Patch Changes
+
+- 0535af4: Bumped backstage dependencies to match 1.26.0
+- Updated dependencies [0535af4]
+  - @axis-backstage/plugin-statuspage-common@0.2.1
+
 ## 0.3.3
 
 ### Patch Changes
