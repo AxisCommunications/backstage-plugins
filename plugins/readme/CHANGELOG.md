@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme
 
+## 0.7.1
+
+### Patch Changes
+
+- 0535af4: Bumped backstage dependencies to match 1.26.0
+
 ## 0.7.0
 
 ### Minor Changes

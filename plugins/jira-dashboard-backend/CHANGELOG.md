@@ -1,5 +1,18 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 2.0.0
+
+### Major Changes
+
+- 0535af4: **BREAKING** The Jira dashboard backend now uses the new auth service introduced in Backstage v1.24.0. This is only applicable when using this plugin in the new Backstage backend. This could break the usage in Backstage installations older than v1.24.0 if the new backend system is used.
+
+### Patch Changes
+
+- 0535af4: Bumped backstage dependencies to match 1.26.0
+- 0535af4: Updated the installation instructions for the new backend system.
+- Updated dependencies [0535af4]
+  - @axis-backstage/plugin-jira-dashboard-common@1.0.1
+
 ## 1.0.0
 
 ### Major Changes
