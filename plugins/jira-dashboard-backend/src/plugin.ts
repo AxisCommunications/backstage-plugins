@@ -18,25 +18,18 @@ export const jiraDashboardPlugin = createBackendPlugin({
         logger: coreServices.logger,
         config: coreServices.rootConfig,
         discovery: coreServices.discovery,
-        identity: coreServices.identity,
-        tokenManager: coreServices.tokenManager,
         httpRouter: coreServices.httpRouter,
+        auth: coreServices.auth,
+        httpAuth: coreServices.httpAuth,
       },
-      async init({
-        logger,
-        config,
-        discovery,
-        identity,
-        tokenManager,
-        httpRouter,
-      }) {
+      async init({ logger, config, discovery, httpRouter, auth, httpAuth }) {
         httpRouter.use(
           await createRouter({
             logger: loggerToWinstonLogger(logger),
             config,
             discovery,
-            identity,
-            tokenManager,
+            auth,
+            httpAuth,
           }),
         );
       },

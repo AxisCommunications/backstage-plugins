@@ -19,6 +19,7 @@ export const readmePlugin = createBackendPlugin({
         config: coreServices.rootConfig,
         reader: coreServices.urlReader,
         discovery: coreServices.discovery,
+        auth: coreServices.auth,
         tokenManager: coreServices.tokenManager,
         httpRouter: coreServices.httpRouter,
       },
