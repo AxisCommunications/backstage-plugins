@@ -61,4 +61,4 @@ jobs:
         run: yarn lint
 
       - name: lint openapi yaml files
-        run: yarn backstage-repo-tools schema openapi lint
+        run: yarn backstage-repo-tools repo schema openapi lint

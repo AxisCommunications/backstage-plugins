@@ -47,7 +47,7 @@ describe('FetchComponent', () => {
     readmeClient = new ReadmeClient({ discoveryApi, fetchApi, identityApi });
     apis = TestApiRegistry.from([readmeApiRef, readmeClient]);
     server.use(
-      rest.get(`${mockBaseUrl}/:entityRef`, (_, res, ctx) =>
+      rest.get(`${mockBaseUrl}/:kind/:namespace/:name`, (_, res, ctx) =>
         res(ctx.status(200), ctx.json(mockedReadmeContent)),
       ),
     );

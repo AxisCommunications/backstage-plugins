@@ -1,15 +1,20 @@
 import {
   CacheManager,
   TokenManager,
+  createLegacyAuthAdapters,
   errorHandler,
 } from '@backstage/backend-common';
+import {
+  AuthService,
+  DiscoveryService,
+  HttpAuthService,
+} from '@backstage/backend-plugin-api';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import express from 'express';
 import Router from 'express-promise-router';
 import { Config } from '@backstage/config';
 import { Logger } from 'winston';
 import { CatalogClient } from '@backstage/catalog-client';
-import { DiscoveryApi } from '@backstage/plugin-permission-common';
 import { IdentityApi } from '@backstage/plugin-auth-node';
 
 import { getDefaultFilters } from '../filters';
@@ -46,17 +51,25 @@ export interface RouterOptions {
   /**
    * Backstage discovery api instance
    */
-  discovery: DiscoveryApi;
+  discovery: DiscoveryService;
 
   /**
    * Backstage identity api instance
    */
-  identity: IdentityApi;
+  identity?: IdentityApi;
 
   /**
    * Backstage token manager instance
    */
-  tokenManager: TokenManager;
+  tokenManager?: TokenManager;
+  /**
+   * Backstage auth service
+   */
+  auth?: AuthService;
+  /**
+   * Backstage httpAuth service
+   */
+  httpAuth?: HttpAuthService;
 }
 
 const DEFAULT_TTL = 1000 * 60;
@@ -69,7 +82,8 @@ const DEFAULT_TTL = 1000 * 60;
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
-  const { logger, config, discovery, identity, tokenManager } = options;
+  const { auth, httpAuth } = createLegacyAuthAdapters(options);
+  const { logger, config, discovery } = options;
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
   logger.info('Initializing Jira Dashboard backend');
 
@@ -89,7 +103,10 @@ export async function createRouter(
     async (request, response) => {
       const { kind, namespace, name } = request.params;
       const entityRef = stringifyEntityRef({ kind, namespace, name });
-      const { token } = await tokenManager.getToken();
+      const { token } = await auth.getPluginRequestToken({
+        onBehalfOf: await auth.getOwnServiceCredentials(),
+        targetPluginId: 'catalog',
+      });
       const entity = await catalogClient.getEntityByRef(entityRef, { token });
       const {
         projectKeyAnnotation,
@@ -132,9 +149,13 @@ export async function createRouter(
         return;
       }
 
-      const userIdentity = await identity.getIdentity({ request: request });
+      const credentials = await httpAuth.credentials(request, {
+        allow: ['user'],
+      });
 
-      if (!userIdentity) {
+      const userEntityRef = credentials.principal.userEntityRef;
+
+      if (!userEntityRef) {
         logger.warn(`Could not find user identity`);
       }
 
@@ -143,10 +164,7 @@ export async function createRouter(
       const customFilterAnnotations =
         entity.metadata.annotations?.[filtersAnnotation]?.split(',')!;
 
-      filters = getDefaultFilters(
-        config,
-        userIdentity?.identity?.userEntityRef,
-      );
+      filters = getDefaultFilters(config, userEntityRef);
 
       if (customFilterAnnotations) {
         filters.push(
@@ -191,7 +209,10 @@ export async function createRouter(
     async (request, response) => {
       const { kind, namespace, name } = request.params;
       const entityRef = stringifyEntityRef({ kind, namespace, name });
-      const { token } = await tokenManager.getToken();
+      const { token } = await auth.getPluginRequestToken({
+        onBehalfOf: await auth.getOwnServiceCredentials(),
+        targetPluginId: 'catalog',
+      });
       const entity = await catalogClient.getEntityByRef(entityRef, { token });
       const { projectKeyAnnotation } = getAnnotations(config);
 

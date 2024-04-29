@@ -54,3 +54,18 @@ Here's how to get the backend plugin up and running:
     apiRouter.use('/statuspage', authMiddleware, await statuspage(statuspageEnv));
    }
    ```
+
+### New Backend System
+
+The Jira Dashboard backend plugin has support for the [new backend system](https://backstage.io/docs/backend-system/). Here is how you can set it up:
+
+In your `packages/backend/src/index.ts` make the following changes:
+
+```diff
+
+const backend = createBackend();
++ backend.add(import('@axis-backstage/plugin-statuspage-backend'));
+// ... other feature additions
+
+backend.start();
+```

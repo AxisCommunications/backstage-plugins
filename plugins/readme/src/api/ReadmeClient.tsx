@@ -3,6 +3,7 @@ import {
   FetchApi,
   IdentityApi,
 } from '@backstage/core-plugin-api';
+import { DEFAULT_NAMESPACE, parseEntityRef } from '@backstage/catalog-model';
 import { ReadmeApi } from './ReadmeApi';
 
 export class ReadmeClient implements ReadmeApi {
@@ -24,8 +25,12 @@ export class ReadmeClient implements ReadmeApi {
     const { token } = await this.identityApi.getCredentials();
     const baseUrl = await this.discoveryApi.getBaseUrl('readme');
 
+    const { kind, name, namespace } = parseEntityRef(entityRef, {
+      defaultNamespace: DEFAULT_NAMESPACE,
+    });
+
     const resp = await this.fetchApi.fetch(
-      `${baseUrl}/${encodeURIComponent(entityRef)}`,
+      `${baseUrl}/${kind}/${namespace}/${name}`,
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },

@@ -1,5 +1,43 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 2.0.0
+
+### Major Changes
+
+- 0535af4: **BREAKING** The Jira dashboard backend now uses the new auth service introduced in Backstage v1.24.0. This is only applicable when using this plugin in the new Backstage backend. This could break the usage in Backstage installations older than v1.24.0 if the new backend system is used.
+
+### Patch Changes
+
+- 0535af4: Bumped backstage dependencies to match 1.26.0
+- 0535af4: Updated the installation instructions for the new backend system.
+- Updated dependencies [0535af4]
+  - @axis-backstage/plugin-jira-dashboard-common@1.0.1
+
+## 1.0.0
+
+### Major Changes
+
+- 9456530: Updated the getIssuesByFilter function to accept an array of components,
+  enabling the construction of more flexible JQL queries.
+  Introduced a new variable named componentQuery to represent the portion of the JQL query related to components.
+
+  Enhanced the getIssuesFromFilters function to include support for filtering by components.
+  Now, along with project keys and filters, the function also accepts an array of components.
+  This change allows for more comprehensive filtering options when retrieving issues from Jira.
+
+  Modified the router implementation to pass the array of components to the getIssuesFromFilters function.
+  By including components in the request, users can now specify additional criteria for filtering Jira issues,
+  resulting in more refined search results.
+
+  The introduced changes provide users with greater flexibility and control when retrieving Jira issues,
+  allowing for more precise filtering based on project keys, components, and filter criteria.
+  This enhancement improves the overall usability and effectiveness of the Jira integration functionality.
+
+### Patch Changes
+
+- Updated dependencies [517c68a]
+  - @axis-backstage/plugin-jira-dashboard-common@1.0.0
+
 ## 0.7.4
 
 ### Patch Changes

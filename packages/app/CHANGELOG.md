@@ -1,5 +1,42 @@
 # app
 
+## 0.4.14
+
+### Patch Changes
+
+- 0535af4: Bumped backstage dependencies to match 1.26.0
+- Updated dependencies [0535af4]
+  - @axis-backstage/plugin-analytics-module-umami@0.2.2
+  - @axis-backstage/plugin-jira-dashboard-common@1.0.1
+  - @axis-backstage/plugin-jira-dashboard@1.0.2
+  - @axis-backstage/plugin-statuspage@0.3.4
+  - @axis-backstage/plugin-readme@0.7.1
+
+## 0.4.13
+
+### Patch Changes
+
+- Updated dependencies [371f5fd]
+  - @axis-backstage/plugin-readme@0.7.0
+
+## 0.4.12
+
+### Patch Changes
+
+- Updated dependencies [12f407b]
+  - @axis-backstage/plugin-jira-dashboard@1.0.1
+
+## 0.4.11
+
+### Patch Changes
+
+- Updated dependencies [517c68a]
+- Updated dependencies [603304b]
+- Updated dependencies [5457a70]
+  - @axis-backstage/plugin-jira-dashboard-common@1.0.0
+  - @axis-backstage/plugin-jira-dashboard@1.0.0
+  - @axis-backstage/plugin-readme@0.6.0
+
 ## 0.4.10
 
 ### Patch Changes

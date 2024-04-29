@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link, TableColumn } from '@backstage/core-components';
+import { Avatar, Link, TableColumn } from '@backstage/core-components';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import Typography from '@mui/material/Typography';
 import { getIssueUrl } from '../../lib';
+import Stack from '@mui/material/Stack';
 
 export const columns: TableColumn[] = [
   {
@@ -10,7 +11,7 @@ export const columns: TableColumn[] = [
     field: 'key',
     highlight: true,
     type: 'string',
-    width: '30%',
+    width: '15%',
 
     render: (issue: Partial<Issue>) => {
       if (!issue.self || !issue.key) {
@@ -36,7 +37,7 @@ export const columns: TableColumn[] = [
     field: 'fields.summary',
     highlight: true,
     type: 'string',
-    width: '50%',
+    width: '40%',
     render: (issue: Partial<Issue>) => {
       if (!issue.self || !issue.key) {
         return null;
@@ -57,7 +58,7 @@ export const columns: TableColumn[] = [
     field: 'fields.status.name',
     highlight: true,
     type: 'string',
-    width: '30%',
+    width: '15%',
 
     render: (issue: Partial<Issue>) => {
       if (!issue.self || !issue.key) {
@@ -75,24 +76,43 @@ export const columns: TableColumn[] = [
   },
   {
     title: 'Assignee',
-    field: 'fields.assignee.name',
+    field: 'fields.assignee.displayName',
     highlight: true,
     type: 'string',
-    width: '10%',
+    width: '20%',
 
     render: (issue: Partial<Issue>) => {
-      if (issue.fields?.assignee?.name) {
+      if (issue.fields?.assignee?.displayName) {
         return (
-          <Typography>{issue.fields.assignee.name.split('@')[0]}</Typography>
+          <Stack direction="row" gap={1} alignItems="center" mb={1}>
+            <Avatar
+              picture={issue.fields?.assignee?.avatarUrls['48x48'] || ''}
+              customStyles={{
+                width: 35,
+                height: 35,
+              }}
+            />
+            <Typography variant="body2">
+              {issue.fields.assignee.displayName}
+            </Typography>
+          </Stack>
         );
-      }
-      if (issue.fields?.assignee?.key) {
-        return <Typography>{issue.fields.assignee.key}</Typography>;
+      } else if (issue.fields?.assignee?.name) {
+        return (
+          <Typography variant="body2">
+            {issue.fields.assignee.name.split('@')[0]}
+          </Typography>
+        );
+      } else if (issue.fields?.assignee?.key) {
+        return (
+          <Typography variant="body2">{issue.fields.assignee.key}</Typography>
+        );
       }
       return (
         <Typography
           sx={{ color: theme => theme.palette.text.disabled }}
           color="divider"
+          variant="body2"
         >
           Unassigned
         </Typography>

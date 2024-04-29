@@ -1,5 +1,23 @@
 # @axis-backstage/plugin-readme
 
+## 0.7.1
+
+### Patch Changes
+
+- 0535af4: Bumped backstage dependencies to match 1.26.0
+
+## 0.7.0
+
+### Minor Changes
+
+- 371f5fd: Readme backend APIs adjusted to consume entityRef as /:kind/:namespace/:name. Fixes a 404 routing issue where a proxy like oauth2Proxy could decode the URI encoded path parameter /:entityRef known to contain the reserved path delimiter '/'.
+
+## 0.6.0
+
+### Minor Changes
+
+- 603304b: Updated the max height in case of variant `fullHeight` to be `none` by default. That is needed to really occupy the full height of the container.
+
 ## 0.5.4
 
 ### Patch Changes

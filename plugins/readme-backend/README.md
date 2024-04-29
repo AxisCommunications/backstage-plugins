@@ -63,10 +63,9 @@ The Readme backend plugin has support for the [new backend system](https://backs
 In your `packages/backend/src/index.ts` make the following changes:
 
 ```diff
-+ import { readmePlugin } from '@axis-backstage/readme-backend';
 
 const backend = createBackend();
-+ backend.add(readmePlugin());
++ backend.add(import('@axis-backstage/plugin-readme-backend'));
 // ... other feature additions
 
 backend.start();

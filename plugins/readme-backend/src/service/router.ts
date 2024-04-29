@@ -3,15 +3,21 @@ import {
   TokenManager,
   UrlReader,
 } from '@backstage/backend-common';
+import { AuthService, DiscoveryService } from '@backstage/backend-plugin-api';
 import { Config } from '@backstage/config';
-import { CacheManager } from '@backstage/backend-common';
+import {
+  CacheManager,
+  createLegacyAuthAdapters,
+} from '@backstage/backend-common';
 import express from 'express';
 import Router from 'express-promise-router';
 import { Logger } from 'winston';
 import { ScmIntegrations } from '@backstage/integration';
-import { getEntitySourceLocation } from '@backstage/catalog-model';
+import {
+  getEntitySourceLocation,
+  stringifyEntityRef,
+} from '@backstage/catalog-model';
 import { CatalogClient } from '@backstage/catalog-client';
-import { DiscoveryApi } from '@backstage/plugin-permission-common';
 import { isSymLink } from '../lib';
 
 /**
@@ -33,16 +39,18 @@ export interface RouterOptions {
    * Backstage url reader instance
    */
   reader: UrlReader;
-
   /**
-   * Backstage discovery api instance
+   * Backstage discovery service
    */
-  discovery: DiscoveryApi;
-
+  discovery: DiscoveryService;
   /**
-   * Backstage token manager instance
+   * Backstage token manager service
    */
   tokenManager: TokenManager;
+  /**
+   * Backstage auth service
+   */
+  auth?: AuthService;
 }
 
 const DEFAULT_TTL = 1800 * 1000;
@@ -71,7 +79,8 @@ const README_TYPES: FileType[] = [
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
-  const { logger, config, reader, discovery, tokenManager } = options;
+  const { logger, config, reader, discovery } = options;
+  const { auth } = createLegacyAuthAdapters(options);
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
 
   const pluginCache = CacheManager.fromConfig(config).forPlugin('readme');
@@ -86,8 +95,9 @@ export async function createRouter(
     response.json({ status: 'ok' });
   });
 
-  router.get('/:entityRef', async (request, response) => {
-    const { entityRef } = request.params;
+  router.get('/:kind/:namespace/:name', async (request, response) => {
+    const { kind, namespace, name } = request.params;
+    const entityRef = stringifyEntityRef({ kind, namespace, name });
     const cacheDoc = (await cache.get(entityRef)) as ReadmeFile | undefined;
 
     if (cacheDoc) {
@@ -96,7 +106,10 @@ export async function createRouter(
       response.send(cacheDoc.content);
       return;
     }
-    const { token } = await tokenManager.getToken();
+    const { token } = await auth.getPluginRequestToken({
+      onBehalfOf: await auth.getOwnServiceCredentials(),
+      targetPluginId: 'catalog',
+    });
     const entity = await catalogClient.getEntityByRef(entityRef, { token });
     if (!entity) {
       logger.info(`No integration found for ${entityRef}`);

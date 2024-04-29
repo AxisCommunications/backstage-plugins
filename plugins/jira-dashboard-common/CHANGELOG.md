@@ -1,5 +1,17 @@
 # @axis-backstage/plugin-jira-dashboard-common
 
+## 1.0.1
+
+### Patch Changes
+
+- 0535af4: Bumped backstage dependencies to match 1.26.0
+
+## 1.0.0
+
+### Major Changes
+
+- 517c68a: Update default project lead name from 'key' to 'displayName' for clarity and consistency Additionally, this commit introduces provisions for displaying the image of the assignee, enhancing the user interface and providing visual context alongside the assignee's display name.
+
 ## 0.4.0
 
 ### Minor Changes

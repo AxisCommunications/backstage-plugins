@@ -29,6 +29,10 @@ export type Issue = {
       name: string;
       self: string;
       key: string;
+      displayName: string;
+      avatarUrls: {
+        '48x48': string;
+      };
     };
     issuetype: {
       name: string;
@@ -42,6 +46,19 @@ export type JiraDataResponse = {
   name: string;
   type: 'component' | 'filter';
   issues: Issue[];
+};
+
+// @public
+export type JiraQueryResults = {
+  expand: string;
+  names: object;
+  schema: object;
+  issues: Issue[];
+  total: number;
+  startAt: number;
+  maxResults: number;
+  warningMessages?: string[];
+  errorMessages?: string[];
 };
 
 // @public
@@ -71,4 +88,10 @@ export type Project = {
 
 // @public
 export const PROJECT_KEY_NAME = 'project-key';
+
+// @public
+export type SearchJiraResponse = {
+  results: JiraQueryResults;
+  statusCode: number;
+};
 ```
