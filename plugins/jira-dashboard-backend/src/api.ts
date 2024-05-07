@@ -6,6 +6,7 @@ import {
   Project,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 import { resolveJiraBaseUrl, resolveJiraToken } from './config';
+import { jqlQueryBuilder } from './queries';
 
 export const getProjectInfo = async (
   projectKey: string,
@@ -51,14 +52,9 @@ export const getIssuesByFilter = async (
   query: string,
   config: Config,
 ): Promise<Issue[]> => {
-  let componentQuery = '';
-  if (components.length) {
-    componentQuery = `AND component in (${components})`;
-  }
+  const jql = jqlQueryBuilder({ project: projectKey, components, query });
   const response = await fetch(
-    `${resolveJiraBaseUrl(
-      config,
-    )}search?jql=project in (${projectKey}) ${componentQuery} AND ${query}`,
+    `${resolveJiraBaseUrl(config)}search?jql=${jql}`,
     {
       method: 'GET',
       headers: {
@@ -120,10 +116,12 @@ export const getIssuesByComponent = async (
   componentKey: string,
   config: Config,
 ): Promise<Issue[]> => {
+  const jql = jqlQueryBuilder({
+    project: projectKey,
+    components: [componentKey],
+  });
   const response = await fetch(
-    `${resolveJiraBaseUrl(
-      config,
-    )}search?jql=project=${projectKey} AND component = "${componentKey}"`,
+    `${resolveJiraBaseUrl(config)}search?jql=${jql}`,
     {
       method: 'GET',
       headers: {

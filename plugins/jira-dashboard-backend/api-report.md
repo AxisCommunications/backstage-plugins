@@ -22,6 +22,20 @@ const jiraDashboardPlugin: () => BackendFeature;
 export default jiraDashboardPlugin;
 
 // @public
+export const jqlQueryBuilder: ({
+  project,
+  components,
+  query,
+}: JqlQueryBuilderArgs) => string;
+
+// @public
+export type JqlQueryBuilderArgs = {
+  project: string;
+  components?: string[];
+  query?: string;
+};
+
+// @public
 export interface RouterOptions {
   auth?: AuthService;
   config: Config;
