@@ -26,8 +26,6 @@ export const jiraDashboardPlugin = createBackendPlugin({
       async init({
         auth,
         httpRouter,
-        auth,
-        httpRouter,
         logger,
         rootConfig,
         discovery,

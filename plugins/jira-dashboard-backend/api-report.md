@@ -4,7 +4,7 @@
 
 ```ts
 import { BackendFeatureCompat } from '@backstage/backend-plugin-api';
-import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
+import { JiraQueryResults } from '@axis-backstage/plugin-jira-dashboard-common';
 
 // @public
 export type ConfigInstance = {
@@ -36,7 +36,7 @@ export const searchJira: (
   instance: ConfigInstance,
   jqlQuery: string,
   options: SearchOptions,
-) => Promise<Issue[]>;
+) => Promise<JiraQueryResults>;
 
 // @public
 export type SearchOptions = {
