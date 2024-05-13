@@ -78,3 +78,19 @@ export type JiraResponse = {
   project: Project;
   data: JiraDataResponse[];
 };
+
+/**
+ * Type definition for a paginated Jira search response
+ * @public
+ */
+export type JiraQueryResults = {
+  expand: string;
+  names: object;
+  schema: object;
+  issues: Issue[];
+  total: number;
+  startAt: number;
+  maxResults: number;
+  warningMessages?: string[];
+  errorMessages?: string[];
+};
