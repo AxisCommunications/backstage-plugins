@@ -8,7 +8,10 @@ import {
 
 import type { ConfigInstance } from './config';
 import { jqlQueryBuilder } from './queries';
+<<<<<<< HEAD
 import { ResponseError } from '@backstage/errors';
+=======
+>>>>>>> 39b1dbf (Add support for multiple Jira instances (#202))
 import type { JiraProject } from './lib';
 
 export const getProjectInfo = async (
@@ -95,7 +98,11 @@ export const searchJira = async (
   instance: ConfigInstance,
   jqlQuery: string,
   options: SearchOptions,
+<<<<<<< HEAD
 ): Promise<JiraQueryResults> => {
+=======
+): Promise<Issue[]> => {
+>>>>>>> 39b1dbf (Add support for multiple Jira instances (#202))
   const response = await fetch(`${instance.baseUrl}search`, {
     method: 'POST',
     body: JSON.stringify({ jql: jqlQuery, ...options }),
@@ -132,6 +139,29 @@ export const getIssuesByComponent = async (
   return response.issues;
 };
 
+<<<<<<< HEAD
+=======
+export const getIssuesByComponent = async (
+  project: JiraProject,
+  componentKey: string,
+): Promise<Issue[]> => {
+  const { projectKey, instance } = project;
+
+  const jql = jqlQueryBuilder({
+    project: projectKey,
+    components: [componentKey],
+  });
+  const response = await fetch(`${instance.baseUrl}search?jql=${jql}`, {
+    method: 'GET',
+    headers: {
+      Authorization: instance.token,
+      Accept: 'application/json',
+    },
+  }).then(resp => resp.json());
+  return response.issues;
+};
+
+>>>>>>> 39b1dbf (Add support for multiple Jira instances (#202))
 export async function getProjectAvatar(url: string, instance: ConfigInstance) {
   return fetch(url, {
     method: 'GET',
