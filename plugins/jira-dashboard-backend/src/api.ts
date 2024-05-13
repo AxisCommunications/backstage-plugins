@@ -4,10 +4,11 @@ import {
   Filter,
   Issue,
   Project,
+  JiraQueryResults,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 import { resolveJiraBaseUrl, resolveJiraToken } from './config';
 import { jqlQueryBuilder } from './queries';
-
+import { ResponseError } from '@backstage/errors';
 export const getProjectInfo = async (
   projectKey: string,
   config: RootConfigService,
@@ -84,23 +85,23 @@ export type SearchOptions = {
 };
 
 /**
- * Search for Jira issues using JQL.
+ * Asynchronously searches for Jira issues using JQL.
  *
- * For more information about the available options see the API
- * documentation at:
+ * For more information about the available options, see the API documentation at:
  * https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issue-search/#api-rest-api-2-search-post
  *
- * @param config - A Backstage config
- * @param jqlQuery - A string containing the jql query.
- * @param options - Query options that will be passed on to the POST request.
- *
+ * @param config - The Backstage configuration object containing Jira base URL and token.
+ * @param jqlQuery - The JQL query string to search for Jira issues.
+ * @param options - Additional search options such as expand, fields, startAt, etc.
+ * @returns A promise that resolves to the Jira query results, including issues and total count.
+ * @throws An error if the search process fails.
  * @public
  */
 export const searchJira = async (
   config: RootConfigService,
   jqlQuery: string,
   options: SearchOptions,
-): Promise<Issue[]> => {
+): Promise<JiraQueryResults> => {
   const response = await fetch(`${resolveJiraBaseUrl(config)}search`, {
     method: 'POST',
     body: JSON.stringify({ jql: jqlQuery, ...options }),
@@ -109,8 +110,12 @@ export const searchJira = async (
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-  }).then(resp => resp.json());
-  return response.issues;
+  });
+  if (!response.ok) {
+    throw await ResponseError.fromResponse(response);
+  }
+  const jsonResponse = await response.json();
+  return jsonResponse as JiraQueryResults;
 };
 
 export const getIssuesByComponent = async (
