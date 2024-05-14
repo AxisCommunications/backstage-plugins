@@ -23,7 +23,9 @@ export const getProjectInfo = async (
     },
   );
   if (response.status !== 200) {
-    throw Error(`${response.status}`);
+    throw Error(
+      `Request failed with status code ${response.status}: ${response.statusText}`,
+    );
   }
   return response.json();
 };
