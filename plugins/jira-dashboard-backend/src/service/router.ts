@@ -141,8 +141,10 @@ export async function createRouter(
           config,
           cache,
         );
-      } catch (err) {
-        logger.error(`Could not find Jira project ${projectKey[0]}`);
+      } catch (err: any) {
+        logger.error(
+          `Could not find Jira project ${projectKey[0]}: ${err.message}`,
+        );
         response.status(404).json({
           error: `No Jira project found with key ${projectKey[0]}`,
         });

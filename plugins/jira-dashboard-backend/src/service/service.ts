@@ -28,7 +28,9 @@ export const getProjectResponse = async (
     cache.set(projectKey, projectResponse);
   } catch (err: any) {
     if (err.message !== 200) {
-      throw Error(`${err.status}`);
+      throw Error(
+        `Failed to get project info for project key ${projectKey} with error: ${err.message}`,
+      );
     }
   }
   return projectResponse;
