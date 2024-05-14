@@ -1,5 +1,20 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 2.1.0
+
+### Minor Changes
+
+- 5fd2a31: Querying for components that contain spaces should now return the expected results. Component
+  names is now wrapped in single quotations.
+
+  Added the `jqlQueryBuilder` function that will create a JQL query based on the arguments. This is
+  exported from the backend plugin to be used outside the context of the plugin together with the
+  `searchJira` function.
+
+### Patch Changes
+
+- 11822da: Enhance error message when querying for projects
+
 ## 2.0.0
 
 ### Major Changes
