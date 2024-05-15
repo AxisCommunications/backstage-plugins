@@ -31,7 +31,7 @@ jiraDashboard:
 
 #### Configuration Details:
 
-- `JIRA_TOKEN`: The API token to authenticate towards Jira. It can be found by visiting Atlassians page at https://developer.atlassian.com/cloud/jira/platform/basic-auth-for-rest-apis/. In case you are using a Bearer or Basic token, you need to add it in the beginning of the token. For instance: `Bearer your-secret-token`
+- `JIRA_TOKEN`: The "Authorization" header used for Jira authentication.
   > Note: The JIRA_TOKEN variable from [Roadie's Backstage Jira plugin](https://roadie.io/backstage/plugins/jira) can not be reused here because of the added encoding in this token.
 - `JIRA_BASE_URL`: The base url for Jira in your company, including the API version. For instance: https://jira.se.your-company.com/rest/api/2/
 - `JIRA_EMAIL_SUFFIX`: The email suffix used for retrieving a specific Jira user in a company. For instance: @your-company.com
@@ -41,6 +41,57 @@ jiraDashboard:
 jiraDashboard:
    {/* required configs... */}
   annotationPrefix: jira
+```
+
+#### Authentication examples and trouble shooting
+
+Either "Basic Auth" or "Personal Acccess Tokens" can be used.
+
+This plugin will directly take the content of the "jiraDashboard.token" config string and
+use as the "Authorization" header in all Jira REST API calls.
+
+##### Basic Auth example
+
+To use "Basic Auth" for authentication you need to create the "Authentication" header. See the [Jira documentation](https://developer.atlassian.com/cloud/jira/platform/basic-auth-for-rest-apis/#supply-basic-auth-headers) how to create and encode the token. This is the how to use the example token from the documentation (`ZnJlZDpmcmVk`) with `curl`.
+
+```sh
+curl -D- \
+   -X GET \
+   -H "Authorization: Basic ZnJlZDpmcmVk" \
+   -H "Content-Type: application/json" \
+   "https://your-domain.atlassian.net/rest/api/2/project/BS"
+```
+
+This would result in the following Backstage configuration:
+
+```yaml
+jiraDashboard:
+  token: Basic ZnJlZDpmcmVk
+  baseUrl: https://your-domain.atlassian.net/rest/api/2/
+  userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
+```
+
+##### Personal Acccess Tokens example
+
+See the [Personal Acccess Tokens](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) documentation how to use and create
+a PAT. The generated token can be directly used, there is no need to encode it. Using
+`curl` with a PAT.
+
+```sh
+curl -D- \
+   -X GET \
+   -H "Authorization: Bearer <Token>" \
+   -H "Content-Type: application/json" \
+   "https://your-domain.atlassian.net/rest/api/2/project/BS"
+```
+
+And the corresponding Backstage configuration:
+
+```yaml
+jiraDashboard:
+  token: Bearer <Token>
+  baseUrl: https://your-domain.atlassian.net/rest/api/2/
+  userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
 ```
 
 ### Integrating
