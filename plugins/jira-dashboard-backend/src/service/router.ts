@@ -113,6 +113,7 @@ export async function createRouter(
         componentsAnnotation,
         componentRoadieAnnotation,
         filtersAnnotation,
+        incomingIssuesAnnotation,
       } = getAnnotations(config);
 
       if (!entity) {
@@ -168,10 +169,13 @@ export async function createRouter(
 
       let filters: Filter[] = [];
 
+      const incomingStatus =
+        entity.metadata.annotations?.[incomingIssuesAnnotation];
+
+      filters = getDefaultFiltersForUser(config, userEntity, incomingStatus);
+
       const customFilterAnnotations =
         entity.metadata.annotations?.[filtersAnnotation]?.split(',')!;
-
-      filters = getDefaultFiltersForUser(config, userEntity);
 
       if (customFilterAnnotations) {
         filters.push(

@@ -9,11 +9,11 @@ const openFilter: Filter = {
   query: 'resolution = Unresolved ORDER BY updated DESC',
 };
 
-const incomingFilter: Filter = {
+const getIncomingFilter = (incomingStatus: string): Filter => ({
   name: 'Incoming Issues',
   shortName: 'INCOMING',
-  query: 'status = New ORDER BY created ASC',
-};
+  query: `status = ${incomingStatus} ORDER BY created ASC`,
+});
 
 const getUserEmail = (
   userEntity: UserEntity,
@@ -29,7 +29,10 @@ const getUserEmail = (
 export const getDefaultFiltersForUser = (
   config: Config,
   userEntity?: UserEntity,
+  incomingStatus?: string,
 ): Filter[] => {
+  const incomingFilter = getIncomingFilter(incomingStatus ?? 'New');
+
   if (!userEntity) return [openFilter, incomingFilter];
 
   return [
