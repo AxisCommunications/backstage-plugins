@@ -15,15 +15,21 @@ const getIncomingFilter = (incomingStatus: string): Filter => ({
   query: `status = ${incomingStatus} ORDER BY created ASC`,
 });
 
-const getUserEmail = (
+const getAssignedToMeFilter = (
   userEntity: UserEntity,
   config: Config,
-): string | undefined => {
+): Filter => {
   const emailSuffixConfig = resolveUserEmailSuffix(config);
 
-  return emailSuffixConfig
+  const email = emailSuffixConfig
     ? `${userEntity.metadata.name}${emailSuffixConfig}`
     : userEntity.spec?.profile?.email;
+
+  return {
+    name: 'Assigned to me',
+    shortName: 'ME',
+    query: `assignee = "${email}" AND resolution = Unresolved ORDER BY updated DESC`,
+  };
 };
 
 export const getDefaultFiltersForUser = (
@@ -35,16 +41,7 @@ export const getDefaultFiltersForUser = (
 
   if (!userEntity) return [openFilter, incomingFilter];
 
-  return [
-    openFilter,
-    incomingFilter,
-    {
-      name: 'Assigned to me',
-      shortName: 'ME',
-      query: `assignee = "${getUserEmail(
-        userEntity,
-        config,
-      )}" AND resolution = Unresolved ORDER BY updated DESC`,
-    },
-  ];
+  const assigneeToMeFilter = getAssignedToMeFilter(userEntity, config);
+
+  return [openFilter, incomingFilter, assigneeToMeFilter];
 };
