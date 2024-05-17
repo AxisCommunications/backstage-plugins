@@ -163,7 +163,7 @@ export async function createRouter(
           token,
         })) as UserEntity;
       } catch (err) {
-        console.warn('Could not find user identity');
+        logger.warn('Could not find user identity');
       }
 
       let filters: Filter[] = [];
