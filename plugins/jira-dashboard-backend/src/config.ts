@@ -21,8 +21,8 @@ export function resolveJiraToken(config: Config): string {
   }
 }
 
-export function resolveUserEmailSuffix(config: Config): string {
-  return config.getOptionalString(JIRA_USER_CONFIG_EMAIL_SUFFIX) || '';
+export function resolveUserEmailSuffix(config: Config): string | undefined {
+  return config.getOptionalString(JIRA_USER_CONFIG_EMAIL_SUFFIX);
 }
 
 export function resolveAnnotationPrefix(config: Config): string {
