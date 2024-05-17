@@ -31041,7 +31041,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root@workspace:."
   dependencies:
-    "@backstage/backend-test-utils": "npm:^0.3.8"
     "@backstage/cli": "npm:^0.26.3"
     "@backstage/e2e-test-utils": "npm:^0.1.1"
     "@backstage/repo-tools": "npm:^0.8.0"
