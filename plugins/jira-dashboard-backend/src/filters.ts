@@ -1,10 +1,7 @@
 import { Config } from '@backstage/config';
 import { resolveUserEmailSuffix } from './config';
 import { Filter } from '@axis-backstage/plugin-jira-dashboard-common';
-
-const getUsernameFromRef = (userRef: string) => {
-  return userRef?.split('/').slice(1)[0];
-};
+import { UserEntity } from '@backstage/catalog-model';
 
 const openFilter: Filter = {
   name: 'Open Issues',
@@ -18,26 +15,33 @@ const incomingFilter: Filter = {
   query: 'status = New ORDER BY created ASC',
 };
 
-export const getDefaultFilters = (
+const getUserEmail = (
+  userEntity: UserEntity,
   config: Config,
-  userRef?: string,
+): string | undefined => {
+  const emailSuffixConfig = resolveUserEmailSuffix(config);
+
+  return emailSuffixConfig
+    ? `${userEntity.metadata.name}${emailSuffixConfig}`
+    : userEntity.spec?.profile?.email;
+};
+
+export const getDefaultFiltersForUser = (
+  config: Config,
+  userEntity?: UserEntity,
 ): Filter[] => {
-  if (!userRef) {
-    return [openFilter, incomingFilter];
-  }
-  const username = getUsernameFromRef(userRef);
+  if (!userEntity) return [openFilter, incomingFilter];
 
-  if (!username) {
-    return [openFilter, incomingFilter];
-  }
-
-  const assignedToMeFilter: Filter = {
-    name: 'Assigned to me',
-    shortName: 'ME',
-    query: `assignee = "${username}${resolveUserEmailSuffix(
-      config,
-    )}" AND resolution = Unresolved ORDER BY updated DESC`,
-  };
-
-  return [openFilter, incomingFilter, assignedToMeFilter];
+  return [
+    openFilter,
+    incomingFilter,
+    {
+      name: 'Assigned to me',
+      shortName: 'ME',
+      query: `assignee = "${getUserEmail(
+        userEntity,
+        config,
+      )}" AND resolution = Unresolved ORDER BY updated DESC`,
+    },
+  ];
 };
