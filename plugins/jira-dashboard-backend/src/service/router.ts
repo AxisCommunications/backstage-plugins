@@ -9,7 +9,7 @@ import {
   DiscoveryService,
   HttpAuthService,
 } from '@backstage/backend-plugin-api';
-import { stringifyEntityRef } from '@backstage/catalog-model';
+import { UserEntity, stringifyEntityRef } from '@backstage/catalog-model';
 import express from 'express';
 import Router from 'express-promise-router';
 import { Config } from '@backstage/config';
@@ -17,7 +17,7 @@ import { Logger } from 'winston';
 import { CatalogClient } from '@backstage/catalog-client';
 import { IdentityApi } from '@backstage/plugin-auth-node';
 
-import { getDefaultFilters } from '../filters';
+import { getDefaultFiltersForUser } from '../filters';
 import {
   type Filter,
   type JiraResponse,
@@ -151,14 +151,19 @@ export async function createRouter(
         return;
       }
 
-      const credentials = await httpAuth.credentials(request, {
-        allow: ['user'],
-      });
+      let userEntity: UserEntity | undefined;
 
-      const userEntityRef = credentials.principal.userEntityRef;
+      try {
+        const credentials = await httpAuth.credentials(request, {
+          allow: ['user'],
+        });
+        const userIdentity = credentials.principal.userEntityRef;
 
-      if (!userEntityRef) {
-        logger.warn(`Could not find user identity`);
+        userEntity = (await catalogClient.getEntityByRef(userIdentity, {
+          token,
+        })) as UserEntity;
+      } catch (err) {
+        console.warn('Could not find user identity');
       }
 
       let filters: Filter[] = [];
@@ -166,7 +171,7 @@ export async function createRouter(
       const customFilterAnnotations =
         entity.metadata.annotations?.[filtersAnnotation]?.split(',')!;
 
-      filters = getDefaultFilters(config, userEntityRef);
+      filters = getDefaultFiltersForUser(config, userEntity);
 
       if (customFilterAnnotations) {
         filters.push(
