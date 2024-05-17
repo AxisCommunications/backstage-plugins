@@ -1,11 +1,13 @@
 import { getDefaultFiltersForUser } from './filters';
-import { ConfigReader } from '@backstage/config';
+import { mockServices } from '@backstage/backend-test-utils';
 import { UserEntity } from '@backstage/catalog-model';
 
 describe('getDefaultFiltersForUser', () => {
-  const mockConfig = new ConfigReader({
-    jiraDashboard: {
-      userEmailSuffix: '@backstage.com',
+  const mockConfig = mockServices.rootConfig({
+    data: {
+      jiraDashboard: {
+        userEmailSuffix: '@backstage.com',
+      },
     },
   });
 
@@ -39,7 +41,7 @@ describe('getDefaultFiltersForUser', () => {
 
   it('returns backstage email when userEmailSuffix config is not provided', () => {
     const filters = getDefaultFiltersForUser(
-      new ConfigReader({}),
+      mockServices.rootConfig(),
       mockUserEntity,
     );
     expect(filters).toHaveLength(3);

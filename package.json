@@ -65,5 +65,8 @@
       "prettier --write"
     ]
   },
-  "packageManager": "yarn@4.0.2"
+  "packageManager": "yarn@4.0.2",
+  "dependencies": {
+    "@backstage/backend-test-utils": "^0.3.8"
+  }
 }
