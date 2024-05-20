@@ -18,7 +18,7 @@ export const COMPONENTS_NAME = 'components';
 export const FILTERS_NAME = 'filter-ids';
 
 /**
- * The annotation name used to provide the name of the status for incoming issues in Jira
+ * The annotation name used to provide the status for incoming issues in Jira
  *  @public
  */
 export const INCOMING_ISSUES_STATUS = 'incoming-issues-status';

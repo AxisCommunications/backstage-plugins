@@ -78,7 +78,7 @@ metadata:
 
 If you want to track specific components or filters for your entity, you can add the optional annotations `components` and `filters-ids`. You can specify an endless number of Jira components or filters.
 
-If your Jira project does not use "New" as status for incoming issues, you can specify which status to use through the `incoming-issues-status annotation.
+If your Jira project does not use "New" as status for incoming issues, you can specify which status to use through the `incoming-issues-status` annotation.
 
 ```yaml
 apiVersion: backstage.io/v1alpha1
