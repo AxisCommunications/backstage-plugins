@@ -111,9 +111,9 @@ export async function createRouter(
       const {
         projectKeyAnnotation,
         componentsAnnotation,
-        componentRoadieAnnotation,
         filtersAnnotation,
         incomingIssuesAnnotation,
+        componentRoadieAnnotation,
       } = getAnnotations(config);
 
       if (!entity) {
