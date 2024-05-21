@@ -176,7 +176,7 @@ export async function createRouter(
           response.status(500).json({
             error: `Readme failure: ${error}`,
           });
-          break;
+          return;
         }
       }
     }
