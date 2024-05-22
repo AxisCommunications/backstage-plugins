@@ -78,6 +78,8 @@ metadata:
 
 If you want to track specific components or filters for your entity, you can add the optional annotations `components` and `filters-ids`. You can specify an endless number of Jira components or filters.
 
+If your Jira project does not use "New" as status for incoming issues, you can specify which status to use through the `incoming-issues-status` annotation.
+
 ```yaml
 apiVersion: backstage.io/v1alpha1
 kind: Component
@@ -87,6 +89,7 @@ metadata:
     jira.com/project-key: value # The key of the Jira project to track for this entity
     jira.com/components: component,component,component # Jira component name separated with a comma. The Roadie Backstage Jira Plugin Jira annotation `/component` is also supported here by default
     jira.com/filter-ids: 12345,67890 # Jira filter id separated with a comma
+    jira.com/incoming-issues-status: Incoming # The name of the status for incoming issues in Jira. Default: New
 ```
 
 ## Layout

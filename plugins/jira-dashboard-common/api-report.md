@@ -17,6 +17,9 @@ export type Filter = {
 export const FILTERS_NAME = 'filter-ids';
 
 // @public
+export const INCOMING_ISSUES_STATUS = 'incoming-issues-status';
+
+// @public
 export type Issue = {
   key: string;
   self: string;
