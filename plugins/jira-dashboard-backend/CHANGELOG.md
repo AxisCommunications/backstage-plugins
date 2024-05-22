@@ -1,5 +1,18 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 2.2.0
+
+### Minor Changes
+
+- 0ec1f12: Created the incoming-issues-annotation to make it possible for users to define Jira status for Incoming issues other than "New". Made some smaller refactoring in filter.ts to create better consistency among functions.
+- 56c3a07: The Backstage user entity profile email is now used as default for "Assigned to me" filters. Made the JIRA_EMAIL_SUFFIX optional, so it still can be used if Backstage email does not match the one in Jira.
+
+### Patch Changes
+
+- 7f0b7cd: Added additional documentation how to authenticate with Jira.
+- Updated dependencies [0ec1f12]
+  - @axis-backstage/plugin-jira-dashboard-common@1.1.0
+
 ## 2.1.0
 
 ### Minor Changes
