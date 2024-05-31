@@ -1,5 +1,16 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.1.0
+
+### Minor Changes
+
+- 0ec1f12: Created the incoming-issues-annotation to make it possible for users to define Jira status for Incoming issues other than "New". Made some smaller refactoring in filter.ts to create better consistency among functions.
+
+### Patch Changes
+
+- Updated dependencies [0ec1f12]
+  - @axis-backstage/plugin-jira-dashboard-common@1.1.0
+
 ## 1.0.2
 
 ### Patch Changes

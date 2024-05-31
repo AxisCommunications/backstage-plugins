@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.6.1
+
+### Patch Changes
+
+- 882cfa7: Headers were being set after the response was sent, causing errors. Replaced break statements with return statements in the loop.
+
 ## 0.6.0
 
 ### Minor Changes
