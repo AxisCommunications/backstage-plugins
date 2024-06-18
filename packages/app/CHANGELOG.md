@@ -1,5 +1,20 @@
 # app
 
+## 0.5.0
+
+### Minor Changes
+
+- 916589b: Bumped Backstage to v.27.7 and removed the TechRadar plugin since it was not used and caused problems with the new version.
+
+### Patch Changes
+
+- Updated dependencies [916589b]
+  - @axis-backstage/plugin-analytics-module-umami@0.3.0
+  - @axis-backstage/plugin-jira-dashboard-common@1.2.0
+  - @axis-backstage/plugin-jira-dashboard@1.2.0
+  - @axis-backstage/plugin-statuspage@0.4.0
+  - @axis-backstage/plugin-readme@0.8.0
+
 ## 0.4.15
 
 ### Patch Changes

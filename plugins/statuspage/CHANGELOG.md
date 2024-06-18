@@ -1,5 +1,16 @@
 # @axis-backstage/plugin-statuspage
 
+## 0.4.0
+
+### Minor Changes
+
+- 916589b: Bumped Backstage to v.27.7 and removed the TechRadar plugin since it was not used and caused problems with the new version.
+
+### Patch Changes
+
+- Updated dependencies [916589b]
+  - @axis-backstage/plugin-statuspage-common@0.3.0
+
 ## 0.3.4
 
 ### Patch Changes
