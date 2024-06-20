@@ -16386,6 +16386,7 @@ __metadata:
     "@backstage/config": "npm:^1.2.0"
     "@backstage/plugin-app-backend": "npm:^0.3.67"
     "@backstage/plugin-auth-backend": "npm:^0.22.5"
+    "@backstage/plugin-auth-backend-module-microsoft-provider": "npm:^0.1.13"
     "@backstage/plugin-auth-node": "npm:^0.4.13"
     "@backstage/plugin-catalog-backend": "npm:^1.22.0"
     "@backstage/plugin-permission-common": "npm:^0.7.13"
