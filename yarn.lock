@@ -7035,6 +7035,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@internal/backstage-plugin-vacation-calendar@npm:^0.1.0, @internal/backstage-plugin-vacation-calendar@workspace:plugins/vacation-calendar":
+  version: 0.0.0-use.local
+  resolution: "@internal/backstage-plugin-vacation-calendar@workspace:plugins/vacation-calendar"
+  dependencies:
+    "@backstage/cli": "npm:^0.26.6"
+    "@backstage/core-app-api": "npm:^1.12.5"
+    "@backstage/core-components": "npm:^0.14.7"
+    "@backstage/core-plugin-api": "npm:^1.9.2"
+    "@backstage/dev-utils": "npm:^1.0.32"
+    "@backstage/test-utils": "npm:^1.5.5"
+    "@backstage/theme": "npm:^0.5.5"
+    "@material-ui/core": "npm:^4.9.13"
+    "@material-ui/icons": "npm:^4.9.1"
+    "@material-ui/lab": "npm:4.0.0-alpha.61"
+    "@testing-library/jest-dom": "npm:6.0.0"
+    "@testing-library/react": "npm:^14.0.0"
+    "@testing-library/user-event": "npm:^14.0.0"
+    msw: "npm:^1.0.0"
+    react-use: "npm:^17.2.4"
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+  languageName: unknown
+  linkType: soft
+
 "@ioredis/commands@npm:^1.1.1":
   version: 1.2.0
   resolution: "@ioredis/commands@npm:1.2.0"
@@ -14723,6 +14747,7 @@ __metadata:
     "@backstage/plugin-user-settings": "npm:^0.8.6"
     "@backstage/test-utils": "npm:^1.5.5"
     "@backstage/theme": "npm:^0.5.5"
+    "@internal/backstage-plugin-vacation-calendar": "npm:^0.1.0"
     "@material-ui/core": "npm:^4.12.4"
     "@material-ui/icons": "npm:^4.11.3"
     "@mui/material": "npm:^5.15.7"

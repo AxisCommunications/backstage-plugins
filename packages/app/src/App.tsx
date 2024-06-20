@@ -33,6 +33,7 @@ import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { StatuspagePage } from '@axis-backstage/plugin-statuspage';
+import { VacationCalendarPage } from '@internal/backstage-plugin-vacation-calendar';
 
 const app = createApp({
   apis,
@@ -90,6 +91,7 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/statuspage" element={<StatuspagePage name="myid" />} />
+    <Route path="/vacation-calendar" element={<VacationCalendarPage />} />
   </FlatRoutes>
 );
 
