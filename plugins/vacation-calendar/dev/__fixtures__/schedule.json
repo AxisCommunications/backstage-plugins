@@ -1,0 +1,23 @@
+[
+  {
+    "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#me/calendars/$entity",
+    "@odata.id": "https://graph.microsoft.com/v1.0/users('ddfcd489-628b-40d7-b48b-57002df800e5@1717622f-1d94-4d0c-9d74-709fad664b77')/calendars('AAMkAGI2TGuLAAA=')",
+    "id": "AAMkAGI2TGuLAAA=",
+    "name": "Calendar",
+    "color": "auto",
+    "isDefaultCalendar": false,
+    "changeKey": "nfZyf7VcrEKLNoU37KWlkQAAA0x0+w==",
+    "canShare": true,
+    "canViewPrivateItems": true,
+    "hexColor": "",
+    "canEdit": true,
+    "allowedOnlineMeetingProviders": ["teamsForBusiness"],
+    "defaultOnlineMeetingProvider": "teamsForBusiness",
+    "isTallyingResponses": true,
+    "isRemovable": false,
+    "owner": {
+      "name": "Frida",
+      "address": "fridaja@adatum.onmicrosoft.com"
+    }
+  }
+]

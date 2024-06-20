@@ -1,0 +1,21 @@
+{
+  "apiVersion": "backstage.io/v1beta1",
+  "kind": "User",
+  "metadata": {
+    "namespace": "default",
+    "annotations": {
+      "github.com/user-login": "user",
+      "manager": "bossman"
+    },
+    "name": "fridaja",
+    "description": "Software Developer"
+  },
+  "spec": {
+    "profile": {
+      "displayName": "fridaja",
+      "email": "fridaja@axis.com",
+      "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie"
+    },
+    "memberOf": ["group:default/backstage"]
+  }
+}

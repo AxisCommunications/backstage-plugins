@@ -1,0 +1,278 @@
+[
+  {
+    "availabilityView": "String",
+    "error": { "@odata.type": "microsoft.graph.freeBusyError" },
+    "scheduleId": "fridaja",
+    "scheduleItems": [
+      {
+        "isPrivate": false,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "Proj: Mini",
+        "isMeeting": true,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-02-05T13:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-02-08T13:15:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      },
+      {
+        "isPrivate": false,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "Proj: Mini (4 pers, NE) (Lund, SE)",
+        "isMeeting": true,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-09-05T13:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-09-10T13:15:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      },
+      {
+        "isPrivate": true,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "",
+        "isMeeting": false,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-11-12T08:30:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-11-30T09:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      },
+      {
+        "isPrivate": true,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "",
+        "isMeeting": false,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-04-10T08:30:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-04-20T09:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      }
+    ],
+    "workingHours": {
+      "daysOfWeek": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "startTime": "08:00:00.0000000",
+      "endTime": "17:00:00.0000000",
+      "timeZone": {
+        "name": "W. Europe Standard Time"
+      }
+    }
+  },
+  {
+    "availabilityView": "String",
+    "error": { "@odata.type": "microsoft.graph.freeBusyError" },
+    "scheduleId": "gustaflh",
+    "scheduleItems": [
+      {
+        "isPrivate": false,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "Proj: Mini (4 pers, NE) (Lund, SE)",
+        "isMeeting": true,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-03-05T13:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-03-10T13:15:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      },
+      {
+        "isPrivate": true,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "",
+        "isMeeting": false,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-05-12T08:30:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-05-30T09:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      },
+      {
+        "isPrivate": true,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "",
+        "isMeeting": false,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-11-05T08:30:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-11-10T09:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      }
+    ],
+    "workingHours": {
+      "daysOfWeek": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "startTime": "08:00:00.0000000",
+      "endTime": "17:00:00.0000000",
+      "timeZone": {
+        "name": "W. Europe Standard Time"
+      }
+    }
+  },
+  {
+    "availabilityView": "String",
+    "error": { "@odata.type": "microsoft.graph.freeBusyError" },
+    "scheduleId": "niklasar",
+    "scheduleItems": [
+      {
+        "isPrivate": false,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "Proj: Mini (4 pers, NE) (Lund, SE)",
+        "isMeeting": true,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-06-05T13:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-06-10T13:15:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      },
+      {
+        "isPrivate": true,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "",
+        "isMeeting": false,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-08-12T08:30:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-08-30T09:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      }
+    ],
+    "workingHours": {
+      "daysOfWeek": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "startTime": "08:00:00.0000000",
+      "endTime": "17:00:00.0000000",
+      "timeZone": {
+        "name": "W. Europe Standard Time"
+      }
+    }
+  },
+  {
+    "availabilityView": "String",
+    "error": { "@odata.type": "microsoft.graph.freeBusyError" },
+    "scheduleId": "martinwa",
+    "scheduleItems": [
+      {
+        "isPrivate": false,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "Proj: Mini (4 pers, NE) (Lund, SE)",
+        "isMeeting": true,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-09-05T13:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-09-10T13:15:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      },
+      {
+        "isPrivate": true,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "",
+        "isMeeting": false,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-04-12T08:30:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-04-16T09:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      },
+      {
+        "isPrivate": true,
+        "status": "oof",
+        "subject": "Vacation",
+        "location": "",
+        "isMeeting": false,
+        "isRecurring": true,
+        "isException": false,
+        "isReminderSet": true,
+        "start": {
+          "dateTime": "2024-11-12T08:30:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        },
+        "end": {
+          "dateTime": "2024-11-25T09:00:00.0000000",
+          "timeZone": "W. Europe Standard Time"
+        }
+      }
+    ],
+    "workingHours": {
+      "daysOfWeek": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "startTime": "08:00:00.0000000",
+      "endTime": "17:00:00.0000000",
+      "timeZone": {
+        "name": "W. Europe Standard Time"
+      }
+    }
+  }
+]
