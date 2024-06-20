@@ -31,9 +31,7 @@ We welcome anything from bug fixes to new features. **Please start by creating a
 
 Once the discussion in the issue is complete, you are welcome to create a Pull Request (PR). We follow [GitHub's best practices for creating pull Requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/best-practices-for-pull-requests). Please review these guidelines if you are not familiar with them.
 
-#### Pull Request Title
-
-Provide a clear title for your PR that explains the change. Also, follow the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/#summary) for the PR title. For instance: `feat: add assignee information to Jira Table`.
+In addition, provide a clear title for your PR that explains the change.
 
 #### Pull Request Approval
 
@@ -77,18 +75,4 @@ The backstage-plugins repository use [ESLint](https://eslint.org/) for linting. 
 
 ```bash
 $ yarn lint
-```
-
-## Conventional commits
-
-We follow the [Conventional Commits standard](https://www.conventionalcommits.org/en/v1.0.0/). This standard provides a set of rules for creating an explicit commit history by describing features, fixes, and breaking changes in commit messages.
-
-Examples:
-
-```
-feat: allow provided config object to extend other configs
-
-chore: drop support for Node 6
-
-docs: correct spelling of CHANGELOG
 ```
