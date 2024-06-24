@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import 'react-calendar-timeline/lib/Timeline.css';
-import styles from './style.css';
 import useAsync from 'react-use/lib/useAsync';
 import Timeline, {
   TimelineHeaders,
@@ -221,7 +219,7 @@ export const CalendarCard = () => {
               defaultTimeStart={startDate.toJSDate()}
               defaultTimeEnd={endDate.toJSDate()}
             >
-              <TimelineHeaders style={styles}>
+              <TimelineHeaders>
                 <SidebarHeader>
                   {({ getRootProps }) => {
                     return <div {...getRootProps()} />;
