@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import useAsync from 'react-use/lib/useAsync';
 import Timeline, {
   TimelineHeaders,
   SidebarHeader,
   DateHeader,
+  IntervalRenderer,
 } from 'react-calendar-timeline';
 import { DateTime } from 'luxon';
 import { useApi } from '@backstage/core-plugin-api';
@@ -23,11 +24,13 @@ import { fetchGroupEntities, fetchUserEntities } from './fetch';
 import { useAvailability } from '../../hooks/useAvailibility';
 import { useSignIn } from '../../hooks';
 import { SignInContent } from '../SignInContent';
+import { Link as MuiLink } from '@mui/material';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { makeStyles } from '@material-ui/core/styles';
+import { Theme } from '@mui/material';
 
 const DEFAULT_NUM_DAYS = 60;
 
@@ -37,6 +40,30 @@ const useStyles = makeStyles({
     height: 30,
   },
 });
+
+const IntervalDateHeader = (props?: IntervalRenderer<object>): ReactNode => {
+  return (
+    <MuiLink
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        borderBottom: '1px solid #bbb',
+        cursor: 'pointer',
+        fontSize: '14px',
+        borderLeft: '2px solid #bbb',
+        color: (theme: Theme) => theme.palette.text.primary,
+        position: 'absolute',
+        width: props?.intervalContext.interval.labelWidth,
+        left: props?.intervalContext.interval.left,
+      }}
+      onClick={props?.getIntervalProps().onClick}
+    >
+      {props?.intervalContext.intervalText}
+    </MuiLink>
+  );
+};
 
 export const CalendarCard = () => {
   const { entity } = useEntity();
@@ -219,14 +246,24 @@ export const CalendarCard = () => {
               defaultTimeStart={startDate.toJSDate()}
               defaultTimeEnd={endDate.toJSDate()}
             >
-              <TimelineHeaders>
+              <TimelineHeaders
+                style={{
+                  backgroundColor: 'transparent',
+                  color: 'black',
+                  position: 'sticky',
+                  top: '-6px',
+                }}
+              >
                 <SidebarHeader>
                   {({ getRootProps }) => {
                     return <div {...getRootProps()} />;
                   }}
                 </SidebarHeader>
-                <DateHeader unit="primaryHeader" />
-                <DateHeader />
+                <DateHeader
+                  unit="primaryHeader"
+                  intervalRenderer={IntervalDateHeader}
+                />
+                <DateHeader intervalRenderer={IntervalDateHeader} />
               </TimelineHeaders>
             </Timeline>
           </Box>

@@ -1,3 +1,4 @@
+import 'react-calendar-timeline/lib/Timeline.css';
 import {
   createApiFactory,
   createPlugin,

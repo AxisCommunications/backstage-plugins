@@ -4,5 +4,3 @@
  * @packageDocumentation
  */ export { vacationCalendarPlugin, VacationCalendarPage } from './plugin';
 export * from './api';
-import 'react-calendar-timeline/lib/Timeline.css';
-import './style.css';
