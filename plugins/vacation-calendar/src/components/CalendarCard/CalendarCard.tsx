@@ -24,13 +24,13 @@ import { fetchGroupEntities, fetchUserEntities } from './fetch';
 import { useAvailability } from '../../hooks/useAvailibility';
 import { useSignIn } from '../../hooks';
 import { SignInContent } from '../SignInContent';
-import { Link as MuiLink } from '@mui/material';
+import MuiLink from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { makeStyles } from '@material-ui/core/styles';
-import { Theme } from '@mui/material';
+import { Theme } from '@mui/material/styles';
 
 const DEFAULT_NUM_DAYS = 60;
 
