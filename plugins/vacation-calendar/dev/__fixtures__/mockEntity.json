@@ -4,16 +4,15 @@
   "metadata": {
     "namespace": "default",
     "annotations": {
-      "github.com/user-login": "user",
       "manager": "bossman"
     },
-    "name": "fridaja",
-    "description": "Software Developer"
+    "name": "sophie",
+    "description": "Software developer"
   },
   "spec": {
     "profile": {
-      "displayName": "fridaja",
-      "email": "fridaja@axis.com",
+      "displayName": "Sophie",
+      "email": "sophie@mail.com",
       "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie"
     },
     "memberOf": ["group:default/backstage"]

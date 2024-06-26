@@ -2,7 +2,7 @@
   {
     "availabilityView": "String",
     "error": { "@odata.type": "microsoft.graph.freeBusyError" },
-    "scheduleId": "fridaja",
+    "scheduleId": "sophie",
     "scheduleItems": [
       {
         "isPrivate": false,
@@ -89,7 +89,7 @@
   {
     "availabilityView": "String",
     "error": { "@odata.type": "microsoft.graph.freeBusyError" },
-    "scheduleId": "gustaflh",
+    "scheduleId": "rascal",
     "scheduleItems": [
       {
         "isPrivate": false,
@@ -158,7 +158,7 @@
   {
     "availabilityView": "String",
     "error": { "@odata.type": "microsoft.graph.freeBusyError" },
-    "scheduleId": "niklasar",
+    "scheduleId": "buster",
     "scheduleItems": [
       {
         "isPrivate": false,
@@ -209,7 +209,7 @@
   {
     "availabilityView": "String",
     "error": { "@odata.type": "microsoft.graph.freeBusyError" },
-    "scheduleId": "martinwa",
+    "scheduleId": "jasmine",
     "scheduleItems": [
       {
         "isPrivate": false,
