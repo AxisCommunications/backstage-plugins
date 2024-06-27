@@ -12,6 +12,18 @@ describe('JiraTable', () => {
     expect(getByTestId('table-header')).toBeInTheDocument();
   });
 
+  it('renders no content message when no issues passed', async () => {
+    const emptyJiraDataResponse = {
+      name: 'Open Issues',
+      type: 'filter',
+      issues: [],
+    } as JiraDataResponse;
+    const { getByText } = await renderInTestApp(
+      <JiraTable tableContent={emptyJiraDataResponse} />,
+    );
+    expect(getByText('No issues found')).toBeInTheDocument();
+  });
+
   it('renders error when data is missing', async () => {
     const { getByText } = await renderInTestApp(
       <JiraTable tableContent={undefined!} />,
