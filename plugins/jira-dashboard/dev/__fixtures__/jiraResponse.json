@@ -36,6 +36,9 @@
             "issuetype": {
               "name": "Task",
               "iconUrl": ""
+            },
+            "priority": {
+              "name": "Minor"
             }
           }
         },
@@ -54,6 +57,9 @@
             "issuetype": {
               "name": "Bug",
               "iconUrl": ""
+            },
+            "priority": {
+              "name": "Blocker"
             }
           }
         },
@@ -72,6 +78,9 @@
             "issuetype": {
               "name": "Story",
               "iconUrl": ""
+            },
+            "priority": {
+              "name": "Major"
             }
           }
         }
@@ -96,6 +105,9 @@
             "issuetype": {
               "name": "Task",
               "iconUrl": ""
+            },
+            "priority": {
+              "name": "Minor"
             }
           }
         },
@@ -114,6 +126,9 @@
             "issuetype": {
               "name": "Bug",
               "iconUrl": ""
+            },
+            "priority": {
+              "name": "Blocker"
             }
           }
         },
@@ -132,6 +147,9 @@
             "issuetype": {
               "name": "Story",
               "iconUrl": ""
+            },
+            "priority": {
+              "name": "Major"
             }
           }
         }

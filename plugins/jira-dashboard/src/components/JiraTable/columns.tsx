@@ -54,6 +54,26 @@ export const columns: TableColumn[] = [
     },
   },
   {
+    title: 'Priority',
+    field: 'fields.priority.name',
+    highlight: true,
+    type: 'string',
+    width: '15%',
+    render: (issue: Partial<Issue>) => {
+      if (!issue.self || !issue.key) {
+        return null;
+      }
+      return (
+        <Link
+          to={getIssueUrl(issue.self, issue.key)}
+          title="Go to issue in Jira"
+        >
+          {issue.fields?.priority.name}
+        </Link>
+      );
+    },
+  },
+  {
     title: 'Status',
     field: 'fields.status.name',
     highlight: true,

@@ -61,6 +61,7 @@ import {
   isStatuspageAvailable,
   StatuspageEntityCard,
 } from '@axis-backstage/plugin-statuspage';
+import { VacationCalendarPage } from '@axis-backstage/plugin-vacation-calendar';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -280,6 +281,11 @@ const userPage = (
         </Grid>
       </Grid>
     </EntityLayout.Route>
+    <EntityLayout.Route path="/vacation-calendar" title="Out Of Office">
+      <Grid md={6}>
+        <VacationCalendarPage />
+      </Grid>
+    </EntityLayout.Route>
   </EntityLayout>
 );
 
@@ -297,6 +303,11 @@ const groupPage = (
         <Grid xs={12}>
           <EntityMembersListCard />
         </Grid>
+      </Grid>
+    </EntityLayout.Route>
+    <EntityLayout.Route path="/vacation-calendar" title="Out Of Office">
+      <Grid md={6}>
+        <VacationCalendarPage />
       </Grid>
     </EntityLayout.Route>
   </EntityLayout>

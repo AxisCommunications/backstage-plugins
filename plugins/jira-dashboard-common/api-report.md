@@ -41,6 +41,9 @@ export type Issue = {
       name: string;
       iconUrl: string;
     };
+    priority: {
+      name: string;
+    };
   };
 };
 
