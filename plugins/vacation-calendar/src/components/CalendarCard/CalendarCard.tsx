@@ -29,17 +29,10 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import { makeStyles } from '@material-ui/core/styles';
+
 import { Theme } from '@mui/material/styles';
 
 const DEFAULT_NUM_DAYS = 60;
-
-const useStyles = makeStyles({
-  avatar: {
-    width: 30,
-    height: 30,
-  },
-});
 
 const IntervalDateHeader = (props?: IntervalRenderer<object>): ReactNode => {
   return (
@@ -68,7 +61,6 @@ const IntervalDateHeader = (props?: IntervalRenderer<object>): ReactNode => {
 export const CalendarCard = () => {
   const { entity } = useEntity();
   const catalogApi = useApi(catalogApiRef);
-  const classes = useStyles();
 
   const [startDate, setStartDate] = useState(DateTime.now());
   const [endDate, setEndDate] = useState(
@@ -231,7 +223,10 @@ export const CalendarCard = () => {
                             group.entity?.metadata.displayName as string
                           }
                           picture={group.entity?.spec.profile?.picture}
-                          classes={classes}
+                          customStyles={{
+                            width: 30,
+                            height: 30,
+                          }}
                         />
                       </div>
                       <div>

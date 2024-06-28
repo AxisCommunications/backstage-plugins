@@ -1627,7 +1627,6 @@ __metadata:
     "@backstage/test-utils": "npm:^1.5.6"
     "@backstage/theme": "npm:^0.5.6"
     "@date-io/luxon": "npm:3.0.0"
-    "@material-ui/core": "npm:^4.12.4"
     "@material-ui/pickers": "npm:^3.3.11"
     "@microsoft/microsoft-graph-types": "npm:^2.40.0"
     "@mui/lab": "npm:^5.0.0-alpha.170"
