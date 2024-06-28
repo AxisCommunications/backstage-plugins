@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-common
 
+## 1.3.0
+
+### Minor Changes
+
+- e416aff: Adding Priority Column to the Jira Table
+
 ## 1.2.0
 
 ### Minor Changes
