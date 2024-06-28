@@ -7,6 +7,18 @@ metadata:
 spec:
   memberOf: [guests]
 ---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: Sophie
+  description: Software Developer
+spec:
+  profile:
+    displayName: Sophie
+    email: sophie@mail.com
+    picture: https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie
+  memberOf: [guests]
+---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-group
 apiVersion: backstage.io/v1alpha1
 kind: Group

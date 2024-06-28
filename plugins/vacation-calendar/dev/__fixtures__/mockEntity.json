@@ -1,0 +1,20 @@
+{
+  "apiVersion": "backstage.io/v1beta1",
+  "kind": "User",
+  "metadata": {
+    "namespace": "default",
+    "annotations": {
+      "manager": "bossman"
+    },
+    "name": "sophie",
+    "description": "Software developer"
+  },
+  "spec": {
+    "profile": {
+      "displayName": "Sophie",
+      "email": "sophie@mail.com",
+      "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie"
+    },
+    "memberOf": ["group:default/backstage"]
+  }
+}

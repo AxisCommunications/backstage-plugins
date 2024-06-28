@@ -1,0 +1,82 @@
+[
+  {
+    "apiVersion": "backstage.io/v1beta1",
+    "kind": "User",
+    "metadata": {
+      "namespace": "default",
+      "annotations": {
+        "manager": "bossman"
+      },
+      "name": "sophie",
+      "description": "Software developer"
+    },
+    "spec": {
+      "profile": {
+        "displayName": "Sophie",
+        "email": "sophie@mail.com",
+        "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie"
+      },
+      "memberOf": ["group:default/backstage"]
+    }
+  },
+  {
+    "apiVersion": "backstage.io/v1beta1",
+    "kind": "User",
+    "metadata": {
+      "namespace": "default",
+      "annotations": {
+        "manager": "bossman"
+      },
+      "name": "rascal",
+      "description": "Expert Engineer"
+    },
+    "spec": {
+      "profile": {
+        "displayName": "Rascal",
+        "email": "rascal@mail.com",
+        "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Rascal"
+      },
+      "memberOf": ["group:default/backstage"]
+    }
+  },
+  {
+    "apiVersion": "backstage.io/v1beta1",
+    "kind": "User",
+    "metadata": {
+      "namespace": "default",
+      "annotations": {
+        "manager": "bossman"
+      },
+      "name": "buster",
+      "description": "Expert Engineer"
+    },
+    "spec": {
+      "profile": {
+        "displayName": "Buster",
+        "email": "buster@mail.com",
+        "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Buster"
+      },
+      "memberOf": ["group:default/backstage"]
+    }
+  },
+  {
+    "apiVersion": "backstage.io/v1beta1",
+    "kind": "User",
+    "metadata": {
+      "namespace": "default",
+      "annotations": {
+        "manager": "bossman"
+      },
+      "name": "jasmine",
+      "description": "Expert Engineer"
+    },
+    "spec": {
+      "profile": {
+        "displayName": "Jasmine",
+        "email": "jasmine@mail.com",
+        "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jasmine"
+      },
+      "memberOf": ["group:default/backstage"]
+    }
+  }
+]
