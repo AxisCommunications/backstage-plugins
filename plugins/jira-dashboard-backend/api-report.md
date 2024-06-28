@@ -10,8 +10,8 @@ import { DiscoveryService } from '@backstage/backend-plugin-api';
 import express from 'express';
 import { HttpAuthService } from '@backstage/backend-plugin-api';
 import { IdentityApi } from '@backstage/plugin-auth-node';
-import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { Logger } from 'winston';
+import { SearchJiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 import { TokenManager } from '@backstage/backend-common';
 
 // @public
@@ -51,7 +51,7 @@ export const searchJira: (
   config: Config,
   jqlQuery: string,
   options: SearchOptions,
-) => Promise<Issue[]>;
+) => Promise<SearchJiraResponse>;
 
 // @public
 export type SearchOptions = {
