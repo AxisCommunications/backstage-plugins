@@ -2,8 +2,8 @@
 
 Welcome to the Vacation Calendar plugin!
 
-![example 2024](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/vacation-calendar/media/2024-example-light.png)
-![example 2024](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/vacation-calendar/media/2024-example-dark.png)
+![calendar-year-light-example](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/vacation-calendar/media/year-light.png)
+![calendar-year-dark-example](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/vacation-calendar/media/year-dark.png)
 
 ## Introduction
 
@@ -20,14 +20,6 @@ The plugin interacts with the Microsoft Graph API to fetch users' calendars and 
 The Vacation Calendar plugin requires Microsoft authentication. If you have not set this up, please follow the upstream guide on Microsoft authentication: [Backstage.io Microsoft Authentication Guide](https://backstage.io/docs/auth/microsoft/provider/).
 
 At present, the plugin supports only Microsoft authentication and does not integrate with other Backstage authentication methods. If you need the plugin to support a different authentication method, please create an issue so we can discuss your requirements.
-
-### Group Entities Overivew
-
-For a group entity, all of the Backstage users that are part of that group will be displayed.
-
-### User Entities Overview
-
-For a user entity, all of the Backstage users with the same **mananger annotation** will be displayed. Read more under section [Integration with the Catalog](#integration-with-the-catalog).
 
 ## Getting started
 
@@ -61,16 +53,6 @@ createApiFactory({
 // In packages/app/src/components/catalog/EntityPage.tsx
 import { VacationCalendarPage } from '@axis-backstage/plugin-vacation-calendar';
 
-const userPage = (
-  <EntityLayout>
-    <EntityLayout.Route path="/vacation-calendar" title="Out Of Office">
-      <Grid md={6}>
-        <VacationCalendarPage />
-      </Grid>
-    </EntityLayout.Route>
-  </EntityLayout>
-);
-
 const groupPage = (
   <EntityLayout>
     <EntityLayout.Route path="/vacation-calendar" title="Out Of Office">
@@ -81,6 +63,8 @@ const groupPage = (
   </EntityLayout>
 );
 ```
+
+By doing this, all Backstage users who are part of that group will be displayed in the `Out of Office` tab on the group's entity page.
 
 ## Integration with the Catalog
 
@@ -95,6 +79,23 @@ metadata:
     manager: value # The Backstage username of the mananger
 ```
 
+If the manager annotation is set, you can display all users with the same manager for a user entity. To do this, add the `VacationCalendarPage` component to the entity page for users:
+
+```tsx
+// In packages/app/src/components/catalog/EntityPage.tsx
+import { VacationCalendarPage } from '@axis-backstage/plugin-vacation-calendar';
+
+const userPage = (
+  <EntityLayout>
+    <EntityLayout.Route path="/vacation-calendar" title="Out Of Office">
+      <Grid md={6}>
+        <VacationCalendarPage />
+      </Grid>
+    </EntityLayout.Route>
+  </EntityLayout>
+);
+```
+
 ## Development
 
 The plugin has been added to the example app in this repository, meaning you'll be able to access it by running `yarn start` in the root directory, and then navigating to [/vacation-calendar](http://localhost:3000/vacation-calendar).
@@ -105,5 +106,5 @@ It is only meant for local development, and the setup for it can be found inside
 
 ## Screenshots
 
-![example april](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/vacation-calendar/media/april-example-light.png)
-![example april](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/vacation-calendar/media/april-example-dark.png)
+![calendar-month-light-example](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/vacation-calendar/media/month-light.png)
+![calendar-month-dark-example](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/vacation-calendar/media/month-dark.png)
