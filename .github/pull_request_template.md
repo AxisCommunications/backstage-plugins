@@ -1,11 +1,11 @@
 ## Hey, I just made a Pull Request!
 
-<!-- Please describe what you added, and add a screenshot if possible.
-     That makes it easier to understand the change so we can :shipit: faster. -->
+Please describe what you added, and add a screenshot if possible.
+That makes it easier to understand the change so we can :shipit: faster.
 
-### Rationale behind the change
+### Context
 
-<!-- Please describe why you made this change -->
+Please provide some context about the why this change is being made and what problem it aims to solve.
 
 ### Issue ticket number and link
 
