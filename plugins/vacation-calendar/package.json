@@ -44,6 +44,7 @@
     "interactjs": "^1.10.27",
     "lodash": "^4.17.21",
     "luxon": "^3.4.4",
+    "moment": "^2.30.1",
     "react-calendar-timeline": "^0.28.0",
     "react-use": "^17.5.0"
   },
