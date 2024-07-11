@@ -1,5 +1,20 @@
 # app
 
+## 0.6.0
+
+### Minor Changes
+
+- e416aff: Added new plugin for displaying out-of-office events in a react-calendar-timeline. Also added support for microsoft autentication.
+
+### Patch Changes
+
+- Updated dependencies [e416aff]
+- Updated dependencies [e12733a]
+- Updated dependencies [e416aff]
+  - @axis-backstage/plugin-jira-dashboard-common@1.3.0
+  - @axis-backstage/plugin-jira-dashboard@1.3.0
+  - @axis-backstage/plugin-vacation-calendar@0.2.0
+
 ## 0.5.0
 
 ### Minor Changes
