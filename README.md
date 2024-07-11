@@ -13,6 +13,7 @@ At Axis, we've developed our own set of plugins exclusively available to us. Now
 - [The Readme plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/README.md)
 - [The Statuspage.io plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/statuspage/README.md)
 - [The Umami Analytics plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/analytics-module-umami/README.md)
+- [The Vacation Calendar plugin](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/vacation-calendar/README.md)
 
 ## Keeping your Axis-Backstage plugins updated
 
