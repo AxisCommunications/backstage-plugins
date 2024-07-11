@@ -1,5 +1,11 @@
 # app
 
+## 0.6.1
+
+### Patch Changes
+
+- 120631e: Changed plugin-vacation-calendar dependency in app folder to use workspace.
+
 ## 0.6.0
 
 ### Minor Changes
