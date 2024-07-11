@@ -1611,7 +1611,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@axis-backstage/plugin-vacation-calendar@npm:^0.1.0, @axis-backstage/plugin-vacation-calendar@workspace:plugins/vacation-calendar":
+"@axis-backstage/plugin-vacation-calendar@workspace:^, @axis-backstage/plugin-vacation-calendar@workspace:plugins/vacation-calendar":
   version: 0.0.0-use.local
   resolution: "@axis-backstage/plugin-vacation-calendar@workspace:plugins/vacation-calendar"
   dependencies:
@@ -15637,7 +15637,7 @@ __metadata:
     "@axis-backstage/plugin-jira-dashboard-common": "workspace:^"
     "@axis-backstage/plugin-readme": "workspace:^"
     "@axis-backstage/plugin-statuspage": "workspace:^"
-    "@axis-backstage/plugin-vacation-calendar": "npm:^0.1.0"
+    "@axis-backstage/plugin-vacation-calendar": "workspace:^"
     "@backstage-community/plugin-github-actions": "npm:^0.6.16"
     "@backstage/app-defaults": "npm:^1.5.5"
     "@backstage/catalog-model": "npm:^1.5.0"
