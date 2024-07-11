@@ -34,6 +34,10 @@ yarn --cwd packages/app add @axis-backstage/plugin-vacation-calendar
 
 ```ts
 // packages/app/src/apis.ts:
+import {
+  vacationCalendarApiRef,
+  VacationCalendarApiClient,
+} from '@axis-backstage/plugin-vacation-calendar';
 
 createApiFactory({
     api: vacationCalendarApiRef,
