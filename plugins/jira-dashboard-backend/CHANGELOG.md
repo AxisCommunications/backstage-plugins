@@ -1,5 +1,16 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 2.4.0
+
+### Minor Changes
+
+- 0b948ea: Generate pluginIds for plugins and bumping @backstage/cli
+
+### Patch Changes
+
+- Updated dependencies [0b948ea]
+  - @axis-backstage/plugin-jira-dashboard-common@1.4.0
+
 ## 2.3.1
 
 ### Patch Changes

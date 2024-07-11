@@ -1,5 +1,21 @@
 # app
 
+## 0.7.0
+
+### Minor Changes
+
+- 0b948ea: Generate pluginIds for plugins and bumping @backstage/cli
+
+### Patch Changes
+
+- Updated dependencies [0b948ea]
+  - @axis-backstage/plugin-analytics-module-umami@0.4.0
+  - @axis-backstage/plugin-jira-dashboard-common@1.4.0
+  - @axis-backstage/plugin-vacation-calendar@0.3.0
+  - @axis-backstage/plugin-jira-dashboard@1.4.0
+  - @axis-backstage/plugin-statuspage@0.5.0
+  - @axis-backstage/plugin-readme@0.9.0
+
 ## 0.6.1
 
 ### Patch Changes
