@@ -11,7 +11,13 @@
     "directory": "_release/package"
   },
   "backstage": {
-    "role": "frontend-plugin"
+    "role": "frontend-plugin",
+    "pluginId": "jira-dashboard",
+    "pluginPackages": [
+      "@axis-backstage/plugin-jira-dashboard",
+      "@axis-backstage/plugin-jira-dashboard-backend",
+      "@axis-backstage/plugin-jira-dashboard-common"
+    ]
   },
   "sideEffects": false,
   "scripts": {
@@ -42,7 +48,7 @@
     "react": "^17.0.0  || ^18.0.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.26.6",
+    "@backstage/cli": "^0.26.10",
     "@backstage/core-app-api": "^1.12.5",
     "@backstage/dev-utils": "^1.0.32",
     "@backstage/plugin-catalog-react": "^1.12.0",

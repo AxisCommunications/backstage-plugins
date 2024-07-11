@@ -11,7 +11,13 @@
     "directory": "_release/package"
   },
   "backstage": {
-    "role": "backend-plugin"
+    "role": "backend-plugin",
+    "pluginId": "jira-dashboard",
+    "pluginPackages": [
+      "@axis-backstage/plugin-jira-dashboard",
+      "@axis-backstage/plugin-jira-dashboard-backend",
+      "@axis-backstage/plugin-jira-dashboard-common"
+    ]
   },
   "scripts": {
     "start": "backstage-cli package start",
@@ -40,7 +46,7 @@
   },
   "devDependencies": {
     "@backstage/backend-test-utils": "^0.3.8",
-    "@backstage/cli": "^0.26.6",
+    "@backstage/cli": "^0.26.10",
     "@types/supertest": "^2.0.12",
     "msw": "^1.0.0",
     "supertest": "^6.2.4"
