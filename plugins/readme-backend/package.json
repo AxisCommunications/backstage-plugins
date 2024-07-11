@@ -11,7 +11,12 @@
     "directory": "_release/package"
   },
   "backstage": {
-    "role": "backend-plugin"
+    "role": "backend-plugin",
+    "pluginId": "readme",
+    "pluginPackages": [
+      "@axis-backstage/plugin-readme",
+      "@axis-backstage/plugin-readme-backend"
+    ]
   },
   "scripts": {
     "start": "backstage-cli package start",
@@ -38,7 +43,7 @@
     "yn": "^4.0.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.26.6",
+    "@backstage/cli": "^0.26.10",
     "@types/supertest": "^2.0.12",
     "msw": "^1.0.0",
     "supertest": "^6.2.4"

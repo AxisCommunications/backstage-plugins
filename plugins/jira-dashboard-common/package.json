@@ -13,7 +13,13 @@
     "directory": "_release/package"
   },
   "backstage": {
-    "role": "common-library"
+    "role": "common-library",
+    "pluginId": "jira-dashboard",
+    "pluginPackages": [
+      "@axis-backstage/plugin-jira-dashboard",
+      "@axis-backstage/plugin-jira-dashboard-backend",
+      "@axis-backstage/plugin-jira-dashboard-common"
+    ]
   },
   "sideEffects": false,
   "scripts": {
@@ -25,7 +31,7 @@
     "postpack": "backstage-cli package postpack"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.26.6"
+    "@backstage/cli": "^0.26.10"
   },
   "files": [
     "dist"

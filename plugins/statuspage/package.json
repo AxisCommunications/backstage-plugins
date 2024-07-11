@@ -11,7 +11,13 @@
     "directory": "_release/package"
   },
   "backstage": {
-    "role": "frontend-plugin"
+    "role": "frontend-plugin",
+    "pluginId": "statuspage",
+    "pluginPackages": [
+      "@axis-backstage/plugin-statuspage",
+      "@axis-backstage/plugin-statuspage-backend",
+      "@axis-backstage/plugin-statuspage-common"
+    ]
   },
   "sideEffects": false,
   "scripts": {
@@ -37,7 +43,7 @@
     "react": "^17.0.0  || ^18.0.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.26.6",
+    "@backstage/cli": "^0.26.10",
     "@backstage/dev-utils": "^1.0.32",
     "@testing-library/jest-dom": "^5.10.1"
   },

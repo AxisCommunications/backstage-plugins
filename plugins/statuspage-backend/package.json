@@ -11,7 +11,13 @@
     "directory": "_release/package"
   },
   "backstage": {
-    "role": "backend-plugin"
+    "role": "backend-plugin",
+    "pluginId": "statuspage",
+    "pluginPackages": [
+      "@axis-backstage/plugin-statuspage",
+      "@axis-backstage/plugin-statuspage-backend",
+      "@axis-backstage/plugin-statuspage-common"
+    ]
   },
   "scripts": {
     "start": "backstage-cli package start",
@@ -34,7 +40,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.26.6"
+    "@backstage/cli": "^0.26.10"
   },
   "files": [
     "dist",
