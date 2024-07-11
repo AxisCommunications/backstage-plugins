@@ -1,5 +1,15 @@
 # @axis-backstage/plugin-vacation-calendar
 
+## 0.4.0
+
+### Minor Changes
+
+- a30ae43: Added required imports to installation guide in README.md in vacation calendar plugin.
+
+### Patch Changes
+
+- 306fcb8: Add moment to dependecies in vacation-calendar package.json to resolve 'Can't resolve 'moment' in .../node_modules/react-calendar-timeline/lib/lib/items'
+
 ## 0.3.0
 
 ### Minor Changes
