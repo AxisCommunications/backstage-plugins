@@ -1,5 +1,31 @@
 # backend
 
+## 0.6.0
+
+### Minor Changes
+
+- 0b948ea: Generate pluginIds for plugins and bumping @backstage/cli
+
+### Patch Changes
+
+- Updated dependencies [0b948ea]
+  - @axis-backstage/plugin-jira-dashboard-backend@2.4.0
+  - @axis-backstage/plugin-statuspage-backend@0.4.0
+  - @axis-backstage/plugin-readme-backend@0.8.0
+  - app@0.7.0
+
+## 0.5.0
+
+### Minor Changes
+
+- e416aff: Added new plugin for displaying out-of-office events in a react-calendar-timeline. Also added support for microsoft autentication.
+
+### Patch Changes
+
+- Updated dependencies [e416aff]
+  - app@0.6.0
+  - @axis-backstage/plugin-jira-dashboard-backend@2.3.1
+
 ## 0.4.0
 
 ### Minor Changes

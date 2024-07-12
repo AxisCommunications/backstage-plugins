@@ -1,5 +1,52 @@
 # app
 
+## 0.7.1
+
+### Patch Changes
+
+- Updated dependencies [a30ae43]
+- Updated dependencies [306fcb8]
+- Updated dependencies [6d21448]
+  - @axis-backstage/plugin-vacation-calendar@0.4.0
+  - @axis-backstage/plugin-statuspage@0.5.1
+
+## 0.7.0
+
+### Minor Changes
+
+- 0b948ea: Generate pluginIds for plugins and bumping @backstage/cli
+
+### Patch Changes
+
+- Updated dependencies [0b948ea]
+  - @axis-backstage/plugin-analytics-module-umami@0.4.0
+  - @axis-backstage/plugin-jira-dashboard-common@1.4.0
+  - @axis-backstage/plugin-vacation-calendar@0.3.0
+  - @axis-backstage/plugin-jira-dashboard@1.4.0
+  - @axis-backstage/plugin-statuspage@0.5.0
+  - @axis-backstage/plugin-readme@0.9.0
+
+## 0.6.1
+
+### Patch Changes
+
+- 120631e: Changed plugin-vacation-calendar dependency in app folder to use workspace.
+
+## 0.6.0
+
+### Minor Changes
+
+- e416aff: Added new plugin for displaying out-of-office events in a react-calendar-timeline. Also added support for microsoft autentication.
+
+### Patch Changes
+
+- Updated dependencies [e416aff]
+- Updated dependencies [e12733a]
+- Updated dependencies [e416aff]
+  - @axis-backstage/plugin-jira-dashboard-common@1.3.0
+  - @axis-backstage/plugin-jira-dashboard@1.3.0
+  - @axis-backstage/plugin-vacation-calendar@0.2.0
+
 ## 0.5.0
 
 ### Minor Changes

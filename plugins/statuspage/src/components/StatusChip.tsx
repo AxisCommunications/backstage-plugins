@@ -1,7 +1,18 @@
 import React from 'react';
-import type { ComponentStatus } from '@axis-backstage/plugin-statuspage-common';
 import Chip from '@mui/material/Chip';
-import { statusColorMap } from './StatuspageComponent';
+import type { ComponentStatus } from '@axis-backstage/plugin-statuspage-common';
+
+/**
+ * Maps statuspage component statuses to MUI colors.
+ *
+ */
+const statusColorMap: { [key in ComponentStatus]: string } = {
+  under_maintenance: 'info',
+  operational: 'success',
+  degraded_performance: 'warning',
+  partial_outage: 'warning',
+  major_outage: 'error',
+};
 
 type StatusChipProps = {
   status: ComponentStatus;

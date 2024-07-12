@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.8.0
+
+### Minor Changes
+
+- 0b948ea: Generate pluginIds for plugins and bumping @backstage/cli
+
 ## 0.7.0
 
 ### Minor Changes

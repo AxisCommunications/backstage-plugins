@@ -1,5 +1,16 @@
 # @axis-backstage/plugin-statuspage-backend
 
+## 0.4.0
+
+### Minor Changes
+
+- 0b948ea: Generate pluginIds for plugins and bumping @backstage/cli
+
+### Patch Changes
+
+- Updated dependencies [0b948ea]
+  - @axis-backstage/plugin-statuspage-common@0.4.0
+
 ## 0.3.0
 
 ### Minor Changes

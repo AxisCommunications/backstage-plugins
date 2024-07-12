@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-statuspage-common
 
+## 0.4.0
+
+### Minor Changes
+
+- 0b948ea: Generate pluginIds for plugins and bumping @backstage/cli
+
 ## 0.3.0
 
 ### Minor Changes
