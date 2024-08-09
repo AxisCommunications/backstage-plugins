@@ -11,7 +11,13 @@ import { JSX as JSX_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
 
 // @public
-export const EntityJiraDashboardContent: () => JSX_2.Element;
+export const EntityJiraDashboardContent: (
+  props?:
+    | {
+        annotationPrefix?: string | undefined;
+      }
+    | undefined,
+) => JSX_2.Element;
 
 // @public
 export const isJiraDashboardAvailable: (

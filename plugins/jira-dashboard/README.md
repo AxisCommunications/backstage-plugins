@@ -43,7 +43,7 @@ const defaultEntityPage = (
 );
 ```
 
-OPTIONAL: The function `isJiraDashboardAvailable` checks for the annotation `jira.com`. You can choose to check for another annotation by passing the prop `annotationPrefix` into the function. See example below.
+OPTIONAL: The function `isJiraDashboardAvailable` checks for the annotation `jira.com`. You can choose to check for another annotation by passing the prop `annotationPrefix` into the function. If you do this, be sure you've set the [optional annotationPrefix value](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend#configuration-details) in the backend config to the same string. See example below.
 
 ```tsx
 // In packages/app/src/components/catalog/EntityPage.tsx
@@ -90,6 +90,81 @@ metadata:
     jira.com/components: component,component,component # Jira component name separated with a comma. The Roadie Backstage Jira Plugin Jira annotation `/component` is also supported here by default
     jira.com/filter-ids: 12345,67890 # Jira filter id separated with a comma
     jira.com/incoming-issues-status: Incoming # The name of the status for incoming issues in Jira. Default: New
+```
+
+### New Frontend System (Alpha)
+
+The Jira Dashboard plugin also has support for the [new alpha frontend system](https://backstage.io/docs/frontend-system/). Here is how you can set it up:
+
+1. First, install the plugin into your app:
+
+```bash
+# From your Backstage root directory
+yarn --cwd packages/app add @axis-backstage/plugin-jira-dashboard
+```
+
+2. [Configure the extension](https://backstage.io/docs/frontend-system/building-apps/configuring-extensions) inside `app-config.yaml` to include the entity-content:
+
+```tsx
+app:
+  extensions:
+    - entity-content:jira-dashboard/entity
+```
+
+You can also control which [entity kinds](https://backstage.io/docs/features/software-catalog/system-model) the jira dashboard appears on by adding a config underneath the entity-content, like so:
+
+```tsx
+app:
+  extensions:
+    - entity-content:jira-dashboard/entity
+        config:
+          filter: kind:component,system,group
+```
+
+3. [Install the plugin](https://backstage.io/docs/frontend-system/building-apps/index#install-features-manually) by updating `app/arc/App.tsx` to include the plugin in the features block during app creation:
+
+```tsx
+import { createApp } from '@backstage/frontend-app-api';
+import jiraPlugin from '@axis-backstage/plugin-jira-dashboard/alpha';
+
+...
+const app = createApp({
+  features: [
+    ...,
+    jiraPlugin,
+    ],
+});
+export default app.createRoot();
+```
+
+4. [OPTIONAL] The plugin by default checks for the annotation `jira.com`. You can choose to check for another annotation by passing an `annotationPrefix` extension into the app. If you do this, be sure you've set the [optional annotationPrefix value](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend#configuration-details) in the backend config to the same string. See example below.
+
+```tsx
+import { createApp, createExtension, createExtensionOverrides, } from '@backstage/frontend-app-api';
+import jiraPlugin from '@axis-backstage/plugin-jira-dashboard/alpha';
+
+const jiraAnnotationExtension = createExtension({
+  name: 'myJiraAnnotation',
+  attachTo: { id: 'entity-content:jira-dashboard/entity', input: 'props' },
+  output: {
+    annotationPrefix: annotationPrefixExtensionDataRef,
+  },
+
+  factory() {
+    // This can be any value you want to check for
+    return { annotationPrefix: 'jira' };
+  },
+});
+const app = createApp({
+  features: [
+    ...,
+    jiraPlugin,
+    ],
+    createExtensionOverrides({
+      extensions: [jiraAnnotationExtension,],
+    }),
+});
+export default app.createRoot();
 ```
 
 ## Layout

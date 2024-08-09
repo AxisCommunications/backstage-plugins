@@ -83,4 +83,16 @@ describe('JiraDashboardContent', () => {
     );
     expect(getAllByTestId('issue-table')).toHaveLength(2);
   });
+
+  it('renders missing annotations screen if annotation is not present', async () => {
+    const rendered = await renderInTestApp(
+      <EntityProvider entity={mockedEntity}>
+        <ApiProvider apis={apis}>
+          <JiraDashboardContent annotationPrefix="different-prefix" />,
+        </ApiProvider>
+      </EntityProvider>,
+    );
+    expect(rendered.getByText(/Missing Annotation/)).toBeInTheDocument();
+    expect(rendered.getAllByText(/different-prefix/).length).toBeGreaterThan(0);
+  });
 });
