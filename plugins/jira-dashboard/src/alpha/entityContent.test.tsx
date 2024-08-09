@@ -6,28 +6,11 @@ import {
   createApiFactory,
 } from '@backstage/frontend-plugin-api';
 import { JiraDashboardApi, jiraDashboardApiRef } from '../api';
-import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
+import mockedJiraResponse from '../../dev/__fixtures__/jiraResponse.json';
+import mockedEntity from '../../dev/__fixtures__/entity.json';
 
 const entityWithJiraAnnotations = {
-  entity: {
-    apiVersion: 'backstage.io/v1alpha1',
-    kind: 'Component',
-    metadata: {
-      namespace: 'default',
-      name: 'artist-web',
-      description: 'The place to be, for great artists',
-      annotations: {
-        'jira.com/project-key': 'value',
-        'jira.com/filter-ids': 12345,
-      },
-    },
-    spec: {
-      type: 'website',
-      lifecycle: 'production',
-      owner: 'artist-relations-team',
-      system: 'artist-engagement-portal',
-    },
-  },
+  entity: mockedEntity,
 };
 
 jest.mock('@backstage/plugin-catalog-react', () => ({
@@ -41,14 +24,7 @@ jest.mock('@backstage/core-plugin-api', () => ({
 }));
 
 const mockJiraApi = {
-  getJiraResponseByEntity: jest.fn(() => ({
-    project: {
-      name: 'project-name',
-      key: 'key',
-      self: 'https://your-name.atlassian.net',
-    } as Project,
-    data: [],
-  })),
+  getJiraResponseByEntity: jest.fn(() => mockedJiraResponse),
   getProjectAvatar: jest.fn(() => ({
     '48x48': 'url',
   })),

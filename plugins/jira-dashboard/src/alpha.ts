@@ -4,6 +4,11 @@ import { entityJiraContent, jiraApi } from './alpha/index';
 import { rootRouteRef } from './routes';
 
 /**
+ * @packageDocumentation
+ */
+export { annotationPrefixExtensionDataRef } from './alpha/index';
+
+/**
  * Frontend plugin that fetches and displays Jira issues for an entity
  *
  * @alpha

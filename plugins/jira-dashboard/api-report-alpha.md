@@ -4,7 +4,14 @@
 
 ```ts
 import { BackstagePlugin } from '@backstage/frontend-plugin-api';
+import { ConfigurableExtensionDataRef } from '@backstage/frontend-plugin-api';
 import { RouteRef } from '@backstage/frontend-plugin-api';
+
+// @alpha
+export const annotationPrefixExtensionDataRef: ConfigurableExtensionDataRef<
+  string,
+  {}
+>;
 
 // @alpha
 const _default: BackstagePlugin<
