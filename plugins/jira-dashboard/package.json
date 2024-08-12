@@ -6,9 +6,22 @@
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public",
-    "main": "dist/index.esm.js",
-    "types": "dist/index.d.ts",
     "directory": "_release/package"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./alpha": "./src/alpha.ts",
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "alpha": [
+        "src/alpha.ts"
+      ],
+      "package.json": [
+        "package.json"
+      ]
+    }
   },
   "backstage": {
     "role": "frontend-plugin",
@@ -32,9 +45,11 @@
   "dependencies": {
     "@axis-backstage/plugin-jira-dashboard-common": "workspace:^",
     "@backstage/catalog-model": "^1.5.0",
+    "@backstage/core-compat-api": "^0.2.5",
     "@backstage/core-components": "^0.14.7",
     "@backstage/core-plugin-api": "^1.9.2",
     "@backstage/errors": "^1.2.4",
+    "@backstage/frontend-plugin-api": "^0.6.5",
     "@backstage/plugin-catalog-react": "^1.12.0",
     "@backstage/theme": "^0.5.5",
     "@mui/material": "^5.15.7",
@@ -51,6 +66,7 @@
     "@backstage/cli": "^0.26.10",
     "@backstage/core-app-api": "^1.12.5",
     "@backstage/dev-utils": "^1.0.32",
+    "@backstage/frontend-test-utils": "^0.1.7",
     "@backstage/plugin-catalog-react": "^1.12.0",
     "@backstage/test-utils": "^1.5.5",
     "@testing-library/jest-dom": "6.0.0",

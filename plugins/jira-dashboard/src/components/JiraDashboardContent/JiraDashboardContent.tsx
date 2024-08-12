@@ -13,13 +13,17 @@ import React from 'react';
 import { JiraProjectCard } from '../JiraProjectCard';
 import { JiraTable } from '../JiraTable';
 import { useApi } from '@backstage/core-plugin-api';
-import { useEntity } from '@backstage/plugin-catalog-react';
+import {
+  MissingAnnotationEmptyState,
+  useEntity,
+} from '@backstage/plugin-catalog-react';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { jiraDashboardApiRef } from '../../api';
 import { useJira } from '../../hooks/useJira';
+import { isJiraDashboardAvailable } from '../../plugin';
 import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 
-export const JiraDashboardContent = () => {
+export const JiraDashboardContent = (props?: { annotationPrefix?: string }) => {
   const { entity } = useEntity();
   const api = useApi(jiraDashboardApiRef);
 
@@ -28,6 +32,17 @@ export const JiraDashboardContent = () => {
     loading,
     error,
   } = useJira(stringifyEntityRef(entity), api);
+
+  // In new frontend system, we can't yet conditionally render the tab content based on annotation key presence,
+  // so add back in a check for the missing annotation here / render a nicer screen if it's missing. Will
+  // still display the ResponseErrorPanel if the actual API call to jira fails.
+  if (!isJiraDashboardAvailable(entity, props?.annotationPrefix)) {
+    return (
+      <MissingAnnotationEmptyState
+        annotation={`${props?.annotationPrefix ?? 'jira.com'}`}
+      />
+    );
+  }
 
   if (loading) {
     return <Progress />;
