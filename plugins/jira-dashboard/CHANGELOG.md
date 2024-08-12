@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.5.0
+
+### Minor Changes
+
+- 95e7ef8: Adds support for Backstage's new frontend system, available via the `/alpha` sub-path export.
+
 ## 1.4.0
 
 ### Minor Changes
