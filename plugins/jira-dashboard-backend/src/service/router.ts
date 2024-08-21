@@ -1,6 +1,5 @@
 import {
   CacheManager,
-  TokenManager,
   createLegacyAuthAdapters,
   errorHandler,
 } from '@backstage/backend-common';
@@ -8,12 +7,13 @@ import {
   AuthService,
   DiscoveryService,
   HttpAuthService,
+  LoggerService,
+  TokenManagerService,
 } from '@backstage/backend-plugin-api';
 import { UserEntity, stringifyEntityRef } from '@backstage/catalog-model';
 import express from 'express';
 import Router from 'express-promise-router';
 import { Config } from '@backstage/config';
-import { Logger } from 'winston';
 import { CatalogClient } from '@backstage/catalog-client';
 import { IdentityApi } from '@backstage/plugin-auth-node';
 
@@ -41,7 +41,7 @@ export interface RouterOptions {
   /**
    * Implementation of Winston logger
    */
-  logger: Logger;
+  logger: LoggerService;
 
   /**
    * Backstage config object
@@ -61,7 +61,7 @@ export interface RouterOptions {
   /**
    * Backstage token manager instance
    */
-  tokenManager?: TokenManager;
+  tokenManager?: TokenManagerService;
   /**
    * Backstage auth service
    */
@@ -262,7 +262,7 @@ export async function createRouter(
       response.setHeader('content-type', val ?? '');
       stream.pipeline(avatar.body, ps, err => {
         if (err) {
-          logger.error(err);
+          logger.error(`${err}`);
           response.sendStatus(400);
         }
         return;

@@ -1,7 +1,7 @@
 import { CacheManager, errorHandler } from '@backstage/backend-common';
+import { LoggerService } from '@backstage/backend-plugin-api';
 import express from 'express';
 import Router from 'express-promise-router';
-import { Logger } from 'winston';
 import { fetchComponentGroups, fetchComponents, getLink } from './api';
 import { Config } from '@backstage/config';
 import { getStatuspageConfig } from '../config';
@@ -13,7 +13,7 @@ import { getStatuspageConfig } from '../config';
  */
 export interface RouterOptions {
   /** The logger instance */
-  logger: Logger;
+  logger: LoggerService;
   /** Backstage config object */
   config: Config;
 }

@@ -4,21 +4,21 @@
 
 ```ts
 import { AuthService } from '@backstage/backend-plugin-api';
-import { BackendFeature } from '@backstage/backend-plugin-api';
+import { BackendFeatureCompat } from '@backstage/backend-plugin-api';
 import { Config } from '@backstage/config';
 import { DiscoveryService } from '@backstage/backend-plugin-api';
 import express from 'express';
 import { HttpAuthService } from '@backstage/backend-plugin-api';
 import { IdentityApi } from '@backstage/plugin-auth-node';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
-import { Logger } from 'winston';
-import { TokenManager } from '@backstage/backend-common';
+import { LoggerService } from '@backstage/backend-plugin-api';
+import { TokenManagerService } from '@backstage/backend-plugin-api';
 
 // @public
 export function createRouter(options: RouterOptions): Promise<express.Router>;
 
 // @public
-const jiraDashboardPlugin: () => BackendFeature;
+const jiraDashboardPlugin: BackendFeatureCompat;
 export default jiraDashboardPlugin;
 
 // @public
@@ -42,8 +42,8 @@ export interface RouterOptions {
   discovery: DiscoveryService;
   httpAuth?: HttpAuthService;
   identity?: IdentityApi;
-  logger: Logger;
-  tokenManager?: TokenManager;
+  logger: LoggerService;
+  tokenManager?: TokenManagerService;
 }
 
 // @public

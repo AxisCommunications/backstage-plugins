@@ -4,19 +4,19 @@
 
 ```ts
 import { AuthService } from '@backstage/backend-plugin-api';
-import { BackendFeature } from '@backstage/backend-plugin-api';
+import { BackendFeatureCompat } from '@backstage/backend-plugin-api';
 import { Config } from '@backstage/config';
 import { DiscoveryService } from '@backstage/backend-plugin-api';
 import express from 'express';
-import { Logger } from 'winston';
-import { TokenManager } from '@backstage/backend-common';
-import { UrlReader } from '@backstage/backend-common';
+import { LoggerService } from '@backstage/backend-plugin-api';
+import { TokenManagerService } from '@backstage/backend-plugin-api';
+import { UrlReaderService } from '@backstage/backend-plugin-api';
 
 // @public
 export function createRouter(options: RouterOptions): Promise<express.Router>;
 
 // @public
-const readmePlugin: () => BackendFeature;
+const readmePlugin: BackendFeatureCompat;
 export default readmePlugin;
 
 // @public
@@ -24,8 +24,8 @@ export interface RouterOptions {
   auth?: AuthService;
   config: Config;
   discovery: DiscoveryService;
-  logger: Logger;
-  reader: UrlReader;
-  tokenManager: TokenManager;
+  logger: LoggerService;
+  reader: UrlReaderService;
+  tokenManager: TokenManagerService;
 }
 ```

@@ -1,4 +1,3 @@
-import { loggerToWinstonLogger } from '@backstage/backend-common';
 import {
   coreServices,
   createBackendPlugin,
@@ -25,7 +24,7 @@ export const jiraDashboardPlugin = createBackendPlugin({
       async init({ logger, config, discovery, httpRouter, auth, httpAuth }) {
         httpRouter.use(
           await createRouter({
-            logger: loggerToWinstonLogger(logger),
+            logger,
             config,
             discovery,
             auth,

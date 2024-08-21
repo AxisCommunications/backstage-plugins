@@ -16,7 +16,6 @@ import {
   CacheManager,
   DatabaseManager,
   HostDiscovery,
-  UrlReaders,
   ServerTokenManager,
 } from '@backstage/backend-common';
 import { TaskScheduler } from '@backstage/backend-tasks';
@@ -29,6 +28,8 @@ import proxy from './plugins/proxy';
 import techdocs from './plugins/techdocs';
 import search from './plugins/search';
 import { PluginEnvironment } from './types';
+import { UrlReaders } from '@backstage/backend-defaults/urlReader';
+
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
 import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
 
