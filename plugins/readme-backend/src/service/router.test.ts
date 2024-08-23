@@ -2,8 +2,8 @@ import {
   getVoidLogger,
   HostDiscovery,
   ServerTokenManager,
-  UrlReaders,
 } from '@backstage/backend-common';
+import { UrlReaders } from '@backstage/backend-defaults/urlReader';
 import { ConfigReader } from '@backstage/config';
 import express from 'express';
 import request from 'supertest';

@@ -31,10 +31,10 @@
   },
   "dependencies": {
     "@axis-backstage/plugin-statuspage-common": "workspace:^",
-    "@backstage/catalog-model": "^1.5.0",
-    "@backstage/core-components": "^0.14.7",
-    "@backstage/core-plugin-api": "^1.9.2",
-    "@backstage/plugin-catalog-react": "^1.12.0",
+    "@backstage/catalog-model": "^1.6.0",
+    "@backstage/core-components": "^0.14.10",
+    "@backstage/core-plugin-api": "^1.9.3",
+    "@backstage/plugin-catalog-react": "^1.12.3",
     "@mui/icons-material": "^5.15.7",
     "@mui/material": "^5.15.7",
     "react-use": "^17.2.4"
@@ -43,8 +43,8 @@
     "react": "^17.0.0  || ^18.0.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.26.10",
-    "@backstage/dev-utils": "^1.0.32",
+    "@backstage/cli": "^0.27.0",
+    "@backstage/dev-utils": "^1.0.37",
     "@testing-library/jest-dom": "^5.10.1"
   },
   "files": [

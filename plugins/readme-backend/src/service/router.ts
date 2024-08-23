@@ -1,9 +1,11 @@
+import { errorHandler } from '@backstage/backend-common';
 import {
-  errorHandler,
-  TokenManager,
-  UrlReader,
-} from '@backstage/backend-common';
-import { AuthService, DiscoveryService } from '@backstage/backend-plugin-api';
+  AuthService,
+  DiscoveryService,
+  LoggerService,
+  UrlReaderService,
+  TokenManagerService,
+} from '@backstage/backend-plugin-api';
 import { Config } from '@backstage/config';
 import {
   CacheManager,
@@ -11,7 +13,6 @@ import {
 } from '@backstage/backend-common';
 import express from 'express';
 import Router from 'express-promise-router';
-import { Logger } from 'winston';
 import { ScmIntegrations } from '@backstage/integration';
 import {
   getEntitySourceLocation,
@@ -28,7 +29,7 @@ export interface RouterOptions {
   /**
    * Implementation of Winston logger
    */
-  logger: Logger;
+  logger: LoggerService;
 
   /**
    * Backstage config object
@@ -38,7 +39,7 @@ export interface RouterOptions {
   /**
    * Backstage url reader instance
    */
-  reader: UrlReader;
+  reader: UrlReaderService;
   /**
    * Backstage discovery service
    */
@@ -46,7 +47,7 @@ export interface RouterOptions {
   /**
    * Backstage token manager service
    */
-  tokenManager: TokenManager;
+  tokenManager: TokenManagerService;
   /**
    * Backstage auth service
    */

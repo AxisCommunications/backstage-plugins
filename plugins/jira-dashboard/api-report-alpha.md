@@ -10,6 +10,7 @@ import { RouteRef } from '@backstage/frontend-plugin-api';
 // @alpha
 export const annotationPrefixExtensionDataRef: ConfigurableExtensionDataRef<
   string,
+  string,
   {}
 >;
 
@@ -18,6 +19,7 @@ const _default: BackstagePlugin<
   {
     rootRouteRef: RouteRef<undefined>;
   },
+  {},
   {}
 >;
 export default _default;
