@@ -4,6 +4,7 @@ import {
   Filter,
   Issue,
   Project,
+  SearchJiraResponse,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 import { resolveJiraBaseUrl, resolveJiraToken } from './config';
 import { jqlQueryBuilder } from './queries';
@@ -93,14 +94,15 @@ export type SearchOptions = {
  * @param config - A Backstage config
  * @param jqlQuery - A string containing the jql query.
  * @param options - Query options that will be passed on to the POST request.
- *
+ * @returns A promise that resolves with the search results and status code.
+ * @throws If an error occurs during the search process.
  * @public
  */
 export const searchJira = async (
   config: Config,
   jqlQuery: string,
   options: SearchOptions,
-): Promise<Issue[]> => {
+): Promise<SearchJiraResponse> => {
   const response = await fetch(`${resolveJiraBaseUrl(config)}search`, {
     method: 'POST',
     body: JSON.stringify({ jql: jqlQuery, ...options }),
@@ -109,8 +111,13 @@ export const searchJira = async (
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-  }).then(resp => resp.json());
-  return response.issues;
+  });
+  const jsonResponse = await response.json();
+
+  return {
+    results: jsonResponse,
+    statusCode: response.status,
+  } as SearchJiraResponse;
 };
 
 export const getIssuesByComponent = async (

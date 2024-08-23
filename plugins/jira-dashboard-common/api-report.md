@@ -55,6 +55,19 @@ export type JiraDataResponse = {
 };
 
 // @public
+export type JiraQueryResults = {
+  expand: string;
+  names: object;
+  schema: object;
+  issues: Issue[];
+  total: number;
+  startAt: number;
+  maxResults: number;
+  warningMessages?: string[];
+  errorMessages?: string[];
+};
+
+// @public
 export type JiraResponse = {
   project: Project;
   data: JiraDataResponse[];
@@ -81,4 +94,10 @@ export type Project = {
 
 // @public
 export const PROJECT_KEY_NAME = 'project-key';
+
+// @public
+export type SearchJiraResponse = {
+  results: JiraQueryResults;
+  statusCode: number;
+};
 ```
