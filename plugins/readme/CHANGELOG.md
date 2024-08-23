@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme
 
+## 0.10.0
+
+### Minor Changes
+
+- 6fd284d: Updated to Backstage v1.30.1.
+
 ## 0.9.0
 
 ### Minor Changes
