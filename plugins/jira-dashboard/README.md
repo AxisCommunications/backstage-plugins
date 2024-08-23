@@ -111,7 +111,7 @@ app:
     - entity-content:jira-dashboard/entity
 ```
 
-You can also control which [entity kinds](https://backstage.io/docs/features/software-catalog/system-model) the jira dashboard appears on by adding a config underneath the entity-content, like so:
+By default, the Jira tab will only appear on entities that are Components or Groups. You override which [entity kinds](https://backstage.io/docs/features/software-catalog/system-model) the Jira dashboard appears on by adding a config underneath the entity-content, like so:
 
 ```tsx
 app:
