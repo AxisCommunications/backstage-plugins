@@ -1,5 +1,16 @@
 # @axis-backstage/plugin-statuspage
 
+## 0.6.0
+
+### Minor Changes
+
+- 6fd284d: Updated to Backstage v1.30.1.
+
+### Patch Changes
+
+- Updated dependencies [6fd284d]
+  - @axis-backstage/plugin-statuspage-common@0.5.0
+
 ## 0.5.1
 
 ### Patch Changes

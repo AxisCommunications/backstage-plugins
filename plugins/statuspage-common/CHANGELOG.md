@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-statuspage-common
 
+## 0.5.0
+
+### Minor Changes
+
+- 6fd284d: Updated to Backstage v1.30.1.
+
 ## 0.4.0
 
 ### Minor Changes
