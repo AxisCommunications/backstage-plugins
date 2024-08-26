@@ -6,7 +6,7 @@ import {
   compatWrapper,
   convertLegacyRouteRef,
 } from '@backstage/core-compat-api';
-import { createEntityContentExtension } from '@backstage/plugin-catalog-react/alpha';
+import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
 import { rootRouteRef } from '../routes';
 
 import React from 'react';
@@ -16,33 +16,35 @@ import React from 'react';
  * @alpha
  */
 export const annotationPrefixExtensionDataRef =
-  createExtensionDataRef<string>('annotationPrefix');
+  createExtensionDataRef<string>().with({ id: 'annotationPrefix' });
 
 /**
  * @alpha
  */
-export const entityJiraContent = createEntityContentExtension({
-  defaultPath: '/jira',
-  defaultTitle: 'Jira Dashboard',
+export const entityJiraContent = EntityContentBlueprint.makeWithOverrides({
   name: 'entity',
   inputs: {
-    props: createExtensionInput(
-      {
-        annotationPrefix: annotationPrefixExtensionDataRef.optional(),
-      },
-      {
-        singleton: true,
-        optional: true,
-      },
-    ),
+    props: createExtensionInput([annotationPrefixExtensionDataRef.optional()], {
+      singleton: true,
+      optional: true,
+    }),
   },
-  routeRef: convertLegacyRouteRef(rootRouteRef),
-  loader: ({ inputs }) =>
-    import('../components/JiraDashboardContent').then(m =>
-      compatWrapper(
-        <m.JiraDashboardContent
-          annotationPrefix={inputs.props?.output.annotationPrefix}
-        />,
-      ),
-    ),
+  factory: (originalFactory, { inputs }) => {
+    return originalFactory({
+      defaultPath: '/jira',
+      defaultTitle: 'Jira Dashboard',
+      filter: 'kind:component,group',
+      routeRef: convertLegacyRouteRef(rootRouteRef),
+      loader: async () =>
+        import('../components/JiraDashboardContent').then(m =>
+          compatWrapper(
+            <m.JiraDashboardContent
+              annotationPrefix={inputs.props?.get(
+                annotationPrefixExtensionDataRef.optional(),
+              )}
+            />,
+          ),
+        ),
+    });
+  },
 });
