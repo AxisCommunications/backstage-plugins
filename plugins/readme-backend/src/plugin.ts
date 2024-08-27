@@ -23,6 +23,7 @@ export const readmePlugin = createBackendPlugin({
         httpRouter: coreServices.httpRouter,
       },
       async init({
+        auth,
         logger,
         config,
         reader,
@@ -32,6 +33,7 @@ export const readmePlugin = createBackendPlugin({
       }) {
         httpRouter.use(
           await createRouter({
+            auth,
             logger,
             config,
             reader,
