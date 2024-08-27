@@ -1,5 +1,15 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.7.0
+
+### Minor Changes
+
+- 6889f99: Add react-dom as a peer-dependency
+
+### Patch Changes
+
+- 68fed13: Make entity content appear on components & groups only by default in new FE system
+
 ## 1.6.0
 
 ### Minor Changes

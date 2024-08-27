@@ -1,5 +1,13 @@
 # backend
 
+## 0.6.2
+
+### Patch Changes
+
+- Updated dependencies [65f00d4]
+  - @axis-backstage/plugin-readme-backend@0.9.1
+  - app@0.7.4
+
 ## 0.6.1
 
 ### Patch Changes
