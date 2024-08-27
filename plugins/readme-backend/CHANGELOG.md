@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.9.1
+
+### Patch Changes
+
+- 65f00d4: Fixed missing auth argument to createRouter call
+
 ## 0.9.0
 
 ### Minor Changes
