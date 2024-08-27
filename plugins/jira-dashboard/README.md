@@ -146,13 +146,11 @@ import jiraPlugin from '@axis-backstage/plugin-jira-dashboard/alpha';
 const jiraAnnotationExtension = createExtension({
   name: 'myJiraAnnotation',
   attachTo: { id: 'entity-content:jira-dashboard/entity', input: 'props' },
-  output: {
-    annotationPrefix: annotationPrefixExtensionDataRef,
-  },
+  output: [annotationPrefixExtensionDataRef],
 
   factory() {
     // This can be any value you want to check for
-    return { annotationPrefix: 'jira' };
+    return [ annotationPrefixExtensionDataRef('jira') ];
   },
 });
 const app = createApp({
