@@ -1513,8 +1513,11 @@ __metadata:
   peerDependencies:
     "@emotion/react": ^11.11.3
     "@emotion/styled": ^11.11.0
+    "@material-ui/core": ^4.12.2
+    "@types/react": ^17.0.0 || ^18.0.0
     react: ^17.0.0  || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
+    react-router-dom: 6.0.0-beta.0 || ^6.3.0
   languageName: unknown
   linkType: soft
 
