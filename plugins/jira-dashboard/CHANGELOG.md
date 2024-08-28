@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.8.0
+
+### Minor Changes
+
+- 6b87d44: Add peer dependencies (react-router-dom, material-ui/core, types/react)
+
 ## 1.7.0
 
 ### Minor Changes
