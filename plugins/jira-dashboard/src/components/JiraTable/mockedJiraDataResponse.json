@@ -64,6 +64,24 @@
           "name": "Major"
         }
       }
+    },
+    {
+      "key": "BS-4",
+      "self": "https://jira.com/project/123",
+      "fields": {
+        "summary": "Quick fix on frontend",
+        "status": {
+          "name": "Open"
+        },
+        "assignee": {
+          "name": "fridaja@backstage",
+          "self": "https://jira.com/user/fridaja"
+        },
+        "issuetype": {
+          "name": "Bug",
+          "iconUrl": ""
+        }
+      }
     }
   ]
 }

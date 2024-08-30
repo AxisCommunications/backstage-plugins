@@ -68,7 +68,7 @@ export const columns: TableColumn[] = [
           to={getIssueUrl(issue.self, issue.key)}
           title="Go to issue in Jira"
         >
-          {issue.fields?.priority.name}
+          {issue.fields?.priority?.name}
         </Link>
       );
     },
