@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.8.1
+
+### Patch Changes
+
+- 911d8e2: fix rendering discovered since 1.3.0
+
 ## 1.8.0
 
 ### Minor Changes
