@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
-import { ErrorPanel, Table } from '@backstage/core-components';
+import { ErrorPanel, InfoCard, Table, TableFilter } from '@backstage/core-components';
 import { capitalize } from 'lodash';
 import { columns } from './columns';
 
@@ -20,18 +20,32 @@ export const JiraTable = ({ tableContent }: Props) => {
   }
   const nbrOfIssues = tableContent?.issues?.length ?? 0;
 
+  const filters: TableFilter[] | undefined = [
+    {
+      column: 'Status',
+      type: 'multiple-select',
+    },
+    {
+      column: 'Priority',
+      type: 'multiple-select',
+    },
+  ];
+
   return (
+    <InfoCard
+    title={
+      <Typography component="div" variant="h5" data-testid="table-header">
+        {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
+      </Typography>
+    }
+     >
     <Table
-      title={
-        <Typography component="div" variant="h5" data-testid="table-header">
-          {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
-        </Typography>
-      }
       options={{
         paging: false,
         padding: 'dense',
         search: true,
       }}
+      filters={filters}
       data={tableContent.issues || []}
       columns={columns}
       emptyContent={
@@ -40,11 +54,13 @@ export const JiraTable = ({ tableContent }: Props) => {
         </Typography>
       }
       style={{
-        height: '500px',
+        height: `max-content`,
+        maxHeight: `500px`,
         padding: '20px',
         overflowY: 'auto',
         width: '100%',
       }}
     />
+    </InfoCard>
   );
 };
