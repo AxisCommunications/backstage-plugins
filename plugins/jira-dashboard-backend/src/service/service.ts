@@ -70,7 +70,7 @@ export const getUserIssues = async (
   config: Config,
   cache: CacheClient
 ): Promise<Issue[]> => {
-  const jql = `assignee = ${username} AND resolution = Unresolved ORDER BY priority DESC, updated DESC`;
+  const jql = `assignee = "${username}" AND resolution = Unresolved ORDER BY priority DESC, updated DESC`;
 
   return getJqlResponse(jql, config, cache, {
     fields: [

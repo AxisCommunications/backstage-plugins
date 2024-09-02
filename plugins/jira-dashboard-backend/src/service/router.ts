@@ -14,7 +14,7 @@ import { Config } from '@backstage/config';
 import { CatalogClient } from '@backstage/catalog-client';
 import { IdentityApi } from '@backstage/plugin-auth-node';
 
-import { getDefaultFiltersForUser } from '../filters';
+import { getAssigneUser, getDefaultFiltersForUser } from '../filters';
 import { type Filter, type JiraResponse, type Project } from '@axis-backstage/plugin-jira-dashboard-common';
 import stream from 'stream';
 import { getProjectAvatar } from '../api';
@@ -230,23 +230,14 @@ export async function createRouter(
       token,
     })) as UserEntity;
 
-    if (!userEntity?.spec?.profile?.email) {
-      const error = `User email cannot be extracted`;
+    if (!userEntity) {
+      const error = `User entity cannot be determined from ${info.userEntityRef}`;
       logger.info(error);
       response.status(400).json(error);
       return;
     }
 
-    const email = userEntity.spec.profile.email;
-    if (!email || email.trim() === '') {
-      const error = `User email is not defined`;
-      logger.info(error);
-      response.status(400).json(error);
-      return;
-    }
-
-    // maybe make it configurable to use email as username ?
-    const username = email.substring(0, email.indexOf('@'));
+    const username = getAssigneUser(config, userEntity);
 
     const maxResults = Number(request.query.maxResults || DEFAULT_MAX_RESULTS_USER_ISSUES);
 

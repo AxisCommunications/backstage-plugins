@@ -15,15 +15,26 @@ const getIncomingFilter = (incomingStatus: string): Filter => ({
   query: `status = ${incomingStatus} ORDER BY created ASC`,
 });
 
+/**
+ * Get the username value for Jira assignee from the user entity.
+ * If the email suffix is defined, the result is combines metadata.name with the email suffix - otherwise if the user entity has a profile email or the metadata name is used.
+ * Otherwise, the user entity name will be used.
+ * @param config appConfig configuration
+ * @param userEntity user entity instance
+ */
+export const getAssigneUser = (config: Config, userEntity: UserEntity): string => {
+  const emailSuffixConfig = resolveUserEmailSuffix(config);
+
+  return emailSuffixConfig
+    ? `${userEntity.metadata.name}${emailSuffixConfig}`
+    : userEntity.spec?.profile?.email || userEntity.metadata.name;
+}
+
 const getAssignedToMeFilter = (
   userEntity: UserEntity,
   config: Config,
 ): Filter => {
-  const emailSuffixConfig = resolveUserEmailSuffix(config);
-
-  const email = emailSuffixConfig
-    ? `${userEntity.metadata.name}${emailSuffixConfig}`
-    : userEntity.spec?.profile?.email;
+  const email = getAssigneUser(config, userEntity);
 
   return {
     name: 'Assigned to me',
