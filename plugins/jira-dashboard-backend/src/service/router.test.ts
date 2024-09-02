@@ -11,21 +11,13 @@ import {
   IdentityApiGetIdentityRequest,
 } from '@backstage/plugin-auth-node';
 import { ConfigReader } from '@backstage/config';
+import { mockServices } from '@backstage/backend-test-utils';
 
 const testDiscovery: jest.Mocked<PluginEndpointDiscovery> = {
   getBaseUrl: jest
     .fn()
     .mockResolvedValue('http://localhost:7007/api/jira-dashboard'),
   getExternalBaseUrl: jest.fn(),
-};
-
-const userInfo = {
-  getUserInfo: jest.fn().mockResolvedValue({
-    userEntityRef: 'user:default/guest',
-    profile: {
-      email: 'guest@example.com',
-    },
-  }),
 };
 
 describe('createRouter', () => {
@@ -58,7 +50,7 @@ describe('createRouter', () => {
       discovery: testDiscovery,
       identity: { getIdentity },
       tokenManager,
-      userInfo: userInfo
+      userInfo: mockServices.userInfo({ userEntityRef: 'user:default/guest' }),
     });
     app = express().use(router);
   });
