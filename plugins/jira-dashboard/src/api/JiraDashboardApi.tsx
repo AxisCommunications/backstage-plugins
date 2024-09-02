@@ -1,5 +1,8 @@
 import { createApiRef } from '@backstage/core-plugin-api';
-import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
+import {
+  Issue,
+  JiraResponse,
+} from '@axis-backstage/plugin-jira-dashboard-common';
 
 export const jiraDashboardApiRef = createApiRef<JiraDashboardApi>({
   id: 'plugin.jira-dashboard',
@@ -7,5 +10,6 @@ export const jiraDashboardApiRef = createApiRef<JiraDashboardApi>({
 
 export type JiraDashboardApi = {
   getJiraResponseByEntity(entityRef: string): Promise<JiraResponse>;
+  getLoggedInUserIssues(maxResults: number): Promise<Issue[]>;
   getProjectAvatar(entityRef: string): any;
 };

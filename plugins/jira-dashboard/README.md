@@ -61,6 +61,23 @@ const defaultEntityPage = (
 );
 ```
 
+3. OPTIONAL - List of user issues on the homepage can be enabled by this code in your `app/src/components/home/Homepage.tsx` :
+
+![user-issues-list.png](media%2Fuser-issues-list.png)
+
+```tsx
+ <Grid item xs={12} md={6}>
+    <JiraUserIssuesViewCard
+      bottomLinkProps={{
+       link: 'https://our-jira-server/issues',
+       title: 'Open in Jira',
+     }}
+   />
+ </Grid>
+```
+Note that the list of user issues is limited by permissions defined for the token used by backend.
+The username is being extracted from the user's email (everything before @). 
+
 ### Integration with the Catalog
 
 To enable the Jira Dashboard plugin for your entity, the entity yaml must have the following annotation:

@@ -1,7 +1,7 @@
 import {
+  getVoidLogger,
   PluginEndpointDiscovery,
   ServerTokenManager,
-  getVoidLogger,
 } from '@backstage/backend-common';
 import express from 'express';
 import request from 'supertest';
@@ -17,6 +17,15 @@ const testDiscovery: jest.Mocked<PluginEndpointDiscovery> = {
     .fn()
     .mockResolvedValue('http://localhost:7007/api/jira-dashboard'),
   getExternalBaseUrl: jest.fn(),
+};
+
+const userInfo = {
+  getUserInfo: jest.fn().mockResolvedValue({
+    userEntityRef: 'user:default/guest',
+    profile: {
+      email: 'guest@example.com',
+    },
+  }),
 };
 
 describe('createRouter', () => {
@@ -49,6 +58,7 @@ describe('createRouter', () => {
       discovery: testDiscovery,
       identity: { getIdentity },
       tokenManager,
+      userInfo: userInfo
     });
     app = express().use(router);
   });

@@ -7,5 +7,8 @@
 export {
   jiraDashboardPlugin,
   EntityJiraDashboardContent,
+  JiraUserIssuesViewCard,
   isJiraDashboardAvailable,
 } from './plugin';
+export { useJiraUserIssues } from './hooks/useJiraUserIssues';
+export { useJira } from './hooks/useJira';

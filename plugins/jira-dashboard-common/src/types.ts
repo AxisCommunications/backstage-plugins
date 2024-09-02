@@ -23,7 +23,9 @@ export type Issue = {
     };
     priority: {
       name: string;
+      iconUrl: string;
     };
+    updated: string;
   };
 };
 
