@@ -17,7 +17,7 @@ const getIncomingFilter = (incomingStatus: string): Filter => ({
 
 /**
  * Get the username value for Jira assignee from the user entity.
- * If the email suffix is defined, the result is combines metadata.name with the email suffix - otherwise if the user entity has a profile email or the metadata name is used.
+ * If the email suffix is defined, the result combines `metadata.name` with the email suffix - otherwise if the user entity has a profile email or the metadata name is used.
  * Otherwise, the user entity name will be used.
  * @param config appConfig configuration
  * @param userEntity user entity instance

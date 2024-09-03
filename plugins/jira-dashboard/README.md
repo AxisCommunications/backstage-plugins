@@ -60,12 +60,15 @@ const defaultEntityPage = (
   ...
 );
 ```
-
-3. OPTIONAL - List of user issues on the homepage can be enabled by this code in your `app/src/components/home/Homepage.tsx` :
+### Homepage component - user issues list (optional)
+List of user issues on the homepage can be enabled by this code in your `app/src/components/home/Homepage.tsx` :
 
 ![user-issues-list.png](media%2Fuser-issues-list.png)
 
 ```tsx
+import { JiraUserIssuesViewCard } from '@axis-backstage/plugin-jira-dashboard';
+// ...
+
  <Grid item xs={12} md={6}>
     <JiraUserIssuesViewCard
       bottomLinkProps={{
@@ -74,9 +77,11 @@ const defaultEntityPage = (
      }}
    />
  </Grid>
+
+// ...
 ```
-Note that the list of user issues is limited by permissions defined for the token used by backend.
-The username is being extracted from the user's email (everything before @). 
+Note that the list of user issues is limited by permissions defined for the [JIRA_TOKEN](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend/README.md#configuration-details) used by backend.
+The username is being extracted from the user's email or created as a combination of user entity `metadata.name` and [JIRA_EMAIL_SUFFIX](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend/README.md#configuration-details) ([see function `getAssigneUser`](/plugins/jira-dashboard-backend/src/filters.ts) for more information). 
 
 ### Integration with the Catalog
 
