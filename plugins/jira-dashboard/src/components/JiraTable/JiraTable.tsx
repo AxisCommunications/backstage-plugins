@@ -12,9 +12,10 @@ import { columns } from './columns';
 
 type Props = {
   tableContent: JiraDataResponse;
+  filters?: TableFilter[];
 };
 
-export const JiraTable = ({ tableContent }: Props) => {
+export const JiraTable = ({ tableContent, filters }: Props) => {
   if (!tableContent) {
     return (
       <ErrorPanel
@@ -25,7 +26,7 @@ export const JiraTable = ({ tableContent }: Props) => {
   }
   const nbrOfIssues = tableContent?.issues?.length ?? 0;
 
-  const filters: TableFilter[] | undefined = [
+  const defaultFilters: TableFilter[] | undefined = [
     {
       column: 'Status',
       type: 'multiple-select',
@@ -50,7 +51,7 @@ export const JiraTable = ({ tableContent }: Props) => {
           padding: 'dense',
           search: true,
         }}
-        filters={filters}
+        filters={filters || defaultFilters}
         data={tableContent.issues || []}
         columns={columns}
         emptyContent={
