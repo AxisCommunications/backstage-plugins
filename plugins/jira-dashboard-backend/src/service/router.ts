@@ -1,4 +1,8 @@
-import { CacheManager, createLegacyAuthAdapters, errorHandler } from '@backstage/backend-common';
+import {
+  CacheManager,
+  createLegacyAuthAdapters,
+  errorHandler,
+} from '@backstage/backend-common';
 import {
   AuthService,
   DiscoveryService,
@@ -15,7 +19,11 @@ import { CatalogClient } from '@backstage/catalog-client';
 import { IdentityApi } from '@backstage/plugin-auth-node';
 
 import { getAssigneUser, getDefaultFiltersForUser } from '../filters';
-import { type Filter, type JiraResponse, type Project } from '@axis-backstage/plugin-jira-dashboard-common';
+import {
+  type Filter,
+  type JiraResponse,
+  type Project,
+} from '@axis-backstage/plugin-jira-dashboard-common';
 import stream from 'stream';
 import { getProjectAvatar } from '../api';
 import {
@@ -26,7 +34,6 @@ import {
   getUserIssues,
 } from './service';
 import { getAnnotations } from '../lib';
-
 
 /**
  * Constructs a jira dashboard router.
@@ -223,7 +230,9 @@ export async function createRouter(
       targetPluginId: 'catalog',
     });
 
-    const credentials = await httpAuth.credentials(request);
+    const credentials = await httpAuth.credentials(request, {
+      allow: ['user'],
+    });
 
     // we ignore guest and service users, no issues in response
     if (!auth.isPrincipal(credentials, 'user')) {
@@ -246,7 +255,9 @@ export async function createRouter(
 
     const username = getAssigneUser(config, userEntity);
 
-    const maxResults = Number(request.query.maxResults || DEFAULT_MAX_RESULTS_USER_ISSUES);
+    const maxResults = Number(
+      request.query.maxResults || DEFAULT_MAX_RESULTS_USER_ISSUES,
+    );
 
     try {
       const issues = await getUserIssues(username, maxResults, config, cache);
