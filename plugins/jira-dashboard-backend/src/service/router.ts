@@ -217,13 +217,20 @@ export async function createRouter(
     },
   );
 
-  router.get('/dashboards/userIssues', async (request, response) => {
+  router.get('/dashboards/user-issues', async (request, response) => {
     const { token } = await auth.getPluginRequestToken({
       onBehalfOf: await auth.getOwnServiceCredentials(),
       targetPluginId: 'catalog',
     });
 
     const credentials = await httpAuth.credentials(request);
+
+    // we ignore guest and service users, no issues in response
+    if (!auth.isPrincipal(credentials, 'user')) {
+      response.status(200).json([]);
+      return;
+    }
+
     const info = await userInfo.getUserInfo(credentials);
 
     const userEntity = (await catalogClient.getEntityByRef(info.userEntityRef, {

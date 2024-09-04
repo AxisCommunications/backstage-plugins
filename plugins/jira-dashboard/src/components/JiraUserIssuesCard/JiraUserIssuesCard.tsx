@@ -49,12 +49,14 @@ export const JiraUserIssuesCard = ({
 
   if (loading) {
     return <Progress />;
-  } else if (error) {
+  }
+  if (error) {
     return <ResponseErrorPanel error={error} />;
-  } else if (!jiraResponse) {
+  }
+  if (!jiraResponse) {
     return (
       <ResponseErrorPanel
-        error={Error('Could not fetch Jira content for defined JQL')}
+        error={Error('Could not fetch Jira issues for user')}
       />
     );
   }

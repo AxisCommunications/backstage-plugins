@@ -51,7 +51,7 @@ export class JiraDashboardClient implements JiraDashboardApi {
     });
 
     const resp = await this.fetchApi.fetch(
-      `${apiUrl}/dashboards/userIssues?${searchParams.toString()}`,
+      `${apiUrl}/dashboards/user-issues?${searchParams.toString()}`,
       {
         method: 'GET',
         headers: {

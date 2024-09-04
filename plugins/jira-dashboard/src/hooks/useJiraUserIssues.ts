@@ -14,7 +14,7 @@ export function useJiraUserIssues(
     value: data,
     loading,
     error,
-  } = useAsync(async (): Promise<any> => {
+  } = useAsync(async () => {
     return jiraDashboardApi.getLoggedInUserIssues(maxResults);
   }, [jiraDashboardApi]);
   return { data, loading, error };
