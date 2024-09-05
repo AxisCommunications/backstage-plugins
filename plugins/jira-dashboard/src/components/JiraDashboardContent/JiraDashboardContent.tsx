@@ -23,7 +23,10 @@ import { useJira } from '../../hooks/useJira';
 import { isJiraDashboardAvailable } from '../../plugin';
 import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 
-export const JiraDashboardContent = (props?: { annotationPrefix?: string }) => {
+export const JiraDashboardContent = (props?: {
+  annotationPrefix?: string;
+  showFilters?: boolean;
+}) => {
   const { entity } = useEntity();
   const api = useApi(jiraDashboardApiRef);
 
@@ -85,7 +88,7 @@ export const JiraDashboardContent = (props?: { annotationPrefix?: string }) => {
             </Grid>
             {jiraResponse.data.map((value: JiraDataResponse) => (
               <Grid data-testid="issue-table" key={value.name} md={6} xs={12}>
-                <JiraTable tableContent={value} />
+                <JiraTable tableContent={value} showFilters />
               </Grid>
             ))}
           </>

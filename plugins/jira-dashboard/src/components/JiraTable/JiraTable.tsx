@@ -12,10 +12,10 @@ import { columns } from './columns';
 
 type Props = {
   tableContent: JiraDataResponse;
-  filters?: TableFilter[];
+  showFilters?: boolean;
 };
 
-export const JiraTable = ({ tableContent, filters }: Props) => {
+export const JiraTable = ({ tableContent, showFilters }: Props) => {
   if (!tableContent) {
     return (
       <ErrorPanel
@@ -26,32 +26,34 @@ export const JiraTable = ({ tableContent, filters }: Props) => {
   }
   const nbrOfIssues = tableContent?.issues?.length ?? 0;
 
-  const defaultFilters: TableFilter[] | undefined = [
-    {
-      column: 'Status',
-      type: 'multiple-select',
-    },
-    {
-      column: 'Priority',
-      type: 'multiple-select',
-    },
-  ];
+  const filters: TableFilter[] = showFilters
+    ? [
+        {
+          column: 'Status',
+          type: 'multiple-select',
+        },
+        {
+          column: 'Priority',
+          type: 'multiple-select',
+        },
+      ]
+    : [];
+
+  const title = (
+    <Typography component="div" variant="h5" data-testid="table-header">
+      {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
+    </Typography>
+  );
 
   return (
-    <InfoCard
-      title={
-        <Typography component="div" variant="h5" data-testid="table-header">
-          {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
-        </Typography>
-      }
-    >
+    <InfoCard title={title}>
       <Table
         options={{
           paging: false,
           padding: 'dense',
           search: true,
         }}
-        filters={filters || defaultFilters}
+        filters={filters}
         data={tableContent.issues || []}
         columns={columns}
         emptyContent={
@@ -62,9 +64,9 @@ export const JiraTable = ({ tableContent, filters }: Props) => {
         style={{
           height: `max-content`,
           maxHeight: `500px`,
-          padding: '20px',
           overflowY: 'auto',
           width: '100%',
+          boxShadow: 'none',
         }}
       />
     </InfoCard>
