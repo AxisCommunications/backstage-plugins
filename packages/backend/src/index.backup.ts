@@ -32,6 +32,11 @@ import { UrlReaders } from '@backstage/backend-defaults/urlReader';
 
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
 import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
+import {
+  BackstageCredentials,
+  BackstageUserInfo,
+  UserInfoService,
+} from '@backstage/backend-plugin-api';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -41,6 +46,16 @@ function makeCreateEnv(config: Config) {
   const databaseManager = DatabaseManager.fromConfig(config, { logger: root });
   const tokenManager = ServerTokenManager.noop();
   const taskScheduler = TaskScheduler.fromConfig(config, { databaseManager });
+  // just to make it compilable
+  // dummy userInfo interface implementation
+  const userInfo: UserInfoService = {
+    getUserInfo(_: BackstageCredentials): Promise<BackstageUserInfo> {
+      return Promise.resolve({
+        userEntityRef: '',
+        ownershipEntityRefs: [''],
+      });
+    },
+  };
 
   const identity = DefaultIdentityClient.create({
     discovery,
@@ -68,6 +83,7 @@ function makeCreateEnv(config: Config) {
       scheduler,
       permissions,
       identity,
+      userInfo,
     };
   };
 }
