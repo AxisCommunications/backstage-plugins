@@ -5,4 +5,4 @@
 'backend': minor
 ---
 
-New component - JiraUserIssuesCardView - listing user issues view for current logged user 
+New component - JiraUserIssuesCardView - listing user issues view for current logged user

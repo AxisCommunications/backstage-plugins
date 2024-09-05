@@ -22,13 +22,16 @@ const getIncomingFilter = (incomingStatus: string): Filter => ({
  * @param config appConfig configuration
  * @param userEntity user entity instance
  */
-export const getAssigneUser = (config: Config, userEntity: UserEntity): string => {
+export const getAssigneUser = (
+  config: Config,
+  userEntity: UserEntity,
+): string => {
   const emailSuffixConfig = resolveUserEmailSuffix(config);
 
   return emailSuffixConfig
     ? `${userEntity.metadata.name}${emailSuffixConfig}`
     : userEntity.spec?.profile?.email || userEntity.metadata.name;
-}
+};
 
 const getAssignedToMeFilter = (
   userEntity: UserEntity,

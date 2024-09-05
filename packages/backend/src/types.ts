@@ -8,7 +8,8 @@ import {
 import {
   UrlReaderService,
   SchedulerService,
-  TokenManagerService, UserInfoService,
+  TokenManagerService,
+  UserInfoService,
 } from '@backstage/backend-plugin-api';
 import { PermissionEvaluator } from '@backstage/plugin-permission-common';
 import { IdentityApi } from '@backstage/plugin-auth-node';

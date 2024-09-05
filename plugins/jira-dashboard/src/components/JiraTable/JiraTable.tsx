@@ -25,7 +25,7 @@ export const JiraTable = ({
     padding: '20px',
     overflowY: 'auto',
     width: '100%',
-  }
+  },
 }: Props) => {
   if (!tableContent) {
     return (
@@ -54,11 +54,8 @@ export const JiraTable = ({
           No issues found&nbsp;
         </Typography>
       }
-
       data={tableContent.issues || []}
-
       columns={tableColumns}
-
       style={tableStyle}
     />
   );

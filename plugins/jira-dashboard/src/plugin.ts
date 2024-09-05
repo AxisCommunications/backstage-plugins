@@ -51,7 +51,10 @@ export const JiraUserIssuesViewCard = jiraDashboardPlugin.provide(
   createComponentExtension({
     name: 'JiraUserIssuesViewCard',
     component: {
-      lazy: () => import('./components/JiraUserIssuesCard').then(m => m.JiraUserIssuesCard),
+      lazy: () =>
+        import('./components/JiraUserIssuesCard').then(
+          m => m.JiraUserIssuesCard,
+        ),
     },
   }),
 );

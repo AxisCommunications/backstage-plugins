@@ -65,10 +65,10 @@ export const getJqlResponse = async (
 };
 
 export const getUserIssues = async (
-  username : string,
+  username: string,
   maxResults: number,
   config: Config,
-  cache: CacheClient
+  cache: CacheClient,
 ): Promise<Issue[]> => {
   const jql = `assignee = "${username}" AND resolution = Unresolved ORDER BY priority DESC, updated DESC`;
 

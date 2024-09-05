@@ -37,7 +37,7 @@ export async function startStandaloneServer(
     discovery: HostDiscovery.fromConfig(config),
     identity: {} as IdentityApi,
     tokenManager,
-    userInfo: userInfo
+    userInfo: userInfo,
   });
 
   let service = createServiceBuilder(module)
