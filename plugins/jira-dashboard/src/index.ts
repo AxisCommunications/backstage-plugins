@@ -12,3 +12,5 @@ export {
 } from './plugin';
 export { useJiraUserIssues } from './hooks/useJiraUserIssues';
 export { useJira } from './hooks/useJira';
+export type { JiraUserIssuesCardProps } from './components/JiraUserIssuesCard';
+export type { JiraDashboardApi } from './api/JiraDashboardApi';

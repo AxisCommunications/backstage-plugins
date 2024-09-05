@@ -6,7 +6,10 @@
 /// <reference types="react" />
 
 import { BackstagePlugin } from '@backstage/core-plugin-api';
+import { BottomLinkProps } from '@backstage/core-components';
 import { Entity } from '@backstage/catalog-model';
+import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
+import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JSX as JSX_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
 
@@ -26,6 +29,13 @@ export const isJiraDashboardAvailable: (
 ) => boolean;
 
 // @public
+export type JiraDashboardApi = {
+  getJiraResponseByEntity(entityRef: string): Promise<JiraResponse>;
+  getLoggedInUserIssues(maxResults: number): Promise<Issue[]>;
+  getProjectAvatar(entityRef: string): any;
+};
+
+// @public
 export const jiraDashboardPlugin: BackstagePlugin<
   {
     root: RouteRef<undefined>;
@@ -33,4 +43,38 @@ export const jiraDashboardPlugin: BackstagePlugin<
   {},
   {}
 >;
+
+// @public
+export type JiraUserIssuesCardProps = {
+  title?: string;
+  maxResults?: number;
+  bottomLinkProps?: BottomLinkProps;
+};
+
+// @public
+export const JiraUserIssuesViewCard: ({
+  title,
+  maxResults,
+  bottomLinkProps,
+}: JiraUserIssuesCardProps) => JSX_2.Element | null;
+
+// @public
+export function useJira(
+  entityRef: string,
+  jiraDashboardApi: JiraDashboardApi,
+): {
+  data: JiraResponse | undefined;
+  loading: boolean;
+  error: Error | undefined;
+};
+
+// @public
+export function useJiraUserIssues(
+  maxResults: number,
+  jiraDashboardApi: JiraDashboardApi,
+): {
+  data: Issue[] | undefined;
+  loading: boolean;
+  error: Error | undefined;
+};
 ```

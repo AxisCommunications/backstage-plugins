@@ -20,6 +20,9 @@ import { jiraDashboardApiRef } from '../../api';
 import { useJiraUserIssues } from '../../hooks/useJiraUserIssues';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 
+/**
+ * Jira user issues list card properties
+ * @public */
 export type JiraUserIssuesCardProps = {
   title?: string;
   maxResults?: number;
@@ -34,6 +37,9 @@ export const userColumns: TableColumn<Issue>[] = [
   columnUpdated,
 ];
 
+/**
+ * Jira user issues list card.
+ * @public */
 export const JiraUserIssuesCard = ({
   title = 'My open issues',
   maxResults = 15,
