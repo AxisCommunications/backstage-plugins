@@ -4,9 +4,9 @@ import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import Typography from '@mui/material/Typography';
 import { getIssueUrl } from '../../lib';
 import Stack from '@mui/material/Stack';
-import moment from 'moment';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
+import { DateTime } from 'luxon';
 
 export const columnKey: TableColumn<Issue> = {
   title: 'Key',
@@ -176,7 +176,7 @@ export const columnUpdated: TableColumn<Issue> = {
           color="divider"
           variant="body2"
         >
-          {moment(issue.fields.updated).format('DD/MMM/YY')}
+          {DateTime.fromISO(issue.fields.updated).toFormat('dd/MMM/yy')}
         </Typography>
       );
     }
