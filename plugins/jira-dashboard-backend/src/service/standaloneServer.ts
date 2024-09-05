@@ -1,8 +1,8 @@
 import {
-  HostDiscovery,
-  ServerTokenManager,
   createServiceBuilder,
+  HostDiscovery,
   loadBackendConfig,
+  ServerTokenManager,
 } from '@backstage/backend-common';
 import { LoggerService } from '@backstage/backend-plugin-api';
 import { Server } from 'http';
@@ -14,6 +14,15 @@ export interface ServerOptions {
   enableCors: boolean;
   logger: LoggerService;
 }
+
+const userInfo = {
+  getUserInfo: jest.fn().mockResolvedValue({
+    userEntityRef: 'user:default/guest',
+    profile: {
+      email: 'guest@example.com',
+    },
+  }),
+};
 
 export async function startStandaloneServer(
   options: ServerOptions,
@@ -28,6 +37,7 @@ export async function startStandaloneServer(
     discovery: HostDiscovery.fromConfig(config),
     identity: {} as IdentityApi,
     tokenManager,
+    userInfo: userInfo,
   });
 
   let service = createServiceBuilder(module)

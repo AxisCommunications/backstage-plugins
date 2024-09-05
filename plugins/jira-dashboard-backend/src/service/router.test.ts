@@ -1,7 +1,7 @@
 import {
+  getVoidLogger,
   PluginEndpointDiscovery,
   ServerTokenManager,
-  getVoidLogger,
 } from '@backstage/backend-common';
 import express from 'express';
 import request from 'supertest';
@@ -11,6 +11,7 @@ import {
   IdentityApiGetIdentityRequest,
 } from '@backstage/plugin-auth-node';
 import { ConfigReader } from '@backstage/config';
+import { mockServices } from '@backstage/backend-test-utils';
 
 const testDiscovery: jest.Mocked<PluginEndpointDiscovery> = {
   getBaseUrl: jest
@@ -49,6 +50,7 @@ describe('createRouter', () => {
       discovery: testDiscovery,
       identity: { getIdentity },
       tokenManager,
+      userInfo: mockServices.userInfo({ userEntityRef: 'user:default/guest' }),
     });
     app = express().use(router);
   });

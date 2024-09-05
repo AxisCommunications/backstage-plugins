@@ -9,6 +9,7 @@ import {
   UrlReaderService,
   SchedulerService,
   TokenManagerService,
+  UserInfoService,
 } from '@backstage/backend-plugin-api';
 import { PermissionEvaluator } from '@backstage/plugin-permission-common';
 import { IdentityApi } from '@backstage/plugin-auth-node';
@@ -24,4 +25,5 @@ export type PluginEnvironment = {
   scheduler: SchedulerService;
   permissions: PermissionEvaluator;
   identity: IdentityApi;
+  userInfo: UserInfoService;
 };
