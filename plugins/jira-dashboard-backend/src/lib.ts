@@ -5,9 +5,9 @@ import {
   FILTERS_NAME,
   INCOMING_ISSUES_STATUS,
 } from '@axis-backstage/plugin-jira-dashboard-common';
-import { Config } from '@backstage/config';
+import { RootConfigService } from '@backstage/backend-plugin-api';
 
-export const getAnnotations = (config: Config) => {
+export const getAnnotations = (config: RootConfigService) => {
   const prefix = resolveAnnotationPrefix(config);
 
   const projectKeyAnnotation = `${prefix}/${PROJECT_KEY_NAME}`;
