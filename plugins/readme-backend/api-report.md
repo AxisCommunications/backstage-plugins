@@ -5,10 +5,10 @@
 ```ts
 import { AuthService } from '@backstage/backend-plugin-api';
 import { BackendFeatureCompat } from '@backstage/backend-plugin-api';
-import { Config } from '@backstage/config';
 import { DiscoveryService } from '@backstage/backend-plugin-api';
 import express from 'express';
 import { LoggerService } from '@backstage/backend-plugin-api';
+import { RootConfigService } from '@backstage/backend-plugin-api';
 import { TokenManagerService } from '@backstage/backend-plugin-api';
 import { UrlReaderService } from '@backstage/backend-plugin-api';
 
@@ -22,7 +22,7 @@ export default readmePlugin;
 // @public
 export interface RouterOptions {
   auth?: AuthService;
-  config: Config;
+  config: RootConfigService;
   discovery: DiscoveryService;
   logger: LoggerService;
   reader: UrlReaderService;
