@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-common
 
+## 1.6.0
+
+### Minor Changes
+
+- 9bc46fc: New component - JiraUserIssuesCardView - listing user issues view for current logged user
+
 ## 1.5.0
 
 ### Minor Changes
