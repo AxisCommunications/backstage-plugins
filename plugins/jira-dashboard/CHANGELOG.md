@@ -1,5 +1,21 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.9.0
+
+### Minor Changes
+
+- 9bc46fc: Tweaking columns in JiraTable
+
+  - Columns definitions are separated to be reusable
+  - Priority column title shortened to 'P', and added a tooltip with full name, priority indicated by original Jira icon
+
+- 9bc46fc: New component - JiraUserIssuesCardView - listing user issues view for current logged user
+
+### Patch Changes
+
+- Updated dependencies [9bc46fc]
+  - @axis-backstage/plugin-jira-dashboard-common@1.6.0
+
 ## 1.8.1
 
 ### Patch Changes

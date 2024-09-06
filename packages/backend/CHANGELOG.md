@@ -1,5 +1,18 @@
 # backend
 
+## 0.7.0
+
+### Minor Changes
+
+- 9bc46fc: New component - JiraUserIssuesCardView - listing user issues view for current logged user
+
+### Patch Changes
+
+- Updated dependencies [5b3a159]
+- Updated dependencies [9bc46fc]
+  - app@0.8.0
+  - @axis-backstage/plugin-jira-dashboard-backend@2.6.0
+
 ## 0.6.4
 
 ### Patch Changes
