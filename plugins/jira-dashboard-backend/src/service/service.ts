@@ -2,6 +2,7 @@ import { CacheClient } from '@backstage/backend-common';
 import { Config } from '@backstage/config';
 import {
   type Filter,
+  Issue,
   type JiraDataResponse,
   type Project,
 } from '@axis-backstage/plugin-jira-dashboard-common';
@@ -10,6 +11,8 @@ import {
   getIssuesByComponent,
   getIssuesByFilter,
   getProjectInfo,
+  searchJira,
+  SearchOptions,
 } from '../api';
 
 export const getProjectResponse = async (
@@ -34,6 +37,53 @@ export const getProjectResponse = async (
     }
   }
   return projectResponse;
+};
+
+export const getJqlResponse = async (
+  jql: string,
+  config: Config,
+  cache: CacheClient,
+  searchOptions: SearchOptions,
+): Promise<Issue[]> => {
+  let issuesResponse: Issue[];
+
+  issuesResponse = (await cache.get(jql)) as Issue[];
+
+  if (issuesResponse) return issuesResponse as Issue[];
+
+  try {
+    issuesResponse = await searchJira(config, jql, searchOptions);
+    cache.set(jql, issuesResponse);
+  } catch (err: any) {
+    if (err.message !== 200) {
+      throw Error(
+        `Failed to get issues for JQL ${jql} with error: ${err.message}`,
+      );
+    }
+  }
+  return issuesResponse;
+};
+
+export const getUserIssues = async (
+  username: string,
+  maxResults: number,
+  config: Config,
+  cache: CacheClient,
+): Promise<Issue[]> => {
+  const jql = `assignee = "${username}" AND resolution = Unresolved ORDER BY priority DESC, updated DESC`;
+
+  return getJqlResponse(jql, config, cache, {
+    fields: [
+      'key',
+      'issuetype',
+      'summary',
+      'status',
+      'priority',
+      'created',
+      'updated',
+    ],
+    maxResults,
+  });
 };
 
 export const getFiltersFromAnnotations = async (

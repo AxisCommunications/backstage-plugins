@@ -11,5 +11,6 @@ export default async function createPlugin(
     discovery: env.discovery,
     identity: env.identity,
     tokenManager: env.tokenManager,
+    userInfo: env.userInfo,
   });
 }

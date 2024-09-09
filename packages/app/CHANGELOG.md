@@ -1,5 +1,18 @@
 # app
 
+## 0.8.0
+
+### Minor Changes
+
+- 5b3a159: Added a homepage to path '/', and a HomePage sidebar menu icon.
+
+### Patch Changes
+
+- Updated dependencies [9bc46fc]
+- Updated dependencies [9bc46fc]
+  - @axis-backstage/plugin-jira-dashboard@1.9.0
+  - @axis-backstage/plugin-jira-dashboard-common@1.6.0
+
 ## 0.7.6
 
 ### Patch Changes

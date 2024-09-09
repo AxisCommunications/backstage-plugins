@@ -88,7 +88,7 @@ export const JiraDashboardContent = (props?: {
             </Grid>
             {jiraResponse.data.map((value: JiraDataResponse) => (
               <Grid data-testid="issue-table" key={value.name} md={6} xs={12}>
-                <JiraTable tableContent={value} showFilters />
+                <JiraTable tableContent={value} showFilters={props?.showFilters} />
               </Grid>
             ))}
           </>

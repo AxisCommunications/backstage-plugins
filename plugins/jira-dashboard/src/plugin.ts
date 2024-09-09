@@ -1,14 +1,15 @@
 import {
+  createApiFactory,
+  createComponentExtension,
   createPlugin,
   createRoutableExtension,
   discoveryApiRef,
-  createApiFactory,
   fetchApiRef,
 } from '@backstage/core-plugin-api';
 import { rootRouteRef } from './routes';
 import { Entity } from '@backstage/catalog-model';
 import { PROJECT_KEY_NAME } from '@axis-backstage/plugin-jira-dashboard-common';
-import { JiraDashboardClient, jiraDashboardApiRef } from './api';
+import { jiraDashboardApiRef, JiraDashboardClient } from './api';
 
 /**
  * Checks if the entity has a jira.com project-key annotation.
@@ -42,6 +43,21 @@ export const jiraDashboardPlugin = createPlugin({
     root: rootRouteRef,
   },
 });
+
+/**
+ * Jira content exported from the Jira Dashboard plugin
+ * @public */
+export const JiraUserIssuesViewCard = jiraDashboardPlugin.provide(
+  createComponentExtension({
+    name: 'JiraUserIssuesViewCard',
+    component: {
+      lazy: () =>
+        import('./components/JiraUserIssuesCard').then(
+          m => m.JiraUserIssuesCard,
+        ),
+    },
+  }),
+);
 
 /**
  * Jira content exported from the Jira Dashboard plugin

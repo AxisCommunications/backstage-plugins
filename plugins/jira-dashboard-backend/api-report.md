@@ -13,6 +13,7 @@ import { IdentityApi } from '@backstage/plugin-auth-node';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { LoggerService } from '@backstage/backend-plugin-api';
 import { TokenManagerService } from '@backstage/backend-plugin-api';
+import { UserInfoService } from '@backstage/backend-plugin-api';
 
 // @public
 export function createRouter(options: RouterOptions): Promise<express.Router>;
@@ -44,6 +45,7 @@ export interface RouterOptions {
   identity?: IdentityApi;
   logger: LoggerService;
   tokenManager?: TokenManagerService;
+  userInfo: UserInfoService;
 }
 
 // @public

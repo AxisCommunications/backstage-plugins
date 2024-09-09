@@ -1,21 +1,35 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 import {
-  ErrorPanel,
-  InfoCard,
-  Table,
-  TableFilter,
-} from '@backstage/core-components';
+  Issue,
+  JiraDataResponse,
+} from '@axis-backstage/plugin-jira-dashboard-common';
+import { ErrorPanel, InfoCard, Table, TableColumn, TableFilter } from '@backstage/core-components';
 import { capitalize } from 'lodash';
 import { columns } from './columns';
 
+// Infer the prop types from the Table component
+type TableComponentProps = React.ComponentProps<typeof Table>;
+
 type Props = {
   tableContent: JiraDataResponse;
+  tableColumns?: TableColumn<Issue>[];
+  tableStyle?: TableComponentProps['style'];
   showFilters?: boolean;
 };
 
-export const JiraTable = ({ tableContent, showFilters }: Props) => {
+export const JiraTable = ({
+  tableContent,
+  tableColumns = columns,
+  tableStyle = {
+    height: 'max-content',
+    maxHeight: '500px',
+    padding: '20px',
+    overflowY: 'auto',
+    width: '100%',
+  },
+  showFilters
+}: Props) => {
   if (!tableContent) {
     return (
       <ErrorPanel
@@ -24,20 +38,21 @@ export const JiraTable = ({ tableContent, showFilters }: Props) => {
       />
     );
   }
+
   const nbrOfIssues = tableContent?.issues?.length ?? 0;
 
   const filters: TableFilter[] = showFilters
-    ? [
-        {
-          column: 'Status',
-          type: 'multiple-select',
-        },
-        {
-          column: 'Priority',
-          type: 'multiple-select',
-        },
-      ]
-    : [];
+  ? [
+      {
+        column: 'Status',
+        type: 'multiple-select',
+      },
+      {
+        column: 'P',
+        type: 'multiple-select',
+      },
+    ]
+  : [];
 
   const title = (
     <Typography component="div" variant="h5" data-testid="table-header">
@@ -45,30 +60,53 @@ export const JiraTable = ({ tableContent, showFilters }: Props) => {
     </Typography>
   );
 
+
+  if(showFilters){
+    return (
+      <InfoCard title={title}>
+        <Table<Issue>
+          options={{
+            paging: false,
+            padding: 'dense',
+            search: true,
+          }}
+          filters={filters}
+          emptyContent={
+            <Typography display="flex" justifyContent="center" pt={30}>
+              No issues found&nbsp;
+            </Typography>
+          }
+          data={tableContent.issues || []}
+          columns={tableColumns}
+          style={
+            {
+            ...tableStyle,
+            padding: '0px',
+            boxShadow: 'none',
+            }
+          }
+        />
+      </InfoCard>
+    );
+  }
+
   return (
-    <InfoCard title={title}>
-      <Table
-        options={{
-          paging: false,
-          padding: 'dense',
-          search: true,
-        }}
-        filters={filters}
-        data={tableContent.issues || []}
-        columns={columns}
-        emptyContent={
-          <Typography display="flex" justifyContent="center" pt={30}>
-            No issues found&nbsp;
-          </Typography>
-        }
-        style={{
-          height: `max-content`,
-          maxHeight: `500px`,
-          overflowY: 'auto',
-          width: '100%',
-          boxShadow: 'none',
-        }}
-      />
-    </InfoCard>
+    <Table<Issue>
+      title={title}
+      options={{
+        paging: false,
+        padding: 'dense',
+        search: true,
+      }}
+      filters={filters}
+      emptyContent={
+        <Typography display="flex" justifyContent="center" pt={30}>
+          No issues found&nbsp;
+        </Typography>
+      }
+      data={tableContent.issues || []}
+      columns={tableColumns}
+      style={tableStyle}
+    />
   );
 };

@@ -9,15 +9,16 @@ import {
   HttpAuthService,
   LoggerService,
   TokenManagerService,
+  UserInfoService,
 } from '@backstage/backend-plugin-api';
-import { UserEntity, stringifyEntityRef } from '@backstage/catalog-model';
+import { stringifyEntityRef, UserEntity } from '@backstage/catalog-model';
 import express from 'express';
 import Router from 'express-promise-router';
 import { Config } from '@backstage/config';
 import { CatalogClient } from '@backstage/catalog-client';
 import { IdentityApi } from '@backstage/plugin-auth-node';
 
-import { getDefaultFiltersForUser } from '../filters';
+import { getAssigneUser, getDefaultFiltersForUser } from '../filters';
 import {
   type Filter,
   type JiraResponse,
@@ -26,10 +27,11 @@ import {
 import stream from 'stream';
 import { getProjectAvatar } from '../api';
 import {
-  getProjectResponse,
   getFiltersFromAnnotations,
-  getIssuesFromFilters,
   getIssuesFromComponents,
+  getIssuesFromFilters,
+  getProjectResponse,
+  getUserIssues,
 } from './service';
 import { getAnnotations } from '../lib';
 
@@ -70,9 +72,16 @@ export interface RouterOptions {
    * Backstage httpAuth service
    */
   httpAuth?: HttpAuthService;
+
+  /**
+   * Backstage userInfo service
+   */
+  userInfo: UserInfoService;
 }
 
 const DEFAULT_TTL = 1000 * 60;
+
+const DEFAULT_MAX_RESULTS_USER_ISSUES = 10;
 
 /**
  * Constructs a jira dashboard router.
@@ -83,7 +92,7 @@ export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
   const { auth, httpAuth } = createLegacyAuthAdapters(options);
-  const { logger, config, discovery } = options;
+  const { logger, config, discovery, userInfo } = options;
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
   logger.info('Initializing Jira Dashboard backend');
 
@@ -214,6 +223,53 @@ export async function createRouter(
       response.json(jiraResponse);
     },
   );
+
+  router.get('/dashboards/user-issues', async (request, response) => {
+    const { token } = await auth.getPluginRequestToken({
+      onBehalfOf: await auth.getOwnServiceCredentials(),
+      targetPluginId: 'catalog',
+    });
+
+    const credentials = await httpAuth.credentials(request, {
+      allow: ['user'],
+    });
+
+    // we ignore guest and service users, no issues in response
+    if (!auth.isPrincipal(credentials, 'user')) {
+      response.status(200).json([]);
+      return;
+    }
+
+    const info = await userInfo.getUserInfo(credentials);
+
+    const userEntity = (await catalogClient.getEntityByRef(info.userEntityRef, {
+      token,
+    })) as UserEntity;
+
+    if (!userEntity) {
+      const error = `User entity cannot be determined from ${info.userEntityRef}`;
+      logger.info(error);
+      response.status(400).json(error);
+      return;
+    }
+
+    const username = getAssigneUser(config, userEntity);
+
+    const maxResults = Number(
+      request.query.maxResults || DEFAULT_MAX_RESULTS_USER_ISSUES,
+    );
+
+    try {
+      const issues = await getUserIssues(username, maxResults, config, cache);
+      response.status(200).json(issues);
+    } catch (err: any) {
+      logger.error(`Error during getting user issues: ${err.message}`);
+      response.status(503).json({
+        error: `Error during getting user issues: ${err.message}`,
+      });
+      return;
+    }
+  });
 
   router.get(
     '/avatar/by-entity-ref/:kind/:namespace/:name',
