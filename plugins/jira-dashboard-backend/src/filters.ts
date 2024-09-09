@@ -12,7 +12,7 @@ const openFilter: Filter = {
 const getIncomingFilter = (incomingStatus: string): Filter => ({
   name: 'Incoming Issues',
   shortName: 'INCOMING',
-  query: `status = ${incomingStatus} ORDER BY created ASC`,
+  query: `status = '${incomingStatus}' ORDER BY created ASC`,
 });
 
 /**
