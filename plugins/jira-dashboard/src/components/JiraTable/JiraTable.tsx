@@ -4,7 +4,13 @@ import {
   Issue,
   JiraDataResponse,
 } from '@axis-backstage/plugin-jira-dashboard-common';
-import { ErrorPanel, InfoCard, Table, TableColumn, TableFilter } from '@backstage/core-components';
+import {
+  ErrorPanel,
+  InfoCard,
+  Table,
+  TableColumn,
+  TableFilter,
+} from '@backstage/core-components';
 import { capitalize } from 'lodash';
 import { columns } from './columns';
 
@@ -28,7 +34,7 @@ export const JiraTable = ({
     overflowY: 'auto',
     width: '100%',
   },
-  showFilters
+  showFilters,
 }: Props) => {
   if (!tableContent) {
     return (
@@ -42,17 +48,17 @@ export const JiraTable = ({
   const nbrOfIssues = tableContent?.issues?.length ?? 0;
 
   const filters: TableFilter[] = showFilters
-  ? [
-      {
-        column: 'Status',
-        type: 'multiple-select',
-      },
-      {
-        column: 'P',
-        type: 'multiple-select',
-      },
-    ]
-  : [];
+    ? [
+        {
+          column: 'Status',
+          type: 'multiple-select',
+        },
+        {
+          column: 'P',
+          type: 'multiple-select',
+        },
+      ]
+    : [];
 
   const title = (
     <Typography component="div" variant="h5" data-testid="table-header">
@@ -60,8 +66,7 @@ export const JiraTable = ({
     </Typography>
   );
 
-
-  if(showFilters){
+  if (showFilters) {
     return (
       <InfoCard title={title}>
         <Table<Issue>
@@ -78,13 +83,11 @@ export const JiraTable = ({
           }
           data={tableContent.issues || []}
           columns={tableColumns}
-          style={
-            {
+          style={{
             ...tableStyle,
             padding: '0px',
             boxShadow: 'none',
-            }
-          }
+          }}
         />
       </InfoCard>
     );

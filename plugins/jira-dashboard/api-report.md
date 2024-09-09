@@ -18,6 +18,7 @@ export const EntityJiraDashboardContent: (
   props?:
     | {
         annotationPrefix?: string | undefined;
+        showFilters?: boolean | undefined;
       }
     | undefined,
 ) => JSX_2.Element;
