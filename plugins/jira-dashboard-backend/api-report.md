@@ -5,13 +5,13 @@
 ```ts
 import { AuthService } from '@backstage/backend-plugin-api';
 import { BackendFeatureCompat } from '@backstage/backend-plugin-api';
-import { Config } from '@backstage/config';
 import { DiscoveryService } from '@backstage/backend-plugin-api';
 import express from 'express';
 import { HttpAuthService } from '@backstage/backend-plugin-api';
-import { IdentityApi } from '@backstage/plugin-auth-node';
+import { IdentityService } from '@backstage/backend-plugin-api';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { LoggerService } from '@backstage/backend-plugin-api';
+import { RootConfigService } from '@backstage/backend-plugin-api';
 import { TokenManagerService } from '@backstage/backend-plugin-api';
 import { UserInfoService } from '@backstage/backend-plugin-api';
 
@@ -39,10 +39,10 @@ export type JqlQueryBuilderArgs = {
 // @public
 export interface RouterOptions {
   auth?: AuthService;
-  config: Config;
+  config: RootConfigService;
   discovery: DiscoveryService;
   httpAuth?: HttpAuthService;
-  identity?: IdentityApi;
+  identity?: IdentityService;
   logger: LoggerService;
   tokenManager?: TokenManagerService;
   userInfo: UserInfoService;
@@ -50,7 +50,7 @@ export interface RouterOptions {
 
 // @public
 export const searchJira: (
-  config: Config,
+  config: RootConfigService,
   jqlQuery: string,
   options: SearchOptions,
 ) => Promise<Issue[]>;

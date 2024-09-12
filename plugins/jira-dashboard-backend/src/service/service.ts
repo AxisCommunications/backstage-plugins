@@ -1,5 +1,4 @@
-import { CacheClient } from '@backstage/backend-common';
-import { Config } from '@backstage/config';
+import { CacheService, RootConfigService } from '@backstage/backend-plugin-api';
 import {
   type Filter,
   Issue,
@@ -17,8 +16,8 @@ import {
 
 export const getProjectResponse = async (
   projectKey: string,
-  config: Config,
-  cache: CacheClient,
+  config: RootConfigService,
+  cache: CacheService,
 ): Promise<Project> => {
   let projectResponse: Project;
 
@@ -41,8 +40,8 @@ export const getProjectResponse = async (
 
 export const getJqlResponse = async (
   jql: string,
-  config: Config,
-  cache: CacheClient,
+  config: RootConfigService,
+  cache: CacheService,
   searchOptions: SearchOptions,
 ): Promise<Issue[]> => {
   let issuesResponse: Issue[];
@@ -67,8 +66,8 @@ export const getJqlResponse = async (
 export const getUserIssues = async (
   username: string,
   maxResults: number,
-  config: Config,
-  cache: CacheClient,
+  config: RootConfigService,
+  cache: CacheService,
 ): Promise<Issue[]> => {
   const jql = `assignee = "${username}" AND resolution = Unresolved ORDER BY priority DESC, updated DESC`;
 
@@ -88,7 +87,7 @@ export const getUserIssues = async (
 
 export const getFiltersFromAnnotations = async (
   annotations: string[],
-  config: Config,
+  config: RootConfigService,
 ): Promise<Filter[]> => {
   const filters: Filter[] = [];
 
@@ -109,7 +108,7 @@ export const getIssuesFromFilters = async (
   projectKey: string,
   components: string[],
   filters: Filter[],
-  config: Config,
+  config: RootConfigService,
 ): Promise<JiraDataResponse[]> => {
   return await Promise.all(
     filters.map(async filter => ({
@@ -128,7 +127,7 @@ export const getIssuesFromFilters = async (
 export const getIssuesFromComponents = async (
   projectKey: string,
   componentAnnotations: string[],
-  config: Config,
+  config: RootConfigService,
 ): Promise<JiraDataResponse[]> => {
   return await Promise.all(
     componentAnnotations.map(async componentKey => ({

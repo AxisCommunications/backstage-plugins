@@ -1,4 +1,4 @@
-import { Config } from '@backstage/config';
+import { RootConfigService } from '@backstage/backend-plugin-api';
 import { resolveUserEmailSuffix } from './config';
 import { Filter } from '@axis-backstage/plugin-jira-dashboard-common';
 import { UserEntity } from '@backstage/catalog-model';
@@ -23,7 +23,7 @@ const getIncomingFilter = (incomingStatus: string): Filter => ({
  * @param userEntity user entity instance
  */
 export const getAssigneUser = (
-  config: Config,
+  config: RootConfigService,
   userEntity: UserEntity,
 ): string => {
   const emailSuffixConfig = resolveUserEmailSuffix(config);
@@ -35,7 +35,7 @@ export const getAssigneUser = (
 
 const getAssignedToMeFilter = (
   userEntity: UserEntity,
-  config: Config,
+  config: RootConfigService,
 ): Filter => {
   const email = getAssigneUser(config, userEntity);
 
@@ -47,7 +47,7 @@ const getAssignedToMeFilter = (
 };
 
 export const getDefaultFiltersForUser = (
-  config: Config,
+  config: RootConfigService,
   userEntity?: UserEntity,
   incomingStatus?: string,
 ): Filter[] => {

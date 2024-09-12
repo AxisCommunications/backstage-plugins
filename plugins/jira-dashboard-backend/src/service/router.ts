@@ -1,22 +1,20 @@
-import {
-  CacheManager,
-  createLegacyAuthAdapters,
-  errorHandler,
-} from '@backstage/backend-common';
+import { createLegacyAuthAdapters } from '@backstage/backend-common';
+import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
+import { CacheManager } from '@backstage/backend-defaults/cache';
 import {
   AuthService,
   DiscoveryService,
   HttpAuthService,
   LoggerService,
+  IdentityService,
+  RootConfigService,
   TokenManagerService,
   UserInfoService,
 } from '@backstage/backend-plugin-api';
 import { stringifyEntityRef, UserEntity } from '@backstage/catalog-model';
 import express from 'express';
 import Router from 'express-promise-router';
-import { Config } from '@backstage/config';
 import { CatalogClient } from '@backstage/catalog-client';
-import { IdentityApi } from '@backstage/plugin-auth-node';
 
 import { getAssigneUser, getDefaultFiltersForUser } from '../filters';
 import {
@@ -48,7 +46,7 @@ export interface RouterOptions {
   /**
    * Backstage config object
    */
-  config: Config;
+  config: RootConfigService;
 
   /**
    * Backstage discovery api instance
@@ -58,7 +56,7 @@ export interface RouterOptions {
   /**
    * Backstage identity api instance
    */
-  identity?: IdentityApi;
+  identity?: IdentityService;
 
   /**
    * Backstage token manager instance
@@ -94,11 +92,11 @@ export async function createRouter(
   const { auth, httpAuth } = createLegacyAuthAdapters(options);
   const { logger, config, discovery, userInfo } = options;
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
-  logger.info('Initializing Jira Dashboard backend');
 
   const pluginCache =
     CacheManager.fromConfig(config).forPlugin('jira-dashboard');
   const cache = pluginCache.getClient({ defaultTtl: DEFAULT_TTL });
+  logger.info('Initializing Jira Dashboard backend');
 
   const router = Router();
   router.use(express.json());
@@ -326,6 +324,7 @@ export async function createRouter(
       ps.pipe(response);
     },
   );
-  router.use(errorHandler());
+  const middleware = MiddlewareFactory.create({ logger, config });
+  router.use(middleware.error());
   return router;
 }

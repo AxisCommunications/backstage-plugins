@@ -1,54 +1,20 @@
-import {
-  getVoidLogger,
-  PluginEndpointDiscovery,
-  ServerTokenManager,
-} from '@backstage/backend-common';
 import express from 'express';
 import request from 'supertest';
 import { createRouter } from './router';
-import {
-  BackstageIdentityResponse,
-  IdentityApiGetIdentityRequest,
-} from '@backstage/plugin-auth-node';
-import { ConfigReader } from '@backstage/config';
 import { mockServices } from '@backstage/backend-test-utils';
-
-const testDiscovery: jest.Mocked<PluginEndpointDiscovery> = {
-  getBaseUrl: jest
-    .fn()
-    .mockResolvedValue('http://localhost:7007/api/jira-dashboard'),
-  getExternalBaseUrl: jest.fn(),
-};
 
 describe('createRouter', () => {
   let app: express.Express;
-  const tokenManager = ServerTokenManager.noop();
-
-  const getIdentity = jest
-    .fn()
-    .mockImplementation(
-      async ({
-        request: _request,
-      }: IdentityApiGetIdentityRequest): Promise<
-        BackstageIdentityResponse | undefined
-      > => {
-        return {
-          identity: {
-            userEntityRef: 'user:default/guest',
-            ownershipEntityRefs: [],
-            type: 'user',
-          },
-          token: 'token',
-        };
-      },
-    );
+  const tokenManager = mockServices.tokenManager.mock();
+  const testDiscovery = mockServices.discovery.mock();
+  const identity = mockServices.identity.mock();
 
   beforeAll(async () => {
     const router = await createRouter({
-      logger: getVoidLogger(),
-      config: new ConfigReader({}),
+      logger: mockServices.logger.mock(),
+      config: mockServices.rootConfig(),
       discovery: testDiscovery,
-      identity: { getIdentity },
+      identity,
       tokenManager,
       userInfo: mockServices.userInfo({ userEntityRef: 'user:default/guest' }),
     });
