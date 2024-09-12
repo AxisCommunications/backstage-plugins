@@ -45,7 +45,7 @@ export interface RouterOptions {
   /**
    * Backstage token manager service
    */
-  tokenManager: TokenManagerService;
+  tokenManager?: TokenManagerService;
   /**
    * Backstage auth service
    */
