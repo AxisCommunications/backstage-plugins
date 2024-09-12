@@ -31,17 +31,15 @@
   "dependencies": {
     "@axis-backstage/plugin-jira-dashboard-common": "workspace:^",
     "@backstage/backend-common": "^0.24.0",
+    "@backstage/backend-defaults": "^0.4.3",
     "@backstage/backend-plugin-api": "^0.8.0",
     "@backstage/catalog-client": "^1.6.6",
     "@backstage/catalog-model": "^1.6.0",
-    "@backstage/config": "^1.2.0",
-    "@backstage/plugin-auth-node": "^0.5.0",
     "@backstage/plugin-permission-common": "^0.8.1",
     "@types/express": "*",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
-    "node-fetch": "^2.6.7",
-    "yn": "^4.0.0"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "@backstage/backend-test-utils": "^0.5.0",

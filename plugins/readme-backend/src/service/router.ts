@@ -1,24 +1,22 @@
-import { errorHandler } from '@backstage/backend-common';
+import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
+import { CacheManager } from '@backstage/backend-defaults/cache';
 import {
   AuthService,
   DiscoveryService,
   LoggerService,
+  RootConfigService,
   UrlReaderService,
   TokenManagerService,
 } from '@backstage/backend-plugin-api';
-import { Config } from '@backstage/config';
-import {
-  CacheManager,
-  createLegacyAuthAdapters,
-} from '@backstage/backend-common';
-import express from 'express';
-import Router from 'express-promise-router';
+import { createLegacyAuthAdapters } from '@backstage/backend-common';
 import { ScmIntegrations } from '@backstage/integration';
 import {
   getEntitySourceLocation,
   stringifyEntityRef,
 } from '@backstage/catalog-model';
 import { CatalogClient } from '@backstage/catalog-client';
+import express from 'express';
+import Router from 'express-promise-router';
 import { isSymLink } from '../lib';
 
 /**
@@ -34,7 +32,7 @@ export interface RouterOptions {
   /**
    * Backstage config object
    */
-  config: Config;
+  config: RootConfigService;
 
   /**
    * Backstage url reader instance
@@ -187,6 +185,7 @@ export async function createRouter(
     });
   });
 
-  router.use(errorHandler());
+  const middleware = MiddlewareFactory.create({ logger, config });
+  router.use(middleware.error());
   return router;
 }

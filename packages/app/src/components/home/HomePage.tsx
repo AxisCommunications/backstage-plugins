@@ -9,6 +9,7 @@ import { Content, Header, Page } from '@backstage/core-components';
 import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import { SearchBar } from '@backstage/plugin-search-react';
+import { JiraUserIssuesViewCard } from '@axis-backstage/plugin-jira-dashboard';
 
 export const homePage = (
   <Page themeId="home">
@@ -32,6 +33,14 @@ export const homePage = (
         <Grid container xs={7}>
           <Grid xs={12}>
             <HomePageRandomJoke />
+          </Grid>
+          <Grid xs={12}>
+            <JiraUserIssuesViewCard
+              bottomLinkProps={{
+                link: 'https://our-jira-server/issues',
+                title: 'Open in Jira',
+              }}
+            />
           </Grid>
         </Grid>
       </Grid>

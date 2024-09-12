@@ -1,10 +1,5 @@
-import {
-  getVoidLogger,
-  HostDiscovery,
-  ServerTokenManager,
-} from '@backstage/backend-common';
+import { mockServices } from '@backstage/backend-test-utils';
 import { UrlReaders } from '@backstage/backend-defaults/urlReader';
-import { ConfigReader } from '@backstage/config';
 import express from 'express';
 import request from 'supertest';
 
@@ -14,23 +9,14 @@ describe('createRouter', () => {
   let app: express.Express;
 
   beforeAll(async () => {
-    const config = new ConfigReader({
-      backend: {
-        baseUrl: 'http://127.0.0.1:7007',
-        auth: {
-          keys: [{ secret: 'abcd' }],
-        },
-      },
-    });
-    const logger = getVoidLogger();
-    const discovery = HostDiscovery.fromConfig(config);
-    const tokenManager = ServerTokenManager.fromConfig(config, {
-      logger,
-    });
+    const config = mockServices.rootConfig();
+    const logger = mockServices.rootLogger.mock();
+    const discovery = mockServices.discovery.mock();
+    const tokenManager = mockServices.tokenManager.mock();
     const reader = UrlReaders.default({ logger, config });
 
     const router = await createRouter({
-      logger: getVoidLogger(),
+      logger,
       config,
       discovery,
       tokenManager,

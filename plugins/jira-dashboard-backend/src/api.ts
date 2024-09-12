@@ -1,4 +1,4 @@
-import { Config } from '@backstage/config';
+import { RootConfigService } from '@backstage/backend-plugin-api';
 import fetch from 'node-fetch';
 import {
   Filter,
@@ -10,7 +10,7 @@ import { jqlQueryBuilder } from './queries';
 
 export const getProjectInfo = async (
   projectKey: string,
-  config: Config,
+  config: RootConfigService,
 ): Promise<Project> => {
   const response = await fetch(
     `${resolveJiraBaseUrl(config)}project/${projectKey}`,
@@ -32,7 +32,7 @@ export const getProjectInfo = async (
 
 export const getFilterById = async (
   id: string,
-  config: Config,
+  config: RootConfigService,
 ): Promise<Filter> => {
   const response = await fetch(`${resolveJiraBaseUrl(config)}filter/${id}`, {
     method: 'GET',
@@ -52,7 +52,7 @@ export const getIssuesByFilter = async (
   projectKey: string,
   components: string[],
   query: string,
-  config: Config,
+  config: RootConfigService,
 ): Promise<Issue[]> => {
   const jql = jqlQueryBuilder({ project: projectKey, components, query });
   const response = await fetch(
@@ -97,7 +97,7 @@ export type SearchOptions = {
  * @public
  */
 export const searchJira = async (
-  config: Config,
+  config: RootConfigService,
   jqlQuery: string,
   options: SearchOptions,
 ): Promise<Issue[]> => {
@@ -116,7 +116,7 @@ export const searchJira = async (
 export const getIssuesByComponent = async (
   projectKey: string,
   componentKey: string,
-  config: Config,
+  config: RootConfigService,
 ): Promise<Issue[]> => {
   const jql = jqlQueryBuilder({
     project: projectKey,
@@ -135,7 +135,7 @@ export const getIssuesByComponent = async (
   return response.issues;
 };
 
-export async function getProjectAvatar(url: string, config: Config) {
+export async function getProjectAvatar(url: string, config: RootConfigService) {
   const response = await fetch(url, {
     method: 'GET',
     headers: {
