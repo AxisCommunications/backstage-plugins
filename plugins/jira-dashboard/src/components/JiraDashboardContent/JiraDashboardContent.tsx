@@ -4,6 +4,7 @@ import {
   Progress,
   ResponseErrorPanel,
   SupportButton,
+  TableFilter,
 } from '@backstage/core-components';
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
@@ -25,7 +26,7 @@ import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 
 export const JiraDashboardContent = (props?: {
   annotationPrefix?: string;
-  showFilters?: boolean;
+  showFilters?: TableFilter[] | boolean;
 }) => {
   const { entity } = useEntity();
   const api = useApi(jiraDashboardApiRef);

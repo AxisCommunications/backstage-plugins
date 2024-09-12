@@ -13,6 +13,7 @@ import {
 } from '@backstage/core-components';
 import { capitalize } from 'lodash';
 import { columns } from './columns';
+import { transformAssignees } from '../../lib';
 
 // Infer the prop types from the Table component
 type TableComponentProps = React.ComponentProps<typeof Table>;
@@ -21,7 +22,7 @@ type Props = {
   tableContent: JiraDataResponse;
   tableColumns?: TableColumn<Issue>[];
   tableStyle?: TableComponentProps['style'];
-  showFilters?: boolean;
+  showFilters?: TableFilter[] | boolean;
 };
 
 export const JiraTable = ({
@@ -45,20 +46,25 @@ export const JiraTable = ({
     );
   }
 
+  transformAssignees(tableContent.issues);
+
   const nbrOfIssues = tableContent?.issues?.length ?? 0;
 
-  const filters: TableFilter[] = showFilters
-    ? [
-        {
-          column: 'Status',
-          type: 'multiple-select',
-        },
-        {
-          column: 'P',
-          type: 'multiple-select',
-        },
-      ]
-    : [];
+  const defaultFilters: TableFilter[] = [
+    { column: 'Status', type: 'multiple-select' },
+    { column: 'P', type: 'multiple-select' },
+    { column: 'Assignee', type: 'multiple-select' },
+  ];
+
+  let filters: TableFilter[] = [];
+
+  if (showFilters) {
+    if (Array.isArray(showFilters)) {
+      filters = showFilters;
+    } else {
+      filters = defaultFilters;
+    }
+  }
 
   const title = (
     <Typography component="div" variant="h5" data-testid="table-header">

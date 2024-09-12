@@ -114,7 +114,7 @@ export const columnStatus: TableColumn<Issue> = {
 
 export const columnAssignee: TableColumn<Issue> = {
   title: 'Assignee',
-  field: 'fields.assignee.displayName',
+  field: 'fields.assignee.name',
   highlight: true,
   type: 'string',
   width: '20%',

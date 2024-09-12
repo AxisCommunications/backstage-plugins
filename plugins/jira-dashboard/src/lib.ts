@@ -1,4 +1,4 @@
-import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
+import { Issue, Project } from '@axis-backstage/plugin-jira-dashboard-common';
 
 export const getJiraBaseUrl = (a: string) => {
   const url = new URL(a);
@@ -18,4 +18,21 @@ export const getProjectUrl = (project: Project) => {
  */
 export const getIssueUrl = (issueUrl: string, issueKey: string) => {
   return `${getJiraBaseUrl(issueUrl)}/browse/${issueKey}`;
+};
+
+export const transformAssignees = (issues: Issue[]): Issue[] => {
+  const unAssigned = {
+    name: 'unassigned',
+    self: '',
+    key: 'unassigned',
+    displayName: 'Unassigned',
+    avatarUrls: { '48x48': '' },
+  };
+
+  return issues.map(issue => {
+    if (!issue.fields.assignee) {
+      issue.fields.assignee = unAssigned;
+    }
+    return issue;
+  });
 };
