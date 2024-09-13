@@ -4,6 +4,7 @@ import {
   Progress,
   ResponseErrorPanel,
   SupportButton,
+  TableFilter,
 } from '@backstage/core-components';
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
@@ -23,7 +24,10 @@ import { useJira } from '../../hooks/useJira';
 import { isJiraDashboardAvailable } from '../../plugin';
 import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 
-export const JiraDashboardContent = (props?: { annotationPrefix?: string }) => {
+export const JiraDashboardContent = (props?: {
+  annotationPrefix?: string;
+  showFilters?: TableFilter[] | boolean;
+}) => {
   const { entity } = useEntity();
   const api = useApi(jiraDashboardApiRef);
 
@@ -85,7 +89,10 @@ export const JiraDashboardContent = (props?: { annotationPrefix?: string }) => {
             </Grid>
             {jiraResponse.data.map((value: JiraDataResponse) => (
               <Grid data-testid="issue-table" key={value.name} md={6} xs={12}>
-                <JiraTable tableContent={value} />
+                <JiraTable
+                  tableContent={value}
+                  showFilters={props?.showFilters}
+                />
               </Grid>
             ))}
           </>

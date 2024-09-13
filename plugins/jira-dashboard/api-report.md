@@ -12,12 +12,14 @@ import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JSX as JSX_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
+import { TableFilter } from '@backstage/core-components';
 
 // @public
 export const EntityJiraDashboardContent: (
   props?:
     | {
         annotationPrefix?: string | undefined;
+        showFilters?: boolean | TableFilter[] | undefined;
       }
     | undefined,
 ) => JSX_2.Element;

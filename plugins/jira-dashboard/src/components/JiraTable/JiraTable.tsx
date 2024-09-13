@@ -4,9 +4,16 @@ import {
   Issue,
   JiraDataResponse,
 } from '@axis-backstage/plugin-jira-dashboard-common';
-import { ErrorPanel, Table, TableColumn } from '@backstage/core-components';
+import {
+  ErrorPanel,
+  InfoCard,
+  Table,
+  TableColumn,
+  TableFilter,
+} from '@backstage/core-components';
 import { capitalize } from 'lodash';
 import { columns } from './columns';
+import { transformAssignees } from '../../lib';
 
 // Infer the prop types from the Table component
 type TableComponentProps = React.ComponentProps<typeof Table>;
@@ -15,17 +22,20 @@ type Props = {
   tableContent: JiraDataResponse;
   tableColumns?: TableColumn<Issue>[];
   tableStyle?: TableComponentProps['style'];
+  showFilters?: TableFilter[] | boolean;
 };
 
 export const JiraTable = ({
   tableContent,
   tableColumns = columns,
   tableStyle = {
-    height: '500px',
+    height: 'max-content',
+    maxHeight: '500px',
     padding: '20px',
     overflowY: 'auto',
     width: '100%',
   },
+  showFilters,
 }: Props) => {
   if (!tableContent) {
     return (
@@ -35,20 +45,69 @@ export const JiraTable = ({
       />
     );
   }
+
+  transformAssignees(tableContent.issues);
+
   const nbrOfIssues = tableContent?.issues?.length ?? 0;
+
+  const defaultFilters: TableFilter[] = [
+    { column: 'Status', type: 'multiple-select' },
+    { column: 'P', type: 'multiple-select' },
+    { column: 'Assignee', type: 'multiple-select' },
+  ];
+
+  let filters: TableFilter[] = [];
+
+  if (showFilters) {
+    if (Array.isArray(showFilters)) {
+      filters = showFilters;
+    } else {
+      filters = defaultFilters;
+    }
+  }
+
+  const title = (
+    <Typography component="div" variant="h5" data-testid="table-header">
+      {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
+    </Typography>
+  );
+
+  if (showFilters) {
+    return (
+      <InfoCard title={title}>
+        <Table<Issue>
+          options={{
+            paging: false,
+            padding: 'dense',
+            search: true,
+          }}
+          filters={filters}
+          emptyContent={
+            <Typography display="flex" justifyContent="center" pt={30}>
+              No issues found&nbsp;
+            </Typography>
+          }
+          data={tableContent.issues || []}
+          columns={tableColumns}
+          style={{
+            ...tableStyle,
+            padding: '0px',
+            boxShadow: 'none',
+          }}
+        />
+      </InfoCard>
+    );
+  }
 
   return (
     <Table<Issue>
-      title={
-        <Typography component="div" variant="h5" data-testid="table-header">
-          {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
-        </Typography>
-      }
+      title={title}
       options={{
         paging: false,
         padding: 'dense',
         search: true,
       }}
+      filters={filters}
       emptyContent={
         <Typography display="flex" justifyContent="center" pt={30}>
           No issues found&nbsp;
