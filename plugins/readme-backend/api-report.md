@@ -26,6 +26,6 @@ export interface RouterOptions {
   discovery: DiscoveryService;
   logger: LoggerService;
   reader: UrlReaderService;
-  tokenManager: TokenManagerService;
+  tokenManager?: TokenManagerService;
 }
 ```

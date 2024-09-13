@@ -19,18 +19,9 @@ export const readmePlugin = createBackendPlugin({
         reader: coreServices.urlReader,
         discovery: coreServices.discovery,
         auth: coreServices.auth,
-        tokenManager: coreServices.tokenManager,
         httpRouter: coreServices.httpRouter,
       },
-      async init({
-        auth,
-        logger,
-        config,
-        reader,
-        discovery,
-        tokenManager,
-        httpRouter,
-      }) {
+      async init({ auth, logger, config, reader, discovery, httpRouter }) {
         httpRouter.use(
           await createRouter({
             auth,
@@ -38,7 +29,6 @@ export const readmePlugin = createBackendPlugin({
             config,
             reader,
             discovery,
-            tokenManager,
           }),
         );
       },
