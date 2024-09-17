@@ -8,10 +8,10 @@ import { Config } from '@backstage/config';
 import express from 'express';
 import { LoggerService } from '@backstage/backend-plugin-api';
 
-// @public
+// @public @deprecated
 export function createRouter(options: RouterOptions): Promise<express.Router>;
 
-// @public
+// @public @deprecated
 export interface RouterOptions {
   config: Config;
   logger: LoggerService;

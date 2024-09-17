@@ -15,7 +15,7 @@ import { RootConfigService } from '@backstage/backend-plugin-api';
 import { TokenManagerService } from '@backstage/backend-plugin-api';
 import { UserInfoService } from '@backstage/backend-plugin-api';
 
-// @public
+// @public @deprecated
 export function createRouter(options: RouterOptions): Promise<express.Router>;
 
 // @public
@@ -36,7 +36,7 @@ export type JqlQueryBuilderArgs = {
   query?: string;
 };
 
-// @public
+// @public @deprecated
 export interface RouterOptions {
   auth?: AuthService;
   config: RootConfigService;
