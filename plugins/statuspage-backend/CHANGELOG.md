@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-statuspage-backend
 
+## 0.5.1
+
+### Patch Changes
+
+- 1db0ada: Marked `createRouter` and `RouterOptions` as deprecated, to be removed soon after the Backstage `1.32.0` release in October
+
 ## 0.5.0
 
 ### Minor Changes

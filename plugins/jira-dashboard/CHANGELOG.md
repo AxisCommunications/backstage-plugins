@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.10.0
+
+### Minor Changes
+
+- 89498d5: Adding filters to the Jira Table
+
 ## 1.9.0
 
 ### Minor Changes
