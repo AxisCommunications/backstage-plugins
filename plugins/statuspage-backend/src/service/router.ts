@@ -9,6 +9,7 @@ import { getStatuspageConfig } from '../config';
 /**
  * Router options.
  *
+ * @deprecated Please migrate to the new backend system as this will be removed in the future.
  * @public
  */
 export interface RouterOptions {
@@ -24,6 +25,7 @@ const COMPONENTS_KEY = 'components';
 /**
  * Create the router.
  *
+ * @deprecated Please migrate to the new backend system as this will be removed in the future.
  * @public
  */
 export async function createRouter(

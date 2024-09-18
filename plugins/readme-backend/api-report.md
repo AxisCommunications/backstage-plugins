@@ -12,14 +12,14 @@ import { RootConfigService } from '@backstage/backend-plugin-api';
 import { TokenManagerService } from '@backstage/backend-plugin-api';
 import { UrlReaderService } from '@backstage/backend-plugin-api';
 
-// @public
+// @public @deprecated
 export function createRouter(options: RouterOptions): Promise<express.Router>;
 
 // @public
 const readmePlugin: BackendFeatureCompat;
 export default readmePlugin;
 
-// @public
+// @public @deprecated
 export interface RouterOptions {
   auth?: AuthService;
   config: RootConfigService;

@@ -35,6 +35,7 @@ import { getAnnotations } from '../lib';
 
 /**
  * Constructs a jira dashboard router.
+ * @deprecated Please migrate to the new backend system as this will be removed in the future.
  * @public
  */
 export interface RouterOptions {
@@ -84,6 +85,7 @@ const DEFAULT_MAX_RESULTS_USER_ISSUES = 10;
 /**
  * Constructs a jira dashboard router.
  *
+ * @deprecated Please migrate to the new backend system as this will be removed in the future.
  * @public
  */
 export async function createRouter(

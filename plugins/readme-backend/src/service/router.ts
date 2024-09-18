@@ -21,6 +21,7 @@ import { isSymLink } from '../lib';
 
 /**
  * Constructs a readme router.
+ * @deprecated Please migrate to the new backend system as this will be removed in the future.
  * @public
  */
 export interface RouterOptions {
@@ -73,6 +74,7 @@ const README_TYPES: FileType[] = [
 /**
  * Constructs a readme router.
  *
+ * @deprecated Please migrate to the new backend system as this will be removed in the future.
  * @public
  */
 export async function createRouter(
