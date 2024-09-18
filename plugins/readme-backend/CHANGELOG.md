@@ -1,5 +1,13 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.9.2
+
+### Patch Changes
+
+- 176243f: Updated deprecated types and fixed the standalone server
+- 1db0ada: Marked `createRouter` and `RouterOptions` as deprecated, to be removed soon after the Backstage `1.32.0` release in October
+- 3bfe58a: Removed the tokenmanager as dependency for new backend system plugin definition.
+
 ## 0.9.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 2.6.1
+
+### Patch Changes
+
+- 65ae7b3: Removed deprecated types and fixed the standalone server
+- 1db0ada: Marked `createRouter` and `RouterOptions` as deprecated, to be removed soon after the Backstage `1.32.0` release in October
+- 56e84d6: Quote the incoming status string in the JQL. This makes it possible to have strings that contain whitespace.
+
 ## 2.6.0
 
 ### Minor Changes

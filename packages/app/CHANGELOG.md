@@ -1,5 +1,16 @@
 # app
 
+## 0.9.0
+
+### Minor Changes
+
+- cdec499: Added the JiraUserIssuesViewCard component to the Homepage
+
+### Patch Changes
+
+- Updated dependencies [89498d5]
+  - @axis-backstage/plugin-jira-dashboard@1.10.0
+
 ## 0.8.0
 
 ### Minor Changes
