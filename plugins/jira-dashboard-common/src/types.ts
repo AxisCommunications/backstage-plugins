@@ -45,6 +45,7 @@ export type Filter = {
  */
 export type JiraDataResponse = {
   name: string;
+  query?: string;
   type: 'component' | 'filter';
   issues: Issue[];
 };

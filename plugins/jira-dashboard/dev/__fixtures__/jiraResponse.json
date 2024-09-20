@@ -20,6 +20,7 @@
     {
       "name": "Open Issues",
       "type": "filter",
+      "query": "resolution = Unresolved ORDER BY updated DESC",
       "issues": [
         {
           "key": "BS-1",
@@ -89,6 +90,7 @@
     {
       "name": "New Issues",
       "type": "filter",
+      "query": "resolution = Unresolved ORDER BY updated DESC",
       "issues": [
         {
           "key": "BS-1",

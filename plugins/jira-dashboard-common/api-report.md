@@ -52,6 +52,7 @@ export type Issue = {
 // @public
 export type JiraDataResponse = {
   name: string;
+  query?: string;
   type: 'component' | 'filter';
   issues: Issue[];
 };

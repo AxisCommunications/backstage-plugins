@@ -92,6 +92,7 @@ export const JiraDashboardContent = (props?: {
                 <JiraTable
                   tableContent={value}
                   showFilters={props?.showFilters}
+                  project={jiraResponse.project}
                 />
               </Grid>
             ))}
