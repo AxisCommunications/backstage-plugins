@@ -13,6 +13,7 @@ import {
   searchJira,
   SearchOptions,
 } from '../api';
+import { jqlQueryBuilder } from '../queries';
 
 export const getProjectResponse = async (
   projectKey: string,
@@ -113,7 +114,11 @@ export const getIssuesFromFilters = async (
   return await Promise.all(
     filters.map(async filter => ({
       name: filter.name,
-      query: filter.query,
+      query: jqlQueryBuilder({
+        project: projectKey,
+        components,
+        query: filter.query,
+      }),
       type: 'filter',
       issues: await getIssuesByFilter(
         projectKey,
@@ -133,7 +138,10 @@ export const getIssuesFromComponents = async (
   return await Promise.all(
     componentAnnotations.map(async componentKey => ({
       name: componentKey,
-      query: `project = ${projectKey} AND component = ${componentKey}`,
+      query: jqlQueryBuilder({
+        project: projectKey,
+        components: [componentKey],
+      }),
       type: 'component',
       issues: await getIssuesByComponent(projectKey, componentKey, config),
     })),

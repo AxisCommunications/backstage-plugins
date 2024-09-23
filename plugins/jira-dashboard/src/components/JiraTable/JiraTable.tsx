@@ -81,7 +81,6 @@ export const JiraTable = ({
       <Link
         to={`${getJiraBaseUrl(project.self)}/issues/?jql=${tableContent.query}`}
         variant="h5"
-        component="div"
         data-testid="table-header"
       >
         {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
