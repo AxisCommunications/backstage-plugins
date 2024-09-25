@@ -3,17 +3,19 @@ import Typography from '@mui/material/Typography';
 import {
   Issue,
   JiraDataResponse,
+  Project,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 import {
   ErrorPanel,
   InfoCard,
+  Link,
   Table,
   TableColumn,
   TableFilter,
 } from '@backstage/core-components';
 import { capitalize } from 'lodash';
 import { columns } from './columns';
-import { transformAssignees } from '../../lib';
+import { getJiraBaseUrl, transformAssignees } from '../../lib';
 
 // Infer the prop types from the Table component
 type TableComponentProps = React.ComponentProps<typeof Table>;
@@ -23,6 +25,7 @@ type Props = {
   tableColumns?: TableColumn<Issue>[];
   tableStyle?: TableComponentProps['style'];
   showFilters?: TableFilter[] | boolean;
+  project?: Project;
 };
 
 export const JiraTable = ({
@@ -36,6 +39,7 @@ export const JiraTable = ({
     width: '100%',
   },
   showFilters,
+  project,
 }: Props) => {
   if (!tableContent) {
     return (
@@ -66,11 +70,23 @@ export const JiraTable = ({
     }
   }
 
-  const title = (
+  let title = (
     <Typography component="div" variant="h5" data-testid="table-header">
       {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
     </Typography>
   );
+
+  if (project && tableContent.query) {
+    title = (
+      <Link
+        to={`${getJiraBaseUrl(project.self)}/issues/?jql=${tableContent.query}`}
+        variant="h5"
+        data-testid="table-header"
+      >
+        {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
+      </Link>
+    );
+  }
 
   if (showFilters) {
     return (
