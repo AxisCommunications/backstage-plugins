@@ -136,11 +136,10 @@ export const getIssuesByComponent = async (
 };
 
 export async function getProjectAvatar(url: string, config: RootConfigService) {
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: 'GET',
     headers: {
       Authorization: resolveJiraToken(config),
     },
   });
-  return response;
 }

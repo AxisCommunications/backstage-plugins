@@ -24,7 +24,9 @@ export const getProjectResponse = async (
 
   projectResponse = (await cache.get(projectKey)) as Project;
 
-  if (projectResponse) return projectResponse as Project;
+  if (projectResponse) {
+    return projectResponse as Project;
+  }
 
   try {
     projectResponse = await getProjectInfo(projectKey, config);
@@ -49,7 +51,9 @@ export const getJqlResponse = async (
 
   issuesResponse = (await cache.get(jql)) as Issue[];
 
-  if (issuesResponse) return issuesResponse as Issue[];
+  if (issuesResponse) {
+    return issuesResponse as Issue[];
+  }
 
   try {
     issuesResponse = await searchJira(config, jql, searchOptions);
