@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-common
 
+## 1.7.0
+
+### Minor Changes
+
+- d3129c0: Adding jql query to support links within JiraTable title
+
 ## 1.6.0
 
 ### Minor Changes
