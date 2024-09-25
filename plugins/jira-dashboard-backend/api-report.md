@@ -8,14 +8,12 @@ import { BackendFeatureCompat } from '@backstage/backend-plugin-api';
 import { DiscoveryService } from '@backstage/backend-plugin-api';
 import express from 'express';
 import { HttpAuthService } from '@backstage/backend-plugin-api';
-import { IdentityService } from '@backstage/backend-plugin-api';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { LoggerService } from '@backstage/backend-plugin-api';
 import { RootConfigService } from '@backstage/backend-plugin-api';
-import { TokenManagerService } from '@backstage/backend-plugin-api';
 import { UserInfoService } from '@backstage/backend-plugin-api';
 
-// @public @deprecated
+// @public
 export function createRouter(options: RouterOptions): Promise<express.Router>;
 
 // @public
@@ -36,15 +34,13 @@ export type JqlQueryBuilderArgs = {
   query?: string;
 };
 
-// @public @deprecated
+// @public
 export interface RouterOptions {
-  auth?: AuthService;
+  auth: AuthService;
   config: RootConfigService;
   discovery: DiscoveryService;
-  httpAuth?: HttpAuthService;
-  identity?: IdentityService;
+  httpAuth: HttpAuthService;
   logger: LoggerService;
-  tokenManager?: TokenManagerService;
   userInfo: UserInfoService;
 }
 
