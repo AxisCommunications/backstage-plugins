@@ -1,4 +1,3 @@
-import { createLegacyAuthAdapters } from '@backstage/backend-common';
 import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 import { CacheManager } from '@backstage/backend-defaults/cache';
 import {
@@ -6,24 +5,14 @@ import {
   DiscoveryService,
   HttpAuthService,
   LoggerService,
-  IdentityService,
   RootConfigService,
-  TokenManagerService,
   UserInfoService,
 } from '@backstage/backend-plugin-api';
-import { stringifyEntityRef, UserEntity } from '@backstage/catalog-model';
 import express from 'express';
 import Router from 'express-promise-router';
+import { stringifyEntityRef, UserEntity } from '@backstage/catalog-model';
 import { CatalogClient } from '@backstage/catalog-client';
-
-import { getAssigneUser, getDefaultFiltersForUser } from '../filters';
-import {
-  type Filter,
-  type JiraResponse,
-  type Project,
-} from '@axis-backstage/plugin-jira-dashboard-common';
-import stream from 'stream';
-import { getProjectAvatar } from '../api';
+import { getAnnotations } from '../lib';
 import {
   getFiltersFromAnnotations,
   getIssuesFromComponents,
@@ -31,68 +20,55 @@ import {
   getProjectResponse,
   getUserIssues,
 } from './service';
-import { getAnnotations } from '../lib';
+import { DEFAULT_MAX_RESULTS_USER_ISSUES, DEFAULT_TTL } from './defaultValues';
+import { getAssigneUser, getDefaultFiltersForUser } from '../filters';
+import {
+  type Filter,
+  type JiraResponse,
+  type Project,
+} from '@axis-backstage/plugin-jira-dashboard-common';
+import { getProjectAvatar } from '../api';
+import stream from 'stream';
 
 /**
  * Constructs a jira dashboard router.
- * @deprecated Please migrate to the new backend system as this will be removed in the future.
  * @public
  */
 export interface RouterOptions {
   /**
-   * Implementation of Winston logger
+   * Implementation of Authentication Service
+   */
+  auth: AuthService;
+  /**
+   * Implementation of Logger Service
    */
   logger: LoggerService;
-
   /**
-   * Backstage config object
+   * Implementation of Config Service
    */
   config: RootConfigService;
-
   /**
-   * Backstage discovery api instance
+   * Implementation of Discovery Service
    */
   discovery: DiscoveryService;
-
   /**
-   * Backstage identity api instance
+   * Implementation of Http Authentication Service
    */
-  identity?: IdentityService;
-
+  httpAuth: HttpAuthService;
   /**
-   * Backstage token manager instance
-   */
-  tokenManager?: TokenManagerService;
-  /**
-   * Backstage auth service
-   */
-  auth?: AuthService;
-  /**
-   * Backstage httpAuth service
-   */
-  httpAuth?: HttpAuthService;
-
-  /**
-   * Backstage userInfo service
+   * Implementation of User Info Service
    */
   userInfo: UserInfoService;
 }
 
-const DEFAULT_TTL = 1000 * 60;
-
-const DEFAULT_MAX_RESULTS_USER_ISSUES = 10;
-
 /**
  * Constructs a jira dashboard router.
- *
- * @deprecated Please migrate to the new backend system as this will be removed in the future.
  * @public
  */
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
-  const { auth, httpAuth } = createLegacyAuthAdapters(options);
-  const { logger, config, discovery, userInfo } = options;
+  const { auth, logger, config, discovery, httpAuth, userInfo } = options;
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
 
   const pluginCache =
@@ -104,6 +80,7 @@ export async function createRouter(
   router.use(express.json());
 
   router.get('/health', (_, response) => {
+    logger.info('PONG!');
     response.json({ status: 'ok' });
   });
 
@@ -326,7 +303,9 @@ export async function createRouter(
       ps.pipe(response);
     },
   );
+
   const middleware = MiddlewareFactory.create({ logger, config });
+
   router.use(middleware.error());
   return router;
 }
