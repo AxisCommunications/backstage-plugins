@@ -30,10 +30,6 @@ import {
 import { getProjectAvatar } from '../api';
 import stream from 'stream';
 
-/**
- * Constructs a jira dashboard router.
- * @public
- */
 export interface RouterOptions {
   /**
    * Implementation of Authentication Service
@@ -61,10 +57,6 @@ export interface RouterOptions {
   userInfo: UserInfoService;
 }
 
-/**
- * Constructs a jira dashboard router.
- * @public
- */
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
