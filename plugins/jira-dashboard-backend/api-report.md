@@ -4,10 +4,19 @@
 
 ```ts
 import { BackendFeatureCompat } from '@backstage/backend-plugin-api';
+import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
+import { RootConfigService } from '@backstage/backend-plugin-api';
 
 // @public
 const jiraDashboardPlugin: BackendFeatureCompat;
 export default jiraDashboardPlugin;
+
+// @public
+export const jqlQueryBuilder: ({
+  project,
+  components,
+  query,
+}: JqlQueryBuilderArgs) => string;
 
 // @public
 export type JqlQueryBuilderArgs = {
@@ -15,6 +24,13 @@ export type JqlQueryBuilderArgs = {
   components?: string[];
   query?: string;
 };
+
+// @public
+export const searchJira: (
+  config: RootConfigService,
+  jqlQuery: string,
+  options: SearchOptions,
+) => Promise<Issue[]>;
 
 // @public
 export type SearchOptions = {
