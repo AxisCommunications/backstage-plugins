@@ -93,6 +93,7 @@ export type SearchOptions = {
  * @param config - A Backstage config
  * @param jqlQuery - A string containing the jql query.
  * @param options - Query options that will be passed on to the POST request.
+ * @public
  */
 export const searchJira = async (
   config: RootConfigService,

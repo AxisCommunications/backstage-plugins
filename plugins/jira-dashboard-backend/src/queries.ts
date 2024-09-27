@@ -11,6 +11,7 @@ export type JqlQueryBuilderArgs = {
 
 /**
  * Creates a jql query string.
+ * @public
  */
 export const jqlQueryBuilder = ({
   project,
