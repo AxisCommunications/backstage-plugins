@@ -93,7 +93,6 @@ export type SearchOptions = {
  * @param config - A Backstage config
  * @param jqlQuery - A string containing the jql query.
  * @param options - Query options that will be passed on to the POST request.
- *
  * @public
  */
 export const searchJira = async (
@@ -136,11 +135,10 @@ export const getIssuesByComponent = async (
 };
 
 export async function getProjectAvatar(url: string, config: RootConfigService) {
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: 'GET',
     headers: {
       Authorization: resolveJiraToken(config),
     },
   });
-  return response;
 }

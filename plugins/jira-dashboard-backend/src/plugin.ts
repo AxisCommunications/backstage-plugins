@@ -14,33 +14,37 @@ export const jiraDashboardPlugin = createBackendPlugin({
   register(env) {
     env.registerInit({
       deps: {
+        auth: coreServices.auth,
+        httpRouter: coreServices.httpRouter,
         logger: coreServices.logger,
         config: coreServices.rootConfig,
         discovery: coreServices.discovery,
-        httpRouter: coreServices.httpRouter,
-        auth: coreServices.auth,
         httpAuth: coreServices.httpAuth,
         userInfo: coreServices.userInfo,
       },
       async init({
+        auth,
+        httpRouter,
         logger,
         config,
         discovery,
-        httpRouter,
-        auth,
         httpAuth,
         userInfo,
       }) {
         httpRouter.use(
           await createRouter({
+            auth,
             logger,
             config,
             discovery,
-            auth,
             httpAuth,
             userInfo,
           }),
         );
+        httpRouter.addAuthPolicy({
+          path: '/health',
+          allow: 'unauthenticated',
+        });
       },
     });
   },
