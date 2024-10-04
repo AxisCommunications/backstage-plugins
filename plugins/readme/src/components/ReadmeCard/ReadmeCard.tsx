@@ -30,7 +30,7 @@ import Typography from '@mui/material/Typography';
 
 export type ReadmeCardProps = {
   variant?: InfoCardVariants;
-  hideIfEmpty: boolean;
+  hideIfEmpty?: boolean;
 };
 
 export const ReadmeCard = ({
