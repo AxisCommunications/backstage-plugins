@@ -48,6 +48,28 @@ const overviewContent = (
 )
 ```
 
+## Properties
+
+### hideIfEmpty
+
+hideIfEmpty: (Optional) If this attribute is set to true, the ReadmeCard will not be displayed if no README file is found at the specified location (404 is returned). By default, this attribute is set to false.
+
+> Note: To hides the Grid item if the ReadmeCard component is empty, use the css property displayed below.
+
+```tsx
+import { ReadmeCard } from '@Axis-backstage/plugin-readme';
+
+const overviewContent = (
+...
+  <Grid item md={6} xs={12} sx={{ ':empty': { display: 'none' } }}>
+    <ReadmeCard hideIfEmpty />
+  </Grid>
+...
+)
+```
+
+### variant
+
 To use `ReadmeCard` in a seperate page with full height:
 
 ```tsx
@@ -59,6 +81,7 @@ const defaultEntityPage = (
       <ReadmeCard variant="fullHeight" />
     </EntityLayout.Route>
 ...
+)
 ```
 
 ## Layout
