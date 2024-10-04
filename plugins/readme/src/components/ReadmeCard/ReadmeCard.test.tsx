@@ -80,4 +80,14 @@ describe('ReadmeCard', () => {
     await userEvent.click(rendered.getByRole('button'));
     expect(screen.getByTestId('content-dialog')).toBeInTheDocument();
   });
+  it('should render content', async () => {
+    await renderInTestApp(
+      <EntityProvider entity={mockedEntity}>
+        <ApiProvider apis={apis}>
+          <ReadmeCard />
+        </ApiProvider>
+      </EntityProvider>,
+    );
+    expect(screen.getByTestId('readme-content')).toBeInTheDocument();
+  });
 });

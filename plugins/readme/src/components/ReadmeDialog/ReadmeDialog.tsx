@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
-import { FetchComponent } from '../FetchComponent';
+import { ReadmeCard } from '../ReadmeCard';
 
 type Props = {
   open: boolean;
@@ -23,7 +23,7 @@ export const ReadmeDialog = ({ open, onClose }: Props) => {
       <DialogTitle>README</DialogTitle>
       <DialogContent dividers>
         <Box minWidth={650}>
-          <FetchComponent />
+          <ReadmeCard />
         </Box>
       </DialogContent>
       <DialogActions>
