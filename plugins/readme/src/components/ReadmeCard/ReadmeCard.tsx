@@ -69,35 +69,7 @@ export const ReadmeCard = ({
     return <Progress />;
   }
 
-  if (error?.message === '404') {
-    if (hideIfEmpty) return null;
-
-    return (
-      <Box>
-        <Typography pb={2} variant="body2">
-          {defaultErrorMessage}
-        </Typography>
-        <Typography variant="body2">
-          Need help? Go to our{' '}
-          <Link to="https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/README.md">
-            documentation
-          </Link>
-        </Typography>
-      </Box>
-    );
-  }
-
-  if (error) {
-    return <ErrorPanel error={error} />;
-  }
-
-  if (!content) {
-    return <ErrorPanel error={Error('Unknown error')} />;
-  }
-
-  if (!content[1] || content[1] === 'error') {
-    return <ErrorPanel error={Error(content[1] ?? 'Unknown error')} />;
-  }
+  if (error?.message === '404' && hideIfEmpty) return null;
 
   return (
     <>
@@ -120,7 +92,25 @@ export const ReadmeCard = ({
       >
         <div style={{ overflow: 'auto' }}>
           <Box maxHeight={maxHeight}>
-            {content[1].startsWith('text/markdown') ? (
+            {loading ? (
+              <Progress />
+            ) : error?.message === '404' ? (
+              <Box>
+                <Typography pb={2} variant="body2">
+                  {defaultErrorMessage}
+                </Typography>
+                <Typography variant="body2">
+                  Need help? Go to our{' '}
+                  <Link to="https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/README.md">
+                    documentation
+                  </Link>
+                </Typography>
+              </Box>
+            ) : error ? (
+              <ErrorPanel error={error} />
+            ) : !content ? (
+              <ErrorPanel error={Error('Unknown error')} />
+            ) : content[1]?.startsWith('text/markdown') ? (
               <MarkdownContent content={content[0]} />
             ) : (
               <div data-testid="readme-content">
