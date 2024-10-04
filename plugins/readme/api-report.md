@@ -11,11 +11,15 @@ import { JSX as JSX_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
 
 // @public
-export const ReadmeCard: (props: ReadmeCardProps) => JSX_2.Element;
+export const ReadmeCard: ({
+  variant,
+  hideIfEmpty,
+}: ReadmeCardProps) => JSX_2.Element | null;
 
 // @public
 export type ReadmeCardProps = {
   variant?: InfoCardVariants;
+  hideIfEmpty?: boolean;
 };
 
 // @public
