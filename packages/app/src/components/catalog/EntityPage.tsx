@@ -100,29 +100,33 @@ const entityWarningContent = (
 );
 
 const overviewContent = (
-  <Grid container spacing={3}>
+  <Grid container spacing={2} alignItems="flex-start">
     {entityWarningContent}
-    <Grid md={6}>
-      <EntityAboutCard />
+    <Grid xs={5} container justifyContent="normal">
+      <Grid md={12}>
+        <EntityAboutCard />
+      </Grid>
+      <Grid md={12}>
+        <EntityCatalogGraphCard height={400} />
+      </Grid>
+      <EntitySwitch>
+        <EntitySwitch.Case if={isStatuspageAvailable}>
+          <Grid md={12}>
+            <StatuspageEntityCard />
+          </Grid>
+        </EntitySwitch.Case>
+      </EntitySwitch>
     </Grid>
-    <EntitySwitch>
-      <EntitySwitch.Case if={isStatuspageAvailable}>
-        <Grid md={6}>
-          <StatuspageEntityCard />
-        </Grid>
-      </EntitySwitch.Case>
-    </EntitySwitch>
-    <Grid md={6} xs={12}>
-      <EntityLinksCard />
-    </Grid>
-    <Grid md={6} xs={12}>
-      <ReadmeCard />
-    </Grid>
-    <Grid md={6} xs={12}>
-      <EntityCatalogGraphCard height={400} />
-    </Grid>
-    <Grid md={6} xs={12}>
-      <EntityHasSubcomponentsCard />
+    <Grid container xs={7}>
+      <Grid md={12} sx={{ ':empty': { display: 'none' } }}>
+        <ReadmeCard hideIfEmpty />
+      </Grid>
+      <Grid md={12}>
+        <EntityLinksCard />
+      </Grid>
+      <Grid md={12}>
+        <EntityHasSubcomponentsCard />
+      </Grid>
     </Grid>
   </Grid>
 );
