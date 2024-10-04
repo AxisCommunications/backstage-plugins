@@ -2,9 +2,6 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Box from '@mui/material/Box';
 import { ReadmeCard } from '../ReadmeCard';
 
 type Props = {
@@ -20,12 +17,7 @@ export const ReadmeDialog = ({ open, onClose }: Props) => {
       onClose={onClose}
       data-testid="content-dialog"
     >
-      <DialogTitle>README</DialogTitle>
-      <DialogContent dividers>
-        <Box minWidth={650}>
-          <ReadmeCard />
-        </Box>
-      </DialogContent>
+      <ReadmeCard />
       <DialogActions>
         <Button
           variant="contained"
