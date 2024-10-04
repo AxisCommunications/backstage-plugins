@@ -30,9 +30,13 @@ import Typography from '@mui/material/Typography';
 
 export type ReadmeCardProps = {
   variant?: InfoCardVariants;
+  hideIfEmpty: boolean;
 };
 
-export const ReadmeCard = ({ variant = 'gridItem' }: ReadmeCardProps) => {
+export const ReadmeCard = ({
+  variant = 'gridItem',
+  hideIfEmpty = false,
+}: ReadmeCardProps) => {
   const { entity } = useEntity();
   const readmeApi = useApi(readmeApiRef);
   let location;
@@ -66,6 +70,8 @@ export const ReadmeCard = ({ variant = 'gridItem' }: ReadmeCardProps) => {
   }
 
   if (error?.message === '404') {
+    if (hideIfEmpty) return null;
+
     return (
       <Box>
         <Typography pb={2} variant="body2">
