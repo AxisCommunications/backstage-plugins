@@ -52,9 +52,6 @@ export const ReadmeCard = ({
     location = ': Unknown';
   }
 
-  const defaultErrorMessage = `No README.md file found at source location: 
-          ${(<strong>{location}</strong>)}`;
-
   const {
     value: content,
     loading,
@@ -70,6 +67,38 @@ export const ReadmeCard = ({
   }
 
   if (error?.message === '404' && hideIfEmpty) return null;
+
+  const renderContent = () => {
+    if (error?.message === '404') {
+      return (
+        <>
+          <Typography pb={2} variant="body2">
+            No README.md file found at source location:
+            <strong>{location}</strong>
+          </Typography>
+          <Typography variant="body2">
+            Need help? Go to our{' '}
+            <Link to="https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/README.md">
+              documentation
+            </Link>
+          </Typography>
+        </>
+      );
+    }
+
+    if (error) return <ErrorPanel error={error} />;
+
+    if (!content) return <ErrorPanel error={Error('Unknown error')} />;
+
+    if (content[1]?.startsWith('text/markdown')) {
+      return <MarkdownContent content={content[0]} />;
+    }
+    return (
+      <div data-testid="readme-content">
+        <CodeSnippet text={content[0]} language="plaintext" />
+      </div>
+    );
+  };
 
   return (
     <>
@@ -90,35 +119,9 @@ export const ReadmeCard = ({
           ) : undefined
         }
       >
-        <div style={{ overflow: 'auto' }}>
-          <Box maxHeight={maxHeight}>
-            {loading ? (
-              <Progress />
-            ) : error?.message === '404' ? (
-              <Box>
-                <Typography pb={2} variant="body2">
-                  {defaultErrorMessage}
-                </Typography>
-                <Typography variant="body2">
-                  Need help? Go to our{' '}
-                  <Link to="https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/README.md">
-                    documentation
-                  </Link>
-                </Typography>
-              </Box>
-            ) : error ? (
-              <ErrorPanel error={error} />
-            ) : !content ? (
-              <ErrorPanel error={Error('Unknown error')} />
-            ) : content[1]?.startsWith('text/markdown') ? (
-              <MarkdownContent content={content[0]} />
-            ) : (
-              <div data-testid="readme-content">
-                <CodeSnippet text={content[0]} language="plaintext" />
-              </div>
-            )}
-          </Box>
-        </div>
+        <Box overflow="auto" maxHeight={maxHeight}>
+          {renderContent()}
+        </Box>
       </InfoCard>
       <ReadmeDialog
         open={displayDialog}
