@@ -16,6 +16,7 @@ export const ReadmeCard: (props: ReadmeCardProps) => JSX_2.Element;
 // @public
 export type ReadmeCardProps = {
   variant?: InfoCardVariants;
+  maxHeight?: string | number;
 };
 
 // @public
