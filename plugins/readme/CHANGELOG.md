@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme
 
+## 0.11.0
+
+### Minor Changes
+
+- 3d15d61: Add new maxHeight property to ReadmeCard component
+
 ## 0.10.0
 
 ### Minor Changes
