@@ -48,6 +48,24 @@ const overviewContent = (
 )
 ```
 
+If you wish to only render the ReadmeCard if a README file can be found for the entity, you can use the exported function **isReadmeAvailable**. See example below:
+
+```tsx
+import { ReadmeCard, isReadmeAvailable } from '@axis-backstage/plugin-readme';
+
+const defaultEntityPage = (
+...
+     <EntitySwitch>
+      <EntitySwitch.Case if={isReadmeAvailable}>
+        <Grid md={6} xs={12}>
+          <ReadmeCard maxHeight={350} />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
+...
+)
+```
+
 To use `ReadmeCard` in a seperate page with full height:
 
 ```tsx
@@ -59,6 +77,7 @@ const defaultEntityPage = (
       <ReadmeCard variant="fullHeight" />
     </EntityLayout.Route>
 ...
+)
 ```
 
 ## Layout
