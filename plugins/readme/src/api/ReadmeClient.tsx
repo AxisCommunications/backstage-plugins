@@ -1,10 +1,37 @@
 import {
+  ApiHolder,
   DiscoveryApi,
   FetchApi,
   IdentityApi,
 } from '@backstage/core-plugin-api';
-import { DEFAULT_NAMESPACE, parseEntityRef } from '@backstage/catalog-model';
-import { ReadmeApi } from './ReadmeApi';
+import {
+  DEFAULT_NAMESPACE,
+  Entity,
+  parseEntityRef,
+  stringifyEntityRef,
+} from '@backstage/catalog-model';
+import { NotFoundError } from '@backstage/errors';
+import { ReadmeApi, readmeApiRef } from './ReadmeApi';
+
+export const isReadmeAvailable = async (
+  entity: Entity,
+  context: { apis: ApiHolder },
+): Promise<boolean> => {
+  const readmeClient = context.apis.get(readmeApiRef);
+
+  if (readmeClient === undefined) {
+    return false;
+  }
+
+  try {
+    await readmeClient.getReadmeContent(stringifyEntityRef(entity));
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      return false;
+    }
+  }
+  return true;
+};
 
 export class ReadmeClient implements ReadmeApi {
   private readonly discoveryApi: DiscoveryApi;
@@ -36,14 +63,16 @@ export class ReadmeClient implements ReadmeApi {
         headers: { Authorization: `Bearer ${token}` },
       },
     );
+
     if (resp.ok) {
       return [
         await resp.text(),
         resp.headers.get('Content-Type') || 'text/plain',
       ];
     }
+
     if (resp.status === 404) {
-      throw new Error('404');
+      throw new NotFoundError();
     }
     throw new Error(`${resp.status}: ${resp.statusText}`);
   }
