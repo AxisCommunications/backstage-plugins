@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme
 
+## 0.12.0
+
+### Minor Changes
+
+- 0726c03: Created the isReadmeAvailable function that returns false if no README content is found due to 404-error. If it returns false, no ReadmeCard is rendered in EntityPage. Also updated the error response from backend to be a NotFoundError.
+
 ## 0.11.0
 
 ### Minor Changes
