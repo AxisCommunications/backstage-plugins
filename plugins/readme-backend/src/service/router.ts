@@ -15,6 +15,7 @@ import {
   stringifyEntityRef,
 } from '@backstage/catalog-model';
 import { CatalogClient } from '@backstage/catalog-client';
+import { isError, NotFoundError } from '@backstage/errors';
 import express from 'express';
 import Router from 'express-promise-router';
 import { isSymLink } from '../lib';
@@ -122,11 +123,9 @@ export async function createRouter(
     const source = getEntitySourceLocation(entity);
 
     if (!source || source.type !== 'url') {
-      logger.info(`Not valid location for ${source.target}`);
-      response.status(404).json({
-        error: `Not valid location for ${source.target}`,
-      });
-      return;
+      const errorMessage = `Not valid location for ${source.target}`;
+      logger.info(errorMessage);
+      throw new NotFoundError(errorMessage);
     }
     const integration = integrations.byUrl(source.target);
 
@@ -170,8 +169,7 @@ export async function createRouter(
         response.send(content);
         return;
       } catch (error: unknown) {
-        if (error instanceof Error && error.name === 'NotFoundError') {
-          // Try the next readme type
+        if (isError(error) && error.name === 'NotFoundError') {
           continue;
         } else {
           response.status(500).json({
@@ -182,9 +180,7 @@ export async function createRouter(
       }
     }
     logger.info(`Readme not found for ${entityRef}`);
-    response.status(404).json({
-      error: 'Readme not found.',
-    });
+    throw new NotFoundError('Readme could not be found');
   });
 
   const middleware = MiddlewareFactory.create({ logger, config });
