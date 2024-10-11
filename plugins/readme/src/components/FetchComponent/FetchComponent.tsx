@@ -7,6 +7,7 @@ import {
   Link,
   MarkdownContent,
   Progress,
+  ResponseErrorPanel,
 } from '@backstage/core-components';
 import useAsync from 'react-use/lib/useAsync';
 import { readmeApiRef } from '../../api/ReadmeApi';
@@ -42,21 +43,24 @@ export const FetchComponent = () => {
     return <Progress />;
   }
 
-  if (error instanceof ResponseError && error.statusCode === 404) {
-    return (
-      <Box>
-        <Typography pb={2} variant="body2">
-          No README.md file found at source location:{' '}
-          {location && <strong>{location}</strong>}
-        </Typography>
-        <Typography variant="body2">
-          Need help? Go to our{' '}
-          <Link to="https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/README.md">
-            documentation
-          </Link>
-        </Typography>
-      </Box>
-    );
+  if (error instanceof ResponseError) {
+    if (error.statusCode === 404) {
+      return (
+        <Box>
+          <Typography pb={2} variant="body2">
+            No README.md file found at source location:{' '}
+            {location && <strong>{location}</strong>}
+          </Typography>
+          <Typography variant="body2">
+            Need help? Go to our{' '}
+            <Link to="https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/README.md">
+              documentation
+            </Link>
+          </Typography>
+        </Box>
+      );
+    }
+    return <ResponseErrorPanel error={error} />;
   }
 
   if (error) {

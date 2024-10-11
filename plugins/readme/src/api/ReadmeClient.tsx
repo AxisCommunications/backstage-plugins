@@ -79,9 +79,6 @@ export class ReadmeClient implements ReadmeApi {
       ];
     }
 
-    if (resp.status === 404) {
-      throw await ResponseError.fromResponse(resp);
-    }
-    throw new Error(`${resp.status}: ${resp.statusText}`);
+    throw await ResponseError.fromResponse(resp);
   }
 }
