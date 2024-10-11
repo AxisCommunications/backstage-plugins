@@ -10,7 +10,7 @@ import {
   parseEntityRef,
   stringifyEntityRef,
 } from '@backstage/catalog-model';
-import { NotFoundError } from '@backstage/errors';
+import { NotFoundError, ResponseError } from '@backstage/errors';
 import { ReadmeApi, readmeApiRef } from './ReadmeApi';
 
 /**
@@ -34,7 +34,7 @@ export const isReadmeAvailable = async (
   try {
     await readmeClient.getReadmeContent(stringifyEntityRef(entity));
   } catch (error) {
-    if (error instanceof NotFoundError) {
+    if (error instanceof ResponseError && error.statusCode === 404) {
       return false;
     }
   }
@@ -80,7 +80,7 @@ export class ReadmeClient implements ReadmeApi {
     }
 
     if (resp.status === 404) {
-      throw new NotFoundError();
+      throw await ResponseError.fromResponse(resp);
     }
     throw new Error(`${resp.status}: ${resp.statusText}`);
   }

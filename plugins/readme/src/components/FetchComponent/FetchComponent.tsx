@@ -14,6 +14,7 @@ import { stringifyEntityRef } from '@backstage/catalog-model';
 import { getEntitySourceLocation } from '@backstage/catalog-model';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { ResponseError } from '@backstage/errors';
 
 export const FetchComponent = () => {
   const { entity } = useEntity();
@@ -40,7 +41,9 @@ export const FetchComponent = () => {
   if (loading) {
     return <Progress />;
   }
-  if (error?.message === '404') {
+  console.log(error);
+
+  if (error instanceof ResponseError && error.statusCode === 404) {
     return (
       <Box>
         <Typography pb={2} variant="body2">
