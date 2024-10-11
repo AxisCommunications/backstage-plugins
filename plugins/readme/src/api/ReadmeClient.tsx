@@ -10,7 +10,7 @@ import {
   parseEntityRef,
   stringifyEntityRef,
 } from '@backstage/catalog-model';
-import { NotFoundError, ResponseError } from '@backstage/errors';
+import { ResponseError } from '@backstage/errors';
 import { ReadmeApi, readmeApiRef } from './ReadmeApi';
 
 /**

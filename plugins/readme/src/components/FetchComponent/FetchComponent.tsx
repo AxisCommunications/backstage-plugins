@@ -41,7 +41,6 @@ export const FetchComponent = () => {
   if (loading) {
     return <Progress />;
   }
-  console.log(error);
 
   if (error instanceof ResponseError && error.statusCode === 404) {
     return (
