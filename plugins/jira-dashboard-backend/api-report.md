@@ -9,7 +9,7 @@ import { DiscoveryService } from '@backstage/backend-plugin-api';
 import express from 'express';
 import { HttpAuthService } from '@backstage/backend-plugin-api';
 import { IdentityService } from '@backstage/backend-plugin-api';
-import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
+import { JiraQueryResults } from '@axis-backstage/plugin-jira-dashboard-common';
 import { LoggerService } from '@backstage/backend-plugin-api';
 import { RootConfigService } from '@backstage/backend-plugin-api';
 import { TokenManagerService } from '@backstage/backend-plugin-api';
@@ -53,7 +53,7 @@ export const searchJira: (
   config: RootConfigService,
   jqlQuery: string,
   options: SearchOptions,
-) => Promise<Issue[]>;
+) => Promise<JiraQueryResults>;
 
 // @public
 export type SearchOptions = {
