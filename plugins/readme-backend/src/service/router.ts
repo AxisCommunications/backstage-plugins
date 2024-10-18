@@ -19,6 +19,8 @@ import { isError, NotFoundError } from '@backstage/errors';
 import express from 'express';
 import Router from 'express-promise-router';
 import { isSymLink } from '../lib';
+import { DEFAULT_TTL, NOT_FOUND_PLACEHOLDER, README_TYPES } from './constants';
+import { ReadmeFile } from './types';
 
 /**
  * Constructs a readme router.
@@ -54,24 +56,6 @@ export interface RouterOptions {
   auth?: AuthService;
 }
 
-const DEFAULT_TTL = 1800 * 1000;
-
-interface FileType {
-  name: string;
-  type: string;
-}
-interface ReadmeFile extends FileType {
-  content: string;
-}
-
-const README_TYPES: FileType[] = [
-  { name: 'README', type: 'text/plain' },
-  { name: 'README.md', type: 'text/markdown' },
-  { name: 'README.rst', type: 'text/plain' },
-  { name: 'README.txt', type: 'text/plain' },
-  { name: 'README.MD', type: 'text/markdown' },
-];
-
 /**
  * Constructs a readme router.
  *
@@ -102,6 +86,9 @@ export async function createRouter(
     const entityRef = stringifyEntityRef({ kind, namespace, name });
     const cacheDoc = (await cache.get(entityRef)) as ReadmeFile | undefined;
 
+    if (cacheDoc && cacheDoc.name === NOT_FOUND_PLACEHOLDER) {
+      throw new NotFoundError('Readme could not be found');
+    }
     if (cacheDoc) {
       logger.info(`Loading README for ${entityRef} from cache.`);
       response.type(cacheDoc.type);
@@ -146,7 +133,7 @@ export async function createRouter(
       let content;
 
       try {
-        logger.info(`Fetch README ${entityRef}: ${url}, ${fileType.type} `);
+        logger.debug(`Trying README location: ${url} for ${entityRef} `);
         response.type(fileType.type);
 
         const urlResponse = await reader.readUrl(url);
@@ -166,6 +153,9 @@ export async function createRouter(
           type: fileType.type,
           content: content,
         });
+        logger.info(
+          `Found README for ${entityRef}: ${url} type ${fileType.type}`,
+        );
         response.send(content);
         return;
       } catch (error: unknown) {
@@ -180,6 +170,11 @@ export async function createRouter(
       }
     }
     logger.info(`Readme not found for ${entityRef}`);
+    cache.set(entityRef, {
+      name: NOT_FOUND_PLACEHOLDER,
+      type: '',
+      content: '',
+    });
     throw new NotFoundError('Readme could not be found');
   });
 
