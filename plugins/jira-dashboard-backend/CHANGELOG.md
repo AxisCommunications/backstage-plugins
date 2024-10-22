@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 3.0.0
+
+### Major Changes
+
+- b6b406c: BREAKING: The backend has been migrated to the new backend system. The createRouter function now requires the new auth and httpAuth services to be passed in, instead of the removed identity and tokenManager services. If you are using the new backend system module, this does not affect you.
+
 ## 2.7.0
 
 ### Minor Changes
