@@ -43,6 +43,33 @@ jiraDashboard:
   annotationPrefix: jira
 ```
 
+### Multiple Jira instances
+
+In case multiple Jira instances are being used, the configuration can be written on the form:
+
+```yaml
+jiraDashboard:
+  annotationPrefix: ${JIRA_ANNOTATION_PREFIX} # Optional
+  instances:
+    - name: default
+      token: ${JIRA_TOKEN}
+      baseUrl: ${JIRA_BASE_URL}
+      userEmailSuffix: ${JIRA_EMAIL_SUFFIX} # Optional
+    - name: separate-jira-instance
+      token: ${JIRA_TOKEN_SEPARATE}
+      baseUrl: ${JIRA_BASE_URL_SEPARATE}
+      userEmailSuffix: ${JIRA_EMAIL_SUFFIX_SEPARATE} # Optional
+```
+
+In entity yamls that don't specify an instance, the one called `"default"` will be used. To specify another instace, use the `jira.com/instance` annotation such as:
+
+```yaml
+metadata:
+  annotations:
+    jira.com/instance: separate-jira-instance
+    jira.com/project-key: value
+```
+
 #### Authentication examples and trouble shooting
 
 Either "Basic Auth" or "Personal Acccess Tokens" can be used.

@@ -22,3 +22,10 @@ export const FILTERS_NAME = 'filter-ids';
  *  @public
  */
 export const INCOMING_ISSUES_STATUS = 'incoming-issues-status';
+
+/**
+ * The annotation name used to specify which Jira instance to use.
+ * Defaults to 'default'.
+ *  @public
+ */
+export const INSTANCE_NAME = 'instance';

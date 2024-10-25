@@ -1,33 +1,89 @@
+import { ConflictError, ServiceUnavailableError } from '@backstage/errors';
 import { RootConfigService } from '@backstage/backend-plugin-api';
 
-const JIRA_BASE_URL_CONFIG_PATH = 'jiraDashboard.baseUrl';
-const JIRA_TOKEN_CONFIG_PATH = 'jiraDashboard.token';
-const JIRA_USER_CONFIG_EMAIL_SUFFIX = 'jiraDashboard.userEmailSuffix';
-const JIRA_ANNOTATION = 'jiraDashboard.annotationPrefix';
+import type { Config } from '../config';
 
-export function resolveJiraBaseUrl(config: RootConfigService): string {
-  try {
-    return config.getString(JIRA_BASE_URL_CONFIG_PATH);
-  } catch (error) {
-    throw new Error(`Invalid Jira baseUrl, ${error}`);
+export type ConfigInstance = Omit<
+  NonNullable<Config['jiraDashboard']['instances']>[number],
+  'name'
+>;
+
+const JIRA_CONFIG_BASE_URL = 'baseUrl';
+const JIRA_CONFIG_TOKEN = 'token';
+const JIRA_CONFIG_USER_EMAIL_SUFFIX = 'userEmailSuffix';
+const JIRA_CONFIG_ANNOTATION = 'annotationPrefix';
+
+export class JiraConfig {
+  private instances: Record<string, ConfigInstance> = {};
+  public readonly annotationPrefix: string;
+
+  private constructor(config: RootConfigService) {
+    const jira = config.getConfig('jiraDashboard');
+
+    this.annotationPrefix =
+      jira.getOptionalString(JIRA_CONFIG_ANNOTATION) ?? 'jira.com';
+
+    const instances = jira.getOptionalConfigArray('instances');
+    if (instances) {
+      // Multiple instances form
+      instances.forEach(inst => {
+        const name = inst.getString('name');
+        if (Object.getOwnPropertyNames(this.instances).includes(name)) {
+          throw new ConflictError(
+            `Duplicate jiraDashboard instances: '${name}'`,
+          );
+        }
+
+        this.instances[name] = {
+          token: inst.getString(JIRA_CONFIG_TOKEN),
+          baseUrl: inst.getString(JIRA_CONFIG_BASE_URL),
+          userEmailSuffix: inst.getOptionalString(JIRA_CONFIG_USER_EMAIL_SUFFIX),
+        };
+      });
+    } else {
+      // Default form
+      this.instances.default = {
+        token: jira.getString(JIRA_CONFIG_TOKEN),
+        baseUrl: jira.getString(JIRA_CONFIG_BASE_URL),
+        userEmailSuffix: jira.getOptionalString(JIRA_CONFIG_USER_EMAIL_SUFFIX),
+      };
+    }
   }
-}
 
-export function resolveJiraToken(config: RootConfigService): string {
-  try {
-    return config.getString(JIRA_TOKEN_CONFIG_PATH);
-  } catch (error) {
-    throw new Error(`Invalid Jira token, ${error}`);
+  public static fromConfig(config: RootConfigService): JiraConfig {
+    return new JiraConfig(config);
   }
-}
 
-export function resolveUserEmailSuffix(
-  config: RootConfigService,
-): string | undefined {
-  return config.getOptionalString(JIRA_USER_CONFIG_EMAIL_SUFFIX);
-}
+  private forInstance(instanceName: string) {
+    const instance = this.instances[instanceName];
+    if (!instance) {
+      throw new ServiceUnavailableError(
+        `No such jira instance '${instanceName}'`,
+      );
+    }
+    return instance;
+  }
 
-export function resolveAnnotationPrefix(config: RootConfigService): string {
-  const annotationPrefix = config.getOptionalString(JIRA_ANNOTATION);
-  return annotationPrefix ?? 'jira.com';
+  getInstances() {
+    return Object.getOwnPropertyNames(this.instances);
+  }
+
+  getInstance(instanceName?: string): ConfigInstance {
+    return this.forInstance(instanceName ?? 'default');
+  }
+
+  resolveJiraBaseUrl(instanceName: string): string {
+    const instance = this.forInstance(instanceName);
+    return instance.baseUrl;
+  }
+
+  resolveJiraToken(instanceName: string): string {
+    const instance = this.forInstance(instanceName);
+    return instance.token;
+  }
+
+  resolveUserEmailSuffix(instanceName: string): string | undefined {
+    const instance = this.forInstance(instanceName);
+    return instance.userEmailSuffix;
+  }
 }

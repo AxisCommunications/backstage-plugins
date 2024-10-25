@@ -1,15 +1,19 @@
 import { getDefaultFiltersForUser } from './filters';
 import { mockServices } from '@backstage/backend-test-utils';
 import { UserEntity } from '@backstage/catalog-model';
+import { ConfigInstance, JiraConfig } from './config';
 
 describe('getDefaultFiltersForUser', () => {
   const mockConfig = mockServices.rootConfig({
     data: {
       jiraDashboard: {
+        baseUrl: 'http://jira.com',
+        token: 'token',
         userEmailSuffix: '@backstage.com',
       },
     },
   });
+  const instance = JiraConfig.fromConfig(mockConfig).getInstance();
 
   const mockUserEntity: UserEntity = {
     apiVersion: 'backstage.io/v1beta1',
@@ -29,7 +33,7 @@ describe('getDefaultFiltersForUser', () => {
   };
 
   it('returns userEmailSuffix email when config is provided', () => {
-    const filters = getDefaultFiltersForUser(mockConfig, mockUserEntity);
+    const filters = getDefaultFiltersForUser(instance, mockUserEntity);
     expect(filters).toHaveLength(3);
     expect(filters).toContainEqual(
       expect.objectContaining({
@@ -41,7 +45,7 @@ describe('getDefaultFiltersForUser', () => {
 
   it('returns backstage email when userEmailSuffix config is not provided', () => {
     const filters = getDefaultFiltersForUser(
-      mockServices.rootConfig(),
+      {} as ConfigInstance,
       mockUserEntity,
     );
     expect(filters).toHaveLength(3);
@@ -54,7 +58,7 @@ describe('getDefaultFiltersForUser', () => {
   });
 
   it('do not return Assigned to me filter when userEntity is not provided', () => {
-    const filters = getDefaultFiltersForUser(mockConfig);
+    const filters = getDefaultFiltersForUser(instance);
     expect(filters).toHaveLength(2);
   });
 });

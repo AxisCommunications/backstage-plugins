@@ -3,15 +3,20 @@ import express from 'express';
 import request from 'supertest';
 
 import { createRouter } from './router';
+import { JiraConfig } from '../config';
 
 describe('createRouter', () => {
   let app: express.Express;
 
   beforeAll(async () => {
+    const rootConfig = mockServices.rootConfig({
+      data: { jiraDashboard: { instances: [] } },
+    });
     const router = await createRouter({
       auth: mockServices.auth.mock(),
       logger: mockServices.logger.mock(),
-      config: mockServices.rootConfig(),
+      rootConfig,
+      config: JiraConfig.fromConfig(rootConfig),
       discovery: mockServices.discovery.mock(),
       httpAuth: mockServices.httpAuth.mock(),
       userInfo: mockServices.userInfo.mock(),
