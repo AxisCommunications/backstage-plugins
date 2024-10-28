@@ -1,11 +1,16 @@
 import { ConflictError, ServiceUnavailableError } from '@backstage/errors';
 import { RootConfigService } from '@backstage/backend-plugin-api';
 
-export interface ConfigInstance {
+/**
+ * The configuration of a Jira instance
+ *
+ * @public
+ */
+export type ConfigInstance = {
   token: string;
   baseUrl: string;
   userEmailSuffix?: string;
-}
+};
 
 const JIRA_CONFIG_BASE_URL = 'baseUrl';
 const JIRA_CONFIG_TOKEN = 'token';

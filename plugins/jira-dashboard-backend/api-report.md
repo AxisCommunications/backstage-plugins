@@ -5,7 +5,13 @@
 ```ts
 import { BackendFeatureCompat } from '@backstage/backend-plugin-api';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
-import { RootConfigService } from '@backstage/backend-plugin-api';
+
+// @public
+export type ConfigInstance = {
+  token: string;
+  baseUrl: string;
+  userEmailSuffix?: string;
+};
 
 // @public
 const jiraDashboardPlugin: BackendFeatureCompat;
@@ -27,7 +33,7 @@ export type JqlQueryBuilderArgs = {
 
 // @public
 export const searchJira: (
-  config: RootConfigService,
+  instance: ConfigInstance,
   jqlQuery: string,
   options: SearchOptions,
 ) => Promise<Issue[]>;
