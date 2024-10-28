@@ -7,11 +7,12 @@ import {
 
 import type { ConfigInstance } from './config';
 import { jqlQueryBuilder } from './queries';
+import type { JiraProject } from './lib';
 
 export const getProjectInfo = async (
-  projectKey: string,
-  instance: ConfigInstance,
+  project: JiraProject,
 ): Promise<Project> => {
+  const { projectKey, instance } = project;
   const response = await fetch(`${instance.baseUrl}project/${projectKey}`, {
     method: 'GET',
     headers: {
@@ -46,11 +47,11 @@ export const getFilterById = async (
 };
 
 export const getIssuesByFilter = async (
-  projectKey: string,
+  project: JiraProject,
   components: string[],
   query: string,
-  instance: ConfigInstance,
 ): Promise<Issue[]> => {
+  const { projectKey, instance } = project;
   const jql = jqlQueryBuilder({ project: projectKey, components, query });
   const response = await fetch(`${instance.baseUrl}search?jql=${jql}`, {
     method: 'GET',
@@ -107,10 +108,11 @@ export const searchJira = async (
 };
 
 export const getIssuesByComponent = async (
-  projectKey: string,
+  project: JiraProject,
   componentKey: string,
-  instance: ConfigInstance,
 ): Promise<Issue[]> => {
+  const { projectKey, instance } = project;
+
   const jql = jqlQueryBuilder({
     project: projectKey,
     components: [componentKey],

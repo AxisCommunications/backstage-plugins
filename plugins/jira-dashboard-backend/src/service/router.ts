@@ -21,7 +21,7 @@ import {
   type Project,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 
-import { getAnnotations } from '../lib';
+import { getAnnotations, splitProjectKey } from '../lib';
 import {
   getFiltersFromAnnotations,
   getIssuesFromComponents,
@@ -96,7 +96,6 @@ export async function createRouter(
       });
       const entity = await catalogClient.getEntityByRef(entityRef, { token });
       const {
-        instanceAnnotation,
         projectKeyAnnotation,
         componentsAnnotation,
         filtersAnnotation,
@@ -112,34 +111,30 @@ export async function createRouter(
         return;
       }
 
-      const instance = config.getInstance(
-        entity.metadata.annotations?.[instanceAnnotation],
-      );
-
-      const projectKey =
+      const fullProjectKeys =
         entity.metadata.annotations?.[projectKeyAnnotation]?.split(',')!;
 
-      if (!projectKey) {
+      if (!fullProjectKeys) {
         const error = `No jira.com/project-key annotation found for ${entityRef}`;
         logger.info(error);
         response.status(404).json(error);
         return;
       }
 
+      const projects = fullProjectKeys.map(fullProjectKey =>
+        splitProjectKey(config, fullProjectKey),
+      );
+
       let projectResponse;
 
       try {
-        projectResponse = await getProjectResponse(
-          projectKey[0],
-          instance,
-          cache,
-        );
+        projectResponse = await getProjectResponse(projects[0], cache);
       } catch (err: any) {
         logger.error(
-          `Could not find Jira project ${projectKey[0]}: ${err.message}`,
+          `Could not find Jira project ${projects[0].fullProjectKey}: ${err.message}`,
         );
         response.status(404).json({
-          error: `No Jira project found with key ${projectKey[0]}`,
+          error: `No Jira project found with key ${projects[0].projectKey}`,
         });
         return;
       }
@@ -164,7 +159,11 @@ export async function createRouter(
       const incomingStatus =
         entity.metadata.annotations?.[incomingIssuesAnnotation];
 
-      filters = getDefaultFiltersForUser(instance, userEntity, incomingStatus);
+      filters = getDefaultFiltersForUser(
+        projects[0].instance,
+        userEntity,
+        incomingStatus,
+      );
 
       const customFilterAnnotations =
         entity.metadata.annotations?.[filtersAnnotation]?.split(',')!;
@@ -173,19 +172,14 @@ export async function createRouter(
         filters.push(
           ...(await getFiltersFromAnnotations(
             customFilterAnnotations,
-            instance,
+            projects[0].instance,
           )),
         );
       }
 
       let components =
         entity.metadata.annotations?.[componentsAnnotation]?.split(',') ?? [];
-      let issues = await getIssuesFromFilters(
-        projectKey[0],
-        components,
-        filters,
-        instance,
-      );
+      let issues = await getIssuesFromFilters(projects[0], components, filters);
 
       /*   Adding support for Roadie's component annotation */
       components = components.concat(
@@ -195,9 +189,8 @@ export async function createRouter(
 
       if (components) {
         const componentIssues = await getIssuesFromComponents(
-          projectKey[0],
+          projects[0],
           components,
-          instance,
         );
         issues = issues.concat(componentIssues);
       }
@@ -297,8 +290,7 @@ export async function createRouter(
         targetPluginId: 'catalog',
       });
       const entity = await catalogClient.getEntityByRef(entityRef, { token });
-      const { instanceAnnotation, projectKeyAnnotation } =
-        getAnnotations(config);
+      const { projectKeyAnnotation } = getAnnotations(config);
 
       if (!entity) {
         logger.info(`No entity found for ${entityRef}`);
@@ -308,30 +300,33 @@ export async function createRouter(
         return;
       }
 
-      const instance = config.getInstance(
-        entity.metadata.annotations?.[instanceAnnotation],
-      );
-
-      const projectKey =
+      const fullProjectKeys =
         entity.metadata.annotations?.[projectKeyAnnotation]?.split(',')!;
 
-      const projectResponse = await getProjectResponse(
-        projectKey[0],
-        instance,
-        cache,
+      if (!fullProjectKeys) {
+        const error = `No jira.com/project-key annotation found for ${entityRef}`;
+        logger.info(error);
+        response.status(404).json(error);
+        return;
+      }
+
+      const projects = fullProjectKeys.map(fullProjectKey =>
+        splitProjectKey(config, fullProjectKey),
       );
+
+      const projectResponse = await getProjectResponse(projects[0], cache);
 
       if (!projectResponse) {
         logger.error('Could not find project in Jira');
         response.status(400).json({
-          error: `No Jira project found for project key ${projectKey[0]}`,
+          error: `No Jira project found for project key ${projects[0].projectKey}`,
         });
         return;
       }
 
       const url = projectResponse.avatarUrls['48x48'];
 
-      const avatar = await getProjectAvatar(url, instance);
+      const avatar = await getProjectAvatar(url, projects[0].instance);
 
       const ps = new stream.PassThrough();
       const val = avatar.headers.get('content-type');

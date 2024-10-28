@@ -1,6 +1,9 @@
 /**
  * The annotation name used to provide the key of the Jira project to track for this entity
  *
+ * If this project is not in the default Jira instance, it can be prefixed with
+ * `instance-name/`.
+ *
  *  @public
  */
 export const PROJECT_KEY_NAME = 'project-key';
@@ -22,10 +25,3 @@ export const FILTERS_NAME = 'filter-ids';
  *  @public
  */
 export const INCOMING_ISSUES_STATUS = 'incoming-issues-status';
-
-/**
- * The annotation name used to specify which Jira instance to use.
- * Defaults to 'default'.
- *  @public
- */
-export const INSTANCE_NAME = 'instance';

@@ -61,13 +61,12 @@ jiraDashboard:
       userEmailSuffix: ${JIRA_EMAIL_SUFFIX_SEPARATE} # Optional
 ```
 
-In entity yamls that don't specify an instance, the one called `"default"` will be used. To specify another instace, use the `jira.com/instance` annotation such as:
+In entity yamls that don't specify an instance, the one called `"default"` will be used. To specify another instace, prefix the project key with `instance-name/` such as:
 
 ```yaml
 metadata:
   annotations:
-    jira.com/instance: separate-jira-instance
-    jira.com/project-key: value
+    jira.com/project-key: separate-jira-instance/my-project-key
 ```
 
 #### Authentication examples and trouble shooting

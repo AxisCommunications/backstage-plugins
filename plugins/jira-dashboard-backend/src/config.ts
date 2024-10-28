@@ -1,12 +1,11 @@
 import { ConflictError, ServiceUnavailableError } from '@backstage/errors';
 import { RootConfigService } from '@backstage/backend-plugin-api';
 
-import type { Config } from '../config';
-
-export type ConfigInstance = Omit<
-  NonNullable<Config['jiraDashboard']['instances']>[number],
-  'name'
->;
+export interface ConfigInstance {
+  token: string;
+  baseUrl: string;
+  userEmailSuffix?: string;
+}
 
 const JIRA_CONFIG_BASE_URL = 'baseUrl';
 const JIRA_CONFIG_TOKEN = 'token';
@@ -37,7 +36,9 @@ export class JiraConfig {
         this.instances[name] = {
           token: inst.getString(JIRA_CONFIG_TOKEN),
           baseUrl: inst.getString(JIRA_CONFIG_BASE_URL),
-          userEmailSuffix: inst.getOptionalString(JIRA_CONFIG_USER_EMAIL_SUFFIX),
+          userEmailSuffix: inst.getOptionalString(
+            JIRA_CONFIG_USER_EMAIL_SUFFIX,
+          ),
         };
       });
     } else {

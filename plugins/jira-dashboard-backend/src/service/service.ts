@@ -15,27 +15,27 @@ import {
 } from '../api';
 import { jqlQueryBuilder } from '../queries';
 import type { ConfigInstance } from '../config';
+import { JiraProject } from '../lib';
 
 export const getProjectResponse = async (
-  projectKey: string,
-  config: ConfigInstance,
+  project: JiraProject,
   cache: CacheService,
 ): Promise<Project> => {
   let projectResponse: Project;
 
-  projectResponse = (await cache.get(projectKey)) as Project;
+  projectResponse = (await cache.get(project.fullProjectKey)) as Project;
 
   if (projectResponse) {
     return projectResponse as Project;
   }
 
   try {
-    projectResponse = await getProjectInfo(projectKey, config);
-    cache.set(projectKey, projectResponse);
+    projectResponse = await getProjectInfo(project);
+    cache.set(project.fullProjectKey, projectResponse);
   } catch (err: any) {
     if (err.message !== 200) {
       throw Error(
-        `Failed to get project info for project key ${projectKey} with error: ${err.message}`,
+        `Failed to get project info for project key ${project.fullProjectKey} with error: ${err.message}`,
       );
     }
   }
@@ -111,44 +111,37 @@ export const getFiltersFromAnnotations = async (
 };
 
 export const getIssuesFromFilters = async (
-  projectKey: string,
+  project: JiraProject,
   components: string[],
   filters: Filter[],
-  config: ConfigInstance,
 ): Promise<JiraDataResponse[]> => {
   return await Promise.all(
     filters.map(async filter => ({
       name: filter.name,
       query: jqlQueryBuilder({
-        project: projectKey,
+        project: project.projectKey,
         components,
         query: filter.query,
       }),
       type: 'filter',
-      issues: await getIssuesByFilter(
-        projectKey,
-        components,
-        filter.query,
-        config,
-      ),
+      issues: await getIssuesByFilter(project, components, filter.query),
     })),
   );
 };
 
 export const getIssuesFromComponents = async (
-  projectKey: string,
+  project: JiraProject,
   componentAnnotations: string[],
-  config: ConfigInstance,
 ): Promise<JiraDataResponse[]> => {
   return await Promise.all(
     componentAnnotations.map(async componentKey => ({
       name: componentKey,
       query: jqlQueryBuilder({
-        project: projectKey,
+        project: project.projectKey,
         components: [componentKey],
       }),
       type: 'component',
-      issues: await getIssuesByComponent(projectKey, componentKey, config),
+      issues: await getIssuesByComponent(project, componentKey),
     })),
   );
 };
