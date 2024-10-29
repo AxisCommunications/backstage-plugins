@@ -1,27 +1,25 @@
-import { RootConfigService } from '@backstage/backend-plugin-api';
 import fetch from 'node-fetch';
 import {
   Filter,
   Issue,
   Project,
 } from '@axis-backstage/plugin-jira-dashboard-common';
-import { resolveJiraBaseUrl, resolveJiraToken } from './config';
+
+import type { ConfigInstance } from './config';
 import { jqlQueryBuilder } from './queries';
+import type { JiraProject } from './lib';
 
 export const getProjectInfo = async (
-  projectKey: string,
-  config: RootConfigService,
+  project: JiraProject,
 ): Promise<Project> => {
-  const response = await fetch(
-    `${resolveJiraBaseUrl(config)}project/${projectKey}`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: resolveJiraToken(config),
-        Accept: 'application/json',
-      },
+  const { projectKey, instance } = project;
+  const response = await fetch(`${instance.baseUrl}project/${projectKey}`, {
+    method: 'GET',
+    headers: {
+      Authorization: instance.token,
+      Accept: 'application/json',
     },
-  );
+  });
   if (response.status !== 200) {
     throw Error(
       `Request failed with status code ${response.status}: ${response.statusText}`,
@@ -32,12 +30,12 @@ export const getProjectInfo = async (
 
 export const getFilterById = async (
   id: string,
-  config: RootConfigService,
+  instance: ConfigInstance,
 ): Promise<Filter> => {
-  const response = await fetch(`${resolveJiraBaseUrl(config)}filter/${id}`, {
+  const response = await fetch(`${instance.baseUrl}filter/${id}`, {
     method: 'GET',
     headers: {
-      Authorization: resolveJiraToken(config),
+      Authorization: instance.token,
       Accept: 'application/json',
     },
   });
@@ -49,22 +47,19 @@ export const getFilterById = async (
 };
 
 export const getIssuesByFilter = async (
-  projectKey: string,
+  project: JiraProject,
   components: string[],
   query: string,
-  config: RootConfigService,
 ): Promise<Issue[]> => {
+  const { projectKey, instance } = project;
   const jql = jqlQueryBuilder({ project: projectKey, components, query });
-  const response = await fetch(
-    `${resolveJiraBaseUrl(config)}search?jql=${jql}`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: resolveJiraToken(config),
-        Accept: 'application/json',
-      },
+  const response = await fetch(`${instance.baseUrl}search?jql=${jql}`, {
+    method: 'GET',
+    headers: {
+      Authorization: instance.token,
+      Accept: 'application/json',
     },
-  ).then(resp => resp.json());
+  }).then(resp => resp.json());
   return response.issues;
 };
 
@@ -96,15 +91,15 @@ export type SearchOptions = {
  * @public
  */
 export const searchJira = async (
-  config: RootConfigService,
+  instance: ConfigInstance,
   jqlQuery: string,
   options: SearchOptions,
 ): Promise<Issue[]> => {
-  const response = await fetch(`${resolveJiraBaseUrl(config)}search`, {
+  const response = await fetch(`${instance.baseUrl}search`, {
     method: 'POST',
     body: JSON.stringify({ jql: jqlQuery, ...options }),
     headers: {
-      Authorization: resolveJiraToken(config),
+      Authorization: instance.token,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
@@ -113,32 +108,30 @@ export const searchJira = async (
 };
 
 export const getIssuesByComponent = async (
-  projectKey: string,
+  project: JiraProject,
   componentKey: string,
-  config: RootConfigService,
 ): Promise<Issue[]> => {
+  const { projectKey, instance } = project;
+
   const jql = jqlQueryBuilder({
     project: projectKey,
     components: [componentKey],
   });
-  const response = await fetch(
-    `${resolveJiraBaseUrl(config)}search?jql=${jql}`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: resolveJiraToken(config),
-        Accept: 'application/json',
-      },
+  const response = await fetch(`${instance.baseUrl}search?jql=${jql}`, {
+    method: 'GET',
+    headers: {
+      Authorization: instance.token,
+      Accept: 'application/json',
     },
-  ).then(resp => resp.json());
+  }).then(resp => resp.json());
   return response.issues;
 };
 
-export async function getProjectAvatar(url: string, config: RootConfigService) {
-  return await fetch(url, {
+export async function getProjectAvatar(url: string, instance: ConfigInstance) {
+  return fetch(url, {
     method: 'GET',
     headers: {
-      Authorization: resolveJiraToken(config),
+      Authorization: instance.token,
     },
   });
 }

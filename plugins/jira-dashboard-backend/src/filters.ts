@@ -1,7 +1,6 @@
-import { RootConfigService } from '@backstage/backend-plugin-api';
-import { resolveUserEmailSuffix } from './config';
 import { Filter } from '@axis-backstage/plugin-jira-dashboard-common';
 import { UserEntity } from '@backstage/catalog-model';
+import { ConfigInstance } from './config';
 
 const openFilter: Filter = {
   name: 'Open Issues',
@@ -23,10 +22,10 @@ const getIncomingFilter = (incomingStatus: string): Filter => ({
  * @param userEntity user entity instance
  */
 export const getAssigneUser = (
-  config: RootConfigService,
+  instance: ConfigInstance,
   userEntity: UserEntity,
 ): string => {
-  const emailSuffixConfig = resolveUserEmailSuffix(config);
+  const emailSuffixConfig = instance.userEmailSuffix;
 
   return emailSuffixConfig
     ? `${userEntity.metadata.name}${emailSuffixConfig}`
@@ -35,9 +34,9 @@ export const getAssigneUser = (
 
 const getAssignedToMeFilter = (
   userEntity: UserEntity,
-  config: RootConfigService,
+  instance: ConfigInstance,
 ): Filter => {
-  const email = getAssigneUser(config, userEntity);
+  const email = getAssigneUser(instance, userEntity);
 
   return {
     name: 'Assigned to me',
@@ -47,7 +46,7 @@ const getAssignedToMeFilter = (
 };
 
 export const getDefaultFiltersForUser = (
-  config: RootConfigService,
+  instance: ConfigInstance,
   userEntity?: UserEntity,
   incomingStatus?: string,
 ): Filter[] => {
@@ -55,7 +54,7 @@ export const getDefaultFiltersForUser = (
 
   if (!userEntity) return [openFilter, incomingFilter];
 
-  const assigneeToMeFilter = getAssignedToMeFilter(userEntity, config);
+  const assigneeToMeFilter = getAssignedToMeFilter(userEntity, instance);
 
   return [openFilter, incomingFilter, assigneeToMeFilter];
 };

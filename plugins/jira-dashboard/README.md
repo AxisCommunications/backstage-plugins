@@ -105,13 +105,15 @@ If you want to track specific components or filters for your entity, you can add
 
 If your Jira project does not use "New" as status for incoming issues, you can specify which status to use through the `incoming-issues-status` annotation.
 
+In case of multiple Jira instances being used, specify the instance by prefixing the `jira.com/project-key` with `instance-name/` (defaulting to `"default"`).
+
 ```yaml
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   # ...
   annotations:
-    jira.com/project-key: value # The key of the Jira project to track for this entity
+    jira.com/project-key: another-instance/value # The key of the Jira project to track for this entity, optionally prefixed with the instance name
     jira.com/components: component,component,component # Jira component name separated with a comma. The Roadie Backstage Jira Plugin Jira annotation `/component` is also supported here by default
     jira.com/filter-ids: 12345,67890 # Jira filter id separated with a comma
     jira.com/incoming-issues-status: Incoming # The name of the status for incoming issues in Jira. Default: New
