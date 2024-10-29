@@ -1,5 +1,13 @@
 # backend
 
+## 0.7.6
+
+### Patch Changes
+
+- Updated dependencies [39b1dbf]
+  - @axis-backstage/plugin-jira-dashboard-backend@3.1.0
+  - app@0.10.1
+
 ## 0.7.5
 
 ### Patch Changes

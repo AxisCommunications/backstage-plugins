@@ -1,5 +1,16 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 3.1.0
+
+### Minor Changes
+
+- 39b1dbf: Add support for multiple Jira instances
+
+### Patch Changes
+
+- Updated dependencies [39b1dbf]
+  - @axis-backstage/plugin-jira-dashboard-common@1.8.0
+
 ## 3.0.0
 
 ### Major Changes
