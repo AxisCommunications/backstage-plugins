@@ -50,15 +50,17 @@ export const getJqlResponse = async (
 ): Promise<Issue[]> => {
   let issuesResponse: Issue[];
 
-  issuesResponse = (await cache.get(jql)) as Issue[];
+  const cacheKey = `${config.baseUrl} ${jql}`;
+
+  issuesResponse = (await cache.get(cacheKey)) as Issue[];
 
   if (issuesResponse) {
-    return issuesResponse as Issue[];
+    return issuesResponse;
   }
 
   try {
     issuesResponse = (await searchJira(config, jql, searchOptions)).issues;
-    cache.set(jql, issuesResponse);
+    cache.set(cacheKey, issuesResponse);
   } catch (err: any) {
     if (err.message !== 200) {
       throw Error(
