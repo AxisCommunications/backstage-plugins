@@ -3,11 +3,13 @@ import {
   Filter,
   Issue,
   Project,
+  JiraQueryResults,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 
 import type { ConfigInstance } from './config';
 import { jqlQueryBuilder } from './queries';
 import type { JiraProject } from './lib';
+import { ResponseError } from '@backstage/errors';
 
 export const getProjectInfo = async (
   project: JiraProject,
@@ -79,10 +81,9 @@ export type SearchOptions = {
 };
 
 /**
- * Search for Jira issues using JQL.
+ * Asynchronously searches for Jira issues using JQL.
  *
- * For more information about the available options see the API
- * documentation at:
+ * For more information about the available options, see the API documentation at:
  * https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issue-search/#api-rest-api-2-search-post
  *
  * @param config - A Backstage config
@@ -94,7 +95,7 @@ export const searchJira = async (
   instance: ConfigInstance,
   jqlQuery: string,
   options: SearchOptions,
-): Promise<Issue[]> => {
+): Promise<JiraQueryResults> => {
   const response = await fetch(`${instance.baseUrl}search`, {
     method: 'POST',
     body: JSON.stringify({ jql: jqlQuery, ...options }),
@@ -103,8 +104,12 @@ export const searchJira = async (
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-  }).then(resp => resp.json());
-  return response.issues;
+  });
+  if (!response.ok) {
+    throw await ResponseError.fromResponse(response);
+  }
+  const jsonResponse = await response.json();
+  return jsonResponse as JiraQueryResults;
 };
 
 export const getIssuesByComponent = async (

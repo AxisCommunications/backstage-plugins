@@ -57,7 +57,7 @@ export const getJqlResponse = async (
   }
 
   try {
-    issuesResponse = await searchJira(config, jql, searchOptions);
+    issuesResponse = (await searchJira(config, jql, searchOptions)).issues;
     cache.set(jql, issuesResponse);
   } catch (err: any) {
     if (err.message !== 200) {
