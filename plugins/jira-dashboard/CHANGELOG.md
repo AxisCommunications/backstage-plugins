@@ -1,5 +1,17 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.13.0
+
+### Minor Changes
+
+- 18fba21: Add support for multiple Jira instances
+
+### Patch Changes
+
+- Updated dependencies [18fba21]
+- Updated dependencies [18fba21]
+  - @axis-backstage/plugin-jira-dashboard-common@1.9.0
+
 ## 1.12.0
 
 ### Minor Changes
