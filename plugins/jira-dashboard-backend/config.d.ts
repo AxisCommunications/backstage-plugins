@@ -9,6 +9,14 @@ export interface Config {
         token: string;
 
         /**
+         * Optional headers to pass the HTTP requests
+         */
+        headers?: {
+          /** @visibility secret */
+          [key: string]: string | undefined;
+        };
+
+        /**
          * The base url for Jira in your company, including the API version. For instance: https://jira.se.your-company.com/rest/api/2/'
          */
         baseUrl: string;
@@ -43,6 +51,14 @@ export interface Config {
            * @visibility secret
            */
           token: string;
+
+          /**
+           * Optional headers to pass the HTTP requests
+           */
+          headers?: {
+            /** @visibility secret */
+            [key: string]: string | undefined;
+          };
 
           /**
            * The base url for Jira in your company, including the API version. For instance: https://jira.se.your-company.com/rest/api/2/'

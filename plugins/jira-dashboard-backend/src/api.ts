@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import fetch, { RequestInit } from 'node-fetch';
 import {
   Filter,
   Issue,
@@ -15,13 +15,16 @@ export const getProjectInfo = async (
   project: JiraProject,
 ): Promise<Project> => {
   const { projectKey, instance } = project;
-  const response = await fetch(`${instance.baseUrl}project/${projectKey}`, {
-    method: 'GET',
-    headers: {
-      Authorization: instance.token,
-      Accept: 'application/json',
+  const response = await callApi(
+    instance,
+    `${instance.baseUrl}project/${projectKey}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
     },
-  });
+  );
   if (response.status !== 200) {
     throw Error(
       `Request failed with status code ${response.status}: ${response.statusText}`,
@@ -34,10 +37,9 @@ export const getFilterById = async (
   id: string,
   instance: ConfigInstance,
 ): Promise<Filter> => {
-  const response = await fetch(`${instance.baseUrl}filter/${id}`, {
+  const response = await callApi(instance, `${instance.baseUrl}filter/${id}`, {
     method: 'GET',
     headers: {
-      Authorization: instance.token,
       Accept: 'application/json',
     },
   });
@@ -55,13 +57,16 @@ export const getIssuesByFilter = async (
 ): Promise<Issue[]> => {
   const { projectKey, instance } = project;
   const jql = jqlQueryBuilder({ project: projectKey, components, query });
-  const response = await fetch(`${instance.baseUrl}search?jql=${jql}`, {
-    method: 'GET',
-    headers: {
-      Authorization: instance.token,
-      Accept: 'application/json',
+  const response = await callApi(
+    instance,
+    `${instance.baseUrl}search?jql=${jql}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
     },
-  }).then(resp => resp.json());
+  ).then(resp => resp.json());
   return response.issues;
 };
 
@@ -96,11 +101,10 @@ export const searchJira = async (
   jqlQuery: string,
   options: SearchOptions,
 ): Promise<JiraQueryResults> => {
-  const response = await fetch(`${instance.baseUrl}search`, {
+  const response = await callApi(instance, `${instance.baseUrl}search`, {
     method: 'POST',
     body: JSON.stringify({ jql: jqlQuery, ...options }),
     headers: {
-      Authorization: instance.token,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
@@ -122,21 +126,41 @@ export const getIssuesByComponent = async (
     project: projectKey,
     components: [componentKey],
   });
-  const response = await fetch(`${instance.baseUrl}search?jql=${jql}`, {
-    method: 'GET',
-    headers: {
-      Authorization: instance.token,
-      Accept: 'application/json',
+  const response = await callApi(
+    instance,
+    `${instance.baseUrl}search?jql=${jql}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
     },
-  }).then(resp => resp.json());
+  ).then(resp => resp.json());
   return response.issues;
 };
 
 export async function getProjectAvatar(url: string, instance: ConfigInstance) {
-  return fetch(url, {
-    method: 'GET',
-    headers: {
-      Authorization: instance.token,
-    },
-  });
+  return callApi(instance, url);
+}
+
+/**
+ * Call the Jira API using fetch.
+ *
+ * This function injects the auth token and custom headers.
+ */
+async function callApi(
+  instance: ConfigInstance,
+  url: string,
+  init?: RequestInit,
+) {
+  const requestInit = init ?? { method: 'GET' };
+
+  // Inject custom headers from config, Authorization token and headers from the
+  // request
+  requestInit.headers = {
+    ...instance.headers,
+    Authorization: instance.token,
+    ...requestInit.headers,
+  };
+  return fetch(url, requestInit);
 }
