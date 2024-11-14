@@ -9,6 +9,7 @@ import { JiraQueryResults } from '@axis-backstage/plugin-jira-dashboard-common';
 // @public
 export type ConfigInstance = {
   token: string;
+  headers: Record<string, string>;
   baseUrl: string;
   userEmailSuffix?: string;
 };
