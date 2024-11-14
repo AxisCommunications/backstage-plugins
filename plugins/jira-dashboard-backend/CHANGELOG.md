@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.0.1
+
+### Patch Changes
+
+- eab8f06: Added support for configuring custom headers for API requests
+
 ## 4.0.0
 
 ### Major Changes
