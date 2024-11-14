@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import Typography from '@mui/material/Typography';
 import {
   Issue,
@@ -24,6 +24,13 @@ type Props = {
   tableContent: JiraDataResponse;
   tableColumns?: TableColumn<Issue>[];
   tableStyle?: TableComponentProps['style'];
+  /**
+   * CSS styles to apply to the top-most element, being the table component or
+   * the wrapping InfoCard component if filters are shown.
+   * If no filters are shown, the style prop is merged with the tableStyle prop
+   * and used in the table component.
+   */
+  style?: CSSProperties;
   showFilters?: TableFilter[] | boolean;
   project?: Project;
 };
@@ -31,13 +38,8 @@ type Props = {
 export const JiraTable = ({
   tableContent,
   tableColumns = columns,
-  tableStyle = {
-    height: 'max-content',
-    maxHeight: '500px',
-    padding: '20px',
-    overflowY: 'auto',
-    width: '100%',
-  },
+  tableStyle,
+  style,
   showFilters,
   project,
 }: Props) => {
@@ -90,7 +92,7 @@ export const JiraTable = ({
 
   if (showFilters) {
     return (
-      <InfoCard title={title}>
+      <InfoCard title={title} headerStyle={style}>
         <Table<Issue>
           options={{
             paging: false,
@@ -106,9 +108,9 @@ export const JiraTable = ({
           data={tableContent.issues || []}
           columns={tableColumns}
           style={{
-            ...tableStyle,
             padding: '0px',
             boxShadow: 'none',
+            ...tableStyle,
           }}
         />
       </InfoCard>
@@ -131,7 +133,7 @@ export const JiraTable = ({
       }
       data={tableContent.issues || []}
       columns={tableColumns}
-      style={tableStyle}
+      style={{ ...tableStyle, ...style }}
     />
   );
 };
