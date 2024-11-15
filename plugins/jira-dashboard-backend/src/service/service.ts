@@ -1,4 +1,4 @@
-import { CacheService, RootConfigService } from '@backstage/backend-plugin-api';
+import { CacheService } from '@backstage/backend-plugin-api';
 import {
   type Filter,
   Issue,
@@ -14,25 +14,28 @@ import {
   SearchOptions,
 } from '../api';
 import { jqlQueryBuilder } from '../queries';
+import type { ConfigInstance } from '../config';
+import { JiraProject } from '../lib';
 
 export const getProjectResponse = async (
-  projectKey: string,
-  config: RootConfigService,
+  project: JiraProject,
   cache: CacheService,
 ): Promise<Project> => {
   let projectResponse: Project;
 
-  projectResponse = (await cache.get(projectKey)) as Project;
+  projectResponse = (await cache.get(project.fullProjectKey)) as Project;
 
-  if (projectResponse) return projectResponse as Project;
+  if (projectResponse) {
+    return projectResponse as Project;
+  }
 
   try {
-    projectResponse = await getProjectInfo(projectKey, config);
-    cache.set(projectKey, projectResponse);
+    projectResponse = await getProjectInfo(project);
+    cache.set(project.fullProjectKey, projectResponse);
   } catch (err: any) {
     if (err.message !== 200) {
       throw Error(
-        `Failed to get project info for project key ${projectKey} with error: ${err.message}`,
+        `Failed to get project info for project key ${project.fullProjectKey} with error: ${err.message}`,
       );
     }
   }
@@ -41,19 +44,23 @@ export const getProjectResponse = async (
 
 export const getJqlResponse = async (
   jql: string,
-  config: RootConfigService,
+  config: ConfigInstance,
   cache: CacheService,
   searchOptions: SearchOptions,
 ): Promise<Issue[]> => {
   let issuesResponse: Issue[];
 
-  issuesResponse = (await cache.get(jql)) as Issue[];
+  const cacheKey = `${config.baseUrl} ${jql}`;
 
-  if (issuesResponse) return issuesResponse as Issue[];
+  issuesResponse = (await cache.get(cacheKey)) as Issue[];
+
+  if (issuesResponse) {
+    return issuesResponse;
+  }
 
   try {
-    issuesResponse = await searchJira(config, jql, searchOptions);
-    cache.set(jql, issuesResponse);
+    issuesResponse = (await searchJira(config, jql, searchOptions)).issues;
+    cache.set(cacheKey, issuesResponse);
   } catch (err: any) {
     if (err.message !== 200) {
       throw Error(
@@ -67,7 +74,7 @@ export const getJqlResponse = async (
 export const getUserIssues = async (
   username: string,
   maxResults: number,
-  config: RootConfigService,
+  config: ConfigInstance,
   cache: CacheService,
 ): Promise<Issue[]> => {
   const jql = `assignee = "${username}" AND resolution = Unresolved ORDER BY priority DESC, updated DESC`;
@@ -88,7 +95,7 @@ export const getUserIssues = async (
 
 export const getFiltersFromAnnotations = async (
   annotations: string[],
-  config: RootConfigService,
+  config: ConfigInstance,
 ): Promise<Filter[]> => {
   const filters: Filter[] = [];
 
@@ -106,44 +113,37 @@ export const getFiltersFromAnnotations = async (
 };
 
 export const getIssuesFromFilters = async (
-  projectKey: string,
+  project: JiraProject,
   components: string[],
   filters: Filter[],
-  config: RootConfigService,
 ): Promise<JiraDataResponse[]> => {
   return await Promise.all(
     filters.map(async filter => ({
       name: filter.name,
       query: jqlQueryBuilder({
-        project: projectKey,
+        project: project.projectKey,
         components,
         query: filter.query,
       }),
       type: 'filter',
-      issues: await getIssuesByFilter(
-        projectKey,
-        components,
-        filter.query,
-        config,
-      ),
+      issues: await getIssuesByFilter(project, components, filter.query),
     })),
   );
 };
 
 export const getIssuesFromComponents = async (
-  projectKey: string,
+  project: JiraProject,
   componentAnnotations: string[],
-  config: RootConfigService,
 ): Promise<JiraDataResponse[]> => {
   return await Promise.all(
     componentAnnotations.map(async componentKey => ({
       name: componentKey,
       query: jqlQueryBuilder({
-        project: projectKey,
+        project: project.projectKey,
         components: [componentKey],
       }),
       type: 'component',
-      issues: await getIssuesByComponent(projectKey, componentKey, config),
+      issues: await getIssuesByComponent(project, componentKey),
     })),
   );
 };

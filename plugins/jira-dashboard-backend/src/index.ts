@@ -4,9 +4,9 @@
  * @packageDocumentation
  */
 
-export * from './service/router';
 export { jiraDashboardPlugin as default } from './plugin';
 export { searchJira } from './api';
 export type { SearchOptions } from './api';
+export type { ConfigInstance } from './config';
 export { jqlQueryBuilder } from './queries';
 export type { JqlQueryBuilderArgs } from './queries';

@@ -25,6 +25,7 @@ The Jira Dashboard plugin requires the following YAML to be added to your app-co
 jiraDashboard:
   token: ${JIRA_TOKEN}
   baseUrl: ${JIRA_BASE_URL}
+  headers: {} # Optional
   userEmailSuffix: ${JIRA_EMAIL_SUFFIX} # Optional
   annotationPrefix: ${JIRA_ANNOTATION_PREFIX} # Optional
 ```
@@ -34,6 +35,7 @@ jiraDashboard:
 - `JIRA_TOKEN`: The "Authorization" header used for Jira authentication.
   > Note: The JIRA_TOKEN variable from [Roadie's Backstage Jira plugin](https://roadie.io/backstage/plugins/jira) can not be reused here because of the added encoding in this token.
 - `JIRA_BASE_URL`: The base url for Jira in your company, including the API version. For instance: https://jira.se.your-company.com/rest/api/2/
+- The headers field can be used to add HTTP headers that will be added to the API requests.
 - `JIRA_EMAIL_SUFFIX`: Optional email suffix used for retrieving a specific Jira user in a company. For instance: @your-company.com. If not provided, the user entity profile email is used instead.
 - `JIRA_ANNOTATION_PREFIX`: Optional annotation prefix for retrieving a custom annotation. Defaut value is jira.com. If you want to configure the plugin to be compatible with [Roadie's Backstage Jira Plugin](https://roadie.io/backstage/plugins/jira/), use the following annotation prefix:
 
@@ -41,6 +43,34 @@ jiraDashboard:
 jiraDashboard:
    {/* required configs... */}
   annotationPrefix: jira
+```
+
+### Multiple Jira instances
+
+In case multiple Jira instances are being used, the configuration can be written on the form:
+
+```yaml
+jiraDashboard:
+  annotationPrefix: ${JIRA_ANNOTATION_PREFIX} # Optional
+  instances:
+    - name: default
+      token: ${JIRA_TOKEN}
+      baseUrl: ${JIRA_BASE_URL}
+      headers: {} # Optional
+      userEmailSuffix: ${JIRA_EMAIL_SUFFIX} # Optional
+    - name: separate-jira-instance
+      token: ${JIRA_TOKEN_SEPARATE}
+      baseUrl: ${JIRA_BASE_URL_SEPARATE}
+      headers: {} # Optional
+      userEmailSuffix: ${JIRA_EMAIL_SUFFIX_SEPARATE} # Optional
+```
+
+In entity yamls that don't specify an instance, the one called `"default"` will be used. To specify another instace, prefix the project key with `instance-name/` such as:
+
+```yaml
+metadata:
+  annotations:
+    jira.com/project-key: separate-jira-instance/my-project-key
 ```
 
 #### Authentication examples and trouble shooting
@@ -95,49 +125,6 @@ jiraDashboard:
 ```
 
 ### Integrating
-
-Here's how to get the backend plugin up and running:
-
-1. Create a new file named `packages/backend/src/plugins/jiraDashboard.ts`, and add the following to it:
-
-   ```ts
-   import { createRouter } from '@axis-backstage/plugin-jira-dashboard-backend';
-   import { Router } from 'express';
-   import { PluginEnvironment } from '../types';
-
-   export default async function createPlugin(
-     env: PluginEnvironment,
-   ): Promise<Router> {
-     return await createRouter({
-       logger: env.logger,
-       config: env.config,
-       discovery: env.discovery,
-       identity: env.identity,
-       tokenManager: env.tokenManager,
-     });
-   }
-   ```
-
-2. Wire this into the overall backend router by adding the following to `packages/backend/src/index.ts`:
-
-   ```ts
-   import jiraDashboard from './plugins/jiraDashboard';
-   ...
-
-   async function main() {
-     // Add this line under the other lines that follow the useHotMemoize pattern
-    const jiraDashboardEnv = useHotMemoize(module, () => createEnv('jira-dashboard'),
-
-     // Add this under the lines that add their routers to apiRouter
-    apiRouter.use('/jira-dashboard', await jiraDashboard(jiraDashboardEnv));
-   }
-   ```
-
-3. Now run `yarn start-backend` from the repo root.
-
-4. In another terminal, run the command: `curl localhost:7007/api/jira-dashboard/health`. The request should return `{"status":"ok"}`.
-
-### New Backend System
 
 The Jira Dashboard backend plugin has support for the [new backend system](https://backstage.io/docs/backend-system/). Here is how you can set it up:
 

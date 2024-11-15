@@ -1,22 +1,25 @@
+import { mockServices } from '@backstage/backend-test-utils';
 import express from 'express';
 import request from 'supertest';
+
 import { createRouter } from './router';
-import { mockServices } from '@backstage/backend-test-utils';
+import { JiraConfig } from '../config';
 
 describe('createRouter', () => {
   let app: express.Express;
-  const tokenManager = mockServices.tokenManager.mock();
-  const testDiscovery = mockServices.discovery.mock();
-  const identity = mockServices.identity.mock();
 
   beforeAll(async () => {
+    const rootConfig = mockServices.rootConfig({
+      data: { jiraDashboard: { instances: [] } },
+    });
     const router = await createRouter({
+      auth: mockServices.auth.mock(),
       logger: mockServices.logger.mock(),
-      config: mockServices.rootConfig(),
-      discovery: testDiscovery,
-      identity,
-      tokenManager,
-      userInfo: mockServices.userInfo({ userEntityRef: 'user:default/guest' }),
+      rootConfig,
+      config: JiraConfig.fromConfig(rootConfig),
+      discovery: mockServices.discovery.mock(),
+      httpAuth: mockServices.httpAuth.mock(),
+      userInfo: mockServices.userInfo.mock(),
     });
     app = express().use(router);
   });

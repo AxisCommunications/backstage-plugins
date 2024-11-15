@@ -1,5 +1,50 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.0.1
+
+### Patch Changes
+
+- eab8f06: Added support for configuring custom headers for API requests
+
+## 4.0.0
+
+### Major Changes
+
+- 18fba21: BREAKING: The backend has been migrated to the new backend system. The createRouter function now requires the new auth and httpAuth services to be passed in, instead of the removed identity and tokenManager services. If you are using the new backend system module, this does not affect you.
+- 18fba21: Introduced TypeScript type definitions SearchJiraResponse and JiraQueryResults to represent Jira search responses and pagination details.
+  Updated the searchJira function to return search results as a SearchJiraResponse, incorporating the new types.
+  The searchJira function now returns an object containing both the search results and the HTTP status code, improving error resilience and clarity in handling search operations.
+  The JiraQueryResults type outlines the structure of a paginated Jira search response, facilitating better data handling.
+  These changes streamline the Jira Dashboard plugin's codebase, improving error resilience and clarity in handling search operations.
+
+### Minor Changes
+
+- 18fba21: Add support for multiple Jira instances
+
+### Patch Changes
+
+- 6c9c4b6: Fixed caching of user issues when having multiple Jira instances.
+- Updated dependencies [18fba21]
+- Updated dependencies [18fba21]
+  - @axis-backstage/plugin-jira-dashboard-common@1.9.0
+
+## 3.1.0
+
+### Minor Changes
+
+- 39b1dbf: Add support for multiple Jira instances
+
+### Patch Changes
+
+- Updated dependencies [39b1dbf]
+  - @axis-backstage/plugin-jira-dashboard-common@1.8.0
+
+## 3.0.0
+
+### Major Changes
+
+- b6b406c: BREAKING: The backend has been migrated to the new backend system. The createRouter function now requires the new auth and httpAuth services to be passed in, instead of the removed identity and tokenManager services. If you are using the new backend system module, this does not affect you.
+
 ## 2.7.0
 
 ### Minor Changes

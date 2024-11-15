@@ -1,4 +1,7 @@
-import { createLegacyAuthAdapters } from '@backstage/backend-common';
+import express from 'express';
+import Router from 'express-promise-router';
+import stream from 'stream';
+
 import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 import { CacheManager } from '@backstage/backend-defaults/cache';
 import {
@@ -6,24 +9,19 @@ import {
   DiscoveryService,
   HttpAuthService,
   LoggerService,
-  IdentityService,
   RootConfigService,
-  TokenManagerService,
   UserInfoService,
 } from '@backstage/backend-plugin-api';
 import { stringifyEntityRef, UserEntity } from '@backstage/catalog-model';
-import express from 'express';
-import Router from 'express-promise-router';
 import { CatalogClient } from '@backstage/catalog-client';
 
-import { getAssigneUser, getDefaultFiltersForUser } from '../filters';
 import {
   type Filter,
   type JiraResponse,
   type Project,
 } from '@axis-backstage/plugin-jira-dashboard-common';
-import stream from 'stream';
-import { getProjectAvatar } from '../api';
+
+import { getAnnotations, splitProjectKey } from '../lib';
 import {
   getFiltersFromAnnotations,
   getIssuesFromComponents,
@@ -31,72 +29,51 @@ import {
   getProjectResponse,
   getUserIssues,
 } from './service';
-import { getAnnotations } from '../lib';
+import { DEFAULT_MAX_RESULTS_USER_ISSUES, DEFAULT_TTL } from './defaultValues';
+import { getAssigneUser, getDefaultFiltersForUser } from '../filters';
+import { getProjectAvatar } from '../api';
+import type { ConfigInstance, JiraConfig } from '../config';
 
-/**
- * Constructs a jira dashboard router.
- * @deprecated Please migrate to the new backend system as this will be removed in the future.
- * @public
- */
 export interface RouterOptions {
   /**
-   * Implementation of Winston logger
+   * Implementation of Authentication Service
+   */
+  auth: AuthService;
+  /**
+   * Implementation of Logger Service
    */
   logger: LoggerService;
-
   /**
-   * Backstage config object
+   * Implementation of Config Service
    */
-  config: RootConfigService;
-
+  rootConfig: RootConfigService;
   /**
-   * Backstage discovery api instance
+   * Parsed Jira config
+   */
+  config: JiraConfig;
+  /**
+   * Implementation of Discovery Service
    */
   discovery: DiscoveryService;
-
   /**
-   * Backstage identity api instance
+   * Implementation of Http Authentication Service
    */
-  identity?: IdentityService;
-
+  httpAuth: HttpAuthService;
   /**
-   * Backstage token manager instance
-   */
-  tokenManager?: TokenManagerService;
-  /**
-   * Backstage auth service
-   */
-  auth?: AuthService;
-  /**
-   * Backstage httpAuth service
-   */
-  httpAuth?: HttpAuthService;
-
-  /**
-   * Backstage userInfo service
+   * Implementation of User Info Service
    */
   userInfo: UserInfoService;
 }
 
-const DEFAULT_TTL = 1000 * 60;
-
-const DEFAULT_MAX_RESULTS_USER_ISSUES = 10;
-
-/**
- * Constructs a jira dashboard router.
- *
- * @deprecated Please migrate to the new backend system as this will be removed in the future.
- * @public
- */
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
-  const { auth, httpAuth } = createLegacyAuthAdapters(options);
-  const { logger, config, discovery, userInfo } = options;
+  const { auth, logger, rootConfig, config, discovery, httpAuth, userInfo } =
+    options;
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
 
   const pluginCache =
-    CacheManager.fromConfig(config).forPlugin('jira-dashboard');
+    CacheManager.fromConfig(rootConfig).forPlugin('jira-dashboard');
   const cache = pluginCache.getClient({ defaultTtl: DEFAULT_TTL });
   logger.info('Initializing Jira Dashboard backend');
 
@@ -104,6 +81,7 @@ export async function createRouter(
   router.use(express.json());
 
   router.get('/health', (_, response) => {
+    logger.info('PONG!');
     response.json({ status: 'ok' });
   });
 
@@ -133,30 +111,30 @@ export async function createRouter(
         return;
       }
 
-      const projectKey =
+      const fullProjectKeys =
         entity.metadata.annotations?.[projectKeyAnnotation]?.split(',')!;
 
-      if (!projectKey) {
+      if (!fullProjectKeys) {
         const error = `No jira.com/project-key annotation found for ${entityRef}`;
         logger.info(error);
         response.status(404).json(error);
         return;
       }
 
+      const projects = fullProjectKeys.map(fullProjectKey =>
+        splitProjectKey(config, fullProjectKey),
+      );
+
       let projectResponse;
 
       try {
-        projectResponse = await getProjectResponse(
-          projectKey[0],
-          config,
-          cache,
-        );
+        projectResponse = await getProjectResponse(projects[0], cache);
       } catch (err: any) {
         logger.error(
-          `Could not find Jira project ${projectKey[0]}: ${err.message}`,
+          `Could not find Jira project ${projects[0].fullProjectKey}: ${err.message}`,
         );
         response.status(404).json({
-          error: `No Jira project found with key ${projectKey[0]}`,
+          error: `No Jira project found with key ${projects[0].projectKey}`,
         });
         return;
       }
@@ -181,25 +159,27 @@ export async function createRouter(
       const incomingStatus =
         entity.metadata.annotations?.[incomingIssuesAnnotation];
 
-      filters = getDefaultFiltersForUser(config, userEntity, incomingStatus);
+      filters = getDefaultFiltersForUser(
+        projects[0].instance,
+        userEntity,
+        incomingStatus,
+      );
 
       const customFilterAnnotations =
         entity.metadata.annotations?.[filtersAnnotation]?.split(',')!;
 
       if (customFilterAnnotations) {
         filters.push(
-          ...(await getFiltersFromAnnotations(customFilterAnnotations, config)),
+          ...(await getFiltersFromAnnotations(
+            customFilterAnnotations,
+            projects[0].instance,
+          )),
         );
       }
 
       let components =
         entity.metadata.annotations?.[componentsAnnotation]?.split(',') ?? [];
-      let issues = await getIssuesFromFilters(
-        projectKey[0],
-        components,
-        filters,
-        config,
-      );
+      let issues = await getIssuesFromFilters(projects[0], components, filters);
 
       /*   Adding support for Roadie's component annotation */
       components = components.concat(
@@ -209,9 +189,8 @@ export async function createRouter(
 
       if (components) {
         const componentIssues = await getIssuesFromComponents(
-          projectKey[0],
+          projects[0],
           components,
-          config,
         );
         issues = issues.concat(componentIssues);
       }
@@ -253,21 +232,51 @@ export async function createRouter(
       return;
     }
 
-    const username = getAssigneUser(config, userEntity);
+    const getUserIssuesForInstance = async (instance: ConfigInstance) => {
+      const username = getAssigneUser(instance, userEntity);
 
-    const maxResults = Number(
-      request.query.maxResults || DEFAULT_MAX_RESULTS_USER_ISSUES,
+      const maxResults = Number(
+        request.query.maxResults || DEFAULT_MAX_RESULTS_USER_ISSUES,
+      );
+
+      try {
+        const issues = await getUserIssues(
+          username,
+          maxResults,
+          instance,
+          cache,
+        );
+        return { issues, error: undefined };
+      } catch (error: any) {
+        return { error };
+      }
+    };
+
+    const issuesList = await Promise.all(
+      config
+        .getInstances()
+        .map(instanceName =>
+          getUserIssuesForInstance(config.getInstance(instanceName)),
+        ),
     );
 
-    try {
-      const issues = await getUserIssues(username, maxResults, config, cache);
+    const issues = issuesList.flatMap(list => list.issues ?? []);
+    const errors = issuesList
+      .flatMap(list => list.error)
+      .filter((v): v is NonNullable<typeof v> => !!v);
+
+    if (issues.length > 0 || errors.length === 0) {
       response.status(200).json(issues);
-    } catch (err: any) {
-      logger.error(`Error during getting user issues: ${err.message}`);
+    } else {
+      const messages =
+        errors.length > 1
+          ? `\n  ${errors.map(err => err.message).join('\n  ')}`
+          : ` ${errors[0].message}`;
+
+      logger.error(`Error during getting user issues:${messages}`);
       response.status(503).json({
-        error: `Error during getting user issues: ${err.message}`,
+        error: `Error during getting user issues:${messages}`,
       });
-      return;
     }
   });
 
@@ -291,26 +300,33 @@ export async function createRouter(
         return;
       }
 
-      const projectKey =
+      const fullProjectKeys =
         entity.metadata.annotations?.[projectKeyAnnotation]?.split(',')!;
 
-      const projectResponse = await getProjectResponse(
-        projectKey[0],
-        config,
-        cache,
+      if (!fullProjectKeys) {
+        const error = `No jira.com/project-key annotation found for ${entityRef}`;
+        logger.info(error);
+        response.status(404).json(error);
+        return;
+      }
+
+      const projects = fullProjectKeys.map(fullProjectKey =>
+        splitProjectKey(config, fullProjectKey),
       );
+
+      const projectResponse = await getProjectResponse(projects[0], cache);
 
       if (!projectResponse) {
         logger.error('Could not find project in Jira');
         response.status(400).json({
-          error: `No Jira project found for project key ${projectKey[0]}`,
+          error: `No Jira project found for project key ${projects[0].projectKey}`,
         });
         return;
       }
 
       const url = projectResponse.avatarUrls['48x48'];
 
-      const avatar = await getProjectAvatar(url, config);
+      const avatar = await getProjectAvatar(url, projects[0].instance);
 
       const ps = new stream.PassThrough();
       const val = avatar.headers.get('content-type');
@@ -326,7 +342,9 @@ export async function createRouter(
       ps.pipe(response);
     },
   );
-  const middleware = MiddlewareFactory.create({ logger, config });
+
+  const middleware = MiddlewareFactory.create({ logger, config: rootConfig });
+
   router.use(middleware.error());
   return router;
 }

@@ -3,6 +3,7 @@ import {
   createBackendPlugin,
 } from '@backstage/backend-plugin-api';
 import { createRouter } from './service/router';
+import { JiraConfig } from './config';
 
 /**
  * The Jira Dashboard backend plugin.
@@ -14,33 +15,38 @@ export const jiraDashboardPlugin = createBackendPlugin({
   register(env) {
     env.registerInit({
       deps: {
-        logger: coreServices.logger,
-        config: coreServices.rootConfig,
-        discovery: coreServices.discovery,
-        httpRouter: coreServices.httpRouter,
         auth: coreServices.auth,
+        httpRouter: coreServices.httpRouter,
+        logger: coreServices.logger,
+        rootConfig: coreServices.rootConfig,
+        discovery: coreServices.discovery,
         httpAuth: coreServices.httpAuth,
         userInfo: coreServices.userInfo,
       },
       async init({
-        logger,
-        config,
-        discovery,
-        httpRouter,
         auth,
+        httpRouter,
+        logger,
+        rootConfig,
+        discovery,
         httpAuth,
         userInfo,
       }) {
         httpRouter.use(
           await createRouter({
-            logger,
-            config,
-            discovery,
             auth,
+            logger,
+            rootConfig,
+            config: JiraConfig.fromConfig(rootConfig),
+            discovery,
             httpAuth,
             userInfo,
           }),
         );
+        httpRouter.addAuthPolicy({
+          path: '/health',
+          allow: 'unauthenticated',
+        });
       },
     });
   },
