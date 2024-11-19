@@ -93,6 +93,13 @@ export const JiraDashboardContent = (props?: {
                   tableContent={value}
                   showFilters={props?.showFilters}
                   project={jiraResponse.project}
+                  tableStyle={{
+                    height: 'max-content',
+                    maxHeight: '500px',
+                    padding: '20px',
+                    overflowY: 'auto',
+                    width: '100%',
+                  }}
                 />
               </Grid>
             ))}

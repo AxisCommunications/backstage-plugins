@@ -62,6 +62,21 @@ export const JiraUserIssuesViewCard = jiraDashboardPlugin.provide(
 /**
  * Jira content exported from the Jira Dashboard plugin
  * @public */
+export const JiraUserIssuesTable = jiraDashboardPlugin.provide(
+  createComponentExtension({
+    name: 'JiraUserIssuesTable',
+    component: {
+      lazy: () =>
+        import('./components/JiraUserIssuesTable').then(
+          m => m.JiraUserIssuesTable,
+        ),
+    },
+  }),
+);
+
+/**
+ * Jira content exported from the Jira Dashboard plugin
+ * @public */
 export const EntityJiraDashboardContent = jiraDashboardPlugin.provide(
   createRoutableExtension({
     name: 'EntityJiraDashboardContent',

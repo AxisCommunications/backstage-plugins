@@ -7,11 +7,14 @@
 
 import { BackstagePlugin } from '@backstage/core-plugin-api';
 import { BottomLinkProps } from '@backstage/core-components';
+import { CSSProperties } from 'react';
 import { Entity } from '@backstage/catalog-model';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JSX as JSX_2 } from 'react';
+import { default as React_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
+import { Table } from '@backstage/core-components';
 import { TableFilter } from '@backstage/core-components';
 
 // @public
@@ -54,11 +57,30 @@ export type JiraUserIssuesCardProps = {
 };
 
 // @public
+export const JiraUserIssuesTable: ({
+  title,
+  maxResults,
+  tableStyle,
+  style,
+}: JiraUserIssuesTableProps) => JSX_2.Element | null;
+
+// @public
+export type JiraUserIssuesTableProps = {
+  title?: string;
+  maxResults?: number;
+  tableStyle?: TableComponentProps['style'];
+  style?: CSSProperties;
+};
+
+// @public
 export const JiraUserIssuesViewCard: ({
   title,
   maxResults,
   bottomLinkProps,
-}: JiraUserIssuesCardProps) => JSX_2.Element | null;
+}: JiraUserIssuesCardProps) => JSX_2.Element;
+
+// @public
+export type TableComponentProps = React_2.ComponentProps<typeof Table>;
 
 // @public
 export function useJira(

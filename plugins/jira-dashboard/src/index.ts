@@ -8,9 +8,14 @@ export {
   jiraDashboardPlugin,
   EntityJiraDashboardContent,
   JiraUserIssuesViewCard,
+  JiraUserIssuesTable,
   isJiraDashboardAvailable,
 } from './plugin';
 export { useJiraUserIssues } from './hooks/useJiraUserIssues';
 export { useJira } from './hooks/useJira';
 export type { JiraUserIssuesCardProps } from './components/JiraUserIssuesCard';
+export type {
+  TableComponentProps,
+  JiraUserIssuesTableProps,
+} from './components/JiraUserIssuesTable';
 export type { JiraDashboardApi } from './api/JiraDashboardApi';
