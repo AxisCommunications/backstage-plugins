@@ -1,5 +1,6 @@
 import { ConflictError, ServiceUnavailableError } from '@backstage/errors';
 import { RootConfigService } from '@backstage/backend-plugin-api';
+import { Filter } from '@axis-backstage/plugin-jira-dashboard-common';
 
 type Config = ReturnType<RootConfigService['getConfig']>;
 
@@ -25,6 +26,7 @@ export type ConfigInstance = {
   headers: Record<string, string>;
   baseUrl: string;
   userEmailSuffix?: string;
+  defaultFilters?: Filter[];
 };
 
 const JIRA_CONFIG_BASE_URL = 'baseUrl';
@@ -32,6 +34,7 @@ const JIRA_CONFIG_TOKEN = 'token';
 const JIRA_CONFIG_HEADERS = 'headers';
 const JIRA_CONFIG_USER_EMAIL_SUFFIX = 'userEmailSuffix';
 const JIRA_CONFIG_ANNOTATION = 'annotationPrefix';
+const JIRA_FILTERS = 'defaultFilters';
 
 /**
  * Class for reading Jira configuration from the root config
@@ -69,6 +72,13 @@ export class JiraConfig {
           userEmailSuffix: inst.getOptionalString(
             JIRA_CONFIG_USER_EMAIL_SUFFIX,
           ),
+          defaultFilters: inst
+            .getOptionalConfigArray(JIRA_FILTERS)
+            ?.map(filterConfig => ({
+              name: filterConfig.getString('name'),
+              shortName: filterConfig.getString('shortName'),
+              query: filterConfig.getString('query'),
+            })),
         };
       });
     } else {
@@ -78,6 +88,13 @@ export class JiraConfig {
         headers: parseHeaders(jira.getOptionalConfig(JIRA_CONFIG_HEADERS)),
         baseUrl: jira.getString(JIRA_CONFIG_BASE_URL),
         userEmailSuffix: jira.getOptionalString(JIRA_CONFIG_USER_EMAIL_SUFFIX),
+        defaultFilters: jira
+          .getOptionalConfigArray(JIRA_FILTERS)
+          ?.map(filterConfig => ({
+            name: filterConfig.getString('name'),
+            shortName: filterConfig.getString('shortName'),
+            query: filterConfig.getString('query'),
+          })),
       };
     }
   }
@@ -135,5 +152,13 @@ export class JiraConfig {
   resolveUserEmailSuffix(instanceName: string): string | undefined {
     const instance = this.forInstance(instanceName);
     return instance.userEmailSuffix;
+  }
+
+  /**
+   * Get the defined default filters for a given instance
+   */
+  resolveDefaultFilters(instanceName: string): Filter[] | undefined {
+    const instance = this.forInstance(instanceName);
+    return instance.defaultFilters;
   }
 }
