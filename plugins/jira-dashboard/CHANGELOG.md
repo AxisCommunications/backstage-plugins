@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.13.1
+
+### Patch Changes
+
+- a5c7b33: Extracted the table component from JiraUserIssuesViewCard into an exported component JiraUserIssuesTable, and added styling options to the table (or its outer Card) to adapt it more freely
+
 ## 1.13.0
 
 ### Minor Changes

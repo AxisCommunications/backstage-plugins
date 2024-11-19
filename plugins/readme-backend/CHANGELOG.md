@@ -1,5 +1,15 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.10.1
+
+### Patch Changes
+
+- cd4f853: Store `not found` results for entities.
+
+  If no README is found for an entity we now store that in the
+  cache so Backstage will not try again until the cache has
+  been invalidated.
+
 ## 0.10.0
 
 ### Minor Changes
