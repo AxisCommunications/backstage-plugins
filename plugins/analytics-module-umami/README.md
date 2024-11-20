@@ -30,6 +30,7 @@ yarn --cwd packages/app add @axis-backstage/plugin-analytics-module-umami
 import {
   analyticsApiRef,
   configApiRef,
+  fetchApiRef,
   identityApiRef,
 } from '@backstage/core-plugin-api';
 import { UmamiAnalytics } from '@axis-backstage/plugin-analytics-module-umami';
