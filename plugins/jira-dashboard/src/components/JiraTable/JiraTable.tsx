@@ -52,7 +52,7 @@ export const JiraTable = ({
     );
   }
 
-  transformAssignees(tableContent.issues);
+  transformAssignees(tableContent?.issues || []);
 
   const nbrOfIssues = tableContent?.issues?.length ?? 0;
 
