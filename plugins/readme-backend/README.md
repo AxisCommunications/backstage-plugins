@@ -21,45 +21,6 @@ yarn --cwd packages/backend add @axis-backstage/plugin-readme-backend
 
 Here's how to get the backend plugin up and running:
 
-1. Create a new file named `packages/backend/src/plugins/readme.ts`, and add the following to it:
-
-   ```ts
-   import { createRouter } from '@axis-backstage/plugin-readme-backend';
-   import { Router } from 'express';
-   import { PluginEnvironment } from '../types';
-
-   export default async function createPlugin(
-     env: PluginEnvironment,
-   ): Promise<Router> {
-     return await createRouter({
-       logger: env.logger,
-       config: env.config,
-       reader: env.reader,
-       discovery: env.discovery,
-       tokenManager: env.tokenManager,
-     });
-   }
-   ```
-
-2. Wire this into the overall backend router by adding the following to `packages/backend/src/index.ts`:
-
-   ```ts
-   import readme from './plugins/readme';
-   ...
-
-   async function main() {
-     // Add this line under the other lines that follow the useHotMemoize pattern
-    const readmeEnv = useHotMemoize(module, () => createEnv('readme'),
-
-     // Add this under the lines that add their routers to apiRouter
-    apiRouter.use('/readme', await readme(readmeEnv));
-   }
-   ```
-
-### New Backend System
-
-The Readme backend plugin has support for the [new backend system](https://backstage.io/docs/backend-system/). Here is how you can set it up:
-
 In your `packages/backend/src/index.ts` make the following changes:
 
 ```diff
