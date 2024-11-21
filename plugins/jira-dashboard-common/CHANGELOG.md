@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-common
 
+## 1.9.1
+
+### Patch Changes
+
+- 060bcf6: Set issues field as optional in JiraResponse
+
 ## 1.9.0
 
 ### Minor Changes
