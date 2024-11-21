@@ -1,5 +1,13 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.13.2
+
+### Patch Changes
+
+- 060bcf6: Check if the `issues` field is set before use
+- Updated dependencies [060bcf6]
+  - @axis-backstage/plugin-jira-dashboard-common@1.9.1
+
 ## 1.13.1
 
 ### Patch Changes
