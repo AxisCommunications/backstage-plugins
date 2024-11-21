@@ -5,6 +5,7 @@
 ```ts
 import { BackendFeatureCompat } from '@backstage/backend-plugin-api';
 import { JiraQueryResults } from '@axis-backstage/plugin-jira-dashboard-common';
+import { RootConfigService } from '@backstage/backend-plugin-api';
 
 // @public
 export type ConfigInstance = {
@@ -13,6 +14,17 @@ export type ConfigInstance = {
   baseUrl: string;
   userEmailSuffix?: string;
 };
+
+// @public
+export class JiraConfig {
+  readonly annotationPrefix: string;
+  static fromConfig(config: RootConfigService): JiraConfig;
+  getInstance(instanceName?: string): ConfigInstance;
+  getInstances(): string[];
+  resolveJiraBaseUrl(instanceName: string): string;
+  resolveJiraToken(instanceName: string): string;
+  resolveUserEmailSuffix(instanceName: string): string | undefined;
+}
 
 // @public
 const jiraDashboardPlugin: BackendFeatureCompat;
