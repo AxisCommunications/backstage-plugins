@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.13.3
+
+### Patch Changes
+
+- 4204413: Dependency updates
+
 ## 1.13.2
 
 ### Patch Changes

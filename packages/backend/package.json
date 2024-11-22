@@ -1,6 +1,6 @@
 {
   "name": "backend",
-  "version": "0.7.10",
+  "version": "0.7.11",
   "main": "dist/index.cjs.js",
   "types": "src/index.ts",
   "private": true,
