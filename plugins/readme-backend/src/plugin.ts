@@ -14,12 +14,12 @@ export const readmePlugin = createBackendPlugin({
   register(env) {
     env.registerInit({
       deps: {
-        logger: coreServices.logger,
-        config: coreServices.rootConfig,
-        reader: coreServices.urlReader,
-        discovery: coreServices.discovery,
         auth: coreServices.auth,
+        config: coreServices.rootConfig,
+        discovery: coreServices.discovery,
         httpRouter: coreServices.httpRouter,
+        logger: coreServices.logger,
+        reader: coreServices.urlReader,
       },
       async init({ auth, logger, config, reader, discovery, httpRouter }) {
         httpRouter.use(

@@ -6,9 +6,7 @@ import {
   LoggerService,
   RootConfigService,
   UrlReaderService,
-  TokenManagerService,
 } from '@backstage/backend-plugin-api';
-import { createLegacyAuthAdapters } from '@backstage/backend-common';
 import { ScmIntegrations } from '@backstage/integration';
 import {
   getEntitySourceLocation,
@@ -24,49 +22,24 @@ import { ReadmeFile } from './types';
 
 /**
  * Constructs a readme router.
- * @deprecated Please migrate to the new backend system as this will be removed in the future.
- * @public
+ *
  */
-export interface RouterOptions {
-  /**
-   * Implementation of Winston logger
-   */
-  logger: LoggerService;
-
-  /**
-   * Backstage config object
-   */
+interface RouterOptions {
+  auth: AuthService;
   config: RootConfigService;
-
-  /**
-   * Backstage url reader instance
-   */
-  reader: UrlReaderService;
-  /**
-   * Backstage discovery service
-   */
   discovery: DiscoveryService;
-  /**
-   * Backstage token manager service
-   */
-  tokenManager?: TokenManagerService;
-  /**
-   * Backstage auth service
-   */
-  auth?: AuthService;
+  logger: LoggerService;
+  reader: UrlReaderService;
 }
 
 /**
  * Constructs a readme router.
  *
- * @deprecated Please migrate to the new backend system as this will be removed in the future.
- * @public
  */
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
-  const { logger, config, reader, discovery } = options;
-  const { auth } = createLegacyAuthAdapters(options);
+  const { auth, logger, config, reader, discovery } = options;
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
 
   const pluginCache = CacheManager.fromConfig(config).forPlugin('readme');

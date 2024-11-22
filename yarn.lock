@@ -1527,7 +1527,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@axis-backstage/plugin-readme-backend@workspace:plugins/readme-backend"
   dependencies:
-    "@backstage/backend-common": "npm:^0.24.0"
     "@backstage/backend-defaults": "npm:^0.4.3"
     "@backstage/backend-plugin-api": "npm:^0.8.0"
     "@backstage/backend-test-utils": "npm:^0.5.0"

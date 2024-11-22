@@ -12,14 +12,13 @@ describe('createRouter', () => {
     const config = mockServices.rootConfig();
     const logger = mockServices.rootLogger.mock();
     const discovery = mockServices.discovery.mock();
-    const tokenManager = mockServices.tokenManager.mock();
     const reader = UrlReaders.default({ logger, config });
 
     const router = await createRouter({
+      auth: mockServices.auth.mock(),
       logger,
       config,
       discovery,
-      tokenManager,
       reader,
     });
     app = express().use(router);
