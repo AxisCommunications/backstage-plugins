@@ -33,8 +33,16 @@ const JIRA_CONFIG_HEADERS = 'headers';
 const JIRA_CONFIG_USER_EMAIL_SUFFIX = 'userEmailSuffix';
 const JIRA_CONFIG_ANNOTATION = 'annotationPrefix';
 
+/**
+ * Class for reading Jira configuration from the root config
+ *
+ * @public
+ */
 export class JiraConfig {
   private instances: Record<string, ConfigInstance> = {};
+  /**
+   * The annotation prefix to use for Jira annotations
+   */
   public readonly annotationPrefix: string;
 
   private constructor(config: RootConfigService) {
@@ -74,6 +82,9 @@ export class JiraConfig {
     }
   }
 
+  /**
+   * Create a JiraConfig from the root config
+   */
   public static fromConfig(config: RootConfigService): JiraConfig {
     return new JiraConfig(config);
   }
@@ -88,24 +99,39 @@ export class JiraConfig {
     return instance;
   }
 
+  /**
+   * Returns the configuration all instances
+   */
   getInstances() {
     return Object.getOwnPropertyNames(this.instances);
   }
 
+  /**
+   * Get the jira config for a specific instance
+   */
   getInstance(instanceName?: string): ConfigInstance {
     return this.forInstance(instanceName ?? 'default');
   }
 
+  /**
+   * Get the jira base url for a given instance
+   */
   resolveJiraBaseUrl(instanceName: string): string {
     const instance = this.forInstance(instanceName);
     return instance.baseUrl;
   }
 
+  /**
+   * Get the auth token for a given instance
+   */
   resolveJiraToken(instanceName: string): string {
     const instance = this.forInstance(instanceName);
     return instance.token;
   }
 
+  /**
+   * Get the email suffice for a given instance
+   */
   resolveUserEmailSuffix(instanceName: string): string | undefined {
     const instance = this.forInstance(instanceName);
     return instance.userEmailSuffix;
