@@ -1,5 +1,12 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.0.3
+
+### Patch Changes
+
+- 1b47182: The backend now exports the `JiraConfig` class. This is needed to create config
+  instances for the `searchJira`function.
+
 ## 4.0.2
 
 ### Patch Changes

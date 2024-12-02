@@ -1,5 +1,12 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.13.4
+
+### Patch Changes
+
+- 7fbce31: Export `jiraDashboardApiRef` and `JiraDashboardClient` for manual registration of the
+  api.
+
 ## 1.13.3
 
 ### Patch Changes

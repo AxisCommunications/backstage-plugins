@@ -1,5 +1,12 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.11.0
+
+### Minor Changes
+
+- 6939770: **BREAKING**: The `readme-backend` has been migrated to the new backend system. If
+  you are using the new backend system module, this does not affect you.
+
 ## 0.10.1
 
 ### Patch Changes
