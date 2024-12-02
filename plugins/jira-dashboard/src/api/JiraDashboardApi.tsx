@@ -4,6 +4,11 @@ import {
   JiraResponse,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 
+/**
+ * The apiref for the Jira dashboard plugin.
+ *
+ * @public
+ */
 export const jiraDashboardApiRef = createApiRef<JiraDashboardApi>({
   id: 'plugin.jira-dashboard',
 });

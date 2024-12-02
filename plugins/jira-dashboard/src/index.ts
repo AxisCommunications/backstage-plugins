@@ -18,4 +18,6 @@ export type {
   TableComponentProps,
   JiraUserIssuesTableProps,
 } from './components/JiraUserIssuesTable';
+export { jiraDashboardApiRef } from './api/JiraDashboardApi';
 export type { JiraDashboardApi } from './api/JiraDashboardApi';
+export { JiraDashboardClient } from './api/JiraDashboardClient';
