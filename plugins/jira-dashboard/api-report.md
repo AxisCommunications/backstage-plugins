@@ -5,10 +5,13 @@
 ```ts
 /// <reference types="react" />
 
+import { ApiRef } from '@backstage/core-plugin-api';
 import { BackstagePlugin } from '@backstage/core-plugin-api';
 import { BottomLinkProps } from '@backstage/core-components';
 import { CSSProperties } from 'react';
+import { DiscoveryApi } from '@backstage/core-plugin-api';
 import { Entity } from '@backstage/catalog-model';
+import { FetchApi } from '@backstage/core-plugin-api';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JSX as JSX_2 } from 'react';
@@ -39,6 +42,17 @@ export type JiraDashboardApi = {
   getLoggedInUserIssues(maxResults: number): Promise<Issue[]>;
   getProjectAvatar(entityRef: string): any;
 };
+
+// @public
+export const jiraDashboardApiRef: ApiRef<JiraDashboardApi>;
+
+// @public
+export class JiraDashboardClient implements JiraDashboardApi {
+  constructor(options: { discoveryApi: DiscoveryApi; fetchApi: FetchApi });
+  getJiraResponseByEntity(entityRef: string): Promise<JiraResponse>;
+  getLoggedInUserIssues(maxResults: number): Promise<Issue[]>;
+  getProjectAvatar(entityRef: string): Promise<string>;
+}
 
 // @public
 export const jiraDashboardPlugin: BackstagePlugin<

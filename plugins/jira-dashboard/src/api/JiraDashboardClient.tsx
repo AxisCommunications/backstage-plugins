@@ -7,6 +7,11 @@ import { JiraDashboardApi } from './JiraDashboardApi';
 import { ResponseError } from '@backstage/errors';
 import { DEFAULT_NAMESPACE, parseEntityRef } from '@backstage/catalog-model';
 
+/**
+ * Client for fetching data from the Jira Dashboard backend.
+ *
+ * @public
+ */
 export class JiraDashboardClient implements JiraDashboardApi {
   private readonly discoveryApi: DiscoveryApi;
   private readonly fetchApi: FetchApi;
@@ -16,6 +21,9 @@ export class JiraDashboardClient implements JiraDashboardApi {
     this.fetchApi = options.fetchApi;
   }
 
+  /**
+   * Get Jira data for an entity.
+   */
   async getJiraResponseByEntity(entityRef: string): Promise<JiraResponse> {
     const apiUrl = await this.discoveryApi.getBaseUrl('jira-dashboard');
     const { kind, name, namespace } = parseEntityRef(entityRef, {
@@ -34,6 +42,9 @@ export class JiraDashboardClient implements JiraDashboardApi {
     return resp.json();
   }
 
+  /**
+   * Get the Jira project avatar URL for an entity.
+   */
   async getProjectAvatar(entityRef: string): Promise<string> {
     const apiUrl = await this.discoveryApi.getBaseUrl('jira-dashboard');
     const { kind, name, namespace } = parseEntityRef(entityRef, {
@@ -42,6 +53,9 @@ export class JiraDashboardClient implements JiraDashboardApi {
     return `${apiUrl}/avatar/by-entity-ref/${kind}/${namespace}/${name}`;
   }
 
+  /**
+   * Get the Jira issues for the calling user.
+   */
   async getLoggedInUserIssues(maxResults: number): Promise<Issue[]> {
     const apiUrl = await this.discoveryApi.getBaseUrl('jira-dashboard');
 
