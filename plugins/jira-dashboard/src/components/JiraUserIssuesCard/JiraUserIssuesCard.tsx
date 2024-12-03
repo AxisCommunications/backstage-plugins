@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BottomLinkProps, InfoCard } from '@backstage/core-components';
 
-import { JiraUserIssuesTable } from '../JiraUserIssuesTable/JiraUserIssuesTable';
+import { JiraUserIssuesTable } from '../JiraUserIssuesTable';
 
 /**
  * Jira user issues list card properties
@@ -22,15 +22,14 @@ export const JiraUserIssuesCard = ({
   bottomLinkProps,
 }: JiraUserIssuesCardProps) => {
   return (
-    <InfoCard variant="fullHeight" deepLink={bottomLinkProps}>
+    <InfoCard title={title} variant="fullHeight" deepLink={bottomLinkProps}>
       <JiraUserIssuesTable
-        title={title}
         maxResults={maxResults}
-        tableStyle={{
-          height: '500px',
-          padding: '0px',
-          overflowY: 'auto',
-          width: '100%',
+        tableOptions={{
+          toolbar: false,
+          search: false,
+          paging: true,
+          pageSize: 10,
         }}
       />
     </InfoCard>

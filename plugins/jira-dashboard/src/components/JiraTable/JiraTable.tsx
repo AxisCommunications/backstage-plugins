@@ -12,6 +12,7 @@ import {
   Table,
   TableColumn,
   TableFilter,
+  TableOptions,
 } from '@backstage/core-components';
 import { capitalize } from 'lodash';
 import { columns } from './columns';
@@ -33,12 +34,14 @@ type Props = {
   style?: CSSProperties;
   showFilters?: TableFilter[] | boolean;
   project?: Project;
+  tableOptions?: TableOptions<Issue>;
 };
 
 export const JiraTable = ({
   tableContent,
   tableColumns = columns,
   tableStyle,
+  tableOptions,
   style,
   showFilters,
   project,
@@ -98,6 +101,7 @@ export const JiraTable = ({
             paging: false,
             padding: 'dense',
             search: true,
+            ...tableOptions,
           }}
           filters={filters}
           emptyContent={
@@ -124,6 +128,7 @@ export const JiraTable = ({
         paging: false,
         padding: 'dense',
         search: true,
+        ...tableOptions,
       }}
       filters={filters}
       emptyContent={
