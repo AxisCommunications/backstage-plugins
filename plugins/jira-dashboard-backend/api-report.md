@@ -4,6 +4,7 @@
 
 ```ts
 import { BackendFeatureCompat } from '@backstage/backend-plugin-api';
+import { Filter } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraQueryResults } from '@axis-backstage/plugin-jira-dashboard-common';
 import { RootConfigService } from '@backstage/backend-plugin-api';
 
@@ -13,6 +14,7 @@ export type ConfigInstance = {
   headers: Record<string, string>;
   baseUrl: string;
   userEmailSuffix?: string;
+  defaultFilters?: Filter[];
 };
 
 // @public
@@ -21,6 +23,7 @@ export class JiraConfig {
   static fromConfig(config: RootConfigService): JiraConfig;
   getInstance(instanceName?: string): ConfigInstance;
   getInstances(): string[];
+  resolveDefaultFilters(instanceName: string): Filter[] | undefined;
   resolveJiraBaseUrl(instanceName: string): string;
   resolveJiraToken(instanceName: string): string;
   resolveUserEmailSuffix(instanceName: string): string | undefined;

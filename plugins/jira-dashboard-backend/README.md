@@ -73,6 +73,28 @@ metadata:
     jira.com/project-key: separate-jira-instance/my-project-key
 ```
 
+### Custom Jira Filters
+
+You can define custom Jira filters directly in your `app-config.yaml` file. This allows you to create and display filters beyond the ones provided by the plugin.
+
+#### Configuration
+
+To add custom filters, use the `defaultFilters` property within a Jira instance configuration:
+
+```yaml
+jiraDashboard:
+  instances:
+    - name: my-jira-instance
+      # ... other configuration ...
+      defaultFilters:
+        - name: 'Open Bugs'
+          shortName: 'Bugs'
+          query: 'type = bug AND resolution = Unresolved ORDER BY updated DESC, priority DESC'
+        - name: 'Epics'
+          shortName: 'Epics'
+          query: 'type = epic AND resolution = Unresolved ORDER BY updated DESC, priority DESC'
+```
+
 #### Authentication examples and trouble shooting
 
 Either "Basic Auth" or "Personal Acccess Tokens" can be used.
