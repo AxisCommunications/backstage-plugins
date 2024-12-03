@@ -52,9 +52,16 @@ export const getDefaultFiltersForUser = (
 ): Filter[] => {
   const incomingFilter = getIncomingFilter(incomingStatus ?? 'New');
 
-  if (!userEntity) return [openFilter, incomingFilter];
+  const defaultFilters =
+    instance.defaultFilters?.map(filter => ({
+      name: filter.name,
+      query: filter.query,
+      shortName: filter.shortName,
+    })) || [];
+
+  if (!userEntity) return [openFilter, incomingFilter, ...defaultFilters];
 
   const assigneeToMeFilter = getAssignedToMeFilter(userEntity, instance);
 
-  return [openFilter, incomingFilter, assigneeToMeFilter];
+  return [openFilter, incomingFilter, assigneeToMeFilter, ...defaultFilters];
 };

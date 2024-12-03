@@ -116,4 +116,48 @@ describe('config', () => {
     expect(instance2.headers).toEqual({ 'Other-Header': 'other value' });
     expect(instance2.userEmailSuffix).toBe('@backstage2.com');
   });
+
+  it('should handle defaultFilters config', () => {
+    const mockConfig = mockServices.rootConfig({
+      data: {
+        jiraDashboard: {
+          instances: [
+            {
+              name: 'default',
+              baseUrl: 'http://jira.com',
+              token: 'token',
+              defaultFilters: [
+                {
+                  name: 'My Open Bugs',
+                  shortName: 'MyBugs',
+                  query: 'type = Bug AND resolution = Unresolved',
+                },
+                {
+                  name: 'High Priority Issues',
+                  shortName: 'HighPrio',
+                  query: 'priority = "High"',
+                },
+              ],
+            },
+          ],
+        },
+      },
+    });
+
+    const jiraConfig = JiraConfig.fromConfig(mockConfig);
+    const instance = jiraConfig.getInstance();
+
+    expect(instance.defaultFilters).toEqual([
+      {
+        name: 'My Open Bugs',
+        shortName: 'MyBugs',
+        query: 'type = Bug AND resolution = Unresolved',
+      },
+      {
+        name: 'High Priority Issues',
+        shortName: 'HighPrio',
+        query: 'priority = "High"',
+      },
+    ]);
+  });
 });

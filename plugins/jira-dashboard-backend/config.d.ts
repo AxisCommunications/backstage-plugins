@@ -31,6 +31,15 @@ export interface Config {
          */
         annotationPrefix?: string;
 
+        /**
+         * Optional default filters for Jira queries
+         */
+        defaultFilters?: {
+          name: string;
+          query: string;
+          shortName: string;
+        }[];
+
         // Type helper
         instances?: never;
       }
@@ -69,6 +78,15 @@ export interface Config {
            * Optional email suffix used for retrieving a specific Jira user in a company. For instance: @your-company.com. If not provided, the user entity profile email is used instead.
            */
           userEmailSuffix?: string;
+
+          /**
+           * Optional default filters for Jira queries
+           */
+          defaultFilters?: {
+            name: string;
+            query: string;
+            shortName: string;
+          }[];
         }[];
       };
 }
