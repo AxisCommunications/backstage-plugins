@@ -19,6 +19,7 @@ import { default as React_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
 import { Table } from '@backstage/core-components';
 import { TableFilter } from '@backstage/core-components';
+import { TableOptions } from '@backstage/core-components';
 
 // @public
 export const EntityJiraDashboardContent: (
@@ -84,6 +85,7 @@ export type JiraUserIssuesTableProps = {
   maxResults?: number;
   tableStyle?: TableComponentProps['style'];
   style?: CSSProperties;
+  tableOptions?: TableOptions<Issue>;
 };
 
 // @public
