@@ -1,5 +1,19 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.1.0
+
+### Minor Changes
+
+- 24aff26: Support for user defined additional filters
+  Issue https://github.com/AxisCommunications/backstage-plugins/issues/210
+
+  Signed-off-by: enaysaa <saachi.nayyer@ericsson.com>
+
+### Patch Changes
+
+- 8148766: The `callApi` function is now exported to make it easy to use the `jira-dashboard-backend`
+  configuration in any Backstage plugin.
+
 ## 4.0.3
 
 ### Patch Changes
