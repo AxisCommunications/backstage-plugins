@@ -38,4 +38,17 @@ describe('JiraTable', () => {
     );
     expect(getByText('Table could not be rendered')).toBeInTheDocument();
   });
+
+  describe('JiraTable', () => {
+    it('does not render search field or toolbar when tableOptions.toolbar and tableOptions.search are false', async () => {
+      const { queryByRole, queryByPlaceholderText } = await renderInTestApp(
+        <JiraTable
+          tableContent={mockedJiraDataResponse as JiraDataResponse}
+          tableOptions={{ toolbar: false, search: false }}
+        />,
+      );
+      expect(queryByRole('toolbar')).not.toBeInTheDocument();
+      expect(queryByPlaceholderText('Search')).not.toBeInTheDocument();
+    });
+  });
 });

@@ -5,6 +5,7 @@ import {
   ResponseErrorPanel,
   TableColumn,
   Table,
+  TableOptions,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 
@@ -34,6 +35,7 @@ export type JiraUserIssuesTableProps = {
   maxResults?: number;
   tableStyle?: TableComponentProps['style'];
   style?: CSSProperties;
+  tableOptions?: TableOptions<Issue>;
 };
 
 const userColumns: TableColumn<Issue>[] = [
