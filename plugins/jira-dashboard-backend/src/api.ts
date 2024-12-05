@@ -147,8 +147,10 @@ export async function getProjectAvatar(url: string, instance: ConfigInstance) {
  * Call the Jira API using fetch.
  *
  * This function injects the auth token and custom headers.
+ *
+ * @public
  */
-async function callApi(
+export async function callApi(
   instance: ConfigInstance,
   url: string,
   init?: RequestInit,

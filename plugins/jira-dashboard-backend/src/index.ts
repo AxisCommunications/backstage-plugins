@@ -5,7 +5,7 @@
  */
 
 export { jiraDashboardPlugin as default } from './plugin';
-export { searchJira } from './api';
+export { searchJira, callApi } from './api';
 export type { SearchOptions } from './api';
 export type { ConfigInstance } from './config';
 export { JiraConfig } from './config';
