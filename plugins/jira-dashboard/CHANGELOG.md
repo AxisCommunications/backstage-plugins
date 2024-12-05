@@ -1,5 +1,14 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.13.5
+
+### Patch Changes
+
+- 95a21f0: Jira Dashboard Table - Added support for table options property
+
+  - now you have options to make the table also pageable, hide toolbar etc.
+  - for Jira Dashboard Card the table is pageable now by default
+
 ## 1.13.4
 
 ### Patch Changes
