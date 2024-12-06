@@ -77,6 +77,7 @@ export const JiraUserIssuesTable: ({
   maxResults,
   tableStyle,
   style,
+  tableOptions,
 }: JiraUserIssuesTableProps) => JSX_2.Element | null;
 
 // @public
