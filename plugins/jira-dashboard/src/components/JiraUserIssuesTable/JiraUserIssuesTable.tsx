@@ -54,6 +54,7 @@ export const JiraUserIssuesTable = ({
   maxResults = 15,
   tableStyle,
   style,
+  tableOptions,
 }: JiraUserIssuesTableProps) => {
   const api = useApi(jiraDashboardApiRef);
 
@@ -87,6 +88,7 @@ export const JiraUserIssuesTable = ({
         }}
         tableColumns={userColumns}
         tableStyle={tableStyle}
+        tableOptions={tableOptions}
         style={style}
       />
     );
