@@ -1,5 +1,13 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.14.0
+
+### Minor Changes
+
+- a5a12f8: Jira Dashboard Table - Table Options - missing property
+
+  - quick fix - missing passing tableOptions to Jira issues Table component
+
 ## 1.13.5
 
 ### Patch Changes
