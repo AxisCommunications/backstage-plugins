@@ -50,14 +50,14 @@ describe('api', () => {
     const issues = await getIssuesByComponent(
       {
         instance,
-        fullProjectKey: 'default/ppp',
-        projectKey: 'ppp',
+        fullProjectKey: 'default/ppp,bbb',
+        projectKey: 'ppp,bbb',
       },
-      'ccc',
+      'ccc,ddd',
     );
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://jira.com/search?jql=project in (ppp) AND component in ('ccc')",
+      "http://jira.com/search?jql=project in (ppp,bbb) AND component in ('ccc,ddd')",
       {
         method: 'GET',
         headers: {
