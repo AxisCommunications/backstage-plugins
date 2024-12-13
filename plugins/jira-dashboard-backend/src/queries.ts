@@ -4,7 +4,7 @@
  * @public
  */
 export type JqlQueryBuilderArgs = {
-  project: string;
+  project: string | string[];
   components?: string[];
   query?: string;
 };
@@ -18,7 +18,8 @@ export const jqlQueryBuilder = ({
   components,
   query,
 }: JqlQueryBuilderArgs) => {
-  let jql = `project in (${project})`;
+  const projectList = Array.isArray(project) ? project : [project];
+  let jql = `project in (${projectList.join(',')})`;
   if (components && components.length > 0) {
     let componentsInclude = '(';
     for (let index = 0; index < components.length; index++) {

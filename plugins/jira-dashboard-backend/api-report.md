@@ -51,7 +51,7 @@ export const jqlQueryBuilder: ({
 
 // @public
 export type JqlQueryBuilderArgs = {
-  project: string;
+  project: string | string[];
   components?: string[];
   query?: string;
 };
