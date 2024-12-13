@@ -56,7 +56,8 @@ export const getIssuesByFilter = async (
   query: string,
 ): Promise<Issue[]> => {
   const { projectKey, instance } = project;
-  const jql = jqlQueryBuilder({ project: projectKey, components, query });
+  const projectKeys = Array.isArray(projectKey) ? projectKey : [projectKey];
+  const jql = jqlQueryBuilder({ project: projectKeys, components, query });
   const response = await callApi(
     instance,
     `${instance.baseUrl}search?jql=${jql}`,
