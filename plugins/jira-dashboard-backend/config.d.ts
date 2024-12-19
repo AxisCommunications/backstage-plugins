@@ -1,5 +1,6 @@
 export interface Config {
   /** Configuration options for the Jira Dashboard plugin */
+  /** @visibility frontend */
   jiraDashboard:
     | {
         /**
@@ -29,6 +30,7 @@ export interface Config {
         /**
          * Optional annotation prefix for retrieving a custom annotation. Defaut value is jira.com
          */
+        /** @visibility frontend */
         annotationPrefix?: string;
 
         /**
@@ -47,6 +49,7 @@ export interface Config {
         /**
          * Optional annotation prefix for retrieving a custom annotation. Defaut value is jira.com
          */
+        /** @visibility frontend */
         annotationPrefix?: string;
 
         instances: {

@@ -13,7 +13,7 @@ import Link from '@mui/material/Link';
 import React from 'react';
 import { JiraProjectCard } from '../JiraProjectCard';
 import { JiraTable } from '../JiraTable';
-import { useApi } from '@backstage/core-plugin-api';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
 import {
   MissingAnnotationEmptyState,
   useEntity,
@@ -30,6 +30,8 @@ export const JiraDashboardContent = (props?: {
 }) => {
   const { entity } = useEntity();
   const api = useApi(jiraDashboardApiRef);
+  const config = useApi(configApiRef);
+  console.log(config.get());
 
   const {
     data: jiraResponse,
