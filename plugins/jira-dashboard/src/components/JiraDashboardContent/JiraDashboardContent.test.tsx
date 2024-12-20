@@ -4,6 +4,7 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import {
+  MockConfigApi,
   MockFetchApi,
   TestApiRegistry,
   renderInTestApp,
@@ -13,6 +14,7 @@ import { JiraDashboardClient, jiraDashboardApiRef } from '../../api';
 import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
 import mockedJiraResponse from '../../../dev/__fixtures__/jiraResponse.json';
 import mockedEntity from '../../../dev/__fixtures__/entity.json';
+import { configApiRef } from '@backstage/core-plugin-api';
 
 describe('JiraDashboardContent', () => {
   const server = setupServer();
@@ -85,14 +87,25 @@ describe('JiraDashboardContent', () => {
   });
 
   it('renders missing annotations screen if annotation is not present', async () => {
+    const mockConfigApi = new MockConfigApi({
+      jiraDashboard: {
+        annotationPrefix: 'different-jira',
+      },
+    });
+
+    const mockedConfigApis = TestApiRegistry.from(
+      [configApiRef, mockConfigApi],
+      [jiraDashboardApiRef, jiraClient],
+    );
+
     const rendered = await renderInTestApp(
       <EntityProvider entity={mockedEntity}>
-        <ApiProvider apis={apis}>
-          <JiraDashboardContent annotationPrefix="different-prefix" />,
+        <ApiProvider apis={mockedConfigApis}>
+          <JiraDashboardContent />,
         </ApiProvider>
       </EntityProvider>,
     );
     expect(rendered.getByText(/Missing Annotation/)).toBeInTheDocument();
-    expect(rendered.getAllByText(/different-prefix/).length).toBeGreaterThan(0);
+    expect(rendered.getAllByText(/different-jira/)).toHaveLength(2);
   });
 });

@@ -25,7 +25,6 @@ import { TableOptions } from '@backstage/core-components';
 export const EntityJiraDashboardContent: (
   props?:
     | {
-        annotationPrefix?: string | undefined;
         showFilters?: boolean | TableFilter[] | undefined;
       }
     | undefined,
