@@ -82,23 +82,7 @@
     "msw": "^1.0.0"
   },
   "files": [
-    "dist",
-    "config.d.ts"
+    "dist"
   ],
-  "configSchema": {
-    "$schema": "https://backstage.io/schema/config-v1",
-    "title": "@axis-backstage/plugin-jira-dashboard",
-    "type": "object",
-    "properties": {
-      "jiraDashboard": {
-        "type": "object",
-        "properties": {
-          "annotationPrefix": {
-            "type": "string",
-            "visibility": "frontend"
-          }
-        }
-      }
-    }
-  }
+  "configSchema": "config.d.ts"
 }
