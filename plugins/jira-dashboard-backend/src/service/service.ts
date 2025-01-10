@@ -111,39 +111,73 @@ export const getFiltersFromAnnotations = async (
   }
   return filters;
 };
+async function getJiraProjectsFromKeys(
+  projectKeys: string[],
+  instance: ConfigInstance,
+  cache: CacheService,
+): Promise<JiraProject[]> {
+  const jiraProjects: JiraProject[] = [];
+  for (const key of projectKeys) {
+    const cachedProject = (await cache.get(key)) as Project;
+    let projectInfo: Project;
 
+    if (cachedProject) {
+      projectInfo = cachedProject;
+    } else {
+      projectInfo = await getProjectInfo({
+        projectKey: key,
+        instance,
+        fullProjectKey: '',
+      });
+      cache.set(key, projectInfo);
+    }
+
+    jiraProjects.push({
+      instance,
+      fullProjectKey: projectInfo.key,
+      projectKey: projectInfo.key,
+    });
+  }
+  return jiraProjects;
+}
 export const getIssuesFromFilters = async (
-  project: JiraProject,
+  projectKeys: string[],
   components: string[],
   filters: Filter[],
+  instance: ConfigInstance,
+  cache: CacheService,
 ): Promise<JiraDataResponse[]> => {
+  const projects = await getJiraProjectsFromKeys(projectKeys, instance, cache);
   return await Promise.all(
     filters.map(async filter => ({
       name: filter.name,
       query: jqlQueryBuilder({
-        project: project.projectKey,
+        project: projectKeys,
         components,
         query: filter.query,
       }),
       type: 'filter',
-      issues: await getIssuesByFilter(project, components, filter.query),
+      issues: await getIssuesByFilter(projects, components, filter.query),
     })),
   );
 };
 
 export const getIssuesFromComponents = async (
-  project: JiraProject,
+  projectKeys: string[],
   componentAnnotations: string[],
+  instance: ConfigInstance,
+  cache: CacheService,
 ): Promise<JiraDataResponse[]> => {
+  const projects = await getJiraProjectsFromKeys(projectKeys, instance, cache);
   return await Promise.all(
     componentAnnotations.map(async componentKey => ({
       name: componentKey,
       query: jqlQueryBuilder({
-        project: project.projectKey,
+        project: projectKeys,
         components: [componentKey],
       }),
       type: 'component',
-      issues: await getIssuesByComponent(project, componentKey),
+      issues: await getIssuesByComponent(projects, componentKey),
     })),
   );
 };
