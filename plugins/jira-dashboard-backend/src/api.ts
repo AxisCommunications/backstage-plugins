@@ -68,9 +68,13 @@ export const getIssuesByFilter = async (
           Accept: 'application/json',
         },
       },
-    ).then(resp => resp.json());
-    issues.push(...response.issues);
+    ).then(resp => resp.json()).catch(() => null);
+
+    if (response?.issues) {
+      issues.push(...response.issues);
+    }
   }
+
   return issues;
 };
 

@@ -29,7 +29,7 @@ export const entityJiraContent = EntityContentBlueprint.makeWithOverrides({
       optional: true,
     }),
   },
-  factory: (originalFactory, { inputs }) => {
+  factory: originalFactory => {
     return originalFactory({
       defaultPath: '/jira',
       defaultTitle: 'Jira Dashboard',
@@ -37,13 +37,7 @@ export const entityJiraContent = EntityContentBlueprint.makeWithOverrides({
       routeRef: convertLegacyRouteRef(rootRouteRef),
       loader: async () =>
         import('../components/JiraDashboardContent').then(m =>
-          compatWrapper(
-            <m.JiraDashboardContent
-              annotationPrefix={inputs.props?.get(
-                annotationPrefixExtensionDataRef.optional(),
-              )}
-            />,
-          ),
+          compatWrapper(<m.JiraDashboardContent />),
         ),
     });
   },

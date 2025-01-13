@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.14.1
+
+### Patch Changes
+
+- 82161b3: Fixed so JiraDashboard content can read config value from app-config file.
+
 ## 1.14.0
 
 ### Minor Changes
