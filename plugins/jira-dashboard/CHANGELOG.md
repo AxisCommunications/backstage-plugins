@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.14.2
+
+### Patch Changes
+
+- d166111: Add the "config.d.ts" file to the "files" in package.json.
+
 ## 1.14.1
 
 ### Patch Changes
