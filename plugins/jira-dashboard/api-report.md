@@ -68,6 +68,8 @@ export type JiraUserIssuesCardProps = {
   title?: string;
   maxResults?: number;
   bottomLinkProps?: BottomLinkProps;
+  tableOptions?: TableOptions<Issue>;
+  tableStyle?: TableComponentProps['style'];
 };
 
 // @public
@@ -93,6 +95,8 @@ export const JiraUserIssuesViewCard: ({
   title,
   maxResults,
   bottomLinkProps,
+  tableOptions,
+  tableStyle,
 }: JiraUserIssuesCardProps) => JSX_2.Element;
 
 // @public
