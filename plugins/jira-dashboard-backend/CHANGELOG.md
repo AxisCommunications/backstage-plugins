@@ -1,14 +1,5 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
-## 4.2.0
-
-### Minor Changes
-
-- 3f9ac75: Support Multiple Project Keys in JQL Query Builder
-  Issue https://github.com/AxisCommunications/backstage-plugins/issues/232
-
-  Signed-off-by: enaysaa <saachi.nayyer@ericsson.com>
-
 ## 4.1.1
 
 ### Patch Changes
