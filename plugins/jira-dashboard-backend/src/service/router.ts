@@ -176,21 +176,31 @@ export async function createRouter(
           )),
         );
       }
+      const instance = projects[0]?.instance;
 
       let components =
         entity.metadata.annotations?.[componentsAnnotation]?.split(',') ?? [];
-      let issues = await getIssuesFromFilters(projects[0], components, filters);
+      const projectKeys = projects.map(project => project.projectKey);
+      let issues = await getIssuesFromFilters(
+        projectKeys,
+        components,
+        filters,
+        instance,
+        cache,
+      );
 
-      /*   Adding support for Roadie's component annotation */
+      /* Adding support for Roadie's component annotation */
       components = components.concat(
         entity.metadata.annotations?.[componentRoadieAnnotation]?.split(',') ??
           [],
       );
 
-      if (components) {
+      if (components.length > 0) {
         const componentIssues = await getIssuesFromComponents(
-          projects[0],
+          projectKeys,
           components,
+          instance,
+          cache,
         );
         issues = issues.concat(componentIssues);
       }

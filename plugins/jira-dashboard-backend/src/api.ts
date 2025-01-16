@@ -51,23 +51,33 @@ export const getFilterById = async (
 };
 
 export const getIssuesByFilter = async (
-  project: JiraProject,
+  projects: JiraProject[],
   components: string[],
   query: string,
 ): Promise<Issue[]> => {
-  const { projectKey, instance } = project;
-  const jql = jqlQueryBuilder({ project: projectKey, components, query });
-  const response = await callApi(
-    instance,
-    `${instance.baseUrl}search?jql=${jql}`,
-    {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
+  const issues: Issue[] = [];
+  for (const project of projects) {
+    const { projectKey, instance } = project;
+    const jql = jqlQueryBuilder({ project: [projectKey], components, query });
+    const response = await callApi(
+      instance,
+      `${instance.baseUrl}search?jql=${jql}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
       },
-    },
-  ).then(resp => resp.json());
-  return response.issues;
+    )
+      .then(resp => resp.json())
+      .catch(() => null);
+
+    if (response?.issues) {
+      issues.push(...response.issues);
+    }
+  }
+
+  return issues;
 };
 
 /**
@@ -117,28 +127,47 @@ export const searchJira = async (
 };
 
 export const getIssuesByComponent = async (
-  project: JiraProject,
-  componentKey: string,
+  projects: JiraProject[],
+  componentKeys: string,
 ): Promise<Issue[]> => {
-  const { projectKey, instance } = project;
+  // Return an empty array if no projects are provided
+  if (projects.length === 0) {
+    return [];
+  }
 
-  const jql = jqlQueryBuilder({
-    project: projectKey,
-    components: [componentKey],
-  });
-  const response = await callApi(
-    instance,
-    `${instance.baseUrl}search?jql=${jql}`,
-    {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
+  const projectKeys = projects.map(project => project.projectKey).join(',');
+  const components = componentKeys
+    .split(',')
+    .map(component => `'${component.trim()}'`)
+    .join(',');
+
+  const jql = `project in (${projectKeys}) AND component in (${components})`;
+  const { instance } = projects[0];
+
+  try {
+    const response = await callApi(
+      instance,
+      `${instance.baseUrl}search?jql=${jql}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
       },
-    },
-  ).then(resp => resp.json());
-  return response.issues;
-};
+    ).then(resp => resp.json());
 
+    if (!response.issues || response.issues.length === 0) {
+      return [];
+    }
+
+    return response.issues;
+  } catch (error: any) {
+    if (error.message.includes("does not exist for the field 'project'")) {
+      return [];
+    }
+    throw error;
+  }
+};
 export async function getProjectAvatar(url: string, instance: ConfigInstance) {
   return callApi(instance, url);
 }

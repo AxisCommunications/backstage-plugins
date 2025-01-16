@@ -96,7 +96,9 @@ kind: Component
 metadata:
   # ...
   annotations:
-    jira.com/project-key: value # The key of the Jira project to track for this entity
+    jira.com/project-key: value # Single Jira project key
+    # Or if your component is part of multiple Jira projects, you can specify multiple project keys by providing a comma-separated list
+    jira.com/project-key: abc,bcd,def # Comma-separated list of Jira project keys
 ```
 
 ### Optional annotations
@@ -113,7 +115,7 @@ kind: Component
 metadata:
   # ...
   annotations:
-    jira.com/project-key: another-instance/value # The key of the Jira project to track for this entity, optionally prefixed with the instance name
+    jira.com/project-key: another-instance/value # The key of the Jira project to track for this entity, or Comma-separated list of Jira project keys optionally prefixed with the instance name
     jira.com/components: component,component,component # Jira component name separated with a comma. The Roadie Backstage Jira Plugin Jira annotation `/component` is also supported here by default
     jira.com/filter-ids: 12345,67890 # Jira filter id separated with a comma
     jira.com/incoming-issues-status: Incoming # The name of the status for incoming issues in Jira. Default: New
