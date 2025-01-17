@@ -83,6 +83,36 @@ import { JiraUserIssuesViewCard } from '@axis-backstage/plugin-jira-dashboard';
 // ...
 ```
 
+Optionally, you can provide the `maxResults`, `tableOptions`, and `tableStyle` properties to the JiraUserIssuesViewCard for further customization. Example:
+
+```tsx
+import { JiraUserIssuesViewCard } from '@axis-backstage/plugin-jira-dashboard';
+// ...
+
+<Grid item xs={12} md={6}>
+  <JiraUserIssuesViewCard
+    bottomLinkProps={{
+      link: 'https://our-jira-server/issues',
+      title: 'Open in Jira',
+    }}
+    maxResults={30} // default is 15
+    tableOptions={{
+      toolbar: true, // default is false
+      search: true, // default is false
+      paging: true, // default is true
+      pageSize: 15, // default is 10
+    }}
+    tableStyle={{
+      padding: '5px', // default is 0px
+      overflowY: 'auto', // default is auto
+      width: '95%', // default is 100%
+    }}
+  />
+</Grid>;
+
+// ...
+```
+
 Note that the list of user issues is limited by permissions defined for the [JIRA_TOKEN](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend/README.md#configuration-details) used by backend.
 The username is being extracted from the user's email or created as a combination of user entity `metadata.name` and [JIRA_EMAIL_SUFFIX](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend/README.md#configuration-details) ([see function `getAssigneUser`](/plugins/jira-dashboard-backend/src/filters.ts) for more information).
 
