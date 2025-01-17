@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.14.3
+
+### Patch Changes
+
+- 66bac1a: Added tableOptions and tableStyle props to JiraUserIssuesCard for customization ability
+
 ## 1.14.2
 
 ### Patch Changes
