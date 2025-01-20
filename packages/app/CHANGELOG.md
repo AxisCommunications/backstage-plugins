@@ -1,5 +1,12 @@
 # app
 
+## 0.10.11
+
+### Patch Changes
+
+- Updated dependencies [66bac1a]
+  - @axis-backstage/plugin-jira-dashboard@1.14.3
+
 ## 0.10.10
 
 ### Patch Changes
