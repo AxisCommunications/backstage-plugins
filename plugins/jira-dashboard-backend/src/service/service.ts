@@ -76,8 +76,16 @@ export const getUserIssues = async (
   maxResults: number,
   config: ConfigInstance,
   cache: CacheService,
+  filterName: string,
 ): Promise<Issue[]> => {
-  const jql = `assignee = "${username}" AND resolution = Unresolved ORDER BY priority DESC, updated DESC`;
+  let jql = `assignee = "${username}" AND resolution = Unresolved ORDER BY priority DESC, updated DESC`;
+  if (filterName !== 'default') {
+    for (const filter of config.defaultFilters || []) {
+      if (filterName === filter.name) {
+        jql = `assignee = "${username}" AND ${filter.query}`;
+      }
+    }
+  }
 
   return getJqlResponse(jql, config, cache, {
     fields: [

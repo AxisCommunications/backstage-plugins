@@ -39,7 +39,10 @@ export const isJiraDashboardAvailable: (
 // @public
 export type JiraDashboardApi = {
   getJiraResponseByEntity(entityRef: string): Promise<JiraResponse>;
-  getLoggedInUserIssues(maxResults: number): Promise<Issue[]>;
+  getLoggedInUserIssues(
+    maxResults: number,
+    filterName: string,
+  ): Promise<Issue[]>;
   getProjectAvatar(entityRef: string): any;
 };
 
@@ -50,7 +53,10 @@ export const jiraDashboardApiRef: ApiRef<JiraDashboardApi>;
 export class JiraDashboardClient implements JiraDashboardApi {
   constructor(options: { discoveryApi: DiscoveryApi; fetchApi: FetchApi });
   getJiraResponseByEntity(entityRef: string): Promise<JiraResponse>;
-  getLoggedInUserIssues(maxResults: number): Promise<Issue[]>;
+  getLoggedInUserIssues(
+    maxResults: number,
+    filterName: string,
+  ): Promise<Issue[]>;
   getProjectAvatar(entityRef: string): Promise<string>;
 }
 
@@ -70,6 +76,7 @@ export type JiraUserIssuesCardProps = {
   bottomLinkProps?: BottomLinkProps;
   tableOptions?: TableOptions<Issue>;
   tableStyle?: TableComponentProps['style'];
+  filterName?: string;
 };
 
 // @public
@@ -79,6 +86,7 @@ export const JiraUserIssuesTable: ({
   tableStyle,
   style,
   tableOptions,
+  filterName,
 }: JiraUserIssuesTableProps) => JSX_2.Element | null;
 
 // @public
@@ -88,6 +96,7 @@ export type JiraUserIssuesTableProps = {
   tableStyle?: TableComponentProps['style'];
   style?: CSSProperties;
   tableOptions?: TableOptions<Issue>;
+  filterName?: string;
 };
 
 // @public
@@ -97,6 +106,7 @@ export const JiraUserIssuesViewCard: ({
   bottomLinkProps,
   tableOptions,
   tableStyle,
+  filterName,
 }: JiraUserIssuesCardProps) => JSX_2.Element;
 
 // @public
@@ -115,6 +125,7 @@ export function useJira(
 // @public
 export function useJiraUserIssues(
   maxResults: number,
+  filterName: string,
   jiraDashboardApi: JiraDashboardApi,
 ): {
   data: Issue[] | undefined;
