@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.3.0
+
+### Minor Changes
+
+- b3b6065: Adds ability to use an optional provided Jira filter defined in app-config for JiraUserIssuesViewCard
+
 ## 4.2.0
 
 ### Minor Changes
