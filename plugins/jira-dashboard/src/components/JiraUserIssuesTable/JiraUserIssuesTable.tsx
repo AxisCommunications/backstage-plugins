@@ -36,6 +36,7 @@ export type JiraUserIssuesTableProps = {
   tableStyle?: TableComponentProps['style'];
   style?: CSSProperties;
   tableOptions?: TableOptions<Issue>;
+  filterName?: string;
 };
 
 const userColumns: TableColumn<Issue>[] = [
@@ -55,6 +56,7 @@ export const JiraUserIssuesTable = ({
   tableStyle,
   style,
   tableOptions,
+  filterName = 'default',
 }: JiraUserIssuesTableProps) => {
   const api = useApi(jiraDashboardApiRef);
 
@@ -62,7 +64,7 @@ export const JiraUserIssuesTable = ({
     data: jiraResponse,
     loading,
     error,
-  } = useJiraUserIssues(maxResults, api);
+  } = useJiraUserIssues(maxResults, filterName, api);
 
   if (loading) {
     return <Progress />;

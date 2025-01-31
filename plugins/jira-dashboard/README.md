@@ -113,6 +113,39 @@ import { JiraUserIssuesViewCard } from '@axis-backstage/plugin-jira-dashboard';
 // ...
 ```
 
+You can also optionally supply a filterName property that corresponds to a filter defined in the [defaultFilters](https://github.com/AxisCommunications/backstage-plugins/tree/main/plugins/jira-dashboard-backend#configuration-1) section of the app-config.yaml file for this particular Jira instance. Example:
+
+```tsx
+import { JiraUserIssuesViewCard } from '@axis-backstage/plugin-jira-dashboard';
+// ...
+
+<Grid item xs={12} md={6}>
+  <JiraUserIssuesViewCard
+    bottomLinkProps={{
+      link: 'https://our-jira-server/issues',
+      title: 'Open in Jira',
+    }}
+    maxResults={30} // default is 15
+    filterName="Unresolved"
+  />
+</Grid>;
+
+// ...
+```
+
+```yaml
+jiraDashboard:
+  annotationPrefix: jira
+  instances:
+    - name: default
+      token: ...
+      baseUrl: https://<team>.atlassian.net/rest/api/3/
+      defaultFilters:
+        - name: 'Unresolved'
+          shortName: 'Unresolved'
+          query: 'status != Done AND status != Decline ORDER BY updated DESC, priority DESC'
+```
+
 Note that the list of user issues is limited by permissions defined for the [JIRA_TOKEN](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend/README.md#configuration-details) used by backend.
 The username is being extracted from the user's email or created as a combination of user entity `metadata.name` and [JIRA_EMAIL_SUFFIX](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend/README.md#configuration-details) ([see function `getAssigneUser`](/plugins/jira-dashboard-backend/src/filters.ts) for more information).
 

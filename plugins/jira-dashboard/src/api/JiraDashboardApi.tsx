@@ -19,6 +19,9 @@ export const jiraDashboardApiRef = createApiRef<JiraDashboardApi>({
  */
 export type JiraDashboardApi = {
   getJiraResponseByEntity(entityRef: string): Promise<JiraResponse>;
-  getLoggedInUserIssues(maxResults: number): Promise<Issue[]>;
+  getLoggedInUserIssues(
+    maxResults: number,
+    filterName: string,
+  ): Promise<Issue[]>;
   getProjectAvatar(entityRef: string): any;
 };

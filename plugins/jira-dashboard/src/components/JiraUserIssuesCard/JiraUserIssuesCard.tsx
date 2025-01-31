@@ -22,6 +22,7 @@ export type JiraUserIssuesCardProps = {
   bottomLinkProps?: BottomLinkProps;
   tableOptions?: TableOptions<Issue>;
   tableStyle?: TableComponentProps['style'];
+  filterName?: string;
 };
 
 /**
@@ -42,6 +43,7 @@ export const JiraUserIssuesCard = ({
     overflowY: 'auto',
     width: '100%',
   },
+  filterName,
 }: JiraUserIssuesCardProps) => {
   return (
     <InfoCard title={title} variant="fullHeight" deepLink={bottomLinkProps}>
@@ -49,6 +51,7 @@ export const JiraUserIssuesCard = ({
         maxResults={maxResults}
         tableOptions={tableOptions}
         tableStyle={tableStyle}
+        filterName={filterName}
       />
     </InfoCard>
   );

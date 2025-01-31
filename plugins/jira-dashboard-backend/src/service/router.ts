@@ -249,12 +249,15 @@ export async function createRouter(
         request.query.maxResults || DEFAULT_MAX_RESULTS_USER_ISSUES,
       );
 
+      const filterName = (request.query?.filterName as string) || 'default';
+
       try {
         const issues = await getUserIssues(
           username,
           maxResults,
           instance,
           cache,
+          filterName,
         );
         return { issues, error: undefined };
       } catch (error: any) {

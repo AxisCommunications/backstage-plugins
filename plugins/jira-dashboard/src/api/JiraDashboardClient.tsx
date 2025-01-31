@@ -56,12 +56,16 @@ export class JiraDashboardClient implements JiraDashboardApi {
   /**
    * Get the Jira issues for the calling user.
    */
-  async getLoggedInUserIssues(maxResults: number): Promise<Issue[]> {
+  async getLoggedInUserIssues(
+    maxResults: number,
+    filterName: string,
+  ): Promise<Issue[]> {
     const apiUrl = await this.discoveryApi.getBaseUrl('jira-dashboard');
 
     // Convert to query parameters
     const searchParams = new URLSearchParams({
       maxResults: maxResults.toString(),
+      filterName: filterName,
     });
 
     const resp = await this.fetchApi.fetch(
