@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.15.0
+
+### Minor Changes
+
+- b3b6065: Adds ability to use an optional provided Jira filter defined in app-config for JiraUserIssuesViewCard
+
 ## 1.14.3
 
 ### Patch Changes
