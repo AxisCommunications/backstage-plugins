@@ -71,7 +71,11 @@ export const getIssuesByFilter = async (
     )
       .then(resp => resp.json())
       .catch(() => null);
-
+    if (response?.errorMessages){
+      throw Error(
+        `JQL returned Error: JQL -  ${jql} with error: ${response?.errorMessages[0]}`
+      );
+    }
     if (response?.issues) {
       issues.push(...response.issues);
     }
