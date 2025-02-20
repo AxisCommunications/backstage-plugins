@@ -58,7 +58,7 @@ export const getIssuesByFilter = async (
   const issues: Issue[] = [];
   for (const project of projects) {
     const { projectKey, instance } = project;
-    const jql = jqlQueryBuilder({ project: [projectKey], components, query });
+    const jql = jqlQueryBuilder({ project: ["\""+projectKey+"\""], components, query });
     const response = await callApi(
       instance,
       `${instance.baseUrl}search?jql=${jql}`,
