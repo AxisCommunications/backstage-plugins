@@ -1455,7 +1455,6 @@ __metadata:
   resolution: "@axis-backstage/plugin-jira-dashboard-backend@workspace:plugins/jira-dashboard-backend"
   dependencies:
     "@axis-backstage/plugin-jira-dashboard-common": "workspace:^"
-    "@backstage/backend-common": "npm:^0.24.0"
     "@backstage/backend-defaults": "npm:^0.4.3"
     "@backstage/backend-plugin-api": "npm:^0.8.0"
     "@backstage/backend-test-utils": "npm:^0.5.0"
@@ -1577,7 +1576,7 @@ __metadata:
   resolution: "@axis-backstage/plugin-statuspage-backend@workspace:plugins/statuspage-backend"
   dependencies:
     "@axis-backstage/plugin-statuspage-common": "workspace:^"
-    "@backstage/backend-common": "npm:^0.24.0"
+    "@backstage/backend-common": "npm:^0.25.0"
     "@backstage/backend-plugin-api": "npm:^0.8.0"
     "@backstage/cli": "npm:^0.27.0"
     "@backstage/config": "npm:^1.2.0"
@@ -17304,7 +17303,6 @@ __metadata:
     "@axis-backstage/plugin-jira-dashboard-backend": "workspace:^"
     "@axis-backstage/plugin-readme-backend": "workspace:^"
     "@axis-backstage/plugin-statuspage-backend": "workspace:^"
-    "@backstage/backend-common": "npm:^0.24.0"
     "@backstage/backend-defaults": "npm:^0.4.3"
     "@backstage/backend-plugin-api": "npm:^0.8.0"
     "@backstage/backend-tasks": "npm:^0.6.0"
