@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-statuspage-backend
 
+## 0.5.2
+
+### Patch Changes
+
+- 22754be: Update `@backstage/backend-common` package dependency.
+
 ## 0.5.1
 
 ### Patch Changes
