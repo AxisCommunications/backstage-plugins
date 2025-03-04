@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.3.1
+
+### Patch Changes
+
+- 22754be: Remove unused `@backstage/backend-common` package dependency.
+
 ## 4.3.0
 
 ### Minor Changes
