@@ -58,7 +58,11 @@ export const getIssuesByFilter = async (
   const issues: Issue[] = [];
   for (const project of projects) {
     const { projectKey, instance } = project;
-    const jql = jqlQueryBuilder({ project: ["\""+projectKey+"\""], components, query });
+    const jql = jqlQueryBuilder({
+      project: ['"' + projectKey + '"'],
+      components,
+      query,
+    });
     const response = await callApi(
       instance,
       `${instance.baseUrl}search?jql=${jql}`,
@@ -71,9 +75,9 @@ export const getIssuesByFilter = async (
     )
       .then(resp => resp.json())
       .catch(() => null);
-    if (response?.errorMessages){
+    if (response?.errorMessages) {
       throw Error(
-        `JQL returned Error: JQL -  ${jql} with error: ${response?.errorMessages[0]}`
+        `JQL returned Error: JQL -  ${jql} with error: ${response?.errorMessages[0]}`,
       );
     }
     if (response?.issues) {
