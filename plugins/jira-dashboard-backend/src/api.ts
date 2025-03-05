@@ -59,7 +59,7 @@ export const getIssuesByFilter = async (
   for (const project of projects) {
     const { projectKey, instance } = project;
     const jql = jqlQueryBuilder({
-      project: ['"' + projectKey + '"'],
+      project: [`"${projectKey}\"`],
       components,
       query,
     });
