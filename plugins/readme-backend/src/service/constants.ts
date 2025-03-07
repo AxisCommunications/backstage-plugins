@@ -18,7 +18,10 @@ export function getReadmeTypes(config: Config): FileType[] {
     return DEFAULT_README_TYPES;
   }
   return readmeTypes.map(name => {
-    const type = name.endsWith('.md') || name.endsWith('.MD') ? 'text/markdown' : 'text/plain';
+    const type =
+      name.endsWith('.md') || name.endsWith('.MD')
+        ? 'text/markdown'
+        : 'text/plain';
     return { name, type };
   });
 }
