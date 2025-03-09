@@ -2,7 +2,6 @@ import { FileType } from './types';
 
 // Cache placeholder for entities where no readme
 export const NOT_FOUND_PLACEHOLDER = 'NOT_FOUND';
-export const DEFAULT_TTL = 1800 * 1000;
 
 export const README_TYPES: FileType[] = [
   { name: 'README', type: 'text/plain' },

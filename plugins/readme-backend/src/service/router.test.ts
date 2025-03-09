@@ -12,6 +12,7 @@ describe('createRouter', () => {
     const config = mockServices.rootConfig();
     const logger = mockServices.rootLogger.mock();
     const discovery = mockServices.discovery.mock();
+    const cache = mockServices.cache.mock();
     const reader = UrlReaders.default({ logger, config });
 
     const router = await createRouter({
@@ -20,6 +21,7 @@ describe('createRouter', () => {
       config,
       discovery,
       reader,
+      cache,
     });
     app = express().use(router);
   });

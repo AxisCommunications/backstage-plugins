@@ -1,5 +1,5 @@
 import { convertLegacyRouteRefs } from '@backstage/core-compat-api';
-import { createPlugin } from '@backstage/frontend-plugin-api';
+import { createFrontendPlugin } from '@backstage/frontend-plugin-api';
 import { entityJiraContent, jiraApi } from './alpha/index';
 import { rootRouteRef } from './routes';
 
@@ -14,7 +14,7 @@ export { annotationPrefixExtensionDataRef } from './alpha/index';
  * @alpha
  * @packageDocumentation
  */
-export default createPlugin({
+export default createFrontendPlugin({
   id: 'jira-dashboard',
   extensions: [entityJiraContent, jiraApi],
   routes: convertLegacyRouteRefs({

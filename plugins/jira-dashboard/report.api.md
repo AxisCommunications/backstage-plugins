@@ -14,6 +14,8 @@ import { Entity } from '@backstage/catalog-model';
 import { FetchApi } from '@backstage/core-plugin-api';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraResponse } from '@axis-backstage/plugin-jira-dashboard-common';
+import { JiraUserIssuesCardProps as JiraUserIssuesCardProps_2 } from './components/JiraUserIssuesCard';
+import { JiraUserIssuesTableProps as JiraUserIssuesTableProps_2 } from './components/JiraUserIssuesTable';
 import { JSX as JSX_2 } from 'react';
 import { default as React_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
@@ -87,7 +89,7 @@ export const JiraUserIssuesTable: ({
   style,
   tableOptions,
   filterName,
-}: JiraUserIssuesTableProps) => JSX_2.Element | null;
+}: JiraUserIssuesTableProps_2) => JSX_2.Element | null;
 
 // @public
 export type JiraUserIssuesTableProps = {
@@ -107,7 +109,7 @@ export const JiraUserIssuesViewCard: ({
   tableOptions,
   tableStyle,
   filterName,
-}: JiraUserIssuesCardProps) => JSX_2.Element;
+}: JiraUserIssuesCardProps_2) => JSX_2.Element;
 
 // @public
 export type TableComponentProps = React_2.ComponentProps<typeof Table>;
