@@ -5,7 +5,7 @@ import {
 import { createRouter } from './service/router';
 
 /**
- * Entrypoint for our plugin.
+ * Entrypoint for status page plugin.
  *
  * @public
  */
@@ -14,15 +14,17 @@ export const statuspagePlugin = createBackendPlugin({
   register(env) {
     env.registerInit({
       deps: {
-        config: coreServices.rootConfig,
-        logger: coreServices.logger,
+        cache: coreServices.cache,
         httpRouter: coreServices.httpRouter,
+        logger: coreServices.logger,
+        rootConfig: coreServices.rootConfig,
       },
-      async init({ config, logger, httpRouter }) {
+      async init({ cache, httpRouter, logger, rootConfig }) {
         httpRouter.use(
           await createRouter({
-            config,
+            rootConfig,
             logger,
+            cache,
           }),
         );
       },

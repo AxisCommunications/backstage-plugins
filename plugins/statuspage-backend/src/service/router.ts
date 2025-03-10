@@ -1,41 +1,30 @@
-import { CacheManager, errorHandler } from '@backstage/backend-common';
-import { LoggerService } from '@backstage/backend-plugin-api';
+import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
+import {
+  CacheService,
+  LoggerService,
+  RootConfigService,
+} from '@backstage/backend-plugin-api';
 import express from 'express';
 import Router from 'express-promise-router';
 import { fetchComponentGroups, fetchComponents, getLink } from './api';
-import { Config } from '@backstage/config';
 import { getStatuspageConfig } from '../config';
 
-/**
- * Router options.
- *
- * @deprecated Please migrate to the new backend system as this will be removed in the future.
- * @public
- */
 export interface RouterOptions {
-  /** The logger instance */
+  cache: CacheService;
   logger: LoggerService;
-  /** Backstage config object */
-  config: Config;
+  rootConfig: RootConfigService;
 }
 
 const COMPONENT_GROUPS_KEY = 'component-groups';
 const COMPONENTS_KEY = 'components';
+const CACHE_TTL = 1000 * 60 * 2;
 
-/**
- * Create the router.
- *
- * @deprecated Please migrate to the new backend system as this will be removed in the future.
- * @public
- */
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
-  const { logger, config } = options;
+  const { cache, logger, rootConfig } = options;
   logger.info('Setting up router for statuspage-backend');
-  const pluginCache = CacheManager.fromConfig(config).forPlugin('statuspage');
-  const statuspageConfig = getStatuspageConfig(config);
-  const cache = pluginCache.getClient({ defaultTtl: 1000 * 60 * 2 });
+  const statuspageConfig = getStatuspageConfig(rootConfig);
 
   const router = Router();
   router.use(express.json());
@@ -45,7 +34,9 @@ export async function createRouter(
     let components = (await cache.get(`${COMPONENTS_KEY}-${name}`)) as any;
     if (!components) {
       components = await fetchComponents(name, statuspageConfig);
-      await cache.set(`${COMPONENTS_KEY}-${name}`, components);
+      await cache.set(`${COMPONENTS_KEY}-${name}`, components, {
+        ttl: CACHE_TTL,
+      });
     }
     response.json(components);
   });
@@ -57,7 +48,9 @@ export async function createRouter(
     )) as any;
     if (!componentGroups) {
       componentGroups = await fetchComponentGroups(name, statuspageConfig);
-      await cache.set(`${COMPONENT_GROUPS_KEY}-${name}`, componentGroups);
+      await cache.set(`${COMPONENT_GROUPS_KEY}-${name}`, componentGroups, {
+        ttl: CACHE_TTL,
+      });
     }
     response.json(componentGroups);
   });
@@ -67,6 +60,7 @@ export async function createRouter(
     response.json({ url: getLink(name, statuspageConfig) || '' });
   });
 
-  router.use(errorHandler());
+  const middleware = MiddlewareFactory.create({ logger, config: rootConfig });
+  router.use(middleware.error());
   return router;
 }
