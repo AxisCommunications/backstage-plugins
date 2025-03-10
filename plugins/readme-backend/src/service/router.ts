@@ -1,7 +1,7 @@
 import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
-import { CacheManager } from '@backstage/backend-defaults/cache';
 import {
   AuthService,
+  CacheService,
   DiscoveryService,
   LoggerService,
   RootConfigService,
@@ -17,7 +17,7 @@ import { isError, NotFoundError } from '@backstage/errors';
 import express from 'express';
 import Router from 'express-promise-router';
 import { isSymLink } from '../lib';
-import { DEFAULT_TTL, NOT_FOUND_PLACEHOLDER, README_TYPES } from './constants';
+import { NOT_FOUND_PLACEHOLDER, README_TYPES } from './constants';
 import { ReadmeFile } from './types';
 
 /**
@@ -30,6 +30,7 @@ interface RouterOptions {
   discovery: DiscoveryService;
   logger: LoggerService;
   reader: UrlReaderService;
+  cache: CacheService;
 }
 
 /**
@@ -39,11 +40,8 @@ interface RouterOptions {
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
-  const { auth, logger, config, reader, discovery } = options;
+  const { auth, logger, config, reader, discovery, cache } = options;
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
-
-  const pluginCache = CacheManager.fromConfig(config).forPlugin('readme');
-  const cache = pluginCache.getClient({ defaultTtl: DEFAULT_TTL });
 
   logger.info('Initializing readme backend');
   const integrations = ScmIntegrations.fromConfig(config);
