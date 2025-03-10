@@ -195,25 +195,7 @@ The Jira Dashboard plugin also has support for the [new alpha frontend system](h
 yarn --cwd packages/app add @axis-backstage/plugin-jira-dashboard
 ```
 
-2. [Configure the extension](https://backstage.io/docs/frontend-system/building-apps/configuring-extensions) inside `app-config.yaml` to include the entity-content:
-
-```tsx
-app:
-  extensions:
-    - entity-content:jira-dashboard/entity
-```
-
-By default, the Jira tab will only appear on entities that are Components or Groups. You override which [entity kinds](https://backstage.io/docs/features/software-catalog/system-model) the Jira dashboard appears on by adding a config underneath the entity-content, like so:
-
-```tsx
-app:
-  extensions:
-    - entity-content:jira-dashboard/entity
-        config:
-          filter: kind:component,system,group
-```
-
-3. [Install the plugin](https://backstage.io/docs/frontend-system/building-apps/index#install-features-manually) by updating `app/arc/App.tsx` to include the plugin in the features block during app creation:
+2. [OPTIONAL - only needed if not using [feature discovery](https://backstage.io/docs/frontend-system/architecture/app#feature-discovery)] [Install the plugin](https://backstage.io/docs/frontend-system/building-apps/index#install-features-manually) by updating `app/arc/App.tsx` to include the plugin in the features block during app creation:
 
 ```tsx
 import { createApp } from '@backstage/frontend-app-api';
@@ -229,32 +211,12 @@ const app = createApp({
 export default app.createRoot();
 ```
 
-4. [OPTIONAL] The plugin by default checks for the annotation `jira.com`. You can choose to check for another annotation by passing an `annotationPrefix` extension into the app. If you do this, be sure you've set the [optional annotationPrefix value](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/jira-dashboard-backend#configuration-details) in the backend config to the same string. See example below.
+3. [OPTIONAL - only needed if not using [feature discovery](https://backstage.io/docs/frontend-system/architecture/app#feature-discovery)] [Configure the extension](https://backstage.io/docs/frontend-system/building-apps/configuring-extensions) inside `app-config.yaml` to include the entity-content:
 
 ```tsx
-import { createApp, createExtension, createExtensionOverrides, } from '@backstage/frontend-app-api';
-import jiraPlugin from '@axis-backstage/plugin-jira-dashboard/alpha';
-
-const jiraAnnotationExtension = createExtension({
-  name: 'myJiraAnnotation',
-  attachTo: { id: 'entity-content:jira-dashboard/entity', input: 'props' },
-  output: [annotationPrefixExtensionDataRef],
-
-  factory() {
-    // This can be any value you want to check for
-    return [ annotationPrefixExtensionDataRef('jira') ];
-  },
-});
-const app = createApp({
-  features: [
-    ...,
-    jiraPlugin,
-    ],
-    createExtensionOverrides({
-      extensions: [jiraAnnotationExtension,],
-    }),
-});
-export default app.createRoot();
+app:
+  extensions:
+    - entity-content:jira-dashboard/entity
 ```
 
 ## Layout
