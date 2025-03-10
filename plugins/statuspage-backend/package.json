@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@axis-backstage/plugin-statuspage-common": "workspace:^",
-    "@backstage/backend-common": "^0.25.0",
+    "@backstage/backend-defaults": "^0.8.1",
     "@backstage/backend-plugin-api": "^1.2.0",
     "@backstage/config": "^1.3.2",
     "@types/express": "*",

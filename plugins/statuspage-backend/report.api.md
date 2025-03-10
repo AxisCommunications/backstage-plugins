@@ -4,18 +4,6 @@
 
 ```ts
 import { BackendFeature } from '@backstage/backend-plugin-api';
-import { Config } from '@backstage/config';
-import express from 'express';
-import { LoggerService } from '@backstage/backend-plugin-api';
-
-// @public @deprecated
-export function createRouter(options: RouterOptions): Promise<express.Router>;
-
-// @public @deprecated
-export interface RouterOptions {
-  config: Config;
-  logger: LoggerService;
-}
 
 // @public
 const statuspagePlugin: BackendFeature;
