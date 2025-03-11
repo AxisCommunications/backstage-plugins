@@ -1,5 +1,16 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.4.0
+
+### Minor Changes
+
+- ede8341: Updated to Backstage v1.36.1.
+
+### Patch Changes
+
+- Updated dependencies [ede8341]
+  - @axis-backstage/plugin-jira-dashboard-common@1.10.0
+
 ## 4.3.1
 
 ### Patch Changes

@@ -15,6 +15,7 @@ import { FetchApi } from '@backstage/core-plugin-api';
 import { JSX as JSX_2 } from 'react';
 import { default as React_2 } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
+import { StatuspageProps as StatuspageProps_2 } from './components/StatuspageComponent';
 
 // @public
 export const isStatuspageAvailable: (entity: Entity) => boolean;
@@ -45,7 +46,7 @@ export class StatuspageClient implements StatuspageApi {
 export const StatuspageEntityCard: () => React_2.JSX.Element;
 
 // @public
-export const StatuspagePage: ({ name }: StatuspageProps) => JSX_2.Element;
+export const StatuspagePage: ({ name }: StatuspageProps_2) => JSX_2.Element;
 
 // @public
 export const statuspagePlugin: BackstagePlugin<

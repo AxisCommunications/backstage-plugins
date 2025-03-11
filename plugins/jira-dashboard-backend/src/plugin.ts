@@ -22,6 +22,7 @@ export const jiraDashboardPlugin = createBackendPlugin({
         discovery: coreServices.discovery,
         httpAuth: coreServices.httpAuth,
         userInfo: coreServices.userInfo,
+        cache: coreServices.cache,
       },
       async init({
         auth,
@@ -31,6 +32,7 @@ export const jiraDashboardPlugin = createBackendPlugin({
         discovery,
         httpAuth,
         userInfo,
+        cache,
       }) {
         httpRouter.use(
           await createRouter({
@@ -41,6 +43,7 @@ export const jiraDashboardPlugin = createBackendPlugin({
             discovery,
             httpAuth,
             userInfo,
+            cache,
           }),
         );
         httpRouter.addAuthPolicy({

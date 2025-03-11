@@ -1,5 +1,23 @@
 # @axis-backstage/plugin-statuspage-backend
 
+## 0.7.0
+
+### Minor Changes
+
+- e6bcc2f: - 6939770: **BREAKING**: The `statuspage-backend` plugin has been migrated to the new backend system. If
+  you are using the new backend system module, this does not affect you.
+
+## 0.6.0
+
+### Minor Changes
+
+- ede8341: Updated to Backstage v1.36.1.
+
+### Patch Changes
+
+- Updated dependencies [ede8341]
+  - @axis-backstage/plugin-statuspage-common@0.6.0
+
 ## 0.5.2
 
 ### Patch Changes

@@ -1,5 +1,24 @@
 # backend
 
+## 0.7.23
+
+### Patch Changes
+
+- e6bcc2f: - 6939770: **BREAKING**: The `statuspage-backend` plugin has been migrated to the new backend system. If
+  you are using the new backend system module, this does not affect you.
+- Updated dependencies [e6bcc2f]
+  - @axis-backstage/plugin-statuspage-backend@0.7.0
+
+## 0.7.22
+
+### Patch Changes
+
+- Updated dependencies [ede8341]
+  - @axis-backstage/plugin-jira-dashboard-backend@4.4.0
+  - @axis-backstage/plugin-statuspage-backend@0.6.0
+  - @axis-backstage/plugin-readme-backend@0.12.0
+  - app@0.10.13
+
 ## 0.7.21
 
 ### Patch Changes

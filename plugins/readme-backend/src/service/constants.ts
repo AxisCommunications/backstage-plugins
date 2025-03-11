@@ -3,7 +3,6 @@ import { Config } from '@backstage/config';
 
 // Cache placeholder for entities where no readme
 export const NOT_FOUND_PLACEHOLDER = 'NOT_FOUND';
-export const DEFAULT_TTL = 1800 * 1000;
 
 const DEFAULT_README_TYPES: FileType[] = [
   { name: 'README.md', type: 'text/markdown' },

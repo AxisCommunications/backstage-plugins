@@ -3,9 +3,9 @@ import Router from 'express-promise-router';
 import stream from 'stream';
 
 import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
-import { CacheManager } from '@backstage/backend-defaults/cache';
 import {
   AuthService,
+  CacheService,
   DiscoveryService,
   HttpAuthService,
   LoggerService,
@@ -29,7 +29,7 @@ import {
   getProjectResponse,
   getUserIssues,
 } from './service';
-import { DEFAULT_MAX_RESULTS_USER_ISSUES, DEFAULT_TTL } from './defaultValues';
+import { DEFAULT_MAX_RESULTS_USER_ISSUES } from './defaultValues';
 import { getAssigneUser, getDefaultFiltersForUser } from '../filters';
 import { getProjectAvatar } from '../api';
 import type { ConfigInstance, JiraConfig } from '../config';
@@ -63,18 +63,27 @@ export interface RouterOptions {
    * Implementation of User Info Service
    */
   userInfo: UserInfoService;
+  /**
+   * Implementation of Cache Service
+   */
+  cache: CacheService;
 }
 
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
-  const { auth, logger, rootConfig, config, discovery, httpAuth, userInfo } =
-    options;
+  const {
+    auth,
+    logger,
+    rootConfig,
+    config,
+    discovery,
+    httpAuth,
+    userInfo,
+    cache,
+  } = options;
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
 
-  const pluginCache =
-    CacheManager.fromConfig(rootConfig).forPlugin('jira-dashboard');
-  const cache = pluginCache.getClient({ defaultTtl: DEFAULT_TTL });
   logger.info('Initializing Jira Dashboard backend');
 
   const router = Router();

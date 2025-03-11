@@ -20,8 +20,17 @@ export const readmePlugin = createBackendPlugin({
         httpRouter: coreServices.httpRouter,
         logger: coreServices.logger,
         reader: coreServices.urlReader,
+        cache: coreServices.cache,
       },
-      async init({ auth, logger, config, reader, discovery, httpRouter }) {
+      async init({
+        auth,
+        logger,
+        config,
+        reader,
+        discovery,
+        httpRouter,
+        cache,
+      }) {
         httpRouter.use(
           await createRouter({
             auth,
@@ -29,6 +38,7 @@ export const readmePlugin = createBackendPlugin({
             config,
             reader,
             discovery,
+            cache,
           }),
         );
       },

@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.12.0
+
+### Minor Changes
+
+- ede8341: Updated to Backstage v1.36.1.
+
 ## 0.11.0
 
 ### Minor Changes
