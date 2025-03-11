@@ -17,11 +17,7 @@ import { isError, NotFoundError } from '@backstage/errors';
 import express from 'express';
 import Router from 'express-promise-router';
 import { isSymLink } from '../lib';
-import {
- 
-  NOT_FOUND_PLACEHOLDER,
-  getReadmeTypes,
-} from './constants';
+import { NOT_FOUND_PLACEHOLDER, getReadmeTypes } from './constants';
 import { ReadmeFile } from './types';
 
 /**
