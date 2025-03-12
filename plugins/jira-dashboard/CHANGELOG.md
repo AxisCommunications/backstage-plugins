@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.17.0
+
+### Minor Changes
+
+- cc468bd: New frontend system now only applies Jira tab to entities with the correct annotation, reading from config to grab the right prefix.
+
 ## 1.16.0
 
 ### Minor Changes
