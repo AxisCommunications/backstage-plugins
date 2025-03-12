@@ -6,6 +6,7 @@
 /// <reference types="react" />
 
 import { AnyApiFactory } from '@backstage/core-plugin-api';
+import { AnyExtensionDataRef } from '@backstage/frontend-plugin-api';
 import { AnyRouteRefParams } from '@backstage/frontend-plugin-api';
 import { ConfigurableExtensionDataRef } from '@backstage/frontend-plugin-api';
 import { Entity } from '@backstage/catalog-model';
@@ -14,13 +15,6 @@ import { ExtensionInput } from '@backstage/frontend-plugin-api';
 import { FrontendPlugin } from '@backstage/frontend-plugin-api';
 import { JSX as JSX_2 } from 'react';
 import { RouteRef } from '@backstage/frontend-plugin-api';
-
-// @alpha
-export const annotationPrefixExtensionDataRef: ConfigurableExtensionDataRef<
-  string,
-  'annotationPrefix',
-  {}
->;
 
 // @alpha
 const _default: FrontendPlugin<
@@ -59,16 +53,16 @@ const _default: FrontendPlugin<
         | ConfigurableExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
         | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
         | ConfigurableExtensionDataRef<
+            string,
+            'catalog.entity-content-title',
+            {}
+          >
+        | ConfigurableExtensionDataRef<
             RouteRef<AnyRouteRefParams>,
             'core.routing.ref',
             {
               optional: true;
             }
-          >
-        | ConfigurableExtensionDataRef<
-            string,
-            'catalog.entity-content-title',
-            {}
           >
         | ConfigurableExtensionDataRef<
             (entity: Entity) => boolean,
@@ -85,17 +79,11 @@ const _default: FrontendPlugin<
             }
           >;
       inputs: {
-        props: ExtensionInput<
-          ConfigurableExtensionDataRef<
-            string,
-            'annotationPrefix',
-            {
-              optional: true;
-            }
-          >,
+        [x: string]: ExtensionInput<
+          AnyExtensionDataRef,
           {
-            singleton: true;
-            optional: true;
+            optional: boolean;
+            singleton: boolean;
           }
         >;
       };
