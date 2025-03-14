@@ -4,7 +4,7 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { screen } from '@testing-library/react';
 import {
-  setupRequestMockHandlers,
+  registerMswTestHooks,
   renderInTestApp,
   TestApiRegistry,
   MockFetchApi,
@@ -20,7 +20,7 @@ import userEvent from '@testing-library/user-event';
 
 describe('ReadmeCard', () => {
   const server = setupServer();
-  setupRequestMockHandlers(server);
+  registerMswTestHooks(server);
 
   const mockBaseUrl = 'http://localhost:7007/api/readme';
   let readmeClient: ReadmeClient;

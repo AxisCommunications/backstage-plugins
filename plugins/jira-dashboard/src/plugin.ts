@@ -80,10 +80,12 @@ export const JiraUserIssuesTable = jiraDashboardPlugin.provide(
 export const EntityJiraDashboardContent = jiraDashboardPlugin.provide(
   createRoutableExtension({
     name: 'EntityJiraDashboardContent',
-    component: () =>
-      import('./components/JiraDashboardContent').then(
-        m => m.JiraDashboardContent,
-      ),
+    component: async () => {
+      const { JiraDashboardContent } = await import(
+        './components/JiraDashboardContent'
+      );
+      return JiraDashboardContent;
+    },
     mountPoint: rootRouteRef,
   }),
 );

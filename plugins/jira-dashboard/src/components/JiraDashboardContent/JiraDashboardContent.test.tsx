@@ -7,7 +7,7 @@ import {
   MockFetchApi,
   TestApiRegistry,
   renderInTestApp,
-  setupRequestMockHandlers,
+  registerMswTestHooks,
 } from '@backstage/test-utils';
 import { JiraDashboardClient, jiraDashboardApiRef } from '../../api';
 import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
@@ -16,7 +16,7 @@ import mockedEntity from '../../../dev/__fixtures__/entity.json';
 
 describe('JiraDashboardContent', () => {
   const server = setupServer();
-  setupRequestMockHandlers(server);
+  registerMswTestHooks(server);
 
   const mockBaseUrl = 'http://localhost:7007/api/jira-dashboard';
   let jiraClient: JiraDashboardClient;

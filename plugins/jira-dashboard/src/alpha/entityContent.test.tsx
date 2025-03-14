@@ -20,7 +20,7 @@ const mockJiraApi = {
 
 describe('Entity content extensions', () => {
   it('should render the dashboard on an entity with the correct annotation', async () => {
-    await renderInTestApp(
+    renderInTestApp(
       <TestApiProvider apis={[[jiraDashboardApiRef, mockJiraApi]]}>
         <EntityProvider entity={mockedEntity}>
           {createExtensionTester(entityJiraContent).reactElement()}
