@@ -3,7 +3,7 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { screen } from '@testing-library/react';
 import {
-  setupRequestMockHandlers,
+  registerMswTestHooks,
   renderInTestApp,
   TestApiRegistry,
   MockFetchApi,
@@ -19,7 +19,7 @@ import { FetchComponent } from './FetchComponent';
 
 describe('FetchComponent', () => {
   const server = setupServer();
-  setupRequestMockHandlers(server);
+  registerMswTestHooks(server);
 
   const mockBaseUrl = 'http://localhost:7007/api/readme';
   let readmeClient: ReadmeClient;

@@ -33,13 +33,16 @@
     "@backstage/core-plugin-api": "^1.10.4"
   },
   "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0"
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
     "@backstage/cli": "^0.30.0",
     "@backstage/dev-utils": "^1.1.7",
     "@backstage/test-utils": "^1.7.5",
-    "@testing-library/jest-dom": "6.0.0",
+    "@testing-library/dom": "^9.0.0",
+    "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.5.2"
   },
