@@ -5,6 +5,7 @@ import {
   ResponseErrorPanel,
   SupportButton,
   TableFilter,
+  TableOptions,
 } from '@backstage/core-components';
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
@@ -18,10 +19,14 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { jiraDashboardApiRef } from '../../api';
 import { useJira } from '../../hooks/useJira';
-import { JiraDataResponse } from '@axis-backstage/plugin-jira-dashboard-common';
+import {
+  Issue,
+  JiraDataResponse,
+} from '@axis-backstage/plugin-jira-dashboard-common';
 
 export const JiraDashboardContent = (props?: {
   showFilters?: TableFilter[] | boolean;
+  tableOptions?: TableOptions<Issue>;
 }) => {
   const { entity } = useEntity();
   const api = useApi(jiraDashboardApiRef);
@@ -77,6 +82,7 @@ export const JiraDashboardContent = (props?: {
                   tableContent={value}
                   showFilters={props?.showFilters}
                   project={jiraResponse.project}
+                  tableOptions={props?.tableOptions}
                   tableStyle={{
                     height: 'max-content',
                     maxHeight: '500px',

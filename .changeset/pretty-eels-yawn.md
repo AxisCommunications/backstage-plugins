@@ -2,4 +2,4 @@
 '@axis-backstage/plugin-jira-dashboard': minor
 ---
 
-Introduce Pagination to jira table for better visualization
+The `EntityJiraDashboardContent` component accepts `tableOptions` as a prop, allowing for enhanced table configuration and customization.
