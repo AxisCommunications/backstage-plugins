@@ -28,6 +28,7 @@ export const EntityJiraDashboardContent: (
   props?:
     | {
         showFilters?: boolean | TableFilter[] | undefined;
+        tableOptions?: TableOptions<Issue> | undefined;
       }
     | undefined,
 ) => JSX_2.Element;

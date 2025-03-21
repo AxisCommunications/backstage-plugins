@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 1.18.0
+
+### Minor Changes
+
+- e1f7899: The `EntityJiraDashboardContent` component accepts `tableOptions` as a prop, allowing for enhanced table configuration and customization.
+
 ## 1.17.0
 
 ### Minor Changes
