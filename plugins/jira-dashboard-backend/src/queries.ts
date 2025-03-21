@@ -19,7 +19,7 @@ export const jqlQueryBuilder = ({
   query,
 }: JqlQueryBuilderArgs) => {
   const projectList = Array.isArray(project) ? project : [project];
-  let jql = `project in (${projectList.join(',')})`;
+  let jql = `project in ("${projectList.join('","')}")`;
   if (components && components.length > 0) {
     let componentsInclude = '(';
     for (let index = 0; index < components.length; index++) {
