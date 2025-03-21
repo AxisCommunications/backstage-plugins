@@ -1,5 +1,7 @@
+import { RootConfigService } from '@backstage/backend-plugin-api';
 import { FileType } from './types';
-import { Config } from '@backstage/config';
+
+const CONFIG_PATH = 'readme.fileNames';
 
 // Cache placeholder for entities where no readme
 export const NOT_FOUND_PLACEHOLDER = 'NOT_FOUND';
@@ -12,8 +14,8 @@ const DEFAULT_README_TYPES: FileType[] = [
   { name: 'README.txt', type: 'text/plain' },
 ];
 
-export function getReadmeTypes(config: Config): FileType[] {
-  const readmeTypes = config.getOptionalStringArray('readme.types');
+export function getReadmeTypes(config: RootConfigService): FileType[] {
+  const readmeTypes = config.getOptionalStringArray(CONFIG_PATH);
   if (!readmeTypes) {
     return DEFAULT_README_TYPES;
   }
