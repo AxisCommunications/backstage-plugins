@@ -32,6 +32,20 @@ const backend = createBackend();
 backend.start();
 ```
 
+### Configuration
+
+This plugin does not require any configuration. It has a default configuration
+with a set of README file names that it will look for in the entity source location. This actual file to use and the order to look for them can be
+configured in the `app-config.yaml` file using the "readme.fileNames" configuration key. This is a simple list of file names to look for in the entity source location.
+
+```yaml
+readme:
+  -fileNames:
+    - README.txt
+    - README.text
+    - README.markdown
+```
+
 ### Troubleshooting
 
 If the backend fails to provide README content for an entity, it could be due to several reasons.

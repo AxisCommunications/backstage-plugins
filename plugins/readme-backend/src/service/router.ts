@@ -17,7 +17,7 @@ import { isError, NotFoundError } from '@backstage/errors';
 import express from 'express';
 import Router from 'express-promise-router';
 import { isSymLink } from '../lib';
-import { NOT_FOUND_PLACEHOLDER, README_TYPES } from './constants';
+import { NOT_FOUND_PLACEHOLDER, getReadmeTypes } from './constants';
 import { ReadmeFile } from './types';
 
 /**
@@ -95,7 +95,9 @@ export async function createRouter(
       return;
     }
 
-    for (const fileType of README_TYPES) {
+    const readmeTypes = getReadmeTypes(config);
+
+    for (const fileType of readmeTypes) {
       const url = integration.resolveUrl({
         url: fileType.name,
         base: source.target,
