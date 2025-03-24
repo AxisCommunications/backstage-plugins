@@ -1,5 +1,20 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.13.0
+
+### Minor Changes
+
+- 84e60e6: A configuration has been added to the readme backend that makes it possible to
+  configure which files to look for and the exact order. Example:
+
+  ```yaml
+  readme:
+    -fileNames:
+      - README.txt
+      - README.text
+      - README.markdown
+  ```
+
 ## 0.12.0
 
 ### Minor Changes
