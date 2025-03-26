@@ -10,7 +10,33 @@ export type JqlQueryBuilderArgs = {
 };
 
 /**
- * Creates a jql query string.
+ *  Creates a partial jql query string using the "in" operator to
+ *  include multiple values for a field.
+ *
+ *  Example:
+ *    "affectedVersion in ('3.14', '4.2')"
+ *
+ * @param field
+ * @param values
+ */
+export const createEscapedIncludeQuery = (field: string, values: string[]) => {
+  let query = `${field} in (`;
+  for (let index = 0; index < values.length; index++) {
+    const value = values[index];
+    query += `'${value}'`;
+    // Add either the "," separator or close the parentheses.
+    if (index === values.length - 1) {
+      query += ')';
+    } else {
+      query += ',';
+    }
+  }
+  return query;
+};
+
+/**
+ * Builds a JQL (Jira Query Language) query string based on the provided arguments.
+ *
  * @public
  */
 export const jqlQueryBuilder = ({
@@ -19,20 +45,9 @@ export const jqlQueryBuilder = ({
   query,
 }: JqlQueryBuilderArgs) => {
   const projectList = Array.isArray(project) ? project : [project];
-  let jql = `project in (${projectList.join(',')})`;
-  if (components && components.length > 0) {
-    let componentsInclude = '(';
-    for (let index = 0; index < components.length; index++) {
-      const component = components[index];
-      componentsInclude += `'${component}'`;
-      // Add either the "," separator or close the parentheses.
-      if (index === components.length - 1) {
-        componentsInclude += ')';
-      } else {
-        componentsInclude += ',';
-      }
-    }
-    jql += ` AND component in ${componentsInclude}`;
+  let jql = createEscapedIncludeQuery('project', projectList);
+  if (components?.length) {
+    jql += ` AND ${createEscapedIncludeQuery('component', components)}`;
   }
   if (query) {
     jql += ` AND ${query}`;

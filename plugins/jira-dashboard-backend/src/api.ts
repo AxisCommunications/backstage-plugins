@@ -71,7 +71,11 @@ export const getIssuesByFilter = async (
     )
       .then(resp => resp.json())
       .catch(() => null);
-
+    if (response?.errorMessages) {
+      throw Error(
+        `JQL returned Error: JQL -  ${jql} with error: ${response?.errorMessages?.[0]}`,
+      );
+    }
     if (response?.issues) {
       issues.push(...response.issues);
     }
@@ -135,13 +139,16 @@ export const getIssuesByComponent = async (
     return [];
   }
 
-  const projectKeys = projects.map(project => project.projectKey).join(',');
+  const projectKeys = projects.map(project => project.projectKey);
   const components = componentKeys
     .split(',')
-    .map(component => `'${component.trim()}'`)
-    .join(',');
+    .map(component => component.trim());
 
-  const jql = `project in (${projectKeys}) AND component in (${components})`;
+  const jql = jqlQueryBuilder({
+    project: projectKeys,
+    components,
+  });
+
   const { instance } = projects[0];
 
   try {

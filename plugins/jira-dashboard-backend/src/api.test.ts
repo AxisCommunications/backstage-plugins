@@ -65,7 +65,7 @@ describe('api', () => {
     const issues = await getIssuesByComponent(projects, 'ccc');
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://jira.com/search?jql=project in (ppp,bbb) AND component in ('ccc')",
+      "http://jira.com/search?jql=project in ('ppp','bbb') AND component in ('ccc')",
       {
         method: 'GET',
         headers: {
@@ -96,7 +96,7 @@ describe('api', () => {
     const issues = await getIssuesByComponent(projects, 'ccc');
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://jira.com/search?jql=project in (ppp) AND component in ('ccc')",
+      "http://jira.com/search?jql=project in ('ppp') AND component in ('ccc')",
       {
         method: 'GET',
         headers: {
@@ -124,7 +124,7 @@ describe('api', () => {
     const issues = await getIssuesByComponent(projects, 'ccc,ddd');
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://jira.com/search?jql=project in (ppp,bbb) AND component in ('ccc','ddd')",
+      "http://jira.com/search?jql=project in ('ppp','bbb') AND component in ('ccc','ddd')",
       {
         method: 'GET',
         headers: {
@@ -162,7 +162,7 @@ describe('api', () => {
     const issues = await getIssuesByComponent(projects, 'ccc');
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://jira.com/search?jql=project in (invalid) AND component in ('ccc')",
+      "http://jira.com/search?jql=project in ('invalid') AND component in ('ccc')",
       {
         method: 'GET',
         headers: {
