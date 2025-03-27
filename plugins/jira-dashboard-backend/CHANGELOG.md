@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.4.1
+
+### Patch Changes
+
+- 39d98e4: Each project key in the JQL query are now wrapped in single qoutes to handle projects that contains reserved JQL words.
+
 ## 4.4.0
 
 ### Minor Changes
