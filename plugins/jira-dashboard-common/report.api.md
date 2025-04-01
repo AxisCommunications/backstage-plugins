@@ -72,7 +72,7 @@ export type JiraQueryResults = {
 
 // @public
 export type JiraResponse = {
-  project: Project;
+  project: Project | Project[];
   data: JiraDataResponse[];
 };
 
