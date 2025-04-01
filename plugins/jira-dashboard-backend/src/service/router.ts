@@ -133,15 +133,17 @@ export async function createRouter(
       const projects = fullProjectKeys.map(fullProjectKey =>
         splitProjectKey(config, fullProjectKey),
       );
+      const projectResponses: Project[] = [];
 
-      let projectResponse;
-
-      try {
-        projectResponse = await getProjectResponse(projects[0], cache);
-      } catch (err: any) {
-        logger.error(
-          `Could not find Jira project ${projects[0].fullProjectKey}: ${err.message}`,
-        );
+      for (const project of projects) {
+        try {
+          const projectData = await getProjectResponse(project, cache);
+          projectResponses.push(projectData);
+        } catch (err: any) {
+          logger.error(
+            `Could not find Jira project ${project.fullProjectKey}: ${err.message}`,
+          );
+        }
         response.status(404).json({
           error: `No Jira project found with key ${projects[0].projectKey}`,
         });
@@ -215,9 +217,10 @@ export async function createRouter(
       }
 
       const jiraResponse: JiraResponse = {
-        project: projectResponse as Project,
+        project: projectResponses,
         data: issues,
       };
+
       response.json(jiraResponse);
     },
   );
