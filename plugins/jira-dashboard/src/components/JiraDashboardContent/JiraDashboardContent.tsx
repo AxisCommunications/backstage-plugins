@@ -6,6 +6,8 @@ import {
   SupportButton,
   TableFilter,
   TableOptions,
+  TabbedCard,
+  CardTab,
 } from '@backstage/core-components';
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
@@ -19,10 +21,7 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { jiraDashboardApiRef } from '../../api';
 import { useJira } from '../../hooks/useJira';
-import {
-  Issue,
-  JiraDataResponse,
-} from '@axis-backstage/plugin-jira-dashboard-common';
+import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 
 export const JiraDashboardContent = (props?: {
   showFilters?: TableFilter[] | boolean;
@@ -41,7 +40,7 @@ export const JiraDashboardContent = (props?: {
     return <Progress />;
   } else if (error) {
     return <ResponseErrorPanel error={error} />;
-  } else if (!jiraResponse || !jiraResponse.data || !jiraResponse.project) {
+  } else if (!jiraResponse || !jiraResponse?.data || !jiraResponse?.project) {
     return (
       <ResponseErrorPanel
         error={Error(
@@ -50,6 +49,9 @@ export const JiraDashboardContent = (props?: {
       />
     );
   }
+  const projects = Array.isArray(jiraResponse.project)
+    ? jiraResponse.project
+    : [];
 
   return (
     <Content>
@@ -70,32 +72,35 @@ export const JiraDashboardContent = (props?: {
           </Box>
         </SupportButton>
       </ContentHeader>
-      <Grid container spacing={3}>
-        {jiraResponse && jiraResponse.data && (
-          <>
-            <Grid md={6} xs={12} data-testid="project-card">
-              <JiraProjectCard project={jiraResponse.project} />
-            </Grid>
-            {jiraResponse.data.map((value: JiraDataResponse) => (
-              <Grid data-testid="issue-table" key={value.name} md={6} xs={12}>
-                <JiraTable
-                  tableContent={value}
-                  showFilters={props?.showFilters}
-                  project={jiraResponse.project}
-                  tableOptions={props?.tableOptions}
-                  tableStyle={{
-                    height: 'max-content',
-                    maxHeight: '500px',
-                    padding: '20px',
-                    overflowY: 'auto',
-                    width: '100%',
-                  }}
-                />
+      <TabbedCard title="Jira Projects" data-testid="tabbed-card">
+        {projects.map(project => (
+          <CardTab key={project.key} label={project.name}>
+            <Grid container spacing={3}>
+              <Grid md={6} xs={12} data-testid="project-card">
+                <JiraProjectCard project={project} />
               </Grid>
-            ))}
-          </>
-        )}
-      </Grid>
+
+              {jiraResponse.data.map(value => (
+                <Grid data-testid="issue-table" key={value.name} md={6} xs={12}>
+                  <JiraTable
+                    tableContent={value}
+                    showFilters={props?.showFilters}
+                    project={project}
+                    tableOptions={props?.tableOptions}
+                    tableStyle={{
+                      height: 'max-content',
+                      maxHeight: '500px',
+                      padding: '20px',
+                      overflowY: 'auto',
+                      width: '100%',
+                    }}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </CardTab>
+        ))}
+      </TabbedCard>
     </Content>
   );
 };

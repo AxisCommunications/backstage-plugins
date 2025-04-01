@@ -22,10 +22,13 @@ export function useJira(
     error,
   } = useAsync(async (): Promise<any> => {
     const response = await jiraDashboardApi.getJiraResponseByEntity(entityRef);
-    response.project.avatarUrls = await jiraDashboardApi.getProjectAvatar(
-      entityRef,
-    );
-    return response;
+    const project = Array.isArray(response.project)
+      ? response.project
+      : [response.project];
+    return {
+      project,
+      data: response.data || [],
+    };
   });
   return { data, loading, error };
 }
