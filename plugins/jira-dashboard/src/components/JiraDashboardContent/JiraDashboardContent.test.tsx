@@ -99,7 +99,7 @@ describe('JiraDashboardContent - Single Project View', () => {
     server.use(
       rest.get(
         `${mockBaseUrl}/dashboards/by-entity-ref/:kind/:namespace/:name`,
-        (req, res, ctx) => {
+        (_req, res, ctx) => {
           return res(ctx.json(singleProjectResponse));
         },
       ),
