@@ -75,7 +75,7 @@ export type Project = {
  *  @public
  */
 export type JiraResponse = {
-  project: Project;
+  project: Project | Project[];
   data: JiraDataResponse[];
 };
 

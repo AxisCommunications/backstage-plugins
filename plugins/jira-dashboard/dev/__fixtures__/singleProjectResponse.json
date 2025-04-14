@@ -1,40 +1,21 @@
 {
-  "project": [
-    {
-      "name": "Backstage",
-      "key": "BS",
-      "description": "This is our Backstage project",
-      "avatarUrls": {
-        "48x48": "https://api.dicebear.com/6.x/open-peeps/svg?seed=Duane"
-      },
-      "projectTypeKey": "Software",
-      "projectCategory": {
-        "name": "Software Portals"
-      },
-      "lead": {
-        "key": "fridaja",
-        "displayName": "Frida Jacobsson"
-      },
-      "self": "https://jira.com/project/123"
+  "project": {
+    "name": "Backstage",
+    "key": "BS",
+    "description": "This is our Backstage project",
+    "avatarUrls": {
+      "48x48": "https://api.dicebear.com/6.x/open-peeps/svg?seed=Duane"
     },
-    {
-      "name": "Backstage1",
-      "key": "BM",
-      "description": "This is our Backstage project",
-      "avatarUrls": {
-        "48x48": "https://api.dicebear.com/6.x/open-peeps/svg?seed=Duane"
-      },
-      "projectTypeKey": "Software test",
-      "projectCategory": {
-        "name": "Software Portals test"
-      },
-      "lead": {
-        "key": "fridaja",
-        "displayName": "Frida Jacobsson"
-      },
-      "self": "https://jira.com/project/456"
-    }
-  ],
+    "projectTypeKey": "Software",
+    "projectCategory": {
+      "name": "Software Portals"
+    },
+    "lead": {
+      "key": "fridaja",
+      "displayName": "Frida Jacobsson"
+    },
+    "self": "https://jira.com/project/123"
+  },
   "data": [
     {
       "name": "Open Issues",
@@ -64,7 +45,7 @@
         },
         {
           "key": "BS-2",
-          "self": "https://jira.com/project/456",
+          "self": "https://jira.com/project/123",
           "fields": {
             "summary": "Something is not working",
             "status": {
@@ -133,7 +114,7 @@
           }
         },
         {
-          "key": "BM-2",
+          "key": "BS-2",
           "self": "https://jira.com/project/123",
           "fields": {
             "summary": "Something is not working",
