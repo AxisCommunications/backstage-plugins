@@ -1,5 +1,16 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.5.0
+
+### Minor Changes
+
+- 15f1ee8: Support Multiple Jira Project Cards in Tabbed View
+
+### Patch Changes
+
+- Updated dependencies [15f1ee8]
+  - @axis-backstage/plugin-jira-dashboard-common@1.11.0
+
 ## 4.4.1
 
 ### Patch Changes
