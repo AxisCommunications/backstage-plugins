@@ -143,11 +143,11 @@ export async function createRouter(
           logger.error(
             `Could not find Jira project ${project.fullProjectKey}: ${err.message}`,
           );
+          response.status(404).json({
+            error: `Jira project not found with key ${project.fullProjectKey}`,
+          });
+          return;
         }
-        response.status(404).json({
-          error: `No Jira project found with key ${projects[0].projectKey}`,
-        });
-        return;
       }
 
       let userEntity: UserEntity | undefined;
