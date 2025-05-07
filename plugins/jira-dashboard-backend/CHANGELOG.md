@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.5.1
+
+### Patch Changes
+
+- 99c44e9: Fix incorrect 404 response
+
 ## 4.5.0
 
 ### Minor Changes
