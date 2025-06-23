@@ -1,4 +1,3 @@
-import React from 'react';
 import { Table, TableColumn } from '@backstage/core-components';
 import type { Component } from '@axis-backstage/plugin-statuspage-common';
 import { StatusChip } from './StatusChip';
