@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import { InfoCard, InfoCardVariants } from '@backstage/core-components';
 import { FetchComponent } from '../FetchComponent';
-import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import { ReadmeDialog } from '../ReadmeDialog/ReadmeDialog';
+import { useFullViewParam } from '../../hooks/useFullViewParam';
 
 /**
  * ReadmeCardProps props.
  *
  * @public
  */
-
 export type ReadmeCardProps = {
   variant?: InfoCardVariants;
   maxHeight?: string | number;
@@ -19,10 +19,10 @@ export type ReadmeCardProps = {
 
 export const ReadmeCard = (props: ReadmeCardProps) => {
   const { variant = 'gridItem', maxHeight: propMaxHeight } = props;
+  const [isFullViewOpen, setIsFullViewOpen] = useFullViewParam();
+
   const maxHeight =
     variant === 'fullHeight' ? 'none' : propMaxHeight ?? '235px';
-
-  const [displayDialog, setDisplayDialog] = useState(false);
 
   return (
     <>
@@ -32,9 +32,8 @@ export const ReadmeCard = (props: ReadmeCardProps) => {
         action={
           variant !== 'fullHeight' ? (
             <IconButton
-              onClick={() => setDisplayDialog(true)}
+              onClick={() => setIsFullViewOpen(true)}
               aria-label="Open full view"
-              role="button"
               title="Open full view"
               size="large"
             >
@@ -51,8 +50,8 @@ export const ReadmeCard = (props: ReadmeCardProps) => {
       </InfoCard>
 
       <ReadmeDialog
-        open={displayDialog}
-        onClose={() => setDisplayDialog(false)}
+        open={isFullViewOpen}
+        onClose={() => setIsFullViewOpen(false)}
       />
     </>
   );
