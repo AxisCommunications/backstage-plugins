@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import { InfoCard, InfoCardVariants } from '@backstage/core-components';
 import { FetchComponent } from '../FetchComponent';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import { ReadmeDialog } from '../ReadmeDialog/ReadmeDialog';
 
 /**
@@ -33,12 +33,12 @@ export const ReadmeCard = (props: ReadmeCardProps) => {
           variant !== 'fullHeight' ? (
             <IconButton
               onClick={() => setDisplayDialog(true)}
-              aria-label="open dialog"
+              aria-label="Open full view"
               role="button"
-              title="Open in dialog"
+              title="Open full view"
               size="large"
             >
-              <OpenInNewIcon />
+              <FullscreenIcon />
             </IconButton>
           ) : undefined
         }
