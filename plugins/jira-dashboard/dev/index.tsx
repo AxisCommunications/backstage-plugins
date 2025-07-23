@@ -1,4 +1,3 @@
-import React from 'react';
 import { createDevApp } from '@backstage/dev-utils';
 import { EntityJiraDashboardContent, jiraDashboardPlugin } from '../src';
 import { jiraDashboardApiRef } from '../src/api';

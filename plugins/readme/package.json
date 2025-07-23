@@ -30,11 +30,11 @@
   },
   "dependencies": {
     "@backstage/catalog-model": "^1.7.3",
-    "@backstage/core-components": "^0.16.4",
-    "@backstage/core-plugin-api": "^1.10.4",
+    "@backstage/core-components": "^0.17.1",
+    "@backstage/core-plugin-api": "^1.10.6",
     "@backstage/errors": "^1.2.7",
-    "@backstage/plugin-catalog-react": "^1.15.2",
-    "@backstage/theme": "^0.6.4",
+    "@backstage/plugin-catalog-react": "^1.17.0",
+    "@backstage/theme": "^0.6.5",
     "@mui/icons-material": "^5.15.7",
     "@mui/material": "^5.15.7",
     "react-use": "^17.2.4"
@@ -48,10 +48,10 @@
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.30.0",
-    "@backstage/core-app-api": "^1.15.5",
-    "@backstage/dev-utils": "^1.1.7",
-    "@backstage/test-utils": "^1.7.5",
+    "@backstage/cli": "^0.32.0",
+    "@backstage/core-app-api": "^1.16.1",
+    "@backstage/dev-utils": "^1.1.9",
+    "@backstage/test-utils": "^1.7.7",
     "@testing-library/dom": "^9.0.0",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",

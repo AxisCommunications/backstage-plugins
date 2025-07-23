@@ -32,9 +32,9 @@
   "dependencies": {
     "@axis-backstage/plugin-statuspage-common": "workspace:^",
     "@backstage/catalog-model": "^1.7.3",
-    "@backstage/core-components": "^0.16.4",
-    "@backstage/core-plugin-api": "^1.10.4",
-    "@backstage/plugin-catalog-react": "^1.15.2",
+    "@backstage/core-components": "^0.17.1",
+    "@backstage/core-plugin-api": "^1.10.6",
+    "@backstage/plugin-catalog-react": "^1.17.0",
     "@mui/icons-material": "^5.15.7",
     "@mui/material": "^5.15.7",
     "react-use": "^17.2.4"
@@ -46,8 +46,8 @@
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.30.0",
-    "@backstage/dev-utils": "^1.1.7",
+    "@backstage/cli": "^0.32.0",
+    "@backstage/dev-utils": "^1.1.9",
     "@testing-library/jest-dom": "^6.0.0"
   },
   "files": [

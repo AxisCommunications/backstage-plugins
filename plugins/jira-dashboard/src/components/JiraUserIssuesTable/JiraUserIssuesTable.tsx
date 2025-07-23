@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import { ComponentProps, CSSProperties } from 'react';
 
 import {
   Progress,
@@ -25,7 +25,7 @@ import { useJiraUserIssues } from '../../hooks/useJiraUserIssues';
 /**
  * Table properties for Table component in \@backstage/core-components
  * @public */
-export type TableComponentProps = React.ComponentProps<typeof Table>;
+export type TableComponentProps = ComponentProps<typeof Table>;
 
 /**
  * Jira user issues list card properties

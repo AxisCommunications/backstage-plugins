@@ -9,10 +9,14 @@ import { rootRouteRef } from './routes';
  * @alpha
  * @packageDocumentation
  */
-export default createFrontendPlugin({
+import type { FrontendPlugin } from '@backstage/frontend-plugin-api';
+
+const plugin: FrontendPlugin = createFrontendPlugin({
   id: 'jira-dashboard',
   extensions: [entityJiraContent, jiraApi],
   routes: convertLegacyRouteRefs({
     rootRouteRef,
   }),
 });
+
+export default plugin;
