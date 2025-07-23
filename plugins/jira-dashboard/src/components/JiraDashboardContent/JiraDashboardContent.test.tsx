@@ -1,4 +1,3 @@
-import React from 'react';
 import { JiraDashboardContent } from './JiraDashboardContent';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';

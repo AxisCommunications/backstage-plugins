@@ -4,7 +4,6 @@ import {
   fetchApiRef,
 } from '@backstage/core-plugin-api';
 import { createDevApp } from '@backstage/dev-utils';
-import React from 'react';
 
 import { UmamiAnalytics } from '../src';
 import { Playground } from './Playground';

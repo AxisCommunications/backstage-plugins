@@ -5,7 +5,6 @@ import {
 import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
 import { rootRouteRef } from '../routes';
 
-import React from 'react';
 import { configApiRef } from '@backstage/core-plugin-api';
 import { isJiraDashboardAvailable } from '..';
 /**

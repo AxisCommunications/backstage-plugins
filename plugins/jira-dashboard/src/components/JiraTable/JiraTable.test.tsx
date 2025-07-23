@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderInTestApp } from '@backstage/test-utils';
 import { JiraTable } from './JiraTable';
 import mockedJiraDataResponse from './mockedJiraDataResponse.json';

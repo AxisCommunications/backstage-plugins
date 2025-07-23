@@ -1,4 +1,3 @@
-import React from 'react';
 import { DateTime } from 'luxon/src/datetime';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import FormControl from '@mui/material/FormControl';

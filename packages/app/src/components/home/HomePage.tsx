@@ -6,7 +6,6 @@ import {
   WelcomeTitle,
 } from '@backstage/plugin-home';
 import { Content, Header, Page } from '@backstage/core-components';
-import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import {
   SearchBar,

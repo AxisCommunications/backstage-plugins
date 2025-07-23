@@ -1,4 +1,3 @@
-import React from 'react';
 import { createDevApp } from '@backstage/dev-utils';
 import { statuspagePlugin, StatuspagePage } from '../src/plugin';
 import { statuspageApiRef } from '../src/api/StatuspageApi';

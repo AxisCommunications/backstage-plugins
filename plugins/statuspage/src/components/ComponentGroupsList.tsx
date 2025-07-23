@@ -1,4 +1,3 @@
-import React from 'react';
 import Stack from '@mui/material/Stack';
 import { ComponentGroupCard } from './ComponentGroupCard';
 import type {

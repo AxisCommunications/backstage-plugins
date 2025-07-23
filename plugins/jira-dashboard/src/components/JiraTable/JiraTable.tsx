@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import { ComponentProps, CSSProperties } from 'react';
 import Typography from '@mui/material/Typography';
 import {
   Issue,
@@ -19,7 +19,7 @@ import { columns } from './columns';
 import { getJiraBaseUrl, transformAssignees } from '../../lib';
 
 // Infer the prop types from the Table component
-type TableComponentProps = React.ComponentProps<typeof Table>;
+type TableComponentProps = ComponentProps<typeof Table>;
 
 type Props = {
   tableContent: JiraDataResponse;

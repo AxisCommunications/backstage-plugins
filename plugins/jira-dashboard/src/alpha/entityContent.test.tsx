@@ -9,7 +9,6 @@ import { JiraDashboardApi, jiraDashboardApiRef } from '../api';
 import mockedJiraResponse from '../../dev/__fixtures__/jiraResponse.json';
 import mockedEntity from '../../dev/__fixtures__/entity.json';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
-import React from 'react';
 
 const mockJiraApi = {
   getJiraResponseByEntity: jest.fn(() => mockedJiraResponse),
