@@ -1,5 +1,21 @@
 # app
 
+## 0.11.0
+
+### Minor Changes
+
+- 86c01b7: Bumped to Backstage 1.40
+
+### Patch Changes
+
+- Updated dependencies [86c01b7]
+  - @axis-backstage/plugin-analytics-module-umami@0.7.0
+  - @axis-backstage/plugin-jira-dashboard-common@1.12.0
+  - @axis-backstage/plugin-vacation-calendar@0.7.0
+  - @axis-backstage/plugin-jira-dashboard@1.20.0
+  - @axis-backstage/plugin-statuspage@0.8.0
+  - @axis-backstage/plugin-readme@0.14.0
+
 ## 0.10.16
 
 ### Patch Changes
