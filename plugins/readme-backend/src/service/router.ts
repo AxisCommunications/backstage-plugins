@@ -17,6 +17,7 @@ import { isError, NotFoundError } from '@backstage/errors';
 import express from 'express';
 import Router from 'express-promise-router';
 import { isSymLink } from '../lib';
+import { getCacheTtl } from './config';
 import { NOT_FOUND_PLACEHOLDER, getReadmeTypes } from './constants';
 import { ReadmeFile } from './types';
 
@@ -42,8 +43,9 @@ export async function createRouter(
 ): Promise<express.Router> {
   const { auth, logger, config, reader, discovery, cache } = options;
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
+  const cacheTtl = getCacheTtl(config);
 
-  logger.info('Initializing readme backend');
+  logger.info(`Initializing readme backend. Cache TTL: ${cacheTtl}ms`);
   const integrations = ScmIntegrations.fromConfig(config);
   const router = Router();
   router.use(express.json());
@@ -121,11 +123,15 @@ export async function createRouter(
           content = (await symLinkUrlResponse.buffer()).toString('utf-8');
         }
 
-        cache.set(entityRef, {
-          name: fileType.name,
-          type: fileType.type,
-          content: content,
-        });
+        cache.set(
+          entityRef,
+          {
+            name: fileType.name,
+            type: fileType.type,
+            content: content,
+          },
+          { ttl: cacheTtl },
+        );
         logger.info(
           `Found README for ${entityRef}: ${url} type ${fileType.type}`,
         );
@@ -143,11 +149,15 @@ export async function createRouter(
       }
     }
     logger.info(`Readme not found for ${entityRef}`);
-    cache.set(entityRef, {
-      name: NOT_FOUND_PLACEHOLDER,
-      type: '',
-      content: '',
-    });
+    cache.set(
+      entityRef,
+      {
+        name: NOT_FOUND_PLACEHOLDER,
+        type: '',
+        content: '',
+      },
+      { ttl: cacheTtl },
+    );
     throw new NotFoundError('Readme could not be found');
   });
 
