@@ -1,5 +1,12 @@
 # backend
 
+## 0.7.30
+
+### Patch Changes
+
+- Updated dependencies [733b2db]
+  - @axis-backstage/plugin-readme-backend@0.13.1
+
 ## 0.7.29
 
 ### Patch Changes

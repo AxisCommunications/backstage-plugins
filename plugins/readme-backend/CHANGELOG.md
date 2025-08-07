@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.13.1
+
+### Patch Changes
+
+- 733b2db: Added config to set the cache ttl.
+
 ## 0.13.0
 
 ### Minor Changes
