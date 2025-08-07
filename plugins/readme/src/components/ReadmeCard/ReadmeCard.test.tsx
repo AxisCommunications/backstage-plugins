@@ -1,4 +1,3 @@
-import React from 'react';
 import { ReadmeCard } from './ReadmeCard';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';

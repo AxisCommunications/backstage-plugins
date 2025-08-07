@@ -1,4 +1,3 @@
-import React from 'react';
 import { createApp } from '@backstage/frontend-defaults';
 import {
   configApiRef,

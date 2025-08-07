@@ -1,4 +1,3 @@
-import React from 'react';
 import { createDevApp } from '@backstage/dev-utils';
 import { EntityJiraDashboardContent, jiraDashboardPlugin } from '../src';
 import { jiraDashboardApiRef } from '../src/api';
@@ -8,7 +7,7 @@ import mockEntity from './__fixtures__/entity.json';
 import mockJiraResponse from './__fixtures__/jiraResponse.json';
 /* Use to test with Jira Cloud
 
-import mockJiraCloudResponse from './__fixtures__/jiraCloudResponse.json'; 
+import mockJiraCloudResponse from './__fixtures__/jiraCloudResponse.json';
 */
 
 createDevApp()

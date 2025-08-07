@@ -1,4 +1,3 @@
-import React from 'react';
 import { createDevApp } from '@backstage/dev-utils';
 import { readmePlugin, ReadmeCard } from '../src/plugin';
 import { EntityProvider } from '@backstage/plugin-catalog-react';

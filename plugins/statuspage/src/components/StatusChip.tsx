@@ -1,4 +1,3 @@
-import React from 'react';
 import Chip from '@mui/material/Chip';
 import type { ComponentStatus } from '@axis-backstage/plugin-statuspage-common';
 

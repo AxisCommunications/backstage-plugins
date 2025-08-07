@@ -1,4 +1,3 @@
-import React from 'react';
 import { Avatar, Link, TableColumn } from '@backstage/core-components';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import Typography from '@mui/material/Typography';

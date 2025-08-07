@@ -39,10 +39,13 @@
       "plugins/*"
     ]
   },
+  "dependencies": {
+    "@useoptic/optic": "^1.0.0"
+  },
   "devDependencies": {
-    "@backstage/cli": "^0.30.0",
+    "@backstage/cli": "^0.33.0",
     "@backstage/e2e-test-utils": "^0.1.1",
-    "@backstage/repo-tools": "^0.13.0",
+    "@backstage/repo-tools": "^0.14.0",
     "@changesets/cli": "^2.28.1",
     "@playwright/test": "^1.32.3",
     "@spotify/prettier-config": "^15.0.0",
@@ -51,8 +54,8 @@
     "typescript": "~5.2.0"
   },
   "resolutions": {
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.3",
+    "@types/react-dom": "^18.3",
     "@stoplight/spectral-core@npm:1.19.4/jsonpath-plus": "^10.3.0",
     "@kubernetes/client-node@npm:0.20.0/jsonpath-plus": "^10.3.0"
   },
@@ -66,5 +69,5 @@
       "prettier --write"
     ]
   },
-  "packageManager": "yarn@4.0.2"
+  "packageManager": "yarn@4.8.1"
 }
