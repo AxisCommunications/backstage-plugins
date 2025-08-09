@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import Typography from '@mui/material/Typography';
 import {
   Issue,

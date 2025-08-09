@@ -1,4 +1,3 @@
-import React from 'react';
 import { ReadmeDialog } from './ReadmeDialog';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';

@@ -46,6 +46,20 @@ readme:
     - README.markdown
 ```
 
+To override the default TTL of the internal cache a duration can be set using the `cacheTtl` key. This can be either a string
+or an object. The following examples should be equal.
+
+```yaml
+readme:
+  cacheTtl:
+    hours: 2
+```
+
+```yaml
+readme:
+  cacheTtl: '2h'
+```
+
 ### Troubleshooting
 
 If the backend fails to provide README content for an entity, it could be due to several reasons.

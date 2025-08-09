@@ -1,4 +1,4 @@
-import { ConfigReader } from '@backstage/config';
+import { mockServices } from '@backstage/backend-test-utils';
 import { NOT_FOUND_PLACEHOLDER, getReadmeTypes } from './constants';
 
 describe('constants', () => {
@@ -11,7 +11,9 @@ describe('constants', () => {
 
   describe('getReadmeTypes', () => {
     it('should return default readme types when config is empty', () => {
-      const config = new ConfigReader({});
+      const config = mockServices.rootConfig({
+        data: {},
+      });
       const readmeTypes = getReadmeTypes(config);
       expect(readmeTypes).toEqual([
         { name: 'README.md', type: 'text/markdown' },
@@ -23,9 +25,11 @@ describe('constants', () => {
     });
 
     it('should return custom readme types from config', () => {
-      const config = new ConfigReader({
-        readme: {
-          fileNames: ['CUSTOM.md', 'CUSTOM.txt'],
+      const config = mockServices.rootConfig({
+        data: {
+          readme: {
+            fileNames: ['CUSTOM.md', 'CUSTOM.txt'],
+          },
         },
       });
       const readmeTypes = getReadmeTypes(config);
