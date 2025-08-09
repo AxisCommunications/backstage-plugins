@@ -24,6 +24,11 @@ export interface Config {
         baseUrl: string;
 
         /**
+         * Optional url for the Jira API, if different from the baseUrl. This can be useful if your Jira instance has a different API endpoint, like if using scoped API tokens. For example: https://api.atlassian.com/ex/jira/7c9c39d8-d07d-43bd-924b-a82397d47f45/rest/api/2/
+         */
+        apiUrl?: string;
+
+        /**
          * Optional email suffix used for retrieving a specific Jira user in a company. For instance: @your-company.com. If not provided, the user entity profile email is used instead.
          */
         userEmailSuffix?: string;
@@ -77,6 +82,11 @@ export interface Config {
            * The base url for Jira in your company, including the API version. For instance: https://jira.se.your-company.com/rest/api/2/'
            */
           baseUrl: string;
+
+          /**
+           * Optional url for the Jira API, if different from the baseUrl. This can be useful if your Jira instance has a different API endpoint, like if using scoped API tokens. For example: https://api.atlassian.com/ex/jira/7c9c39d8-d07d-43bd-924b-a82397d47f45/rest/api/2/
+           */
+          apiUrl?: string;
 
           /**
            * Optional email suffix used for retrieving a specific Jira user in a company. For instance: @your-company.com. If not provided, the user entity profile email is used instead.

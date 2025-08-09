@@ -3,6 +3,8 @@ import {
   PROJECT_KEY_NAME,
   FILTERS_NAME,
   INCOMING_ISSUES_STATUS,
+  Project,
+  Issue,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 
 import type { ConfigInstance, JiraConfig } from './config';
@@ -56,4 +58,27 @@ export function splitProjectKey(
     fullProjectKey,
     projectKey,
   };
+}
+
+export function getApiUrl(instance: ConfigInstance) {
+  return instance.apiUrl || instance.baseUrl;
+}
+
+export function replaceProjectApiUrl(
+  instance: ConfigInstance,
+  project: Project,
+) {
+  if (instance.apiUrl) {
+    const apiUrl = instance.apiUrl;
+    project.self = project.self.replace(apiUrl, instance.baseUrl);
+  }
+}
+
+export function replaceIssuesApiUrl(instance: ConfigInstance, issues: Issue[]) {
+  if (instance.apiUrl) {
+    const apiUrl = instance.apiUrl;
+    issues.forEach(
+      issue => (issue.self = issue.self.replace(apiUrl, instance.baseUrl)),
+    );
+  }
 }

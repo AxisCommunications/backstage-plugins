@@ -9,6 +9,7 @@ import {
 import type { ConfigInstance } from './config';
 import { jqlQueryBuilder } from './queries';
 import type { JiraProject } from './lib';
+import { getApiUrl, replaceProjectApiUrl, replaceIssuesApiUrl } from './lib';
 import { ResponseError } from '@backstage/errors';
 
 export const getProjectInfo = async (
@@ -17,7 +18,7 @@ export const getProjectInfo = async (
   const { projectKey, instance } = project;
   const response = await callApi(
     instance,
-    `${instance.baseUrl}project/${projectKey}`,
+    `${getApiUrl(instance)}project/${projectKey}`,
     {
       method: 'GET',
       headers: {
@@ -30,19 +31,26 @@ export const getProjectInfo = async (
       `Request failed with status code ${response.status}: ${response.statusText}`,
     );
   }
-  return response.json();
+
+  const projectResponse = await response.json();
+  replaceProjectApiUrl(project.instance, projectResponse);
+  return projectResponse;
 };
 
 export const getFilterById = async (
   id: string,
   instance: ConfigInstance,
 ): Promise<Filter> => {
-  const response = await callApi(instance, `${instance.baseUrl}filter/${id}`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
+  const response = await callApi(
+    instance,
+    `${getApiUrl(instance)}filter/${id}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
     },
-  });
+  );
   if (response.status !== 200) {
     throw Error(`${response.status}`);
   }
@@ -61,7 +69,7 @@ export const getIssuesByFilter = async (
     const jql = jqlQueryBuilder({ project: [projectKey], components, query });
     const response = await callApi(
       instance,
-      `${instance.baseUrl}search?jql=${jql}`,
+      `${getApiUrl(instance)}search?jql=${jql}`,
       {
         method: 'GET',
         headers: {
@@ -77,6 +85,7 @@ export const getIssuesByFilter = async (
       );
     }
     if (response?.issues) {
+      replaceIssuesApiUrl(project.instance, response.issues);
       issues.push(...response.issues);
     }
   }
@@ -115,7 +124,7 @@ export const searchJira = async (
   jqlQuery: string,
   options: SearchOptions,
 ): Promise<JiraQueryResults> => {
-  const response = await callApi(instance, `${instance.baseUrl}search`, {
+  const response = await callApi(instance, `${getApiUrl(instance)}search`, {
     method: 'POST',
     body: JSON.stringify({ jql: jqlQuery, ...options }),
     headers: {
@@ -126,8 +135,9 @@ export const searchJira = async (
   if (!response.ok) {
     throw await ResponseError.fromResponse(response);
   }
-  const jsonResponse = await response.json();
-  return jsonResponse as JiraQueryResults;
+  const jsonResponse = (await response.json()) as JiraQueryResults;
+  replaceIssuesApiUrl(instance, jsonResponse.issues);
+  return jsonResponse;
 };
 
 export const getIssuesByComponent = async (
@@ -154,7 +164,7 @@ export const getIssuesByComponent = async (
   try {
     const response = await callApi(
       instance,
-      `${instance.baseUrl}search?jql=${jql}`,
+      `${getApiUrl(instance)}search?jql=${jql}`,
       {
         method: 'GET',
         headers: {
@@ -167,6 +177,7 @@ export const getIssuesByComponent = async (
       return [];
     }
 
+    replaceIssuesApiUrl(instance, response.issues);
     return response.issues;
   } catch (error: any) {
     if (error.message.includes("does not exist for the field 'project'")) {
