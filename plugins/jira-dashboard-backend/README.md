@@ -25,6 +25,7 @@ The Jira Dashboard plugin requires the following YAML to be added to your app-co
 jiraDashboard:
   token: ${JIRA_TOKEN}
   baseUrl: ${JIRA_BASE_URL}
+  apiUrl: ${JIRA_API_URL} # Optional
   headers: {} # Optional
   userEmailSuffix: ${JIRA_EMAIL_SUFFIX} # Optional
   annotationPrefix: ${JIRA_ANNOTATION_PREFIX} # Optional
@@ -35,6 +36,7 @@ jiraDashboard:
 - `JIRA_TOKEN`: The "Authorization" header used for Jira authentication.
   > Note: The JIRA_TOKEN variable from [Roadie's Backstage Jira plugin](https://roadie.io/backstage/plugins/jira) can not be reused here because of the added encoding in this token.
 - `JIRA_BASE_URL`: The base url for Jira in your company, including the API version. For instance: https://jira.se.your-company.com/rest/api/2/
+- `JIRA_API_URL`: Optional url for the Jira API, if different from the base url, including the API version. Necessary when using scoped API tokens with Jira Cloud. For instance: https://api.atlassian.com/ex/jira/7c9c39d8-d07d-43bd-924b-a82397d47f45/rest/api/2/
 - The headers field can be used to add HTTP headers that will be added to the API requests.
 - `JIRA_EMAIL_SUFFIX`: Optional email suffix used for retrieving a specific Jira user in a company. For instance: @your-company.com. If not provided, the user entity profile email is used instead.
 - `JIRA_ANNOTATION_PREFIX`: Optional annotation prefix for retrieving a custom annotation. Defaut value is jira.com. If you want to configure the plugin to be compatible with [Roadie's Backstage Jira Plugin](https://roadie.io/backstage/plugins/jira/), use the following annotation prefix:
@@ -56,11 +58,13 @@ jiraDashboard:
     - name: default
       token: ${JIRA_TOKEN}
       baseUrl: ${JIRA_BASE_URL}
+      apiUrl: ${JIRA_API_URL} # Optional
       headers: {} # Optional
       userEmailSuffix: ${JIRA_EMAIL_SUFFIX} # Optional
     - name: separate-jira-instance
       token: ${JIRA_TOKEN_SEPARATE}
       baseUrl: ${JIRA_BASE_URL_SEPARATE}
+      apiUrl: ${JIRA_API_URL_SEPARATE} # Optional
       headers: {} # Optional
       userEmailSuffix: ${JIRA_EMAIL_SUFFIX_SEPARATE} # Optional
 ```
@@ -145,6 +149,24 @@ jiraDashboard:
   baseUrl: https://your-domain.atlassian.net/rest/api/2/
   userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
 ```
+
+##### Using Scoped API Tokens with Atlassian Cloud
+
+If you want to use scoped API tokens, which allow limiting the permission of the token, you need to call a different Atlassian API endpoint and use a unique `apiUrl` ([see the documentation here](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/#Create-an-API-token-with-scopes)). You will still need to enter the `baseUrl` as well, which should point to your Jira instance (including the API version information).
+
+Note: this API endpoint uses your `cloudid` which can be found as described in [this article](https://support.atlassian.com/jira/kb/retrieve-my-atlassian-sites-cloud-id/).
+
+Here is an example configuration which works with scoped API tokens:
+```yaml
+jiraDashboard:
+  token: Basic ZnJlZDpmcmVk
+  baseUrl: https://your-domain.atlassian.net/rest/api/2/
+  apiUrl: https://api.atlassian.com/ex/jira/7c9c39d8-d07d-43bd-924b-a82397d47f45/rest/api/2/
+```
+
+The only required classic scope for this plugin is:
+
+- read:jira-work
 
 ### Integrating
 
