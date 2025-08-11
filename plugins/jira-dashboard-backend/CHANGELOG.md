@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.7.0
+
+### Minor Changes
+
+- 798d630: Add a new 'apiUrl' config parameter which can be used for scoped API tokens
+
 ## 4.6.0
 
 ### Minor Changes
