@@ -157,6 +157,7 @@ If you want to use scoped API tokens, which allow limiting the permission of the
 Note: this API endpoint uses your `cloudid` which can be found as described in [this article](https://support.atlassian.com/jira/kb/retrieve-my-atlassian-sites-cloud-id/).
 
 Here is an example configuration which works with scoped API tokens:
+
 ```yaml
 jiraDashboard:
   token: Basic ZnJlZDpmcmVk
