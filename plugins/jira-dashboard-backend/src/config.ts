@@ -25,11 +25,13 @@ export type ConfigInstance = {
   token: string;
   headers: Record<string, string>;
   baseUrl: string;
+  apiUrl?: string;
   userEmailSuffix?: string;
   defaultFilters?: Filter[];
 };
 
 const JIRA_CONFIG_BASE_URL = 'baseUrl';
+const JIRA_CONFIG_API_URL = 'apiUrl';
 const JIRA_CONFIG_TOKEN = 'token';
 const JIRA_CONFIG_HEADERS = 'headers';
 const JIRA_CONFIG_USER_EMAIL_SUFFIX = 'userEmailSuffix';
@@ -69,6 +71,7 @@ export class JiraConfig {
           token: inst.getString(JIRA_CONFIG_TOKEN),
           headers: parseHeaders(inst.getOptionalConfig(JIRA_CONFIG_HEADERS)),
           baseUrl: inst.getString(JIRA_CONFIG_BASE_URL),
+          apiUrl: inst.getOptionalString(JIRA_CONFIG_API_URL),
           userEmailSuffix: inst.getOptionalString(
             JIRA_CONFIG_USER_EMAIL_SUFFIX,
           ),
@@ -87,6 +90,7 @@ export class JiraConfig {
         token: jira.getString(JIRA_CONFIG_TOKEN),
         headers: parseHeaders(jira.getOptionalConfig(JIRA_CONFIG_HEADERS)),
         baseUrl: jira.getString(JIRA_CONFIG_BASE_URL),
+        apiUrl: jira.getOptionalString(JIRA_CONFIG_API_URL),
         userEmailSuffix: jira.getOptionalString(JIRA_CONFIG_USER_EMAIL_SUFFIX),
         defaultFilters: jira
           .getOptionalConfigArray(JIRA_FILTERS)

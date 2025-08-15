@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import Typography from '@mui/material/Typography';
 import {
   Issue,
@@ -56,7 +56,6 @@ export const JiraTable = ({
   }
 
   transformAssignees(tableContent?.issues || []);
-
   const nbrOfIssues = tableContent?.issues?.length ?? 0;
 
   const defaultFilters: TableFilter[] = [
@@ -74,7 +73,6 @@ export const JiraTable = ({
       filters = defaultFilters;
     }
   }
-
   let title = (
     <Typography component="div" variant="h5" data-testid="table-header">
       {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
@@ -92,6 +90,17 @@ export const JiraTable = ({
       </Link>
     );
   }
+
+  const baseTableStyle: CSSProperties = {
+    width: '100%',
+    maxHeight: '500px',
+    padding: '20px',
+    overflowY: 'auto',
+    boxSizing: 'border-box',
+    overflowX: 'auto',
+    display: 'block',
+    ...tableStyle,
+  };
 
   if (showFilters) {
     return (
@@ -111,11 +120,7 @@ export const JiraTable = ({
           }
           data={tableContent.issues || []}
           columns={tableColumns}
-          style={{
-            padding: '0px',
-            boxShadow: 'none',
-            ...tableStyle,
-          }}
+          style={baseTableStyle}
         />
       </InfoCard>
     );
@@ -138,7 +143,7 @@ export const JiraTable = ({
       }
       data={tableContent.issues || []}
       columns={tableColumns}
-      style={{ ...tableStyle, ...style }}
+      style={{ ...baseTableStyle, ...style }}
     />
   );
 };

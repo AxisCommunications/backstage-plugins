@@ -1,5 +1,16 @@
 # @axis-backstage/plugin-statuspage
 
+## 0.8.0
+
+### Minor Changes
+
+- 86c01b7: Bumped to Backstage 1.40
+
+### Patch Changes
+
+- Updated dependencies [86c01b7]
+  - @axis-backstage/plugin-statuspage-common@0.7.0
+
 ## 0.7.0
 
 ### Minor Changes

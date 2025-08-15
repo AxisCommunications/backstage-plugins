@@ -20,6 +20,25 @@ describe('config', () => {
     expect(instance.userEmailSuffix).toBe('@backstage.com');
   });
 
+  it('should handle a config with apiUrl', () => {
+    const mockConfig = mockServices.rootConfig({
+      data: {
+        jiraDashboard: {
+          baseUrl: 'http://jira.com',
+          apiUrl: 'http://api.atlassian.com',
+          token: 'token',
+          userEmailSuffix: '@backstage.com',
+        },
+      },
+    });
+    const instance = JiraConfig.fromConfig(mockConfig).getInstance();
+    expect(instance.baseUrl).toBe('http://jira.com');
+    expect(instance.apiUrl).toBe('http://api.atlassian.com');
+    expect(instance.token).toBe('token');
+    expect(instance.headers).toEqual({});
+    expect(instance.userEmailSuffix).toBe('@backstage.com');
+  });
+
   it('should handle custom headers', () => {
     const mockConfig = mockServices.rootConfig({
       data: {

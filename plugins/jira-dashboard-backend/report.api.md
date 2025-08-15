@@ -22,6 +22,7 @@ export type ConfigInstance = {
   token: string;
   headers: Record<string, string>;
   baseUrl: string;
+  apiUrl?: string;
   userEmailSuffix?: string;
   defaultFilters?: Filter[];
 };

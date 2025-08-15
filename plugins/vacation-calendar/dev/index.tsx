@@ -4,7 +4,6 @@ import {
   catalogApiRef,
   EntityProvider,
 } from '@backstage/plugin-catalog-react';
-import React from 'react';
 import { vacationCalendarPlugin } from '../src/plugin';
 import { fetchApiRef, microsoftAuthApiRef } from '@backstage/core-plugin-api';
 import { GetEntitiesResponse } from '@backstage/catalog-client';
