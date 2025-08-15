@@ -6,6 +6,8 @@ import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import { DateTime } from 'luxon';
+import { EntityPeekAheadPopover } from '@backstage/plugin-catalog-react';
+import { AssigneeCell } from './cells/AssigneeCell';
 
 export const columnKey: TableColumn<Issue> = {
   title: 'Key',
@@ -119,42 +121,9 @@ export const columnAssignee: TableColumn<Issue> = {
   width: '20%',
 
   render: (issue: Partial<Issue>) => {
-    if (issue.fields?.assignee?.displayName) {
-      return (
-        <Stack direction="row" gap={1} alignItems="center" mb={1}>
-          <Avatar
-            picture={issue.fields?.assignee?.avatarUrls['48x48'] || ''}
-            customStyles={{
-              width: 35,
-              height: 35,
-            }}
-          />
-          <Typography variant="body2">
-            {issue.fields.assignee.displayName}
-          </Typography>
-        </Stack>
-      );
-    } else if (issue.fields?.assignee?.name) {
-      return (
-        <Typography variant="body2">
-          {issue.fields.assignee.name.split('@')[0]}
-        </Typography>
-      );
-    } else if (issue.fields?.assignee?.key) {
-      return (
-        <Typography variant="body2">{issue.fields.assignee.key}</Typography>
-      );
-    }
-    return (
-      <Typography
-        sx={{ color: theme => theme.palette.text.disabled }}
-        color="divider"
-        variant="body2"
-      />
-    );
-  },
+    return <AssigneeCell assignee={issue.fields?.assignee} />;
+  }
 };
-
 export const columnUpdated: TableColumn<Issue> = {
   title: 'Updated',
   field: 'fields.updated',
