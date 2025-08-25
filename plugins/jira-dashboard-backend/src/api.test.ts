@@ -518,4 +518,47 @@ describe('api', () => {
     );
     expect(issues).toEqual([]);
   });
+  it('combines jira.com/jql annotation with filter query and sends correct JQL to Jira', async () => {
+    // Simulate annotation and filter
+    const annotationJql = 'status = "Open"';
+    const filterQuery = 'resolution = Unresolved';
+    const orderBy = 'ORDER BY updated DESC';
+    const combinedJql = `${filterQuery} AND (${annotationJql}) ${orderBy}`;
+
+    // Mock Jira response
+    const response = Promise.resolve({
+      ok: true,
+      status: 200,
+      json: async () => ({
+        issues: [{ key: 'project-123', self: 'http://jira.com/issue/ppp-1' }],
+      }),
+    });
+    (fetch as jest.MockedFn<typeof fetch>).mockImplementation(
+      () => response as any,
+    );
+
+    const projects = [
+      {
+        instance,
+        fullProjectKey: 'default/ppp',
+        projectKey: 'ppp',
+      },
+    ];
+
+    // Call getIssuesByFilter with the combined JQL
+    await getIssuesByFilter(projects, ['ccc'], combinedJql);
+
+    // Check that the correct JQL is sent to Jira
+    expect(fetch).toHaveBeenCalledWith(
+      "http://jira.com/search?jql=project in ('ppp') AND component in ('ccc') AND resolution = Unresolved AND (status = \"Open\") ORDER BY updated DESC",
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Custom-Header': 'custom value',
+          Authorization: 'token',
+        },
+      },
+    );
+  });
 });
