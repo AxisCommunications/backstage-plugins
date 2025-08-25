@@ -7,6 +7,7 @@ export type JqlQueryBuilderArgs = {
   project: string | string[];
   components?: string[];
   query?: string;
+  jqlInput?: string;
 };
 
 /**
@@ -43,9 +44,15 @@ export const jqlQueryBuilder = ({
   project,
   components,
   query,
+  jqlInput,
 }: JqlQueryBuilderArgs) => {
   const projectList = Array.isArray(project) ? project : [project];
   let jql = createEscapedIncludeQuery('project', projectList);
+
+  if (jqlInput) {
+    jql += ` AND (${jqlInput})`;
+  }
+
   if (components?.length) {
     jql += ` AND ${createEscapedIncludeQuery('component', components)}`;
   }

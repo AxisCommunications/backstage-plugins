@@ -62,11 +62,17 @@ export const getIssuesByFilter = async (
   projects: JiraProject[],
   components: string[],
   query: string,
+  jqlInput?: string,
 ): Promise<Issue[]> => {
   const issues: Issue[] = [];
   for (const project of projects) {
     const { projectKey, instance } = project;
-    const jql = jqlQueryBuilder({ project: [projectKey], components, query });
+    const jql = jqlQueryBuilder({
+      project: [projectKey],
+      components,
+      query,
+      jqlInput,
+    });
     const response = await callApi(
       instance,
       `${getApiUrl(instance)}search?jql=${jql}`,
@@ -122,11 +128,11 @@ export type SearchOptions = {
 export const searchJira = async (
   instance: ConfigInstance,
   jqlQuery: string,
-  options: SearchOptions,
+  options?: SearchOptions,
 ): Promise<JiraQueryResults> => {
   const response = await callApi(instance, `${getApiUrl(instance)}search`, {
     method: 'POST',
-    body: JSON.stringify({ jql: jqlQuery, ...options }),
+    body: JSON.stringify({ jql: jqlQuery, ...(options ?? {}) }),
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -143,6 +149,7 @@ export const searchJira = async (
 export const getIssuesByComponent = async (
   projects: JiraProject[],
   componentKeys: string,
+  jqlInput?: string,
 ): Promise<Issue[]> => {
   // Return an empty array if no projects are provided
   if (projects.length === 0) {
@@ -157,6 +164,7 @@ export const getIssuesByComponent = async (
   const jql = jqlQueryBuilder({
     project: projectKeys,
     components,
+    jqlInput,
   });
 
   const { instance } = projects[0];

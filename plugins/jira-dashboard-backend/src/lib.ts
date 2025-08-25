@@ -5,6 +5,7 @@ import {
   INCOMING_ISSUES_STATUS,
   Project,
   Issue,
+  JQL,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 
 import type { ConfigInstance, JiraConfig } from './config';
@@ -15,6 +16,7 @@ export const getAnnotations = (config: JiraConfig) => {
   const projectKeyAnnotation = `${prefix}/${PROJECT_KEY_NAME}`;
   const componentsAnnotation = `${prefix}/${COMPONENTS_NAME}`;
   const filtersAnnotation = `${prefix}/${FILTERS_NAME}`;
+  const jqlAnnotation = `${prefix}/${JQL}`;
   const incomingIssuesAnnotation = `${prefix}/${INCOMING_ISSUES_STATUS}`;
 
   /*   Adding support for Roadie's component annotation */
@@ -24,6 +26,7 @@ export const getAnnotations = (config: JiraConfig) => {
     projectKeyAnnotation,
     componentsAnnotation,
     filtersAnnotation,
+    jqlAnnotation,
     incomingIssuesAnnotation,
     componentRoadieAnnotation,
   };

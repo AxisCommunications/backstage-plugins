@@ -184,6 +184,27 @@ metadata:
     jira.com/incoming-issues-status: Incoming # The name of the status for incoming issues in Jira. Default: New
 ```
 
+#### Custom JQL Annotation
+
+You can use the `jira.com/jql` annotation to specify a custom [Jira Query Language (JQL)](https://support.atlassian.com/jira-software-cloud/docs/advanced-search-reference-jql/) query for your entity.  
+**When this annotation is present, it will override the values set by `jira.com/components`, and `jira.com/filter-ids`.**  
+This allows you to fully customize which issues are shown in the Jira Dashboard for your entity.
+
+**Example:**
+
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    jira.com/jql: component = OurProject AND Affected = 1.1
+```
+
+**Note:**
+
+- Make sure your JQL is valid and returns the issues you expect.
+- If you use `jira.com/jql`, you do not need to set `jira.com/components`, or `jira.com/filter-ids` for that entity. However, you still need to specify the `jira.com/project-key` annotation.
+
 ### New Frontend System (Alpha)
 
 The Jira Dashboard plugin also has support for the [new alpha frontend system](https://backstage.io/docs/frontend-system/). Here is how you can set it up:

@@ -108,6 +108,7 @@ export async function createRouter(
         projectKeyAnnotation,
         componentsAnnotation,
         filtersAnnotation,
+        jqlAnnotation,
         incomingIssuesAnnotation,
         componentRoadieAnnotation,
       } = getAnnotations(config);
@@ -149,6 +150,8 @@ export async function createRouter(
           return;
         }
       }
+
+      const jql = entity.metadata.annotations?.[jqlAnnotation];
 
       let userEntity: UserEntity | undefined;
 
@@ -198,6 +201,7 @@ export async function createRouter(
         filters,
         instance,
         cache,
+        jql,
       );
 
       /* Adding support for Roadie's component annotation */
@@ -212,6 +216,7 @@ export async function createRouter(
           components,
           instance,
           cache,
+          jql,
         );
         issues = issues.concat(componentIssues);
       }

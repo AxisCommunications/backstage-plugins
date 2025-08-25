@@ -14,7 +14,7 @@ metadata:
   name: example-website
   annotations:
     jira.com/project-key: BS
-    # jira/project-key: BS
+    jira.com/jql: resolution = Unresolved order by updated DESC
 
 spec:
   type: website

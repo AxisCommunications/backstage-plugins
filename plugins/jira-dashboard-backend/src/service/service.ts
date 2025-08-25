@@ -46,7 +46,7 @@ export const getJqlResponse = async (
   jql: string,
   config: ConfigInstance,
   cache: CacheService,
-  searchOptions: SearchOptions,
+  searchOptions?: SearchOptions,
 ): Promise<Issue[]> => {
   let issuesResponse: Issue[];
 
@@ -154,6 +154,7 @@ export const getIssuesFromFilters = async (
   filters: Filter[],
   instance: ConfigInstance,
   cache: CacheService,
+  jql?: string,
 ): Promise<JiraDataResponse[]> => {
   const projects = await getJiraProjectsFromKeys(projectKeys, instance, cache);
   return await Promise.all(
@@ -165,7 +166,7 @@ export const getIssuesFromFilters = async (
         query: filter.query,
       }),
       type: 'filter',
-      issues: await getIssuesByFilter(projects, components, filter.query),
+      issues: await getIssuesByFilter(projects, components, filter.query, jql),
     })),
   );
 };
@@ -175,6 +176,7 @@ export const getIssuesFromComponents = async (
   componentAnnotations: string[],
   instance: ConfigInstance,
   cache: CacheService,
+  jql?: string,
 ): Promise<JiraDataResponse[]> => {
   const projects = await getJiraProjectsFromKeys(projectKeys, instance, cache);
   return await Promise.all(
@@ -185,7 +187,7 @@ export const getIssuesFromComponents = async (
         components: [componentKey],
       }),
       type: 'component',
-      issues: await getIssuesByComponent(projects, componentKey),
+      issues: await getIssuesByComponent(projects, componentKey, jql),
     })),
   );
 };

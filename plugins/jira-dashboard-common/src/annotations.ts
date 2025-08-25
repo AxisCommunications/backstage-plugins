@@ -21,6 +21,12 @@ export const COMPONENTS_NAME = 'components';
 export const FILTERS_NAME = 'filter-ids';
 
 /**
+ * The annotation name used to provide a JQL query to filter issues in Jira
+ *  @public
+ */
+export const JQL = 'jql';
+
+/**
  * The annotation name used to provide the status for incoming issues in Jira
  *  @public
  */
