@@ -164,9 +164,24 @@ metadata:
     jira.com/project-key: abc,bcd,def # Comma-separated list of Jira project keys
 ```
 
+### Custom JQL Annotation
+
+To fully customize which issues are displayed in the Jira Dashboard for your entity, you can use the `jira.com/jql` annotation.  
+This annotation lets you specify any [Jira Query Language (JQL)](https://support.atlassian.com/jira-service-management-cloud/docs/use-advanced-search-with-jira-query-language-jql) query, giving you complete control over the issue filtering. Only issues matching your custom JQL will be shown.
+
+**Example:**
+
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    jira.com/jql: component = OurProject AND Affected = 1.1
+```
+
 ### Optional annotations
 
-If you want to track specific components or filters for your entity, you can add the optional annotations `components` and `filters-ids`. You can specify an endless number of Jira components or filters.
+If you want to track specific components or filters for your entity, you can add the optional annotations `components` and `filters-ids`. You can specify an endless number of Jira components or filters. A separate Jira issues table will be displayed for each component or filter you specify.
 
 If your Jira project does not use "New" as status for incoming issues, you can specify which status to use through the `incoming-issues-status` annotation.
 

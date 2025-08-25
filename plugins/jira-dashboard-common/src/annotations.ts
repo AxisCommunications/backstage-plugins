@@ -9,6 +9,12 @@
 export const PROJECT_KEY_NAME = 'project-key';
 
 /**
+ * The annotation name used to provide a JQL query to filter issues for this entity
+ *  @public
+ */
+export const JQL = 'jql';
+
+/**
  * The annotation name used to provide the Jira components to track for this entity
  *  @public
  */

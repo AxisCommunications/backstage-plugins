@@ -106,6 +106,7 @@ export async function createRouter(
       const entity = await catalogClient.getEntityByRef(entityRef, { token });
       const {
         projectKeyAnnotation,
+        jqlAnnotation,
         componentsAnnotation,
         filtersAnnotation,
         incomingIssuesAnnotation,
@@ -198,6 +199,7 @@ export async function createRouter(
         filters,
         instance,
         cache,
+        jqlAnnotation,
       );
 
       /* Adding support for Roadie's component annotation */
@@ -212,6 +214,7 @@ export async function createRouter(
           components,
           instance,
           cache,
+          jqlAnnotation,
         );
         issues = issues.concat(componentIssues);
       }
