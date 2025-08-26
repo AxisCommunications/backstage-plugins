@@ -78,6 +78,19 @@ export class UmamiAnalytics implements AnalyticsApi {
   }
 
   /**
+   * Returns whether tracking is disabled.
+   *
+   * Tracking is disabled if:
+   * - testMode is enabled
+   * - localStorage has a key 'umami.disabled' set
+   *
+   * @returns true if tracking is disabled
+   */
+  private isTrackingDisabled() {
+    return this.testMode || localStorage?.getItem('umami.disabled');
+  }
+
+  /**
    * Primary event capture implementation. Handles core navigate event as a
    * pageview and the rest as custom events. All custom dimensions/metrics are
    * applied as they should be (set on pageview, merged object on events).
@@ -118,8 +131,8 @@ export class UmamiAnalytics implements AnalyticsApi {
       // eslint-disable-next-line no-console
       console.debug(`Umami event: ${payload}`);
     }
-    /* Do not send anything in test mode */
-    if (!this.testMode) {
+    /* Do not send anything when tracking is disabled */
+    if (!this.isTrackingDisabled()) {
       try {
         await this.fetchApi.fetch(`${this.dataDomain}/api/send`, {
           method: 'POST',
