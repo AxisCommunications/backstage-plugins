@@ -85,3 +85,5 @@ app:
       testMode: true # Prevents data being sent to Umami
       debug: true # Logs analytics event to the web console
 ```
+
+You can also turn off reporting to Analytics for your own visits as described in the [Umami docs](https://umami.is/docs/exclude-my-own-visits).
