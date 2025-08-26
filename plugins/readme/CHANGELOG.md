@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme
 
+## 0.15.0
+
+### Minor Changes
+
+- 2a2afb8: Add URL state management and update fullscreen icon
+
 ## 0.14.0
 
 ### Minor Changes

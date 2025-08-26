@@ -1,5 +1,17 @@
 # app
 
+## 0.11.1
+
+### Patch Changes
+
+- Updated dependencies [818c231]
+- Updated dependencies [8655706]
+- Updated dependencies [a04b26a]
+- Updated dependencies [2a2afb8]
+  - @axis-backstage/plugin-jira-dashboard@2.0.0
+  - @axis-backstage/plugin-analytics-module-umami@0.8.0
+  - @axis-backstage/plugin-readme@0.15.0
+
 ## 0.11.0
 
 ### Minor Changes
