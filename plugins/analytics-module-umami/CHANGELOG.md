@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-analytics-module-umami
 
+## 0.8.0
+
+### Minor Changes
+
+- 8655706: Added 'umami.disabled' setting to set in the browser to be able to exclude my own visits
+
 ## 0.7.0
 
 ### Minor Changes
