@@ -143,6 +143,7 @@ export const searchJira = async (
 export const getIssuesByComponent = async (
   projects: JiraProject[],
   componentKeys: string,
+  query?: string,
 ): Promise<Issue[]> => {
   // Return an empty array if no projects are provided
   if (projects.length === 0) {
@@ -157,6 +158,7 @@ export const getIssuesByComponent = async (
   const jql = jqlQueryBuilder({
     project: projectKeys,
     components,
+    query,
   });
 
   const { instance } = projects[0];

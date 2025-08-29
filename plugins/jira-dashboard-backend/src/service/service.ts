@@ -154,6 +154,7 @@ export const getIssuesFromFilters = async (
   filters: Filter[],
   instance: ConfigInstance,
   cache: CacheService,
+  jqlAnnotation?: string,
 ): Promise<JiraDataResponse[]> => {
   const projects = await getJiraProjectsFromKeys(projectKeys, instance, cache);
   return await Promise.all(
@@ -162,7 +163,9 @@ export const getIssuesFromFilters = async (
       query: jqlQueryBuilder({
         project: projectKeys,
         components,
-        query: filter.query,
+        query: `${jqlAnnotation ? `(${jqlAnnotation}) AND ` : ''}${
+          filter.query
+        }`,
       }),
       type: 'filter',
       issues: await getIssuesByFilter(projects, components, filter.query),
@@ -175,6 +178,7 @@ export const getIssuesFromComponents = async (
   componentAnnotations: string[],
   instance: ConfigInstance,
   cache: CacheService,
+  jqlAnnotation?: string,
 ): Promise<JiraDataResponse[]> => {
   const projects = await getJiraProjectsFromKeys(projectKeys, instance, cache);
   return await Promise.all(
@@ -183,9 +187,14 @@ export const getIssuesFromComponents = async (
       query: jqlQueryBuilder({
         project: projectKeys,
         components: [componentKey],
+        query: jqlQueryBuilder({
+          project: projectKeys,
+          components: componentAnnotations,
+          query: jqlAnnotation,
+        }),
       }),
       type: 'component',
-      issues: await getIssuesByComponent(projects, componentKey),
+      issues: await getIssuesByComponent(projects, componentKey, jqlAnnotation),
     })),
   );
 };

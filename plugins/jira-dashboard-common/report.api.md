@@ -77,6 +77,9 @@ export type JiraResponse = {
 };
 
 // @public
+export const JQL = 'jql';
+
+// @public
 export type Project = {
   name: string;
   key: string;

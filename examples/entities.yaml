@@ -14,8 +14,6 @@ metadata:
   name: example-website
   annotations:
     jira.com/project-key: BS
-    # jira/project-key: BS
-
 spec:
   type: website
   lifecycle: experimental

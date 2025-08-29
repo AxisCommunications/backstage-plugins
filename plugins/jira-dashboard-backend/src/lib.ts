@@ -5,6 +5,7 @@ import {
   INCOMING_ISSUES_STATUS,
   Project,
   Issue,
+  JQL,
 } from '@axis-backstage/plugin-jira-dashboard-common';
 
 import type { ConfigInstance, JiraConfig } from './config';
@@ -13,6 +14,7 @@ export const getAnnotations = (config: JiraConfig) => {
   const prefix = config.annotationPrefix;
 
   const projectKeyAnnotation = `${prefix}/${PROJECT_KEY_NAME}`;
+  const jqlAnnotation = `${prefix}/${JQL}`;
   const componentsAnnotation = `${prefix}/${COMPONENTS_NAME}`;
   const filtersAnnotation = `${prefix}/${FILTERS_NAME}`;
   const incomingIssuesAnnotation = `${prefix}/${INCOMING_ISSUES_STATUS}`;
@@ -22,6 +24,7 @@ export const getAnnotations = (config: JiraConfig) => {
 
   return {
     projectKeyAnnotation,
+    jqlAnnotation,
     componentsAnnotation,
     filtersAnnotation,
     incomingIssuesAnnotation,
