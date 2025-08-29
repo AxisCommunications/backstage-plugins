@@ -1,5 +1,16 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.8.0
+
+### Minor Changes
+
+- 70256ff: Add jql annotation to the Jira plugins to allow fully customization of the issues displayed in the Jira Dashboard
+
+### Patch Changes
+
+- Updated dependencies [70256ff]
+  - @axis-backstage/plugin-jira-dashboard-common@1.13.0
+
 ## 4.7.0
 
 ### Minor Changes
