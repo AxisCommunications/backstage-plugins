@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 4.8.1
+
+### Patch Changes
+
+- 91be7b5: Only the filter.query was passed to the getIssuesFromFilters function, which cased the filter not to be applied in backend. Now, thw whole jql query is passed to the api.
+
 ## 4.8.0
 
 ### Minor Changes
