@@ -158,18 +158,21 @@ export const getIssuesFromFilters = async (
 ): Promise<JiraDataResponse[]> => {
   const projects = await getJiraProjectsFromKeys(projectKeys, instance, cache);
   return await Promise.all(
-    filters.map(async filter => ({
-      name: filter.name,
-      query: jqlQueryBuilder({
-        project: projectKeys,
-        components,
-        query: `${jqlAnnotation ? `(${jqlAnnotation}) AND ` : ''}${
-          filter.query
-        }`,
-      }),
-      type: 'filter',
-      issues: await getIssuesByFilter(projects, components, filter.query),
-    })),
+    filters.map(async filter => {
+      const combinedQuery = `${jqlAnnotation ? `(${jqlAnnotation}) AND ` : ''}${
+        filter.query
+      }`;
+      return {
+        name: filter.name,
+        query: jqlQueryBuilder({
+          project: projectKeys,
+          components,
+          query: combinedQuery,
+        }),
+        type: 'filter',
+        issues: await getIssuesByFilter(projects, components, combinedQuery),
+      };
+    }),
   );
 };
 
