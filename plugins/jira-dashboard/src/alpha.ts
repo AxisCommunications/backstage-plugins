@@ -1,7 +1,5 @@
-import { convertLegacyRouteRefs } from '@backstage/core-compat-api';
-import { createFrontendPlugin } from '@backstage/frontend-plugin-api';
+import { createFrontendModule } from '@backstage/frontend-plugin-api';
 import { entityJiraContent, jiraApi } from './alpha/index';
-import { rootRouteRef } from './routes';
 
 /**
  * Frontend plugin that fetches and displays Jira issues for an entity
@@ -9,10 +7,7 @@ import { rootRouteRef } from './routes';
  * @alpha
  * @packageDocumentation
  */
-export default createFrontendPlugin({
-  id: 'jira-dashboard',
+export default createFrontendModule({
+  pluginId: 'jira-dashboard',
   extensions: [entityJiraContent, jiraApi],
-  routes: convertLegacyRouteRefs({
-    rootRouteRef,
-  }),
 });

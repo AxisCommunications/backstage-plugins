@@ -11,7 +11,7 @@ import { isJiraDashboardAvailable } from '..';
  * @alpha
  */
 export const entityJiraContent = EntityContentBlueprint.makeWithOverrides({
-  name: 'entity',
+  name: 'jira-dashboard/entity',
   factory: (originalFactory, { apis }) => {
     const annotationPrefix =
       apis
@@ -19,8 +19,8 @@ export const entityJiraContent = EntityContentBlueprint.makeWithOverrides({
         ?.getOptionalConfig('jiraDashboard')
         ?.getOptionalString('annotationPrefix') || 'jira.com';
     return originalFactory({
-      defaultPath: '/jira',
-      defaultTitle: 'Jira Dashboard',
+      path: '/jira',
+      title: 'Jira Dashboard',
       filter: entity => isJiraDashboardAvailable(entity, annotationPrefix),
       routeRef: convertLegacyRouteRef(rootRouteRef),
       loader: async () =>
