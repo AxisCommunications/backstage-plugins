@@ -2,12 +2,10 @@ import { createApp } from '@backstage/frontend-defaults';
 import {
   configApiRef,
   ApiBlueprint,
-  createApiFactory,
   createFrontendModule,
   PageBlueprint,
 } from '@backstage/frontend-plugin-api';
 import {
-  ScmAuth,
   ScmIntegrationsApi,
   scmIntegrationsApiRef,
 } from '@backstage/integration-react';
@@ -22,27 +20,19 @@ import { Navigate } from 'react-router';
 const homePageExtension = PageBlueprint.make({
   name: 'homePage',
   params: {
-    defaultPath: '/',
+    path: '/',
     loader: () => Promise.resolve(<Navigate to="catalog" />),
-  },
-});
-
-const scmAuthApi = ApiBlueprint.make({
-  name: 'scm-auth',
-  params: {
-    factory: ScmAuth.createDefaultApiFactory(),
   },
 });
 
 const scmIntegrationsApi = ApiBlueprint.make({
   name: 'scm-integrations',
-  params: {
-    factory: createApiFactory({
+  params: defineParams =>
+    defineParams({
       api: scmIntegrationsApiRef,
       deps: { configApi: configApiRef },
       factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
     }),
-  },
 });
 
 export const app = createApp({
@@ -53,7 +43,7 @@ export const app = createApp({
     // jiraPlugin,
     createFrontendModule({
       pluginId: 'app',
-      extensions: [homePageExtension, scmAuthApi, scmIntegrationsApi],
+      extensions: [homePageExtension, scmIntegrationsApi],
     }),
   ],
 });
