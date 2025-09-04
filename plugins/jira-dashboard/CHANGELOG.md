@@ -1,5 +1,17 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 2.2.0
+
+### Minor Changes
+
+- db452c4: Updated to Backstage v1.42.5
+
+### Patch Changes
+
+- db452c4: Mark the `jiraDashboard` config as optional.
+- Updated dependencies [db452c4]
+  - @axis-backstage/plugin-jira-dashboard-common@1.14.0
+
 ## 2.1.0
 
 ### Minor Changes
