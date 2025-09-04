@@ -9,8 +9,7 @@ app:
         links:
           - url: https://github.com/AxisCommunications/backstage-plugins/issues
             title: GitHub Issues
-  experimental:
-    packages: all
+  packages: all
 
 organization:
   name: My Organization
