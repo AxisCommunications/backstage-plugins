@@ -16,8 +16,7 @@ export const entityJiraContent = EntityContentBlueprint.makeWithOverrides({
     const annotationPrefix =
       apis
         .get(configApiRef)
-        ?.getOptionalConfig('jiraDashboard')
-        ?.getOptionalString('annotationPrefix') || 'jira.com';
+        ?.getOptionalString('jiraDashboard.annotationPrefix') || 'jira.com';
     return originalFactory({
       path: '/jira',
       title: 'Jira Dashboard',
