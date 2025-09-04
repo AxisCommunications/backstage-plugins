@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme
 
+## 0.16.0
+
+### Minor Changes
+
+- db452c4: Updated to Backstage v1.42.5
+
 ## 0.15.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-analytics-module-umami
 
+## 0.9.0
+
+### Minor Changes
+
+- db452c4: Updated to Backstage v1.42.5
+
 ## 0.8.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @axis-backstage/plugin-statuspage-backend
 
+## 0.9.0
+
+### Minor Changes
+
+- db452c4: Updated to Backstage v1.42.5
+
+### Patch Changes
+
+- Updated dependencies [db452c4]
+  - @axis-backstage/plugin-statuspage-common@0.8.0
+
 ## 0.8.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-common
 
+## 1.14.0
+
+### Minor Changes
+
+- db452c4: Updated to Backstage v1.42.5
+
 ## 1.13.0
 
 ### Minor Changes
