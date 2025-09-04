@@ -10,7 +10,7 @@ import { rootRouteRef } from './routes';
  * @packageDocumentation
  */
 export default createFrontendPlugin({
-  id: 'jira-dashboard',
+  pluginId: 'jira-dashboard',
   extensions: [entityJiraContent, jiraApi],
   routes: convertLegacyRouteRefs({
     rootRouteRef,

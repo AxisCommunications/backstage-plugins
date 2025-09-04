@@ -16,11 +16,10 @@ export const entityJiraContent = EntityContentBlueprint.makeWithOverrides({
     const annotationPrefix =
       apis
         .get(configApiRef)
-        ?.getOptionalConfig('jiraDashboard')
-        ?.getOptionalString('annotationPrefix') || 'jira.com';
+        ?.getOptionalString('jiraDashboard.annotationPrefix') || 'jira.com';
     return originalFactory({
-      defaultPath: '/jira',
-      defaultTitle: 'Jira Dashboard',
+      path: '/jira',
+      title: 'Jira Dashboard',
       filter: entity => isJiraDashboardAvailable(entity, annotationPrefix),
       routeRef: convertLegacyRouteRef(rootRouteRef),
       loader: async () =>
