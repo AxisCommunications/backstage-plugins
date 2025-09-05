@@ -67,16 +67,15 @@ export const getIssuesByFilter = async (
   for (const project of projects) {
     const { projectKey, instance } = project;
     const jql = jqlQueryBuilder({ project: [projectKey], components, query });
-    const response = await callApi(
+    const requestUrl = `${getApiUrl(
       instance,
-      `${getApiUrl(instance)}search?jql=${jql}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
+    )}search/jql?jql=${jql}&fields=*all`;
+    const response = await callApi(instance, requestUrl, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
       },
-    )
+    })
       .then(resp => resp.json())
       .catch(() => null);
     if (response?.errorMessages) {
@@ -124,7 +123,7 @@ export const searchJira = async (
   jqlQuery: string,
   options: SearchOptions,
 ): Promise<JiraQueryResults> => {
-  const response = await callApi(instance, `${getApiUrl(instance)}search`, {
+  const response = await callApi(instance, `${getApiUrl(instance)}search/jql`, {
     method: 'POST',
     body: JSON.stringify({ jql: jqlQuery, ...options }),
     headers: {
@@ -166,7 +165,7 @@ export const getIssuesByComponent = async (
   try {
     const response = await callApi(
       instance,
-      `${getApiUrl(instance)}search?jql=${jql}`,
+      `${getApiUrl(instance)}search/jql?jql=${jql}`,
       {
         method: 'GET',
         headers: {
