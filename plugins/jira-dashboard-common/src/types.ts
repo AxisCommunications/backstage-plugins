@@ -11,7 +11,7 @@ export type Issue = {
       name: string;
     };
     assignee: {
-      name: string;
+      name?: string;
       self: string;
       key: string;
       displayName: string;

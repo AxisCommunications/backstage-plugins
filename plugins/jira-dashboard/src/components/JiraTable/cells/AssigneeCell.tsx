@@ -21,7 +21,8 @@ export const AssigneeCell = ({ assignee }: Props) => {
     return null;
   }
 
-  if (!assignee.name || assignee.name.toLowerCase() === 'unassigned') {
+  const name = assignee.name || assignee.displayName;
+  if (!name || name.toLowerCase() === 'unassigned') {
     return (
       <Stack
         direction="row"
@@ -35,32 +36,40 @@ export const AssigneeCell = ({ assignee }: Props) => {
     );
   }
 
-  const entityRef = {
-    kind: 'user',
-    namespace: 'default',
-    name: normalizeAssigneeName(assignee.name),
-  };
-
-  return (
-    <EntityPeekAheadPopover entityRef={stringifyEntityRef(entityRef)}>
-      <Link
-        to={`/catalog/${entityRef.namespace}/${entityRef.kind}/${entityRef.name}`}
-      >
-        <Stack
-          direction="row"
-          gap={1}
-          alignItems="center"
-          data-testid="assignee-avatar"
-        >
-          <Avatar
-            picture={assignee.avatarUrls?.['48x48'] || ''}
-            customStyles={{ width: 35, height: 35 }}
-          />
-          <Typography noWrap variant="body2">
-            {assignee.displayName || assignee.name}
-          </Typography>
-        </Stack>
-      </Link>
-    </EntityPeekAheadPopover>
+  const avatar = (
+    <Stack
+      direction="row"
+      gap={1}
+      alignItems="center"
+      data-testid="assignee-avatar"
+    >
+      <Avatar
+        picture={assignee.avatarUrls?.['48x48'] || ''}
+        customStyles={{ width: 35, height: 35 }}
+      />
+      <Typography noWrap variant="body2">
+        {assignee.displayName || assignee.name}
+      </Typography>
+    </Stack>
   );
+
+  if (assignee.name) {
+    const entityRef = {
+      kind: 'user',
+      namespace: 'default',
+      name: normalizeAssigneeName(assignee.name),
+    };
+
+    return (
+      <EntityPeekAheadPopover entityRef={stringifyEntityRef(entityRef)}>
+        <Link
+          to={`/catalog/${entityRef.namespace}/${entityRef.kind}/${entityRef.name}`}
+        >
+          {avatar}
+        </Link>
+      </EntityPeekAheadPopover>
+    );
+  } else {
+    return avatar;
+  }
 };
