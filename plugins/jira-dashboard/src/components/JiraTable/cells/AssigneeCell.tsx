@@ -69,7 +69,7 @@ export const AssigneeCell = ({ assignee }: Props) => {
         </Link>
       </EntityPeekAheadPopover>
     );
-  } else {
-    return avatar;
   }
+
+  return avatar;
 };
