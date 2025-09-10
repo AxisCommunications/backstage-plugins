@@ -1,5 +1,13 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 2.2.1
+
+### Patch Changes
+
+- 276e489: Fix for the Jira dashboard plugin when an assignee has no name field.
+- Updated dependencies [276e489]
+  - @axis-backstage/plugin-jira-dashboard-common@1.14.1
+
 ## 2.2.0
 
 ### Minor Changes
