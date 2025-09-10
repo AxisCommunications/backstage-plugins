@@ -26,6 +26,13 @@ describe('AssigneeCell', () => {
     avatarUrls: { '48x48': 'http://example.com/avatar.jpg' },
   };
 
+  const displayNameAssignee: Issue['fields']['assignee'] = {
+    key: 'jdoe',
+    self: '',
+    displayName: 'Jane Doe',
+    avatarUrls: { '48x48': 'http://example.com/avatar.jpg' },
+  };
+
   it('renders displayName with EntityPeekAheadPopover and correct link when assignee is valid', () => {
     renderWithProviders(<AssigneeCell assignee={baseAssignee} />);
     expect(screen.getByTestId('peek-ahead')).toBeInTheDocument();
@@ -33,6 +40,13 @@ describe('AssigneeCell', () => {
       'href',
       '/catalog/default/user/jane.doe',
     );
+    expect(screen.getByText('Jane Doe')).toBeInTheDocument();
+    expect(screen.getByTestId('assignee-avatar')).toBeInTheDocument();
+  });
+
+  it('renders displayName without EntityPeekAheadPopover when assignee is missing name', () => {
+    renderWithProviders(<AssigneeCell assignee={displayNameAssignee} />);
+    expect(() => screen.getByTestId('peek-ahead')).toThrow();
     expect(screen.getByText('Jane Doe')).toBeInTheDocument();
     expect(screen.getByTestId('assignee-avatar')).toBeInTheDocument();
   });
