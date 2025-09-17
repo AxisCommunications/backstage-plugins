@@ -34,7 +34,7 @@ export interface Config {
         userEmailSuffix?: string;
 
         /**
-         * Optional annotation prefix for retrieving a custom annotation. Defaut value is jira.com
+         * Optional annotation prefix for retrieving a custom annotation. Default value is jira.com
          * @visibility frontend
          */
         annotationPrefix?: string;
@@ -48,12 +48,17 @@ export interface Config {
           shortName: string;
         }[];
 
+        /**
+         * Whether to use Jira API v3. Defaults to false for backward compatibility.
+         */
+        useApiV3?: boolean;
+
         // Type helper
         instances?: never;
       }
     | {
         /**
-         * Optional annotation prefix for retrieving a custom annotation. Defaut value is jira.com
+         * Optional annotation prefix for retrieving a custom annotation. Default value is jira.com
          * @visibility frontend
          */
         annotationPrefix?: string;
@@ -101,6 +106,11 @@ export interface Config {
             query: string;
             shortName: string;
           }[];
+
+          /**
+           * Whether to use Jira API v3. Defaults to false for backward compatibility.
+           */
+          useApiV3?: boolean;
         }[];
       };
 }

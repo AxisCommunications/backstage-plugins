@@ -28,6 +28,7 @@ export type ConfigInstance = {
   apiUrl?: string;
   userEmailSuffix?: string;
   defaultFilters?: Filter[];
+  useApiV3?: boolean;
 };
 
 const JIRA_CONFIG_BASE_URL = 'baseUrl';
@@ -37,6 +38,7 @@ const JIRA_CONFIG_HEADERS = 'headers';
 const JIRA_CONFIG_USER_EMAIL_SUFFIX = 'userEmailSuffix';
 const JIRA_CONFIG_ANNOTATION = 'annotationPrefix';
 const JIRA_FILTERS = 'defaultFilters';
+const JIRA_CONFIG_USE_API_V3 = 'useApiV3';
 
 /**
  * Class for reading Jira configuration from the root config
@@ -82,6 +84,7 @@ export class JiraConfig {
               shortName: filterConfig.getString('shortName'),
               query: filterConfig.getString('query'),
             })),
+          useApiV3: inst.getOptionalBoolean(JIRA_CONFIG_USE_API_V3) ?? false,
         };
       });
     } else {
@@ -99,6 +102,7 @@ export class JiraConfig {
             shortName: filterConfig.getString('shortName'),
             query: filterConfig.getString('query'),
           })),
+        useApiV3: jira.getOptionalBoolean(JIRA_CONFIG_USE_API_V3) ?? false,
       };
     }
   }

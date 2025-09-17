@@ -58,6 +58,24 @@ export const getFilterById = async (
   return { name: jsonResponse.name, query: jsonResponse.jql } as Filter;
 };
 
+export const getQueryUrl = (instance: ConfigInstance, jql?: string): string => {
+  const baseUrl = getApiUrl(instance);
+
+  if (instance.useApiV3) {
+    const baseUrlWithEndpoint = `${baseUrl}search/jql`;
+    if (jql) {
+      return `${baseUrlWithEndpoint}?jql=${jql}&fields=*all`;
+    }
+    return baseUrlWithEndpoint;
+  }
+
+  const baseUrlWithEndpoint = `${baseUrl}search`;
+  if (jql) {
+    return `${baseUrlWithEndpoint}?jql=${jql}`;
+  }
+  return baseUrlWithEndpoint;
+};
+
 export const getIssuesByFilter = async (
   projects: JiraProject[],
   components: string[],
@@ -67,16 +85,13 @@ export const getIssuesByFilter = async (
   for (const project of projects) {
     const { projectKey, instance } = project;
     const jql = jqlQueryBuilder({ project: [projectKey], components, query });
-    const response = await callApi(
-      instance,
-      `${getApiUrl(instance)}search?jql=${jql}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
+    const queryUrl = getQueryUrl(instance, jql);
+    const response = await callApi(instance, queryUrl, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
       },
-    )
+    })
       .then(resp => resp.json())
       .catch(() => null);
     if (response?.errorMessages) {
@@ -124,9 +139,12 @@ export const searchJira = async (
   jqlQuery: string,
   options: SearchOptions,
 ): Promise<JiraQueryResults> => {
-  const response = await callApi(instance, `${getApiUrl(instance)}search`, {
+  const queryUrl = getQueryUrl(instance);
+  const requestBody = { jql: jqlQuery, ...options };
+
+  const response = await callApi(instance, queryUrl, {
     method: 'POST',
-    body: JSON.stringify({ jql: jqlQuery, ...options }),
+    body: JSON.stringify(requestBody),
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -164,16 +182,13 @@ export const getIssuesByComponent = async (
   const { instance } = projects[0];
 
   try {
-    const response = await callApi(
-      instance,
-      `${getApiUrl(instance)}search?jql=${jql}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
+    const queryUrl = getQueryUrl(instance, jql);
+    const response = await callApi(instance, queryUrl, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
       },
-    ).then(resp => resp.json());
+    }).then(resp => resp.json());
 
     if (!response.issues || response.issues.length === 0) {
       return [];
