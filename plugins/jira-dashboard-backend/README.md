@@ -47,6 +47,36 @@ jiraDashboard:
   annotationPrefix: jira
 ```
 
+### Jira API Version Configuration
+
+The plugin supports both Jira REST API v2 (default) and v3. You can enable API v3 by setting the `useApiV3` configuration option:
+
+```yaml
+jiraDashboard:
+  token: ${JIRA_TOKEN}
+  baseUrl: ${JIRA_BASE_URL}
+  useApiV3: true # Enable Jira API v3 (defaults to false)
+```
+
+#### API Version Differences:
+
+- **API v2 (default)**: Uses the `/search` endpoint for JQL queries
+- **API v3**: Uses the `/search/jql` endpoint for JQL queries
+
+When `useApiV3` is set to `true`, the plugin will use the v3 API endpoints. When `useApiV3` is `false` or not specified, the plugin will continue to use the v2 API endpoints for backward compatibility.
+
+#### Example with API v3:
+
+```yaml
+jiraDashboard:
+  token: Bearer <your-token>
+  baseUrl: https://your-domain.atlassian.net/rest/api/3/
+  useApiV3: true
+  userEmailSuffix: @your-company.com
+```
+
+**Note**: When using API v3, make sure your `baseUrl` also points to the v3 endpoint (e.g., `/rest/api/3/` instead of `/rest/api/2/`).
+
 ### Multiple Jira instances
 
 In case multiple Jira instances are being used, the configuration can be written on the form:
@@ -61,13 +91,17 @@ jiraDashboard:
       apiUrl: ${JIRA_API_URL} # Optional
       headers: {} # Optional
       userEmailSuffix: ${JIRA_EMAIL_SUFFIX} # Optional
+      useApiV3: false # Optional - defaults to false
     - name: separate-jira-instance
       token: ${JIRA_TOKEN_SEPARATE}
       baseUrl: ${JIRA_BASE_URL_SEPARATE}
       apiUrl: ${JIRA_API_URL_SEPARATE} # Optional
       headers: {} # Optional
       userEmailSuffix: ${JIRA_EMAIL_SUFFIX_SEPARATE} # Optional
+      useApiV3: true # Optional - enable API v3 for this instance
 ```
+
+Each instance can have its own `useApiV3` setting, allowing you to mix v2 and v3 API usage across different Jira instances.
 
 In entity yamls that don't specify an instance, the one called `"default"` will be used. To specify another instace, prefix the project key with `instance-name/` such as:
 

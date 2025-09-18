@@ -25,6 +25,7 @@ export type ConfigInstance = {
   apiUrl?: string;
   userEmailSuffix?: string;
   defaultFilters?: Filter[];
+  useApiV3?: boolean;
 };
 
 // @public

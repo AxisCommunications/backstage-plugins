@@ -1,5 +1,7 @@
-import fetch from 'node-fetch';
-import { mockServices } from '@backstage/backend-test-utils';
+import {
+  mockServices,
+  registerMswTestHooks,
+} from '@backstage/backend-test-utils';
 import {
   getProjectInfo,
   getIssuesByFilter,
@@ -8,19 +10,19 @@ import {
   getFilterById,
   searchJira,
 } from './api';
+import { http, HttpResponse } from 'msw';
+import { setupServer } from 'msw/node';
 import { JiraConfig } from './config';
 import { JiraProject } from './lib';
 
-jest.mock('node-fetch', () => jest.fn());
-afterEach(() => {
-  jest.clearAllMocks();
-});
-
 describe('api', () => {
+  const mswServer = setupServer();
+  registerMswTestHooks(mswServer);
+
   const mockConfig = mockServices.rootConfig({
     data: {
       jiraDashboard: {
-        baseUrl: 'http://jira.com/',
+        baseUrl: 'http://jira.com/rest/api/2/',
         token: 'token',
         headers: {
           'Custom-Header': 'custom value',
@@ -35,7 +37,7 @@ describe('api', () => {
   const mockConfigApiUrl = mockServices.rootConfig({
     data: {
       jiraDashboard: {
-        baseUrl: 'http://jira.com/',
+        baseUrl: 'http://jira.com/rest/api/2/',
         apiUrl: 'http://api.atlassian.com/',
         token: 'token',
         headers: {
@@ -49,27 +51,31 @@ describe('api', () => {
   const instanceApiUrl = JiraConfig.fromConfig(mockConfigApiUrl).getInstance();
 
   it('getProjectAvatar', async () => {
-    await getProjectAvatar('http://jira.com/', instance);
+    let requestReceived = false;
+    mswServer.use(
+      http.get('http://jira.com/rest/api/2/', ({ request }) => {
+        requestReceived = true;
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return new HttpResponse(null, { status: 200 });
+      }),
+    );
 
-    expect(fetch).toHaveBeenCalledWith('http://jira.com/', {
-      method: 'GET',
-      headers: {
-        'Custom-Header': 'custom value',
-        Authorization: 'token',
-      },
-    });
+    await getProjectAvatar('http://jira.com/rest/api/2/', instance);
+    expect(requestReceived).toBe(true);
   });
 
   it('getProjectInfo baseUrl', async () => {
-    const response = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: async () => {
-        return { name: 'ppp', self: 'http://jira.com/project/ppp' };
-      },
-    });
-    (fetch as jest.MockedFn<typeof fetch>).mockImplementation(
-      () => response as any,
+    mswServer.use(
+      http.get('http://jira.com/rest/api/2/project/ppp', ({ request }) => {
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
+          name: 'ppp',
+          self: 'http://jira.com/rest/api/2/project/ppp',
+        });
+      }),
     );
 
     const jiraProject = {
@@ -80,31 +86,23 @@ describe('api', () => {
 
     const projectInfo = await getProjectInfo(jiraProject);
 
-    expect(fetch).toHaveBeenCalledWith('http://jira.com/project/ppp', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Custom-Header': 'custom value',
-        Authorization: 'token',
-      },
-    });
-
     expect(projectInfo).toEqual({
       name: 'ppp',
-      self: 'http://jira.com/project/ppp',
+      self: 'http://jira.com/rest/api/2/project/ppp',
     });
   });
 
   it('getProjectInfo apiUrl', async () => {
-    const response = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: async () => {
-        return { name: 'ppp', self: 'http://api.atlassian.com/project/ppp' };
-      },
-    });
-    (fetch as jest.MockedFn<typeof fetch>).mockImplementation(
-      () => response as any,
+    mswServer.use(
+      http.get('http://api.atlassian.com/project/ppp', ({ request }) => {
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
+          name: 'ppp',
+          self: 'http://api.atlassian.com/project/ppp',
+        });
+      }),
     );
 
     const jiraProject = {
@@ -115,74 +113,51 @@ describe('api', () => {
 
     const projectInfo = await getProjectInfo(jiraProject);
 
-    expect(fetch).toHaveBeenCalledWith('http://api.atlassian.com/project/ppp', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Custom-Header': 'custom value',
-        Authorization: 'token',
-      },
-    });
-
     expect(projectInfo).toEqual({
       name: 'ppp',
-      self: 'http://jira.com/project/ppp',
+      self: 'http://jira.com/rest/api/2/project/ppp',
     });
   });
 
   it('getFilterById', async () => {
-    const response = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: async () => {
-        return { name: 'filter1' };
-      },
-    });
-    (fetch as jest.MockedFn<typeof fetch>).mockImplementation(
-      () => response as any,
+    mswServer.use(
+      http.get('http://jira.com/rest/api/2/filter/filter1', ({ request }) => {
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({ name: 'filter1' });
+      }),
+      http.get('http://api.atlassian.com/filter/filter1', ({ request }) => {
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({ name: 'filter1' });
+      }),
     );
 
     const filter = await getFilterById('filter1', instance);
-    const filterApiUrl = await getFilterById('filter1', instanceApiUrl);
-
-    expect(fetch).toHaveBeenCalledWith('http://jira.com/filter/filter1', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Custom-Header': 'custom value',
-        Authorization: 'token',
-      },
-    });
-
     expect(filter).toEqual({ name: 'filter1' });
 
-    expect(fetch).toHaveBeenCalledWith(
-      'http://api.atlassian.com/filter/filter1',
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Custom-Header': 'custom value',
-          Authorization: 'token',
-        },
-      },
-    );
-
+    const filterApiUrl = await getFilterById('filter1', instanceApiUrl);
     expect(filterApiUrl).toEqual({ name: 'filter1' });
   });
 
   it('getIssuesByFilter baseUrl', async () => {
-    const response = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: async () => {
-        return {
-          issues: [{ key: 'ppp-1', self: 'http://jira.com/issue/ppp-1' }],
-        };
-      },
-    });
-    (fetch as jest.MockedFn<typeof fetch>).mockImplementation(
-      () => response as any,
+    mswServer.use(
+      http.get('http://jira.com/rest/api/2/search', ({ request }) => {
+        const url = new URL(request.url);
+        expect(url.searchParams.get('jql')).toBe(
+          "project in ('ppp') AND component in ('ccc') AND query",
+        );
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
+          issues: [
+            { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
+          ],
+        });
+      }),
     );
 
     const projects = [
@@ -195,37 +170,27 @@ describe('api', () => {
 
     const issues = await getIssuesByFilter(projects, ['ccc'], 'query');
 
-    expect(fetch).toHaveBeenCalledWith(
-      "http://jira.com/search?jql=project in ('ppp') AND component in ('ccc') AND query",
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Custom-Header': 'custom value',
-          Authorization: 'token',
-        },
-      },
-    );
-
     expect(issues).toEqual([
-      { key: 'ppp-1', self: 'http://jira.com/issue/ppp-1' },
+      { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
     ]);
   });
 
   it('getIssuesByFilter apiUrl', async () => {
-    const response = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: async () => {
-        return {
+    mswServer.use(
+      http.get('http://api.atlassian.com/search', ({ request }) => {
+        const url = new URL(request.url);
+        expect(url.searchParams.get('jql')).toBe(
+          "project in ('ppp') AND component in ('ccc') AND query",
+        );
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
           issues: [
             { key: 'ppp-1', self: 'http://api.atlassian.com/issue/ppp-1' },
           ],
-        };
-      },
-    });
-    (fetch as jest.MockedFn<typeof fetch>).mockImplementation(
-      () => response as any,
+        });
+      }),
     );
 
     const projects = [
@@ -238,101 +203,297 @@ describe('api', () => {
 
     const issues = await getIssuesByFilter(projects, ['ccc'], 'query');
 
-    expect(fetch).toHaveBeenCalledWith(
-      "http://api.atlassian.com/search?jql=project in ('ppp') AND component in ('ccc') AND query",
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Custom-Header': 'custom value',
-          Authorization: 'token',
-        },
-      },
-    );
-
     expect(issues).toEqual([
-      { key: 'ppp-1', self: 'http://jira.com/issue/ppp-1' },
+      { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
     ]);
   });
 
   it('searchJira baseUrl', async () => {
-    const response = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: async () => {
-        return {
-          issues: [{ key: 'ppp-1', self: 'http://jira.com/issue/ppp-1' }],
-        };
-      },
-    });
-    (fetch as jest.MockedFn<typeof fetch>).mockImplementation(
-      () => response as any,
+    mswServer.use(
+      http.post('http://jira.com/rest/api/2/search', async ({ request }) => {
+        const body = await request.json();
+        expect(body).toEqual({ jql: 'query' });
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Content-Type')).toBe('application/json');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
+          issues: [
+            { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
+          ],
+        });
+      }),
     );
 
     const queryResults = await searchJira(instance, 'query', {});
 
-    expect(fetch).toHaveBeenCalledWith('http://jira.com/search', {
-      method: 'POST',
-      body: '{"jql":"query"}',
-      headers: {
-        Accept: 'application/json',
-        'Custom-Header': 'custom value',
-        'Content-Type': 'application/json',
-        Authorization: 'token',
-      },
-    });
-
     expect(queryResults).toEqual({
-      issues: [{ key: 'ppp-1', self: 'http://jira.com/issue/ppp-1' }],
+      issues: [
+        { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
+      ],
     });
   });
 
   it('searchJira apiUrl', async () => {
-    const response = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: async () => {
-        return {
+    mswServer.use(
+      http.post('http://api.atlassian.com/search', async ({ request }) => {
+        const body = await request.json();
+        expect(body).toEqual({ jql: 'query' });
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Content-Type')).toBe('application/json');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
           issues: [
             { key: 'ppp-1', self: 'http://api.atlassian.com/issue/ppp-1' },
           ],
-        };
-      },
-    });
-    (fetch as jest.MockedFn<typeof fetch>).mockImplementation(
-      () => response as any,
+        });
+      }),
     );
 
     const queryResults = await searchJira(instanceApiUrl, 'query', {});
 
-    expect(fetch).toHaveBeenCalledWith('http://api.atlassian.com/search', {
-      method: 'POST',
-      body: '{"jql":"query"}',
-      headers: {
-        Accept: 'application/json',
-        'Custom-Header': 'custom value',
-        'Content-Type': 'application/json',
-        Authorization: 'token',
+    expect(queryResults).toEqual({
+      issues: [
+        { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
+      ],
+    });
+  });
+
+  it('searchJira with useApiV3 baseUrl', async () => {
+    const mockConfigV3 = mockServices.rootConfig({
+      data: {
+        jiraDashboard: {
+          baseUrl: 'http://jira.com/rest/api/3/',
+          token: 'token',
+          headers: {
+            'Custom-Header': 'custom value',
+          },
+          userEmailSuffix: '@backstage.com',
+          useApiV3: true,
+        },
       },
     });
 
+    const instanceV3 = JiraConfig.fromConfig(mockConfigV3).getInstance();
+
+    mswServer.use(
+      http.post(
+        'http://jira.com/rest/api/3/search/jql',
+        async ({ request }) => {
+          const body = await request.json();
+          expect(body).toEqual({ jql: 'query' });
+          expect(request.headers.get('Accept')).toBe('application/json');
+          expect(request.headers.get('Custom-Header')).toBe('custom value');
+          expect(request.headers.get('Content-Type')).toBe('application/json');
+          expect(request.headers.get('Authorization')).toBe('token');
+          return HttpResponse.json({
+            issues: [
+              { key: 'ppp-1', self: 'http://jira.com/rest/api/3/issue/ppp-1' },
+            ],
+          });
+        },
+      ),
+    );
+
+    const queryResults = await searchJira(instanceV3, 'query', {});
+
     expect(queryResults).toEqual({
-      issues: [{ key: 'ppp-1', self: 'http://jira.com/issue/ppp-1' }],
+      issues: [
+        { key: 'ppp-1', self: 'http://jira.com/rest/api/3/issue/ppp-1' },
+      ],
+    });
+  });
+
+  it('searchJira with useApiV3 and custom fields', async () => {
+    const mockConfigV3 = mockServices.rootConfig({
+      data: {
+        jiraDashboard: {
+          baseUrl: 'http://jira.com/rest/api/3/',
+          token: 'token',
+          headers: {
+            'Custom-Header': 'custom value',
+          },
+          userEmailSuffix: '@backstage.com',
+          useApiV3: true,
+        },
+      },
+    });
+
+    const instanceV3 = JiraConfig.fromConfig(mockConfigV3).getInstance();
+
+    mswServer.use(
+      http.post(
+        'http://jira.com/rest/api/3/search/jql',
+        async ({ request }) => {
+          const body = await request.json();
+          expect(body).toEqual({
+            jql: 'query',
+            fields: ['key', 'summary'],
+            maxResults: 50,
+          });
+          expect(request.headers.get('Accept')).toBe('application/json');
+          expect(request.headers.get('Custom-Header')).toBe('custom value');
+          expect(request.headers.get('Content-Type')).toBe('application/json');
+          expect(request.headers.get('Authorization')).toBe('token');
+          return HttpResponse.json({
+            issues: [
+              { key: 'ppp-1', self: 'http://jira.com/rest/api/3/issue/ppp-1' },
+            ],
+          });
+        },
+      ),
+    );
+
+    const queryResults = await searchJira(instanceV3, 'query', {
+      fields: ['key', 'summary'],
+      maxResults: 50,
+    });
+
+    expect(queryResults).toEqual({
+      issues: [
+        { key: 'ppp-1', self: 'http://jira.com/rest/api/3/issue/ppp-1' },
+      ],
+    });
+  });
+
+  it('searchJira with useApiV3 apiUrl', async () => {
+    const mockConfigV3ApiUrl = mockServices.rootConfig({
+      data: {
+        jiraDashboard: {
+          baseUrl: 'http://jira.com/rest/api/3/',
+          apiUrl: 'http://api.atlassian.com/',
+          token: 'token',
+          headers: {
+            'Custom-Header': 'custom value',
+          },
+          userEmailSuffix: '@backstage.com',
+          useApiV3: true,
+        },
+      },
+    });
+
+    const instanceV3ApiUrl =
+      JiraConfig.fromConfig(mockConfigV3ApiUrl).getInstance();
+
+    mswServer.use(
+      http.post('http://api.atlassian.com/search/jql', async ({ request }) => {
+        const body = await request.json();
+        expect(body).toEqual({ jql: 'query' });
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Content-Type')).toBe('application/json');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
+          issues: [
+            { key: 'ppp-1', self: 'http://api.atlassian.com/issue/ppp-1' },
+          ],
+        });
+      }),
+    );
+
+    const queryResults = await searchJira(instanceV3ApiUrl, 'query', {});
+
+    expect(queryResults).toEqual({
+      issues: [
+        { key: 'ppp-1', self: 'http://jira.com/rest/api/3/issue/ppp-1' },
+      ],
+    });
+  });
+
+  it('searchJira with useApiV3 and all search options', async () => {
+    const mockConfigV3 = mockServices.rootConfig({
+      data: {
+        jiraDashboard: {
+          baseUrl: 'http://jira.com/rest/api/3/',
+          token: 'token',
+          headers: {
+            'Custom-Header': 'custom value',
+          },
+          userEmailSuffix: '@backstage.com',
+          useApiV3: true,
+        },
+      },
+    });
+
+    const instanceV3 = JiraConfig.fromConfig(mockConfigV3).getInstance();
+
+    mswServer.use(
+      http.post(
+        'http://jira.com/rest/api/3/search/jql',
+        async ({ request }) => {
+          const body = await request.json();
+          expect(body).toEqual({
+            jql: 'project = TEST',
+            expand: ['names', 'schema'],
+            fields: ['key', 'summary', 'status'],
+            fieldsByKey: true,
+            properties: ['prop1', 'prop2'],
+            startAt: 0,
+            maxResults: 100,
+            validateQuery: 'strict',
+          });
+          expect(request.headers.get('Accept')).toBe('application/json');
+          expect(request.headers.get('Custom-Header')).toBe('custom value');
+          expect(request.headers.get('Content-Type')).toBe('application/json');
+          expect(request.headers.get('Authorization')).toBe('token');
+          return HttpResponse.json({
+            issues: [
+              {
+                key: 'TEST-1',
+                self: 'http://jira.com/rest/api/3/issue/TEST-1',
+              },
+            ],
+            total: 1,
+            startAt: 0,
+            maxResults: 100,
+          });
+        },
+      ),
+    );
+
+    const searchOptions = {
+      expand: ['names', 'schema'],
+      fields: ['key', 'summary', 'status'],
+      fieldsByKey: true,
+      properties: ['prop1', 'prop2'],
+      startAt: 0,
+      maxResults: 100,
+      validateQuery: 'strict',
+    };
+
+    const queryResults = await searchJira(
+      instanceV3,
+      'project = TEST',
+      searchOptions,
+    );
+
+    expect(queryResults).toEqual({
+      issues: [
+        { key: 'TEST-1', self: 'http://jira.com/rest/api/3/issue/TEST-1' },
+      ],
+      total: 1,
+      startAt: 0,
+      maxResults: 100,
     });
   });
 
   it('getIssuesByComponent baseUrl', async () => {
-    const response = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: async () => {
-        return {
-          issues: [{ key: 'ppp-1', self: 'http://jira.com/issue/ppp-1' }],
-        };
-      },
-    });
-    (fetch as jest.MockedFn<typeof fetch>).mockImplementation(
-      () => response as any,
+    mswServer.use(
+      http.get('http://jira.com/rest/api/2/search', ({ request }) => {
+        const url = new URL(request.url);
+        expect(url.searchParams.get('jql')).toBe(
+          "project in ('ppp','bbb') AND component in ('ccc')",
+        );
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
+          issues: [
+            { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
+          ],
+        });
+      }),
     );
 
     const projects = [
@@ -350,37 +511,27 @@ describe('api', () => {
 
     const issues = await getIssuesByComponent(projects, 'ccc');
 
-    expect(fetch).toHaveBeenCalledWith(
-      "http://jira.com/search?jql=project in ('ppp','bbb') AND component in ('ccc')",
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Custom-Header': 'custom value',
-          Authorization: 'token',
-        },
-      },
-    );
-
     expect(issues).toEqual([
-      { key: 'ppp-1', self: 'http://jira.com/issue/ppp-1' },
+      { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
     ]);
   });
 
   it('getIssuesByComponent apiUrl', async () => {
-    const response = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: async () => {
-        return {
+    mswServer.use(
+      http.get('http://api.atlassian.com/search', ({ request }) => {
+        const url = new URL(request.url);
+        expect(url.searchParams.get('jql')).toBe(
+          "project in ('ppp','bbb') AND component in ('ccc')",
+        );
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
           issues: [
             { key: 'ppp-1', self: 'http://api.atlassian.com/issue/ppp-1' },
           ],
-        };
-      },
-    });
-    (fetch as jest.MockedFn<typeof fetch>).mockImplementation(
-      () => response as any,
+        });
+      }),
     );
 
     const projects = [
@@ -398,20 +549,8 @@ describe('api', () => {
 
     const issues = await getIssuesByComponent(projects, 'ccc');
 
-    expect(fetch).toHaveBeenCalledWith(
-      "http://api.atlassian.com/search?jql=project in ('ppp','bbb') AND component in ('ccc')",
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Custom-Header': 'custom value',
-          Authorization: 'token',
-        },
-      },
-    );
-
     expect(issues).toEqual([
-      { key: 'ppp-1', self: 'http://jira.com/issue/ppp-1' },
+      { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
     ]);
   });
 
@@ -419,11 +558,27 @@ describe('api', () => {
     const projects: JiraProject[] = [];
     const issues = await getIssuesByComponent(projects, 'ccc');
 
-    expect(fetch).not.toHaveBeenCalled();
     expect(issues).toEqual([]);
   });
 
   it('should handle a single project correctly', async () => {
+    mswServer.use(
+      http.get('http://jira.com/rest/api/2/search', ({ request }) => {
+        const url = new URL(request.url);
+        expect(url.searchParams.get('jql')).toBe(
+          "project in ('ppp') AND component in ('ccc')",
+        );
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Authorization')).toBe('token');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        return HttpResponse.json({
+          issues: [
+            { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
+          ],
+        });
+      }),
+    );
+
     const projects = [
       {
         instance,
@@ -433,23 +588,29 @@ describe('api', () => {
     ];
     const issues = await getIssuesByComponent(projects, 'ccc');
 
-    expect(fetch).toHaveBeenCalledWith(
-      "http://jira.com/search?jql=project in ('ppp') AND component in ('ccc')",
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          Authorization: 'token',
-          'Custom-Header': 'custom value',
-        },
-      },
-    );
     expect(issues).toEqual([
-      { key: 'ppp-1', self: 'http://api.atlassian.com/issue/ppp-1' },
+      { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
     ]);
   });
 
   it('should handle multiple components correctly', async () => {
+    mswServer.use(
+      http.get('http://jira.com/rest/api/2/search', ({ request }) => {
+        const url = new URL(request.url);
+        expect(url.searchParams.get('jql')).toBe(
+          "project in ('ppp','bbb') AND component in ('ccc','ddd')",
+        );
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Authorization')).toBe('token');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        return HttpResponse.json({
+          issues: [
+            { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
+          ],
+        });
+      }),
+    );
+
     const projects = [
       {
         instance,
@@ -464,23 +625,27 @@ describe('api', () => {
     ];
     const issues = await getIssuesByComponent(projects, 'ccc,ddd');
 
-    expect(fetch).toHaveBeenCalledWith(
-      "http://jira.com/search?jql=project in ('ppp','bbb') AND component in ('ccc','ddd')",
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          Authorization: 'token',
-          'Custom-Header': 'custom value',
-        },
-      },
-    );
     expect(issues).toEqual([
-      { key: 'ppp-1', self: 'http://api.atlassian.com/issue/ppp-1' },
+      { key: 'ppp-1', self: 'http://jira.com/rest/api/2/issue/ppp-1' },
     ]);
   });
 
   it('should handle invalid project keys', async () => {
+    mswServer.use(
+      http.get('http://jira.com/rest/api/2/search', ({ request }) => {
+        const url = new URL(request.url);
+        expect(url.searchParams.get('jql')).toBe(
+          "project in ('invalid') AND component in ('ccc')",
+        );
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Authorization')).toBe('token');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        throw new Error(
+          "The value 'invalid' does not exist for the field 'project'",
+        );
+      }),
+    );
+
     const projects = [
       {
         instance,
@@ -489,33 +654,7 @@ describe('api', () => {
       },
     ];
 
-    // Mock the fetch call to simulate a Jira response for an invalid project key
-    (fetch as unknown as jest.Mock).mockImplementationOnce(() =>
-      Promise.resolve({
-        ok: false,
-        status: 400,
-        json: () =>
-          Promise.resolve({
-            errorMessages: [
-              "The value 'invalid' does not exist for the field 'project'",
-            ],
-          }),
-      }),
-    );
-
     const issues = await getIssuesByComponent(projects, 'ccc');
-
-    expect(fetch).toHaveBeenCalledWith(
-      "http://jira.com/search?jql=project in ('invalid') AND component in ('ccc')",
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          Authorization: 'token',
-          'Custom-Header': 'custom value',
-        },
-      },
-    );
     expect(issues).toEqual([]);
   });
   it('combines jira.com/jql annotation with filter query and sends correct JQL to Jira', async () => {
@@ -525,16 +664,24 @@ describe('api', () => {
     const orderBy = 'ORDER BY updated DESC';
     const combinedJql = `${filterQuery} AND (${annotationJql}) ${orderBy}`;
 
-    // Mock Jira response
-    const response = Promise.resolve({
-      ok: true,
-      status: 200,
-      json: async () => ({
-        issues: [{ key: 'project-123', self: 'http://jira.com/issue/ppp-1' }],
+    mswServer.use(
+      http.get('http://jira.com/rest/api/2/search', ({ request }) => {
+        const url = new URL(request.url);
+        expect(url.searchParams.get('jql')).toBe(
+          "project in ('ppp') AND component in ('ccc') AND resolution = Unresolved AND (status = \"Open\") ORDER BY updated DESC",
+        );
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
+          issues: [
+            {
+              key: 'project-123',
+              self: 'http://jira.com/rest/api/2/issue/ppp-1',
+            },
+          ],
+        });
       }),
-    });
-    (fetch as jest.MockedFn<typeof fetch>).mockImplementation(
-      () => response as any,
     );
 
     const projects = [
@@ -547,18 +694,62 @@ describe('api', () => {
 
     // Call getIssuesByFilter with the combined JQL
     await getIssuesByFilter(projects, ['ccc'], combinedJql);
+  });
 
-    // Check that the correct JQL is sent to Jira
-    expect(fetch).toHaveBeenCalledWith(
-      "http://jira.com/search?jql=project in ('ppp') AND component in ('ccc') AND resolution = Unresolved AND (status = \"Open\") ORDER BY updated DESC",
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Custom-Header': 'custom value',
-          Authorization: 'token',
+  it('combines jira.com/jql annotation with filter query and sends correct JQL to Jira (useApiV3)', async () => {
+    // Create config with useApiV3 set to true
+    const mockConfigV3 = mockServices.rootConfig({
+      data: {
+        jiraDashboard: {
+          baseUrl: 'http://jira.com/rest/api/3/',
+          token: 'token',
+          headers: {
+            'Custom-Header': 'custom value',
+          },
+          userEmailSuffix: '@backstage.com',
+          useApiV3: true,
         },
       },
+    });
+
+    const instanceV3 = JiraConfig.fromConfig(mockConfigV3).getInstance();
+
+    // Simulate annotation and filter
+    const annotationJql = 'status = "Open"';
+    const filterQuery = 'resolution = Unresolved';
+    const orderBy = 'ORDER BY updated DESC';
+    const combinedJql = `${filterQuery} AND (${annotationJql}) ${orderBy}`;
+
+    mswServer.use(
+      http.get('http://jira.com/rest/api/3/search/jql', ({ request }) => {
+        const url = new URL(request.url);
+        expect(url.searchParams.get('jql')).toBe(
+          "project in ('ppp') AND component in ('ccc') AND resolution = Unresolved AND (status = \"Open\") ORDER BY updated DESC",
+        );
+        expect(url.searchParams.get('fields')).toBe('*all');
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
+          issues: [
+            {
+              key: 'project-123',
+              self: 'http://jira.com/rest/api/3/issue/ppp-1',
+            },
+          ],
+        });
+      }),
     );
+
+    const projects = [
+      {
+        instance: instanceV3,
+        fullProjectKey: 'default/ppp',
+        projectKey: 'ppp',
+      },
+    ];
+
+    // Call getIssuesByFilter with the combined JQL
+    await getIssuesByFilter(projects, ['ccc'], combinedJql);
   });
 });
