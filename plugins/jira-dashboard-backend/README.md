@@ -39,7 +39,7 @@ jiraDashboard:
 - `JIRA_API_URL`: Optional url for the Jira API, if different from the base url, including the API version. Necessary when using scoped API tokens with Jira Cloud. For instance: https://api.atlassian.com/ex/jira/7c9c39d8-d07d-43bd-924b-a82397d47f45/rest/api/2/
 - The headers field can be used to add HTTP headers that will be added to the API requests.
 - `JIRA_EMAIL_SUFFIX`: Optional email suffix used for retrieving a specific Jira user in a company. For instance: @your-company.com. If not provided, the user entity profile email is used instead.
-- `JIRA_ANNOTATION_PREFIX`: Optional annotation prefix for retrieving a custom annotation. Defaut value is jira.com. If you want to configure the plugin to be compatible with [Roadie's Backstage Jira Plugin](https://roadie.io/backstage/plugins/jira/), use the following annotation prefix:
+- `JIRA_ANNOTATION_PREFIX`: Optional annotation prefix for retrieving a custom annotation. Default value is jira.com. If you want to configure the plugin to be compatible with [Roadie's Backstage Jira Plugin](https://roadie.io/backstage/plugins/jira/), use the following annotation prefix:
 
 ```yaml
 jiraDashboard:
@@ -103,7 +103,7 @@ jiraDashboard:
 
 Each instance can have its own `useApiV3` setting, allowing you to mix v2 and v3 API usage across different Jira instances.
 
-In entity yamls that don't specify an instance, the one called `"default"` will be used. To specify another instace, prefix the project key with `instance-name/` such as:
+In entity yamls that don't specify an instance, the one called `"default"` will be used. To specify another instance, prefix the project key with `instance-name/` such as:
 
 ```yaml
 metadata:
@@ -135,7 +135,7 @@ jiraDashboard:
 
 #### Authentication examples and trouble shooting
 
-Either "Basic Auth" or "Personal Acccess Tokens" can be used.
+Either "Basic Auth" or "Personal Access Tokens" can be used.
 
 This plugin will directly take the content of the "jiraDashboard.token" config string and
 use as the "Authorization" header in all Jira REST API calls.
@@ -161,9 +161,9 @@ jiraDashboard:
   userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
 ```
 
-##### Personal Acccess Tokens example
+##### Personal Access Tokens example
 
-See the [Personal Acccess Tokens](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) documentation how to use and create
+See the [Personal Access Tokens](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) documentation how to use and create
 a PAT. The generated token can be directly used, there is no need to encode it. Using
 `curl` with a PAT.
 
@@ -180,6 +180,27 @@ And the corresponding Backstage configuration:
 ```yaml
 jiraDashboard:
   token: Bearer <Token>
+  baseUrl: https://your-domain.atlassian.net/rest/api/2/
+  userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
+```
+
+Authentication with Jira Cloud may require configuring basic auth like this.
+Note that the email and token must be base64 encoded. This what the configuration
+will look like before the encoding step.
+
+```yaml
+jiraDashboard:
+  token: Basic email@example.com:pat_token
+  baseUrl: https://your-domain.atlassian.net/rest/api/2/
+  userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
+```
+
+And this is the actual Backstage configuration where the "email@example.com:pat_token" string
+has been base64 encoded.
+
+```yaml
+jiraDashboard:
+  token: Basic ZW1haWxAZXhhbXBsZS5jb206cGF0X3Rva2Vu
   baseUrl: https://your-domain.atlassian.net/rest/api/2/
   userEmailSuffix: ${JIRA_EMAIL_SUFFIX}
 ```
