@@ -3,6 +3,7 @@ import {
   AnalyticsEvent,
   AnalyticsEventAttributes,
   FetchApi,
+  IdentityApi,
 } from '@backstage/core-plugin-api';
 import { Config } from '@backstage/config';
 
@@ -17,6 +18,7 @@ interface IPayload {
     website: string;
     name?: string;
     data: AnalyticsEventAttributes | undefined;
+    id?: string; // Umami distinct id (only when Backstage identity available)
   };
   type: string;
 }
@@ -31,6 +33,9 @@ export class UmamiAnalytics implements AnalyticsApi {
   private trackingId: string;
   private debug: boolean;
   private testMode: boolean;
+  private identityApi?: IdentityApi;
+  private distinctId?: string;
+  private enableDistinctId: boolean;
 
   /**
    * Instantiate the implementation and initialize Umami.
@@ -41,25 +46,42 @@ export class UmamiAnalytics implements AnalyticsApi {
     dataDomain: string;
     debug?: boolean;
     testMode?: boolean;
+    identityApi?: IdentityApi;
+    enableDistinctId?: boolean;
   }) {
-    const { fetchApi, trackingId, dataDomain, debug, testMode } = options;
+    const {
+      fetchApi,
+      trackingId,
+      dataDomain,
+      debug,
+      testMode,
+      identityApi,
+      enableDistinctId,
+    } = options;
+
     this.fetchApi = fetchApi;
     this.dataDomain = dataDomain;
     this.trackingId = trackingId;
     this.testMode = testMode || false;
     this.debug = debug || false;
+    this.identityApi = identityApi;
+    this.enableDistinctId = enableDistinctId ?? true;
+
+    // initialize distinct id only from Backstage identity
+    this.initDistinctId();
   }
 
   /**
    * Instantiate a fully configured Umami Analytics API implementation.
    */
+  /**
+   * Initialize UmamiAnalytics from configuration.
+   */
   static fromConfig(
     config: Config,
-    options: {
-      fetchApi: FetchApi;
-    },
+    options: { fetchApi: FetchApi; identityApi?: IdentityApi },
   ) {
-    const { fetchApi } = options;
+    const { fetchApi, identityApi } = options;
 
     const trackingId =
       config.getOptionalString('app.analytics.umami.trackingId') || '';
@@ -67,6 +89,8 @@ export class UmamiAnalytics implements AnalyticsApi {
       config.getOptionalString('app.analytics.umami.dataDomain') || '';
     const debug = config.getOptionalBoolean('app.analytics.umami.debug');
     const testMode = config.getOptionalBoolean('app.analytics.umami.testMode');
+    const enableDistinctId =
+      config.getOptionalBoolean('app.analytics.umami.enableDistinctId');
 
     return new UmamiAnalytics({
       fetchApi,
@@ -74,7 +98,47 @@ export class UmamiAnalytics implements AnalyticsApi {
       dataDomain,
       debug,
       testMode,
+      identityApi,
+      enableDistinctId,
     });
+  }
+
+  /**
+   * Initialize the distinct ID from Backstage identity if available.
+   */
+  private async initDistinctId() {
+    if (!this.enableDistinctId) return;
+
+    if (!this.identityApi || !this.identityApi.getBackstageIdentity) {
+      // identity not available — do not set a distinct id
+      if (this.debug) {
+        // eslint-disable-next-line no-console
+        console.debug('[Umami] IdentityApi not provided; distinct id disabled for this session.');
+      }
+      return;
+    }
+
+    try {
+      const identity = await this.identityApi.getBackstageIdentity();
+      // use userEntityRef as stable identifier (matches Backstage example)
+      const candidate = (identity as any)?.userEntityRef;
+
+      if (candidate) {
+        this.distinctId = candidate;
+        if (this.debug) {
+          // eslint-disable-next-line no-console
+          console.debug(`[Umami] distinctId set from identity: ${this.distinctId}`);
+        }
+      } else if (this.debug) {
+        // eslint-disable-next-line no-console
+        console.debug('[Umami] Backstage identity provided but no userEntityRef present.');
+      }
+    } catch (e) {
+      if (this.debug) {
+        // eslint-disable-next-line no-console
+        console.warn('[Umami] Failed to fetch Backstage identity:', e);
+      }
+    }
   }
 
   /**
@@ -127,9 +191,14 @@ export class UmamiAnalytics implements AnalyticsApi {
       payload.payload[NAME_PROPS] = `${subject}-${action}`;
     }
 
+    // only include distinct id when we have a Backstage identity and the feature is enabled
+    if (this.enableDistinctId && this.distinctId) {
+      payload.payload.id = this.distinctId;
+    }
+
     if (this.debug) {
       // eslint-disable-next-line no-console
-      console.debug(`Umami event: ${payload}`);
+      console.debug('Umami event payload:', payload);
     }
     /* Do not send anything when tracking is disabled */
     if (!this.isTrackingDisabled()) {

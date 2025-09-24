@@ -42,9 +42,10 @@ export const apis: AnyApiFactory[] = [
     deps: {
       configApi: configApiRef,
       fetchApi: fetchApiRef,
+        identityApi: identityApiRef,
     },
-    factory: ({ configApi, fetchApi }) =>
-      UmamiAnalytics.fromConfig(configApi, { fetchApi }),
+      factory: ({ configApi, fetchApi, identityApi }) =>
+        UmamiAnalytics.fromConfig(configApi, { fetchApi, identityApi }),
   }),
 ];
 ```
@@ -64,6 +65,8 @@ app:
     umami:
       dataDomain: https://umami.organization.com
       trackingId: edo7byeh-ca66-461d-b2d5-78b71bdcl667
+    # Optional: enable distinct user tracking (default: true)
+    enableDistinctId: true
 ```
 
 ## Usage
@@ -71,6 +74,16 @@ app:
 Just like all Backstage AnalyticsAPI implementation, this plugin tracks the following events: `click`, `navigate`, `create`, `search`, `discover`, and `not-found`. You can read more about the key events in Backstage analytics in the [upstream documentation](https://backstage.io/docs/plugins/analytics/#key-events).
 
 In this plugin, all `navigation` events are handled as Umami pageviews. Other events, such as click and discover, are handled as Umami events. In Umami documentation you can read more on how to track [events] (https://umami.is/docs/track-events)that occur on your website.
+
+## Distinct User Tracking
+
+This plugin supports distinct user tracking using Backstage's identity system. When the `identityApi` is provided, the plugin will automatically:
+
+- Use the Backstage user's entity ref as a persistent, unique user ID
+- Pass this ID to Umami in the analytics payload (as `payload.id`)
+- Enable more accurate user analytics and journey tracking across sessions and devices
+
+You can disable this feature by setting `enableDistinctId: false` in your config.
 
 ## Debugging and testing
 
