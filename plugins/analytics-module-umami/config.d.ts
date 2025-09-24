@@ -33,12 +33,6 @@ export interface Config {
          * @visibility frontend
          */
         testMode?: boolean;
-
-        /**
-         * Enable sending distinct id (derived from Backstage identity) to Umami.
-         * Defaults to true.
-         */
-        enableDistinctId?: boolean;
       };
     };
   };
