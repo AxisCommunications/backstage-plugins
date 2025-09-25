@@ -21,6 +21,7 @@ describe('UmamiAnalytics', () => {
 
   const buildInstance = (
     umamiConfig: JsonObject = defaultUmamiConfig,
+    identityApi?: any,
   ): UmamiAnalytics => {
     const fullConfig = {
       app: {
@@ -32,57 +33,110 @@ describe('UmamiAnalytics', () => {
     const mockConfigApi = mockApis.config({ data: fullConfig });
     const mockFetchApi = new MockFetchApi({ baseImplementation: mockFetch });
 
-    return UmamiAnalytics.fromConfig(mockConfigApi, { fetchApi: mockFetchApi });
+    return UmamiAnalytics.fromConfig(mockConfigApi, {
+      fetchApi: mockFetchApi,
+      identityApi,
+    });
   };
 
   beforeEach(() => {
     jest.resetAllMocks();
+    localStorage.clear();
   });
 
   describe('captureEvent', () => {
-    it('should send payload to umami', () => {
+    it('should send payload to umami', async () => {
       const umamiAnalytics = buildInstance();
-      umamiAnalytics.captureEvent(mockEvent);
+      await umamiAnalytics.captureEvent(mockEvent);
       expect(mockFetch).toHaveBeenCalledTimes(1);
     });
 
-    it('should not send payload to umami when trackingId is not set', () => {
+    it('should not send payload to umami when trackingId is not set', async () => {
       const umamiAnalytics = buildInstance({
         ...defaultUmamiConfig,
         trackingId: undefined,
-      });
-      umamiAnalytics.captureEvent(mockEvent);
+      } as any);
+      await umamiAnalytics.captureEvent(mockEvent);
       expect(mockFetch).not.toHaveBeenCalled();
     });
 
-    it('should not send payload to umami when dataDomain is not set', () => {
+    it('should not send payload to umami when dataDomain is not set', async () => {
       const umamiAnalytics = buildInstance({
         ...defaultUmamiConfig,
         dataDomain: undefined,
-      });
-      umamiAnalytics.captureEvent(mockEvent);
+      } as any);
+      await umamiAnalytics.captureEvent(mockEvent);
       expect(mockFetch).not.toHaveBeenCalled();
     });
 
-    it('should not send payload to umami when testMode is set', () => {
+    it('should not send payload to umami when testMode is set', async () => {
       const umamiAnalytics = buildInstance({
         ...defaultUmamiConfig,
         testMode: true,
-      });
-      umamiAnalytics.captureEvent(mockEvent);
+      } as any);
+      await umamiAnalytics.captureEvent(mockEvent);
       expect(mockFetch).not.toHaveBeenCalled();
     });
 
-    it('should not send payload to umami when umami.disabled is set', () => {
+    it('should not send payload to umami when umami.disabled is set', async () => {
       const umamiAnalytics = buildInstance();
 
       localStorage.setItem('umami.disabled', '1');
-      umamiAnalytics.captureEvent(mockEvent);
+      await umamiAnalytics.captureEvent(mockEvent);
       expect(mockFetch).not.toHaveBeenCalled();
 
       localStorage.removeItem('umami.disabled');
-      umamiAnalytics.captureEvent(mockEvent);
+      await umamiAnalytics.captureEvent(mockEvent);
       expect(mockFetch).toHaveBeenCalledTimes(1);
+    });
+
+    it('includes payload.id when Backstage identity is available', async () => {
+      const identityApi = {
+        getBackstageIdentity: async () => ({ userEntityRef: 'user:default/alice' }),
+      };
+      const umamiAnalytics = buildInstance(defaultUmamiConfig, identityApi);
+
+      // allow initDistinctId async init to run (constructor triggers async init)
+      await new Promise((r) => setTimeout(r, 10));
+
+      await umamiAnalytics.captureEvent(mockEvent);
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+
+      // MockFetchApi calls mockFetch(url, init)
+      const fetchInit = mockFetch.mock.calls[0][1];
+      const body = JSON.parse(fetchInit.body as string);
+      expect(body.payload.id).toBe('user:default/alice');
+    });
+
+    it('does not include payload.id when identityApi not provided', async () => {
+      const umamiAnalytics = buildInstance();
+
+      await new Promise((r) => setTimeout(r, 10));
+      await umamiAnalytics.captureEvent(mockEvent);
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+
+      const fetchInit = mockFetch.mock.calls[0][1];
+      const body = JSON.parse(fetchInit.body as string);
+      expect(body.payload.id).toBeUndefined();
+    });
+
+    it('does not include payload.id when enableDistinctId is false', async () => {
+      const umamiConfig: JsonObject = {
+        ...defaultUmamiConfig,
+        enableDistinctId: false,
+      };
+      const identityApi = {
+        getBackstageIdentity: async () => ({ userEntityRef: 'user:default/alice' }),
+      };
+      const umamiAnalytics = buildInstance(umamiConfig, identityApi);
+
+      await new Promise((r) => setTimeout(r, 10));
+      await umamiAnalytics.captureEvent(mockEvent);
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+
+      const fetchInit = mockFetch.mock.calls[0][1];
+      const body = JSON.parse(fetchInit.body as string);
+      expect(body.payload.id).toBeUndefined();
     });
   });
 });
