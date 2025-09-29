@@ -1,5 +1,12 @@
 # backend
 
+## 0.8.8
+
+### Patch Changes
+
+- Updated dependencies [efcd08f]
+  - app@0.12.0
+
 ## 0.8.7
 
 ### Patch Changes
