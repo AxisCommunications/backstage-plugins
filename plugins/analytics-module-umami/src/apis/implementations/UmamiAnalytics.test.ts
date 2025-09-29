@@ -92,12 +92,14 @@ describe('UmamiAnalytics', () => {
 
     it('includes payload.id when Backstage identity is available', async () => {
       const identityApi = {
-        getBackstageIdentity: async () => ({ userEntityRef: 'user:default/alice' }),
+        getBackstageIdentity: async () => ({
+          userEntityRef: 'user:default/alice',
+        }),
       };
       const umamiAnalytics = buildInstance(defaultUmamiConfig, identityApi);
 
       // allow async init to run
-      await new Promise((r) => setTimeout(r, 10));
+      await new Promise(r => setTimeout(r, 10));
 
       await umamiAnalytics.captureEvent(mockEvent);
       expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -111,7 +113,7 @@ describe('UmamiAnalytics', () => {
     it('does not include payload.id when identityApi not provided', async () => {
       const umamiAnalytics = buildInstance();
 
-      await new Promise((r) => setTimeout(r, 10));
+      await new Promise(r => setTimeout(r, 10));
       await umamiAnalytics.captureEvent(mockEvent);
       expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -126,13 +128,15 @@ describe('UmamiAnalytics', () => {
         enableDistinctId: false,
       };
       const identityApi = {
-        getBackstageIdentity: async () => ({ userEntityRef: 'user:default/alice' }),
+        getBackstageIdentity: async () => ({
+          userEntityRef: 'user:default/alice',
+        }),
       };
       const umamiAnalytics = buildInstance(umamiConfig, identityApi);
 
       // NOTE: current UmamiAnalytics implementation does not inspect enableDistinctId.
       // So when identityApi is provided, payload.id will still be set.
-      await new Promise((r) => setTimeout(r, 10));
+      await new Promise(r => setTimeout(r, 10));
       await umamiAnalytics.captureEvent(mockEvent);
       expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -149,7 +153,9 @@ describe('UmamiAnalytics', () => {
       const fetchInit = mockFetch.mock.calls[0][1];
       const body = JSON.parse(fetchInit.body as string);
       // non-navigate event => name should be subject-action
-      expect(body.payload.name).toBe(`${mockEvent.subject}-${mockEvent.action}`);
+      expect(body.payload.name).toBe(
+        `${mockEvent.subject}-${mockEvent.action}`,
+      );
     });
 
     it('does not set payload.name for navigate action', async () => {
@@ -167,4 +173,3 @@ describe('UmamiAnalytics', () => {
     });
   });
 });
- 

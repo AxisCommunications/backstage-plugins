@@ -44,8 +44,8 @@ export const apis: AnyApiFactory[] = [
       fetchApi: fetchApiRef,
       identityApi: identityApiRef, // Optional, for distinct user tracking
     },
-      factory: ({ configApi, fetchApi, identityApi }) =>
-        UmamiAnalytics.fromConfig(configApi, { fetchApi, identityApi }),
+    factory: ({ configApi, fetchApi, identityApi }) =>
+      UmamiAnalytics.fromConfig(configApi, { fetchApi, identityApi }),
   }),
 ];
 ```
