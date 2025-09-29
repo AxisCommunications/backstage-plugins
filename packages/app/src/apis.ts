@@ -11,6 +11,7 @@ import {
   discoveryApiRef,
   fetchApiRef,
   microsoftAuthApiRef,
+  identityApiRef,
 } from '@backstage/core-plugin-api';
 import { UmamiAnalytics } from '@axis-backstage/plugin-analytics-module-umami';
 import {
@@ -33,9 +34,10 @@ export const apis: AnyApiFactory[] = [
     deps: {
       configApi: configApiRef,
       fetchApi: fetchApiRef,
+      identityApi: identityApiRef,
     },
-    factory: ({ configApi, fetchApi }) =>
-      UmamiAnalytics.fromConfig(configApi, { fetchApi }),
+    factory: ({ configApi, fetchApi, identityApi }) =>
+      UmamiAnalytics.fromConfig(configApi, { fetchApi, identityApi }),
   }),
   createApiFactory({
     api: statuspageApiRef,
