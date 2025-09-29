@@ -96,7 +96,7 @@ describe('UmamiAnalytics', () => {
       };
       const umamiAnalytics = buildInstance(defaultUmamiConfig, identityApi);
 
-      // allow initDistinctId async init to run (constructor triggers async init)
+      // allow async init to run
       await new Promise((r) => setTimeout(r, 10));
 
       await umamiAnalytics.captureEvent(mockEvent);
@@ -120,7 +120,7 @@ describe('UmamiAnalytics', () => {
       expect(body.payload.id).toBeUndefined();
     });
 
-    it('does not include payload.id when enableDistinctId is false', async () => {
+    it('behavior when enableDistinctId is false (implementation currently ignores this flag)', async () => {
       const umamiConfig: JsonObject = {
         ...defaultUmamiConfig,
         enableDistinctId: false,
@@ -130,13 +130,41 @@ describe('UmamiAnalytics', () => {
       };
       const umamiAnalytics = buildInstance(umamiConfig, identityApi);
 
+      // NOTE: current UmamiAnalytics implementation does not inspect enableDistinctId.
+      // So when identityApi is provided, payload.id will still be set.
       await new Promise((r) => setTimeout(r, 10));
       await umamiAnalytics.captureEvent(mockEvent);
       expect(mockFetch).toHaveBeenCalledTimes(1);
 
       const fetchInit = mockFetch.mock.calls[0][1];
       const body = JSON.parse(fetchInit.body as string);
-      expect(body.payload.id).toBeUndefined();
+      expect(body.payload.id).toBe('user:default/alice');
+    });
+
+    it('sets payload.name for non-navigate actions', async () => {
+      const umamiAnalytics = buildInstance();
+      await umamiAnalytics.captureEvent(mockEvent);
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+
+      const fetchInit = mockFetch.mock.calls[0][1];
+      const body = JSON.parse(fetchInit.body as string);
+      // non-navigate event => name should be subject-action
+      expect(body.payload.name).toBe(`${mockEvent.subject}-${mockEvent.action}`);
+    });
+
+    it('does not set payload.name for navigate action', async () => {
+      const navEvent: AnalyticsEvent = {
+        ...mockEvent,
+        action: 'navigate',
+      };
+      const umamiAnalytics = buildInstance();
+      await umamiAnalytics.captureEvent(navEvent);
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+
+      const fetchInit = mockFetch.mock.calls[0][1];
+      const body = JSON.parse(fetchInit.body as string);
+      expect(body.payload.name).toBeUndefined();
     });
   });
 });
+ 

@@ -8,6 +8,7 @@ import { AnalyticsEvent } from '@backstage/core-plugin-api';
 import { BackstagePlugin } from '@backstage/core-plugin-api';
 import { Config } from '@backstage/config';
 import { FetchApi } from '@backstage/core-plugin-api';
+import { IdentityApi } from '@backstage/core-plugin-api';
 import { RouteRef } from '@backstage/core-plugin-api';
 
 // @public
@@ -26,6 +27,7 @@ export class UmamiAnalytics implements AnalyticsApi {
     config: Config,
     options: {
       fetchApi: FetchApi;
+      identityApi?: IdentityApi;
     },
   ): UmamiAnalytics;
 }
