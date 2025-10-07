@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-analytics-module-umami
 
+## 0.10.0
+
+### Minor Changes
+
+- efcd08f: Adds optional distinct-user tracking to the analytics-module-umami plugin by wiring Backstage’s identityApi into the Umami analytics payloads (sets payload.id to the user’s Backstage entity ref). Includes tests, README updates, and a small refactor for clarity.
+
 ## 0.9.0
 
 ### Minor Changes
