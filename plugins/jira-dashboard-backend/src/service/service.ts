@@ -31,7 +31,9 @@ export const getProjectResponse = async (
 
   try {
     projectResponse = await getProjectInfo(project);
-    cache.set(project.fullProjectKey, projectResponse);
+    cache.set(project.fullProjectKey, projectResponse, {
+      ttl: project.instance.cacheTtl,
+    });
   } catch (err: any) {
     if (err.message !== 200) {
       throw Error(
@@ -60,7 +62,7 @@ export const getJqlResponse = async (
 
   try {
     issuesResponse = (await searchJira(config, jql, searchOptions)).issues;
-    cache.set(cacheKey, issuesResponse);
+    cache.set(cacheKey, issuesResponse, { ttl: config.cacheTtl });
   } catch (err: any) {
     if (err.message !== 200) {
       throw Error(
@@ -137,7 +139,7 @@ async function getJiraProjectsFromKeys(
         instance,
         fullProjectKey: '',
       });
-      cache.set(key, projectInfo);
+      cache.set(key, projectInfo, { ttl: instance.cacheTtl });
     }
 
     jiraProjects.push({

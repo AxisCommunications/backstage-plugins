@@ -59,7 +59,7 @@ describe('config', () => {
     expect(instance.userEmailSuffix).toBe('@backstage.com');
   });
 
-  it('should handle multi-instance config', () => {
+  it('should handle useApiV3 in multi-instance config', () => {
     const mockConfig = mockServices.rootConfig({
       data: {
         jiraDashboard: {
@@ -178,5 +178,77 @@ describe('config', () => {
         query: 'priority = "High"',
       },
     ]);
+  });
+
+  it('should default cacheTtl to 1 hour when not specified', () => {
+    const mockConfig = mockServices.rootConfig({
+      data: {
+        jiraDashboard: {
+          baseUrl: 'http://jira.com',
+          token: 'token',
+          userEmailSuffix: '@backstage.com',
+        },
+      },
+    });
+    const instance = JiraConfig.fromConfig(mockConfig).getInstance();
+    expect(instance.cacheTtl).toBe(3_600_000); // 1 hour in milliseconds
+  });
+
+  it('should handle cacheTtl set to custom duration in single instance config', () => {
+    const mockConfig = mockServices.rootConfig({
+      data: {
+        jiraDashboard: {
+          baseUrl: 'http://jira.com',
+          token: 'token',
+          userEmailSuffix: '@backstage.com',
+          cacheTtl: '30m',
+        },
+      },
+    });
+    const instance = JiraConfig.fromConfig(mockConfig).getInstance();
+    expect(instance.cacheTtl).toBe(1_800_000); // 30 minutes in milliseconds
+  });
+
+  it('should handle cacheTtl in multi-instance config', () => {
+    const mockConfig = mockServices.rootConfig({
+      data: {
+        jiraDashboard: {
+          instances: [
+            {
+              name: 'default',
+              baseUrl: 'http://jira.com',
+              token: 'token',
+              userEmailSuffix: '@backstage.com',
+              cacheTtl: '10m',
+            },
+            {
+              name: 'other',
+              baseUrl: 'http://jira2.com',
+              token: 'token2',
+              userEmailSuffix: '@backstage2.com',
+              cacheTtl: '2h',
+            },
+            {
+              name: 'third',
+              baseUrl: 'http://jira3.com',
+              token: 'token3',
+              userEmailSuffix: '@backstage3.com',
+              // cacheTtl not specified, should default to 1 hour
+            },
+          ],
+        },
+      },
+    });
+
+    const jiraConfig = JiraConfig.fromConfig(mockConfig);
+
+    const defaultInstance = jiraConfig.getInstance('default');
+    expect(defaultInstance.cacheTtl).toBe(600_000); // 10 minutes
+
+    const otherInstance = jiraConfig.getInstance('other');
+    expect(otherInstance.cacheTtl).toBe(7_200_000); // 2 hours
+
+    const thirdInstance = jiraConfig.getInstance('third');
+    expect(thirdInstance.cacheTtl).toBe(3_600_000); // 1 hour (default)
   });
 });

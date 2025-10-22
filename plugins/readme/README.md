@@ -10,7 +10,7 @@ The `Readme-plugin` enables easy access and viewing of the README file. By havin
 
 The plugin **supports all ScmIntegrations**, like Gerrit & GitLab. This makes it possible for organizations with many Source Code Integrations to use the same plugin.
 
-It also supports various file extentions such as README.md, README.MD, README.txt, README, and README.rst.
+It also supports various file extensions such as README.md, README.MD, README.txt, README, and README.rst.
 
 ### Where can the plugin find my README file?
 

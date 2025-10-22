@@ -26,6 +26,7 @@ export type ConfigInstance = {
   userEmailSuffix?: string;
   defaultFilters?: Filter[];
   useApiV3?: boolean;
+  cacheTtl: number;
 };
 
 // @public

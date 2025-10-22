@@ -1,3 +1,5 @@
+import { HumanDuration } from '@backstage/types';
+
 export interface Config {
   /**
    * Configuration options for the Jira Dashboard plugin
@@ -52,6 +54,11 @@ export interface Config {
          * Whether to use Jira API v3. Defaults to false for backward compatibility.
          */
         useApiV3?: boolean;
+
+        /**
+         * Optional cache TTL, defaults to 1 hour.
+         */
+        cacheTtl?: HumanDuration | string;
 
         // Type helper
         instances?: never;
@@ -111,6 +118,11 @@ export interface Config {
            * Whether to use Jira API v3. Defaults to false for backward compatibility.
            */
           useApiV3?: boolean;
+
+          /**
+           * Optional cache TTL, defaults to 1 hour.
+           */
+          cacheTtl?: HumanDuration | string;
         }[];
       };
 }
