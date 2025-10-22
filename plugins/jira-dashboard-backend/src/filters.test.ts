@@ -25,6 +25,7 @@ describe('getDefaultFiltersForUser', () => {
         query: 'type = Bug AND resolution = Unresolved',
       },
     ],
+    cacheTtl: 3600000,
   };
 
   const mockUserEntity: UserEntity = {

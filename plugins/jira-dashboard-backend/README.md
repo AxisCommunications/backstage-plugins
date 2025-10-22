@@ -77,6 +77,51 @@ jiraDashboard:
 
 **Note**: When using API v3, make sure your `baseUrl` also points to the v3 endpoint (e.g., `/rest/api/3/` instead of `/rest/api/2/`).
 
+### Cache Configuration
+
+The plugin includes configurable caching to improve performance by reducing API calls to Jira. You can configure the cache TTL (Time To Live) for each Jira instance:
+
+```yaml
+jiraDashboard:
+  token: ${JIRA_TOKEN}
+  baseUrl: ${JIRA_BASE_URL}
+  cacheTtl: 30m # Cache for 30 minutes (defaults to 1h if not specified)
+```
+
+#### Supported TTL Formats:
+
+The `cacheTtl` option accepts human-readable duration formats as a string:
+
+- `30s` - 30 seconds
+- `10m` - 10 minutes
+- `1h` - 1 hour
+- `2h30m` - 2 hours and 30 minutes
+- `1d` - 1 day
+
+Or an object like:
+
+```yaml
+jiraDashboard:
+  cacheTtl:
+    hours: 2
+```
+
+#### Default Cache Behavior:
+
+- **Default TTL**: 1 hour if not specified
+- **Cache Scope**: Project information and JQL query results are cached per Jira instance
+- **Cache Keys**: Unique per project key and JQL query to ensure data accuracy
+
+#### Example with custom cache TTL:
+
+```yaml
+jiraDashboard:
+  token: Bearer <your-token>
+  baseUrl: https://your-domain.atlassian.net/rest/api/2/
+  cacheTtl: 15m # Cache responses for 15 minutes
+  userEmailSuffix: @your-company.com
+```
+
 ### Multiple Jira instances
 
 In case multiple Jira instances are being used, the configuration can be written on the form:
@@ -92,6 +137,7 @@ jiraDashboard:
       headers: {} # Optional
       userEmailSuffix: ${JIRA_EMAIL_SUFFIX} # Optional
       useApiV3: false # Optional - defaults to false
+      cacheTtl: 1h # Optional - defaults to 1 hour
     - name: separate-jira-instance
       token: ${JIRA_TOKEN_SEPARATE}
       baseUrl: ${JIRA_BASE_URL_SEPARATE}
@@ -99,9 +145,10 @@ jiraDashboard:
       headers: {} # Optional
       userEmailSuffix: ${JIRA_EMAIL_SUFFIX_SEPARATE} # Optional
       useApiV3: true # Optional - enable API v3 for this instance
+      cacheTtl: 30m # Optional - cache for 30 minutes for this instance
 ```
 
-Each instance can have its own `useApiV3` setting, allowing you to mix v2 and v3 API usage across different Jira instances.
+Each instance can have its own `useApiV3` and `cacheTtl` settings, allowing you to mix v2 and v3 API usage and customize cache durations across different Jira instances.
 
 In entity yamls that don't specify an instance, the one called `"default"` will be used. To specify another instance, prefix the project key with `instance-name/` such as:
 

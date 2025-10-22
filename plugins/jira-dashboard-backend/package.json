@@ -34,7 +34,9 @@
     "@backstage/backend-plugin-api": "^1.4.2",
     "@backstage/catalog-client": "^1.11.0",
     "@backstage/catalog-model": "^1.7.5",
+    "@backstage/config": "^1.3.5",
     "@backstage/errors": "^1.2.7",
+    "@backstage/types": "^1.2.2",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
     "node-fetch": "^2.6.7"

@@ -1,5 +1,7 @@
 import { ConflictError, ServiceUnavailableError } from '@backstage/errors';
 import { RootConfigService } from '@backstage/backend-plugin-api';
+import { readDurationFromConfig } from '@backstage/config';
+import { durationToMilliseconds } from '@backstage/types';
 import { Filter } from '@axis-backstage/plugin-jira-dashboard-common';
 
 type Config = ReturnType<RootConfigService['getConfig']>;
@@ -29,6 +31,7 @@ export type ConfigInstance = {
   userEmailSuffix?: string;
   defaultFilters?: Filter[];
   useApiV3?: boolean;
+  cacheTtl: number; // TTL in milliseconds
 };
 
 const JIRA_CONFIG_BASE_URL = 'baseUrl';
@@ -39,6 +42,21 @@ const JIRA_CONFIG_USER_EMAIL_SUFFIX = 'userEmailSuffix';
 const JIRA_CONFIG_ANNOTATION = 'annotationPrefix';
 const JIRA_FILTERS = 'defaultFilters';
 const JIRA_CONFIG_USE_API_V3 = 'useApiV3';
+const JIRA_CONFIG_CACHE_TTL = 'cacheTtl';
+
+/**
+ * Get cache TTL in milliseconds for a Jira instance configuration
+ * Defaults to 1 hour (3,600,000 ms) if not specified
+ */
+function getCacheTtl(instanceConfig: Config): number {
+  if (!instanceConfig.has(JIRA_CONFIG_CACHE_TTL)) {
+    return 3_600_000;
+  }
+
+  return durationToMilliseconds(
+    readDurationFromConfig(instanceConfig, { key: JIRA_CONFIG_CACHE_TTL }),
+  );
+}
 
 /**
  * Class for reading Jira configuration from the root config
@@ -85,6 +103,7 @@ export class JiraConfig {
               query: filterConfig.getString('query'),
             })),
           useApiV3: inst.getOptionalBoolean(JIRA_CONFIG_USE_API_V3) ?? false,
+          cacheTtl: getCacheTtl(inst),
         };
       });
     } else {
@@ -103,6 +122,7 @@ export class JiraConfig {
             query: filterConfig.getString('query'),
           })),
         useApiV3: jira.getOptionalBoolean(JIRA_CONFIG_USE_API_V3) ?? false,
+        cacheTtl: getCacheTtl(jira),
       };
     }
   }
