@@ -80,6 +80,45 @@ const defaultEntityPage = (
 )
 ```
 
+### New Frontend System
+
+1. First, install the plugin into your app:
+
+```bash
+# From your Backstage root directory
+yarn --cwd packages/app add @axis-backstage/plugin-readme
+```
+
+2. If [feature discovery](https://backstage.io/docs/frontend-system/architecture/app/#feature-discovery) is enabled in your app, the plugin will be automatically discovered and added to the entity page. If not, you can manually add the plugin to your app:
+
+```tsx
+// packages/app/src/App.tsx
+// ...
+import readmePlugin from '@axis-backstage/plugin-readme/alpha';
+
+const app = createApp({
+  features: [
+    // ...
+    readmePlugin,
+  ],
+});
+```
+
+3. If necessary, you can also customize the plugin:
+
+```yaml
+# app-config.yaml
+app:
+  # ...
+  extensions:
+    # ...
+    - entity-card:readme:
+        config:
+          filter:
+            kind: component
+# ...
+```
+
 ## Layout
 
 The readme card is located in the overview page on the entity page. From the card header it is also possible to open a dialog displaying the full README.md.
