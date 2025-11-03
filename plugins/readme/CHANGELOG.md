@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme
 
+## 0.17.0
+
+### Minor Changes
+
+- 798d14d: Added support for new frontend system
+
 ## 0.16.0
 
 ### Minor Changes
