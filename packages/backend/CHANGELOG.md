@@ -1,5 +1,11 @@
 # backend
 
+## 0.8.10
+
+### Patch Changes
+
+- app@0.12.1
+
 ## 0.8.9
 
 ### Patch Changes

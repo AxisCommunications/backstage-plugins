@@ -1,5 +1,12 @@
 # app
 
+## 0.12.1
+
+### Patch Changes
+
+- Updated dependencies [798d14d]
+  - @axis-backstage/plugin-readme@0.17.0
+
 ## 0.12.0
 
 ### Minor Changes
