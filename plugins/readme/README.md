@@ -140,8 +140,8 @@ Addition to this; ensure that `backstage:source-location` value has the trailing
 metadata:
   annotations:
     # This will not work
-    backstage:source-location: https://bitbucket.org/org-name/repo-id/src/master
+    backstage.io/source-location: url:https://bitbucket.org/org-name/repo-id/src/master
     # This value will work.
-    backstage:source-location: https://bitbucket.org/org-name/repo-id/src/master/
+    backstage.io/source-location: url:https://bitbucket.org/org-name/repo-id/src/master/
 ...
 ```
