@@ -25,6 +25,7 @@ export type Issue = {
       name: string;
       iconUrl: string;
     };
+    description?: string;
     updated: string;
   };
 };

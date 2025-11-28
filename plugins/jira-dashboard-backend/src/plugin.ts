@@ -2,8 +2,10 @@ import {
   coreServices,
   createBackendPlugin,
 } from '@backstage/backend-plugin-api';
+import { actionsRegistryServiceRef } from '@backstage/backend-plugin-api/alpha';
 import { createRouter } from './service/router';
 import { JiraConfig } from './config';
+import { createGetJiraTicketInfoAction } from './actions/createGetJiraTicketInfoAction';
 
 /**
  * The Jira Dashboard backend plugin.
@@ -15,6 +17,7 @@ export const jiraDashboardPlugin = createBackendPlugin({
   register(env) {
     env.registerInit({
       deps: {
+        actionsRegistry: actionsRegistryServiceRef,
         auth: coreServices.auth,
         httpRouter: coreServices.httpRouter,
         logger: coreServices.logger,
@@ -25,6 +28,7 @@ export const jiraDashboardPlugin = createBackendPlugin({
         cache: coreServices.cache,
       },
       async init({
+        actionsRegistry,
         auth,
         httpRouter,
         logger,
@@ -49,6 +53,11 @@ export const jiraDashboardPlugin = createBackendPlugin({
         httpRouter.addAuthPolicy({
           path: '/health',
           allow: 'unauthenticated',
+        });
+        createGetJiraTicketInfoAction({
+          actionsRegistry,
+          rootConfig,
+          logger,
         });
       },
     });

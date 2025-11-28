@@ -30,6 +30,7 @@
     "@backstage/plugin-auth-backend-module-microsoft-provider": "^0.3.6",
     "@backstage/plugin-auth-node": "^0.6.6",
     "@backstage/plugin-catalog-backend": "^3.0.1",
+    "@backstage/plugin-mcp-actions-backend": "^0.1.4",
     "@backstage/plugin-permission-common": "^0.9.1",
     "@backstage/plugin-permission-node": "^0.10.3",
     "@backstage/plugin-search-backend": "^2.0.5",
