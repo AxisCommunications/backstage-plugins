@@ -208,6 +208,36 @@ export async function getProjectAvatar(url: string, instance: ConfigInstance) {
 }
 
 /**
+ * Get a single Jira issue by its key or ID.
+ *
+ * @param issueKey - The issue key (e.g., "PROJ-123") or ID
+ * @param instance - The Jira instance configuration
+ * @returns The Jira issue
+ * @public
+ */
+export const getIssueByKey = async (
+  issueKey: string,
+  instance: ConfigInstance,
+): Promise<Issue> => {
+  const response = await callApi(
+    instance,
+    `${getApiUrl(instance)}issue/${issueKey}?fields=summary,description`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    },
+  );
+  if (!response.ok) {
+    throw await ResponseError.fromResponse(response);
+  }
+
+  const issue = (await response.json()) as Issue;
+  return issue;
+};
+
+/**
  * Call the Jira API using fetch.
  *
  * This function injects the auth token and custom headers.

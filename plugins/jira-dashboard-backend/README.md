@@ -285,3 +285,35 @@ const backend = createBackend();
 
 backend.start();
 ```
+
+## Actions
+
+The Jira Dashboard backend includes actions for the Backstage action registry.
+
+### Available Actions
+
+#### get-jira-ticket-info
+
+Retrieves summary and description for a specific Jira ticket by its key.
+
+**Input:**
+
+- `issueKey` (required): Jira issue key in format PROJECT-NUMBER (e.g., "PROJ-123", "ABC-456")
+- `instance` (optional): Jira instance name when multiple instances are configured. Omit to use the default instance.
+
+**Output:**
+
+- `key`: The Jira issue key
+- `summary`: Brief one-line summary of the issue
+- `description`: Detailed description of the issue (may be empty if no description was provided)
+
+### Configuration
+
+To enable these actions, add the following to your `app-config.yaml`:
+
+```yaml
+backend:
+  actions:
+    pluginSources:
+      - 'jira-dashboard'
+```

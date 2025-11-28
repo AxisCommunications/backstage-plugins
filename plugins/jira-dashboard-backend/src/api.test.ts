@@ -9,6 +9,7 @@ import {
   getProjectAvatar,
   getFilterById,
   searchJira,
+  getIssueByKey,
 } from './api';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
@@ -140,6 +141,36 @@ describe('api', () => {
 
     const filterApiUrl = await getFilterById('filter1', instanceApiUrl);
     expect(filterApiUrl).toEqual({ name: 'filter1' });
+  });
+
+  it('getIssueByKey', async () => {
+    mswServer.use(
+      http.get('http://jira.com/rest/api/2/issue/TEST-123', ({ request }) => {
+        const url = new URL(request.url);
+        expect(url.searchParams.get('fields')).toBe('summary,description');
+        expect(request.headers.get('Accept')).toBe('application/json');
+        expect(request.headers.get('Custom-Header')).toBe('custom value');
+        expect(request.headers.get('Authorization')).toBe('token');
+        return HttpResponse.json({
+          key: 'TEST-123',
+          self: 'http://jira.com/rest/api/2/issue/TEST-123',
+          fields: {
+            summary: 'Test issue summary',
+            description: 'This is a test issue description',
+          },
+        });
+      }),
+    );
+
+    const issue = await getIssueByKey('TEST-123', instance);
+    expect(issue).toEqual({
+      key: 'TEST-123',
+      self: 'http://jira.com/rest/api/2/issue/TEST-123',
+      fields: {
+        summary: 'Test issue summary',
+        description: 'This is a test issue description',
+      },
+    });
   });
 
   it('getIssuesByFilter baseUrl', async () => {
