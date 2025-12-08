@@ -1,5 +1,13 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 6.0.1
+
+### Patch Changes
+
+- 4258139: Add MCP tool action to fetch Jira ticket information. Introduces `get-jira-ticket-info` action that retrieves summary and description for a specific Jira ticket by its key, with support for multiple Jira instances.
+- Updated dependencies [4258139]
+  - @axis-backstage/plugin-jira-dashboard-common@1.14.2
+
 ## 6.0.0
 
 ### Major Changes
