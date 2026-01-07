@@ -30,7 +30,7 @@ export const AssigneeCell = ({ assignee }: Props) => {
         alignItems="center"
         data-testid="assignee-avatar"
       >
-        <Avatar picture="" customStyles={{ width: 35, height: 35 }} />
+        <Avatar picture="" customStyles={{ width: 25, height: 25 }} />
         <Typography variant="body2">Unassigned</Typography>
       </Stack>
     );
@@ -45,7 +45,7 @@ export const AssigneeCell = ({ assignee }: Props) => {
     >
       <Avatar
         picture={assignee.avatarUrls?.['48x48'] || ''}
-        customStyles={{ width: 35, height: 35 }}
+        customStyles={{ width: 25, height: 25 }}
       />
       <Typography noWrap variant="body2">
         {assignee.displayName || assignee.name}

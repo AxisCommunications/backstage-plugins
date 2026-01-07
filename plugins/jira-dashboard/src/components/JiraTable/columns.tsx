@@ -13,7 +13,9 @@ export const columnKey: TableColumn<Issue> = {
   highlight: true,
   type: 'string',
   width: '15%',
-
+  cellStyle: {
+    whiteSpace: 'nowrap',
+  },
   render: (issue: Partial<Issue>) => {
     if (!issue.self || !issue.key) {
       return null;
@@ -44,6 +46,12 @@ export const columnSummary: TableColumn<Issue> = {
   highlight: true,
   type: 'string',
   width: '45%',
+  cellStyle: {
+    maxWidth: 250,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
   render: (issue: Partial<Issue>) => {
     if (!issue.self || !issue.key) {
       return null;
@@ -100,6 +108,7 @@ export const columnStatus: TableColumn<Issue> = {
       <Link to={getIssueUrl(issue.self, issue.key)} title="Go to issue in Jira">
         <Chip
           label={issue.fields?.status.name}
+          size="small"
           sx={{
             padding: '0',
             margin: '0',
@@ -122,6 +131,7 @@ export const columnAssignee: TableColumn<Issue> = {
     return <AssigneeCell assignee={issue.fields?.assignee} />;
   },
 };
+
 export const columnUpdated: TableColumn<Issue> = {
   title: 'Updated',
   field: 'fields.updated',
