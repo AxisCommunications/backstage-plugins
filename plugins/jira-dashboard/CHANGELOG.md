@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 2.2.3
+
+### Patch Changes
+
+- 68f822b: To provide a better overview in the Jira Dashboard tables, cell style has been adjusted.
+
 ## 2.2.2
 
 ### Patch Changes
