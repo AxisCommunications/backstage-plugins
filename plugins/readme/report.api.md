@@ -8,7 +8,6 @@ import { BackstagePlugin } from '@backstage/core-plugin-api';
 import { Entity } from '@backstage/catalog-model';
 import { InfoCardVariants } from '@backstage/core-components';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
-import { ReadmeCardProps as ReadmeCardProps_2 } from './components/ReadmeCard';
 import { RouteRef } from '@backstage/core-plugin-api';
 
 // @public
@@ -20,7 +19,7 @@ export const isReadmeAvailable: (
 ) => Promise<boolean>;
 
 // @public
-export const ReadmeCard: (props: ReadmeCardProps_2) => JSX_2.Element;
+export const ReadmeCard: (props: ReadmeCardProps) => JSX_2.Element;
 
 // @public
 export type ReadmeCardProps = {
