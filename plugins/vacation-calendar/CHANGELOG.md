@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-vacation-calendar
 
+## 0.9.0
+
+### Minor Changes
+
+- 7d98ad2: Bumped to backstage 1.46.2
+
 ## 0.8.0
 
 ### Minor Changes
