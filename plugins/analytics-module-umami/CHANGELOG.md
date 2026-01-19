@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-analytics-module-umami
 
+## 0.11.0
+
+### Minor Changes
+
+- 7d98ad2: Bumped to backstage 1.46.2
+
 ## 0.10.0
 
 ### Minor Changes
