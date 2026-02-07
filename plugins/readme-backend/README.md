@@ -50,28 +50,39 @@ backend.start();
 
 The search collator will:
 - Index README content from all catalog entities
-- Update the search index every 10 minutes by default
+- Update the search index every hour by default (configurable)
 - Strip markdown formatting for better search results
 - Include entity metadata (kind, namespace, name) in search documents
 
 Once configured, users can search for README content directly from the Backstage search bar, and results will link to the corresponding entity's catalog page.
 
+To customize the search indexing schedule, add the following to your `app-config.yaml`:
+
+```yaml
+readme:
+  search:
+    schedule:
+      frequency: { minutes: 30 }
+      timeout: { minutes: 30 }
+      initialDelay: { seconds: 3 }
+```
+
 ### Configuration
 
 This plugin does not require any configuration. It has a default configuration
-with a set of README file names that it will look for in the entity source location. This actual file to use and the order to look for them can be
+with a set of README file names that it will look for in the entity source location. The actual file to use and the order to look for them can be
 configured in the `app-config.yaml` file using the "readme.fileNames" configuration key. This is a simple list of file names to look for in the entity source location.
 
 ```yaml
 readme:
-  -fileNames:
+  fileNames:
     - README.txt
     - README.text
     - README.markdown
 ```
 
-To override the default TTL of the internal cache a duration can be set using the `cacheTtl` key. This can be either a string
-or an object. The following examples should be equal.
+To override the default TTL of the internal cache, a duration can be set using the `cacheTtl` key. This can be either a string
+or an object. The following examples are equal:
 
 ```yaml
 readme:
@@ -82,6 +93,52 @@ readme:
 ```yaml
 readme:
   cacheTtl: '2h'
+```
+
+To configure the search indexing schedule (defaults to every hour), use the `search.schedule` key:
+
+```yaml
+readme:
+  search:
+    schedule:
+      frequency: { minutes: 30 }  # How often to run
+      timeout: { minutes: 30 }     # Maximum execution time (optional)
+      initialDelay: { seconds: 3 } # Delay before first run (optional)
+```
+
+The schedule can also be configured using string format:
+
+```yaml
+readme:
+  search:
+    schedule:
+      frequency: '30m'
+      timeout: '30m'
+```
+
+Or using cron syntax for more complex schedules:
+
+```yaml
+readme:
+  search:
+    schedule:
+      frequency:
+        cron: '0 */2 * * *'  # Every 2 hours
+```
+
+Complete configuration example:
+
+```yaml
+readme:
+  fileNames:
+    - README.md
+    - README.rst
+  cacheTtl: '1h'
+  search:
+    schedule:
+      frequency: { hours: 1 }
+      timeout: { hours: 1 }
+      initialDelay: { seconds: 3 }
 ```
 
 ### Troubleshooting

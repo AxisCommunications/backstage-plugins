@@ -3,6 +3,7 @@ import {
   createBackendModule,
 } from '@backstage/backend-plugin-api';
 import { searchIndexRegistryExtensionPoint } from '@backstage/plugin-search-backend-node/alpha';
+import { getSearchSchedule } from '../service/config';
 import { ReadmeCollatorFactory } from './ReadmeCollatorFactory';
 
 /**
@@ -36,14 +37,10 @@ export const readmeSearchModule = createBackendModule({
         scheduler,
         searchIndexRegistry,
       }) {
-        const defaultRefreshIntervalSeconds = 600; // 10 minutes
+        const scheduleConfig = getSearchSchedule(config);
 
         searchIndexRegistry.addCollator({
-          schedule: scheduler.createScheduledTaskRunner({
-            frequency: { seconds: defaultRefreshIntervalSeconds },
-            timeout: { seconds: defaultRefreshIntervalSeconds },
-            initialDelay: { seconds: 3 },
-          }),
+          schedule: scheduler.createScheduledTaskRunner(scheduleConfig),
           factory: ReadmeCollatorFactory.fromConfig({
             auth,
             cache,
