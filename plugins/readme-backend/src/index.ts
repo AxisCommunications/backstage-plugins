@@ -5,3 +5,4 @@
  */
 
 export { readmePlugin as default } from './plugin';
+export { readmeSearchModule } from './collator/module';

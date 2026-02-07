@@ -32,6 +32,30 @@ const backend = createBackend();
 backend.start();
 ```
 
+### Search Integration
+
+The readme backend plugin provides a search collator that makes README content searchable through Backstage's search functionality. To enable search indexing for README files, add the search module to your backend:
+
+```diff
+const backend = createBackend();
+backend.add(import('@axis-backstage/plugin-readme-backend'));
++ backend.add(
++   import('@axis-backstage/plugin-readme-backend').then(m => m.readmeSearchModule),
++ );
+backend.add(import('@backstage/plugin-search-backend'));
+// ... other feature additions
+
+backend.start();
+```
+
+The search collator will:
+- Index README content from all catalog entities
+- Update the search index every 10 minutes by default
+- Strip markdown formatting for better search results
+- Include entity metadata (kind, namespace, name) in search documents
+
+Once configured, users can search for README content directly from the Backstage search bar, and results will link to the corresponding entity's catalog page.
+
 ### Configuration
 
 This plugin does not require any configuration. It has a default configuration

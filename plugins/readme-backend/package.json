@@ -35,6 +35,8 @@
     "@backstage/config": "^1.3.6",
     "@backstage/errors": "^1.2.7",
     "@backstage/integration": "^1.19.1",
+    "@backstage/plugin-search-backend-node": "^1.4.0",
+    "@backstage/plugin-search-common": "^1.2.21",
     "@backstage/types": "^1.2.2",
     "@types/express": "*",
     "express": "^4.17.1",
