@@ -1,6 +1,9 @@
 import { Config, readDurationFromConfig } from '@backstage/config';
-import { durationToMilliseconds, HumanDuration } from '@backstage/types';
-import { SchedulerServiceTaskScheduleDefinition } from '@backstage/backend-plugin-api';
+import { durationToMilliseconds } from '@backstage/types';
+import {
+  SchedulerServiceTaskScheduleDefinition,
+  readSchedulerServiceTaskScheduleDefinitionFromConfig,
+} from '@backstage/backend-plugin-api';
 
 export const getCacheTtl = (config: Config): number => {
   const readmeConfig = config.getOptionalConfig('readme');
@@ -33,41 +36,6 @@ export const getSearchSchedule = (
     };
   }
 
-  // frequency is required if schedule is provided (per config.d.ts)
-  const frequency = readScheduleFrequency(scheduleConfig, 'frequency');
-
-  // timeout and initialDelay are optional
-  const timeout = scheduleConfig.has('timeout')
-    ? readDurationFromConfig(scheduleConfig, { key: 'timeout' })
-    : { hours: 1 };
-
-  const initialDelay = scheduleConfig.has('initialDelay')
-    ? readDurationFromConfig(scheduleConfig, { key: 'initialDelay' })
-    : { seconds: 3 };
-
-  return {
-    frequency,
-    timeout,
-    initialDelay,
-  };
+  // Use the official Backstage helper to parse the schedule config
+  return readSchedulerServiceTaskScheduleDefinitionFromConfig(scheduleConfig);
 };
-
-function readScheduleFrequency(
-  config: Config,
-  key: string,
-): HumanDuration | { cron: string } | { trigger: 'manual' } {
-  const value = config.get(key);
-
-  // Check if it's a cron expression
-  if (typeof value === 'object' && value !== null && 'cron' in value) {
-    return value as { cron: string };
-  }
-
-  // Check if it's a manual trigger
-  if (typeof value === 'object' && value !== null && 'trigger' in value) {
-    return value as { trigger: 'manual' };
-  }
-
-  // Otherwise, read as duration (string or HumanDuration object)
-  return readDurationFromConfig(config, { key });
-}

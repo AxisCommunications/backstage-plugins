@@ -1,4 +1,5 @@
 import { HumanDuration } from '@backstage/types';
+import { SchedulerServiceTaskScheduleDefinitionConfig } from '@backstage/backend-plugin-api';
 
 export interface Config {
   /**
@@ -72,24 +73,10 @@ export interface Config {
        *       frequency:
        *         cron: '0 * * * *'  # Every hour
        * ```
+       *
+       * @visibility frontend
        */
-      schedule?: {
-        /**
-         * How often the task should run.
-         * Can be a duration (string or object) or a cron expression.
-         */
-        frequency: HumanDuration | string | { cron: string } | { trigger: 'manual' };
-        /**
-         * Maximum time the task is allowed to run.
-         * Defaults to 1 hour if not specified.
-         */
-        timeout?: HumanDuration | string;
-        /**
-         * How long to wait before the first run.
-         * Defaults to 3 seconds if not specified.
-         */
-        initialDelay?: HumanDuration | string;
-      };
+      schedule?: SchedulerServiceTaskScheduleDefinitionConfig;
     };
   };
 }
