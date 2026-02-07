@@ -119,6 +119,48 @@ app:
 # ...
 ```
 
+## Search Integration
+
+The Readme plugin integrates with Backstage search to make README content discoverable. When the [readme-backend search collator](../readme-backend#search-integration) is enabled, README content from all catalog entities will be indexed and searchable.
+
+### New Frontend System
+
+With the new frontend system, search results are automatically displayed when using the alpha plugin:
+
+```tsx
+// packages/app/src/App.tsx
+import readmePlugin from '@axis-backstage/plugin-readme/alpha';
+
+const app = createApp({
+  features: [
+    // ...
+    readmePlugin, // Includes search result rendering
+  ],
+});
+```
+
+The plugin provides a `SearchResultListItemBlueprint` extension that automatically renders README search results with:
+- README title and entity kind badge
+- Highlighted search term matches
+- Direct links to the entity catalog page
+
+### Legacy Frontend System
+
+For the legacy frontend system, you can use the `ReadmeSearchResultListItem` component:
+
+```tsx
+// packages/app/src/components/search/SearchPage.tsx
+import { ReadmeSearchResultListItem } from '@axis-backstage/plugin-readme';
+
+// In your search result switch
+<SearchType.Accordion
+  name="README"
+  types={['readme']}
+>
+  <ReadmeSearchResultListItem />
+</SearchType.Accordion>
+```
+
 ## Layout
 
 The readme card is located in the overview page on the entity page. From the card header it is also possible to open a dialog displaying the full README.md.

@@ -27,6 +27,7 @@ export interface ReadmeDocument {
   title: string;
   text: string;
   location: string;
+  type: string;
   entityRef: string;
   kind: string;
   namespace: string;
@@ -181,6 +182,7 @@ export class ReadmeCollatorFactory implements DocumentCollatorFactory {
           title: `${title} - README`,
           text: this.stripMarkdown(content),
           location,
+          type: 'readme',
           entityRef,
           kind: entity.kind,
           namespace: entity.metadata.namespace || 'default',

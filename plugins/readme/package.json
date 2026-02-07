@@ -51,6 +51,7 @@
     "@backstage/errors": "^1.2.7",
     "@backstage/frontend-plugin-api": "^0.13.2",
     "@backstage/plugin-catalog-react": "^1.21.4",
+    "@backstage/plugin-search-react": "^1.9.8",
     "@backstage/theme": "^0.7.1",
     "@mui/icons-material": "^5.15.7",
     "@mui/material": "^5.15.7",
