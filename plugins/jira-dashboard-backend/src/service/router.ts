@@ -2,14 +2,12 @@ import express from 'express';
 import Router from 'express-promise-router';
 import stream from 'stream';
 
-import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 import {
   AuthService,
   CacheService,
   DiscoveryService,
   HttpAuthService,
   LoggerService,
-  RootConfigService,
   UserInfoService,
 } from '@backstage/backend-plugin-api';
 import { stringifyEntityRef, UserEntity } from '@backstage/catalog-model';
@@ -44,10 +42,6 @@ export interface RouterOptions {
    */
   logger: LoggerService;
   /**
-   * Implementation of Config Service
-   */
-  rootConfig: RootConfigService;
-  /**
    * Parsed Jira config
    */
   config: JiraConfig;
@@ -72,16 +66,8 @@ export interface RouterOptions {
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
-  const {
-    auth,
-    logger,
-    rootConfig,
-    config,
-    discovery,
-    httpAuth,
-    userInfo,
-    cache,
-  } = options;
+  const { auth, logger, config, discovery, httpAuth, userInfo, cache } =
+    options;
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
 
   logger.info('Initializing Jira Dashboard backend');
@@ -374,8 +360,5 @@ export async function createRouter(
     },
   );
 
-  const middleware = MiddlewareFactory.create({ logger, config: rootConfig });
-
-  router.use(middleware.error());
   return router;
 }

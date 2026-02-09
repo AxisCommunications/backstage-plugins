@@ -15,7 +15,6 @@ describe('createRouter', () => {
     const router = await createRouter({
       auth: mockServices.auth.mock(),
       logger: mockServices.logger.mock(),
-      rootConfig,
       config: JiraConfig.fromConfig(rootConfig),
       discovery: mockServices.discovery.mock(),
       httpAuth: mockServices.httpAuth.mock(),

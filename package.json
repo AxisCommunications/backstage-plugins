@@ -62,7 +62,8 @@
     "@types/react-dom": "^18.3",
     "@stoplight/spectral-core@npm:1.19.4/jsonpath-plus": "^10.3.0",
     "@kubernetes/client-node@npm:0.20.0/jsonpath-plus": "^10.3.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "qs": "^6.14.1"
   },
   "prettier": "@spotify/prettier-config",
   "lint-staged": {
