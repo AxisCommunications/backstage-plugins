@@ -2,7 +2,6 @@ import express from 'express';
 import Router from 'express-promise-router';
 import stream from 'stream';
 
-import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 import {
   AuthService,
   CacheService,
@@ -374,8 +373,5 @@ export async function createRouter(
     },
   );
 
-  const middleware = MiddlewareFactory.create({ logger, config: rootConfig });
-
-  router.use(middleware.error());
   return router;
 }
