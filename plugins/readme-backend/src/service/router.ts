@@ -1,4 +1,3 @@
-import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 import {
   AuthService,
   CacheService,
@@ -161,7 +160,5 @@ export async function createRouter(
     throw new NotFoundError('Readme could not be found');
   });
 
-  const middleware = MiddlewareFactory.create({ logger, config });
-  router.use(middleware.error());
   return router;
 }

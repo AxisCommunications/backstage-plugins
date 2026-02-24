@@ -42,7 +42,6 @@ export const jiraDashboardPlugin = createBackendPlugin({
           await createRouter({
             auth,
             logger,
-            rootConfig,
             config: JiraConfig.fromConfig(rootConfig),
             discovery,
             httpAuth,

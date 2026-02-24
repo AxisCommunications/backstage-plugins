@@ -1,4 +1,3 @@
-import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 import {
   CacheService,
   LoggerService,
@@ -60,7 +59,5 @@ export async function createRouter(
     response.json({ url: getLink(name, statuspageConfig) || '' });
   });
 
-  const middleware = MiddlewareFactory.create({ logger, config: rootConfig });
-  router.use(middleware.error());
   return router;
 }
