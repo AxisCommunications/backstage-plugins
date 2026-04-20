@@ -4,7 +4,8 @@
     "packages/*/src",
     "plugins/*/src",
     "plugins/*/dev",
-    "plugins/*/migrations"
+    "plugins/*/migrations",
+    "src"
   ],
   "exclude": ["node_modules"],
   "compilerOptions": {
@@ -13,6 +14,7 @@
     "rootDir": ".",
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "types": ["node", "jest"]
   }
 }

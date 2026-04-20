@@ -46,11 +46,7 @@ const jiraDashboardPlugin: BackendFeature;
 export default jiraDashboardPlugin;
 
 // @public
-export const jqlQueryBuilder: ({
-  project,
-  components,
-  query,
-}: JqlQueryBuilderArgs) => string;
+export const jqlQueryBuilder: (input: JqlQueryBuilderArgs) => string;
 
 // @public
 export type JqlQueryBuilderArgs = {
