@@ -22,12 +22,25 @@ export const JiraGrid = ({
   tableOptions,
 }: JiraGridProps) => {
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} xl={6} data-testid="project-card">
+    <Grid container spacing={3} style={{ margin: 0, width: '100%' }}>
+      <Grid
+        item
+        xs={12}
+        xl={6}
+        data-testid="project-card"
+        style={{ paddingTop: '24px', paddingLeft: '24px' }}
+      >
         <JiraProjectCard project={project} />
       </Grid>
       {tableData.map((value: JiraDataResponse) => (
-        <Grid item xs={12} xl={6} key={value.name} data-testid="issue-table">
+        <Grid
+          item
+          xs={12}
+          xl={6}
+          key={value.name}
+          data-testid="issue-table"
+          style={{ paddingTop: '24px', paddingLeft: '24px' }}
+        >
           <JiraTable
             tableContent={value}
             showFilters={showFilters}
