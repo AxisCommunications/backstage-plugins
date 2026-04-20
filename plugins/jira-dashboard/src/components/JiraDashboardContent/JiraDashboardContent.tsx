@@ -43,29 +43,25 @@ export const JiraDashboardContent = (props?: {
     ? jiraResponse.project
     : [];
 
-  return (
-    <>
-      {projects.length > 1 ? (
-        <TabbedCard title="Jira Projects" data-testid="tabbed-card">
-          {projects.map(project => (
-            <CardTab key={project.key} label={project.name}>
-              <JiraGrid
-                project={project}
-                tableData={jiraResponse.data}
-                showFilters={props?.showFilters}
-                tableOptions={props?.tableOptions}
-              />
-            </CardTab>
-          ))}
-        </TabbedCard>
-      ) : (
-        <JiraGrid
-          project={projects[0]}
-          tableData={jiraResponse.data}
-          showFilters={props?.showFilters}
-          tableOptions={props?.tableOptions}
-        />
-      )}
-    </>
+  return projects.length > 1 ? (
+    <TabbedCard title="Jira Projects" data-testid="tabbed-card">
+      {projects.map(project => (
+        <CardTab key={project.key} label={project.name}>
+          <JiraGrid
+            project={project}
+            tableData={jiraResponse.data}
+            showFilters={props?.showFilters}
+            tableOptions={props?.tableOptions}
+          />
+        </CardTab>
+      ))}
+    </TabbedCard>
+  ) : (
+    <JiraGrid
+      project={projects[0]}
+      tableData={jiraResponse.data}
+      showFilters={props?.showFilters}
+      tableOptions={props?.tableOptions}
+    />
   );
 };
