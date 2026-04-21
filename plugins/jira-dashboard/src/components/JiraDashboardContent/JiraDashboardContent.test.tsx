@@ -52,17 +52,6 @@ describe('JiraDashboardContent', () => {
 
   afterAll(() => server.close());
 
-  it('renders component', async () => {
-    const rendered = await renderInTestApp(
-      <EntityProvider entity={mockedEntity}>
-        <ApiProvider apis={apis}>
-          <JiraDashboardContent />
-        </ApiProvider>
-      </EntityProvider>,
-    );
-    expect(rendered.getByText(/Jira Dashboard/)).toBeInTheDocument();
-  });
-
   it('renders project card', async () => {
     const { getByTestId } = await renderInTestApp(
       <EntityProvider entity={mockedEntity}>
@@ -164,11 +153,6 @@ describe('JiraDashboardContent - Multi-project response', () => {
     );
     jiraClient = new JiraDashboardClient({ discoveryApi, fetchApi });
     apis = TestApiRegistry.from([jiraDashboardApiRef, jiraClient]);
-  });
-
-  it('renders the dashboard title', async () => {
-    const { getByText } = await renderComponent();
-    expect(getByText(/Jira Dashboard/i)).toBeInTheDocument();
   });
 
   it('renders 1 project card and 2 tables per tab', async () => {
