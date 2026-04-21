@@ -2,6 +2,7 @@ import {
   coreServices,
   createBackendPlugin,
 } from '@backstage/backend-plugin-api';
+import { catalogServiceRef } from '@backstage/plugin-catalog-node';
 import { createRouter } from './service/router';
 
 /**
@@ -16,7 +17,7 @@ export const readmePlugin = createBackendPlugin({
       deps: {
         auth: coreServices.auth,
         config: coreServices.rootConfig,
-        discovery: coreServices.discovery,
+        catalogApi: catalogServiceRef,
         httpRouter: coreServices.httpRouter,
         logger: coreServices.logger,
         reader: coreServices.urlReader,
@@ -25,9 +26,9 @@ export const readmePlugin = createBackendPlugin({
       async init({
         auth,
         logger,
+        catalogApi,
         config,
         reader,
-        discovery,
         httpRouter,
         cache,
       }) {
@@ -35,9 +36,9 @@ export const readmePlugin = createBackendPlugin({
           await createRouter({
             auth,
             logger,
+            catalogApi,
             config,
             reader,
-            discovery,
             cache,
           }),
         );

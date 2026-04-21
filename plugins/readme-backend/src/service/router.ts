@@ -1,17 +1,16 @@
 import {
   AuthService,
   CacheService,
-  DiscoveryService,
   LoggerService,
   RootConfigService,
   UrlReaderService,
 } from '@backstage/backend-plugin-api';
+import { CatalogService } from '@backstage/plugin-catalog-node';
 import { ScmIntegrations } from '@backstage/integration';
 import {
   getEntitySourceLocation,
   stringifyEntityRef,
 } from '@backstage/catalog-model';
-import { CatalogClient } from '@backstage/catalog-client';
 import { isError, NotFoundError } from '@backstage/errors';
 import express from 'express';
 import Router from 'express-promise-router';
@@ -26,8 +25,8 @@ import { ReadmeFile } from './types';
  */
 interface RouterOptions {
   auth: AuthService;
+  catalogApi: CatalogService;
   config: RootConfigService;
-  discovery: DiscoveryService;
   logger: LoggerService;
   reader: UrlReaderService;
   cache: CacheService;
@@ -40,9 +39,9 @@ interface RouterOptions {
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
-  const { auth, logger, config, reader, discovery, cache } = options;
-  const catalogClient = new CatalogClient({ discoveryApi: discovery });
+  const { auth, logger, config, reader, catalogApi, cache } = options;
   const cacheTtl = getCacheTtl(config);
+  const readmeTypes = getReadmeTypes(config);
 
   logger.info(`Initializing readme backend. Cache TTL: ${cacheTtl}ms`);
   const integrations = ScmIntegrations.fromConfig(config);
@@ -67,11 +66,9 @@ export async function createRouter(
       response.send(cacheDoc.content);
       return;
     }
-    const { token } = await auth.getPluginRequestToken({
-      onBehalfOf: await auth.getOwnServiceCredentials(),
-      targetPluginId: 'catalog',
+    const entity = await catalogApi.getEntityByRef(entityRef, {
+      credentials: await auth.getOwnServiceCredentials(),
     });
-    const entity = await catalogClient.getEntityByRef(entityRef, { token });
     if (!entity) {
       logger.info(`No integration found for ${entityRef}`);
       response
@@ -95,8 +92,6 @@ export async function createRouter(
         .json({ error: `No integration found for ${source.target}` });
       return;
     }
-
-    const readmeTypes = getReadmeTypes(config);
 
     for (const fileType of readmeTypes) {
       const url = integration.resolveUrl({
@@ -122,7 +117,7 @@ export async function createRouter(
           content = (await symLinkUrlResponse.buffer()).toString('utf-8');
         }
 
-        cache.set(
+        await cache.set(
           entityRef,
           {
             name: fileType.name,
@@ -148,7 +143,7 @@ export async function createRouter(
       }
     }
     logger.info(`Readme not found for ${entityRef}`);
-    cache.set(
+    await cache.set(
       entityRef,
       {
         name: NOT_FOUND_PLACEHOLDER,
