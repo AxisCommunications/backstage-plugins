@@ -42,7 +42,7 @@ export class StatuspageClient implements StatuspageApi {
 export const StatuspageEntityCard: () => JSX_2.Element;
 
 // @public
-export const StatuspagePage: ({ name }: StatuspageProps) => JSX_2.Element;
+export const StatuspagePage: (input: StatuspageProps) => JSX_2.Element;
 
 // @public
 export const statuspagePlugin: BackstagePlugin<

@@ -19,14 +19,10 @@ import { TableFilter } from '@backstage/core-components';
 import { TableOptions } from '@backstage/core-components';
 
 // @public
-export const EntityJiraDashboardContent: (
-  props?:
-    | {
-        showFilters?: boolean | TableFilter[] | undefined;
-        tableOptions?: TableOptions<Issue> | undefined;
-      }
-    | undefined,
-) => JSX_2.Element;
+export const EntityJiraDashboardContent: (props?: {
+  showFilters?: TableFilter[] | boolean;
+  tableOptions?: TableOptions<Issue>;
+}) => JSX_2.Element;
 
 // @public
 export const isJiraDashboardAvailable: (
@@ -78,14 +74,9 @@ export type JiraUserIssuesCardProps = {
 };
 
 // @public
-export const JiraUserIssuesTable: ({
-  title,
-  maxResults,
-  tableStyle,
-  style,
-  tableOptions,
-  filterName,
-}: JiraUserIssuesTableProps) => JSX_2.Element | null;
+export const JiraUserIssuesTable: (
+  input: JiraUserIssuesTableProps,
+) => JSX_2.Element | null;
 
 // @public
 export type JiraUserIssuesTableProps = {
@@ -98,14 +89,9 @@ export type JiraUserIssuesTableProps = {
 };
 
 // @public
-export const JiraUserIssuesViewCard: ({
-  title,
-  maxResults,
-  bottomLinkProps,
-  tableOptions,
-  tableStyle,
-  filterName,
-}: JiraUserIssuesCardProps) => JSX_2.Element;
+export const JiraUserIssuesViewCard: (
+  input: JiraUserIssuesCardProps,
+) => JSX_2.Element;
 
 // @public
 export type TableComponentProps = React.ComponentProps<typeof Table>;
