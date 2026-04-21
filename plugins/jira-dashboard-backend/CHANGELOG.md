@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 6.1.2
+
+### Patch Changes
+
+- a1d5a9a: Refactored the Jira Dashboard backend to batch project keys into a single JQL query (getIssuesByFilter) and to run independent async operations concurrently with Promise.all / Promise.allSettled, reducing latency when multiple projects or filters are fetched.
+
 ## 6.1.1
 
 ### Patch Changes
