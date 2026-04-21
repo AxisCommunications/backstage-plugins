@@ -1,5 +1,6 @@
 import { mockServices } from '@backstage/backend-test-utils';
-import { UrlReaders } from '@backstage/backend-defaults/urlReader';
+import { catalogServiceMock } from '@backstage/plugin-catalog-node/testUtils';
+
 import express from 'express';
 import request from 'supertest';
 
@@ -7,19 +8,20 @@ import { createRouter } from './router';
 
 describe('createRouter', () => {
   let app: express.Express;
+  const catalogApi = catalogServiceMock.mock();
 
   beforeAll(async () => {
+    const auth = mockServices.auth.mock();
     const config = mockServices.rootConfig();
     const logger = mockServices.rootLogger.mock();
-    const discovery = mockServices.discovery.mock();
     const cache = mockServices.cache.mock();
-    const reader = UrlReaders.default({ logger, config });
+    const reader = mockServices.urlReader.mock();
 
     const router = await createRouter({
-      auth: mockServices.auth.mock(),
+      auth,
+      catalogApi,
       logger,
       config,
-      discovery,
       reader,
       cache,
     });
