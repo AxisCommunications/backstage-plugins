@@ -120,21 +120,24 @@ export async function createRouter(
       const projects = fullProjectKeys.map(fullProjectKey =>
         splitProjectKey(config, fullProjectKey),
       );
-      const projectResponses: Project[] = [];
+      const projectResults = await Promise.allSettled(
+        projects.map(project => getProjectResponse(project, cache)),
+      );
 
-      for (const project of projects) {
-        try {
-          const projectData = await getProjectResponse(project, cache);
-          projectResponses.push(projectData);
-        } catch (err: any) {
+      const projectResponses: Project[] = [];
+      for (const [i, result] of projectResults.entries()) {
+        if (result.status === 'rejected') {
           logger.error(
-            `Could not find Jira project ${project.fullProjectKey}: ${err.message}`,
+            `Could not find Jira project ${projects[i].fullProjectKey}: ${
+              result.reason?.message ?? result.reason
+            }`,
           );
           response.status(404).json({
-            error: `Jira project not found with key ${project.fullProjectKey}`,
+            error: `Jira project not found with key ${projects[i].fullProjectKey}`,
           });
           return;
         }
+        projectResponses.push(result.value);
       }
 
       let userEntity: UserEntity | undefined;

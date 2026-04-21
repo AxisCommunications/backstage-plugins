@@ -107,48 +107,49 @@ export const getFiltersFromAnnotations = async (
   annotations: string[],
   config: ConfigInstance,
 ): Promise<Filter[]> => {
-  const filters: Filter[] = [];
+  const results = await Promise.allSettled(
+    annotations.map(filter => getFilterById(filter, config)),
+  );
 
-  for (const filter of annotations) {
-    try {
-      const response = await getFilterById(filter, config);
-      filters.push(response);
-    } catch (err: any) {
-      console.warn(
-        `${err.message} : Could not find filter with filter id ${filter}`,
-      );
-    }
-  }
-  return filters;
+  return results
+    .map((result, i) => {
+      if (result.status === 'rejected') {
+        console.warn(
+          `${result.reason.message} : Could not find filter with filter id ${annotations[i]}`,
+        );
+        return null;
+      }
+      return result.value;
+    })
+    .filter((filter): filter is Filter => filter !== null);
 };
 async function getJiraProjectsFromKeys(
   projectKeys: string[],
   instance: ConfigInstance,
   cache: CacheService,
 ): Promise<JiraProject[]> {
-  const jiraProjects: JiraProject[] = [];
-  for (const key of projectKeys) {
-    const cachedProject = (await cache.get(key)) as Project;
-    let projectInfo: Project;
+  return Promise.all(
+    projectKeys.map(async key => {
+      const cachedProject = (await cache.get(key)) as Project;
+      const projectInfo =
+        cachedProject ??
+        (await getProjectInfo({
+          projectKey: key,
+          instance,
+          fullProjectKey: '',
+        }));
 
-    if (cachedProject) {
-      projectInfo = cachedProject;
-    } else {
-      projectInfo = await getProjectInfo({
-        projectKey: key,
+      if (!cachedProject) {
+        cache.set(key, projectInfo, { ttl: instance.cacheTtl });
+      }
+
+      return {
         instance,
-        fullProjectKey: '',
-      });
-      cache.set(key, projectInfo, { ttl: instance.cacheTtl });
-    }
-
-    jiraProjects.push({
-      instance,
-      fullProjectKey: projectInfo.key,
-      projectKey: projectInfo.key,
-    });
-  }
-  return jiraProjects;
+        fullProjectKey: projectInfo.key,
+        projectKey: projectInfo.key,
+      };
+    }),
+  );
 }
 export const getIssuesFromFilters = async (
   projectKeys: string[],
