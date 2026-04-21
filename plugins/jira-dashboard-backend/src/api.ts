@@ -81,31 +81,38 @@ export const getIssuesByFilter = async (
   components: string[],
   query: string,
 ): Promise<Issue[]> => {
-  const issues: Issue[] = [];
-  for (const project of projects) {
-    const { projectKey, instance } = project;
-    const jql = jqlQueryBuilder({ project: [projectKey], components, query });
-    const queryUrl = getQueryUrl(instance, jql);
-    const response = await callApi(instance, queryUrl, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then(resp => resp.json())
-      .catch(() => null);
-    if (response?.errorMessages) {
-      throw Error(
-        `JQL returned Error: JQL -  ${jql} with error: ${response?.errorMessages?.[0]}`,
-      );
-    }
-    if (response?.issues) {
-      replaceIssuesApiUrl(project.instance, response.issues);
-      issues.push(...response.issues);
-    }
+  if (projects.length === 0) {
+    return [];
   }
 
-  return issues;
+  // All projects are expected to share the same instance — callers (getJiraProjectsFromKeys)
+  // stamp every project with the same ConfigInstance, so a single batched JQL query suffices.
+  const { instance } = projects[0];
+  const projectKeys = projects.map(p => p.projectKey);
+  const jql = jqlQueryBuilder({ project: projectKeys, components, query });
+  const queryUrl = getQueryUrl(instance, jql);
+
+  const response = await callApi(instance, queryUrl, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+    },
+  })
+    .then(resp => resp.json())
+    .catch(() => null);
+
+  if (response?.errorMessages) {
+    throw Error(
+      `JQL returned Error: JQL -  ${jql} with error: ${response?.errorMessages?.[0]}`,
+    );
+  }
+
+  if (response?.issues) {
+    replaceIssuesApiUrl(instance, response.issues);
+    return response.issues;
+  }
+
+  return [];
 };
 
 /**
