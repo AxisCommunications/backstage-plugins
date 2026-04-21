@@ -1,5 +1,17 @@
 # app
 
+## 0.12.7
+
+### Patch Changes
+
+- Updated dependencies [36858a7]
+  - @axis-backstage/plugin-analytics-module-umami@0.11.2
+  - @axis-backstage/plugin-jira-dashboard-common@1.15.1
+  - @axis-backstage/plugin-vacation-calendar@0.9.2
+  - @axis-backstage/plugin-jira-dashboard@2.3.3
+  - @axis-backstage/plugin-statuspage@0.10.2
+  - @axis-backstage/plugin-readme@0.18.2
+
 ## 0.12.6
 
 ### Patch Changes
