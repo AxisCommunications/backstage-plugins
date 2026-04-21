@@ -1,5 +1,12 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 2.3.2
+
+### Patch Changes
+
+- 6799f1b: Removed the `ContentHeader` (with `SupportButton`) and the wrapping `Content` component from `JiraDashboardContent` to align the layout with other plugins in this repo.
+- 6799f1b: Fixes missing spacing between the project card and issue table cards in the Jira Dashboard.
+
 ## 2.3.1
 
 ### Patch Changes

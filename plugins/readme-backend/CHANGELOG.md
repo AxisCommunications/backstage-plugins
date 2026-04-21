@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.16.2
+
+### Patch Changes
+
+- 480d1a7: Replaced internally constructed `CatalogClient` with the injected `CatalogService` from `@backstage/plugin-catalog-node`. This removes the dependency on `@backstage/catalog-client` and `@backstage/backend-defaults`, improves testability, and fixes unawaited cache writes.
+
 ## 0.16.1
 
 ### Patch Changes
