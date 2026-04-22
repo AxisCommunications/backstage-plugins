@@ -25,6 +25,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import ExploreIcon from '@material-ui/icons/Explore';
+import BuildIcon from '@material-ui/icons/Build';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -71,6 +72,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
         <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
         {/* End global nav */}
         <SidebarDivider />
+        <SidebarItem icon={BuildIcon} to="devtools" text="DevTools" />
       </SidebarGroup>
       <SidebarSpace />
       <SidebarDivider />
