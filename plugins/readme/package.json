@@ -54,7 +54,8 @@
     "@backstage/theme": "^0.7.3",
     "@mui/icons-material": "^5.15.7",
     "@mui/material": "^5.15.7",
-    "react-use": "^17.2.4"
+    "react-use": "^17.2.4",
+    "zod": "^4.3.6"
   },
   "peerDependencies": {
     "@types/react": "^17.0.0 || ^18.0.0",
