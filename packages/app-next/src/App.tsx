@@ -6,6 +6,7 @@ import {
 import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import catalogImportPlugin from '@backstage/plugin-catalog-import/alpha';
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
+import readmePlugin from '@axis-backstage/plugin-readme/alpha';
 import { Navigate } from 'react-router';
 // if app.packages is not set in the app config, could manually add features like this
 // See documentation for details: https://backstage.io/docs/frontend-system/architecture/app#feature-discovery
@@ -19,11 +20,12 @@ const homePageExtension = PageBlueprint.make({
   },
 });
 
-export const app = createApp({
+const app = createApp({
   features: [
     catalogPlugin,
     catalogImportPlugin,
     userSettingsPlugin,
+    readmePlugin,
     createFrontendModule({
       pluginId: 'app',
       extensions: [homePageExtension],
