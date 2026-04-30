@@ -26,6 +26,7 @@ import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
+import { DevToolsPage } from '@backstage/plugin-devtools';
 
 import {
   AlertDisplay,
@@ -116,6 +117,7 @@ const routes = (
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/statuspage" element={<StatuspagePage name="myid" />} />
     <Route path="/vacation-calendar" element={<VacationCalendarPage />} />
+    <Route path="/devtools" element={<DevToolsPage />} />
   </FlatRoutes>
 );
 
