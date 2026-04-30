@@ -1,5 +1,12 @@
 # app-next
 
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [798d79d]
+  - @axis-backstage/plugin-jira-dashboard@2.3.4
+
 ## 0.1.10
 
 ### Patch Changes

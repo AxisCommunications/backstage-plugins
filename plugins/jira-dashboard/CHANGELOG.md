@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 2.3.4
+
+### Patch Changes
+
+- 798d79d: Fix `config:check --strict` failures caused by a schema collision between the frontend and backend Jira Dashboard config schemas. The frontend plugin no longer re-declares the `jiraDashboard` config key; it relies on the backend's schema, which already exposes `annotationPrefix` to the frontend.
+
 ## 2.3.3
 
 ### Patch Changes
