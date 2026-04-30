@@ -66,6 +66,8 @@ const defaultEntityPage = (
 )
 ```
 
+> **Note:** `isReadmeAvailable` is only available in the legacy frontend system. In the new frontend system, use the `hideIfNotFound` config option instead — see the [New Frontend System](#new-frontend-system) section below.
+
 To use `ReadmeCard` in a separate page with full height:
 
 ```tsx
@@ -104,19 +106,15 @@ const app = createApp({
 });
 ```
 
-3. If necessary, you can also customize the plugin:
+3. If necessary, you can also customize the plugin. For example, to hide the card entirely when no README is found (instead of showing an informational message):
 
 ```yaml
 # app-config.yaml
 app:
-  # ...
   extensions:
-    # ...
     - entity-card:readme:
         config:
-          filter:
-            kind: component
-# ...
+          hideIfNotFound: true
 ```
 
 ## Layout

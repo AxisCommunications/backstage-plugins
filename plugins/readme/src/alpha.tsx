@@ -14,6 +14,7 @@ import {
 import { readmeApiRef } from './api/ReadmeApi';
 import { ReadmeClient } from './api/ReadmeClient';
 import { EntityCardBlueprint } from '@backstage/plugin-catalog-react/alpha';
+import { z } from 'zod';
 
 const readmeApi = ApiBlueprint.make({
   params: defineParams =>
@@ -29,10 +30,34 @@ const readmeApi = ApiBlueprint.make({
     }),
 });
 
-const readmeCard = EntityCardBlueprint.make({
-  params: {
-    loader: async () =>
-      import('./components/ReadmeCard').then(m => <m.ReadmeCard />),
+const readmeCard = EntityCardBlueprint.makeWithOverrides({
+  configSchema: {
+    /**
+     * When set to `true`, the entire README card is hidden if no README file
+     * is found for the entity (i.e. the backend returns a 404).
+     *
+     * Defaults to `false`, which shows an informational message with a link
+     * to the documentation instead.
+     *
+     * @example
+     * ```yaml
+     * # app-config.yaml
+     * app:
+     *   extensions:
+     *     - entity-card:readme:
+     *         config:
+     *           hideIfNotFound: true
+     * ```
+     */
+    hideIfNotFound: z.boolean().default(false),
+  },
+  factory(originalFactory, { config }) {
+    return originalFactory({
+      loader: async () =>
+        import('./components/ReadmeCard').then(m => (
+          <m.ReadmeCard hideIfNotFound={config.hideIfNotFound} />
+        )),
+    });
   },
 });
 
