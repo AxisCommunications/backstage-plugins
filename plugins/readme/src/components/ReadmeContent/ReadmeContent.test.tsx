@@ -1,20 +1,20 @@
-import { ReadmeDialog } from './ReadmeDialog';
 import { screen } from '@testing-library/react';
 import { renderInTestApp } from '@backstage/test-utils';
+import { ReadmeContent } from './ReadmeContent';
 import mockedReadmeContent from '../../../dev/__fixtures__/mockedReadmeContent.json';
 
-describe('ReadmeDialog', () => {
-  it('should render', async () => {
+describe('ReadmeContent', () => {
+  it('should render content', async () => {
     await renderInTestApp(
-      <ReadmeDialog
-        open
-        onClose={() => {}}
+      <ReadmeContent
         content={mockedReadmeContent as [string, string]}
         loading={false}
         error={undefined}
         location="https://example.com/README.md"
       />,
     );
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /What is Backstage/i }),
+    ).toBeInTheDocument();
   });
 });

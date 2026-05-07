@@ -10,6 +10,10 @@ app:
           - url: https://github.com/AxisCommunications/backstage-plugins/issues
             title: GitHub Issues
   packages: all
+  extensions:
+    - entity-card:readme:
+        config:
+          hideIfNotFound: false
 
 organization:
   name: My Organization

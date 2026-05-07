@@ -1,24 +1,25 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useMemo } from 'react';
+import { useCallback } from 'react';
 
 export const useFullViewParam = (): [boolean, (open: boolean) => void] => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isFullView = useMemo(() => {
-    const params = new URLSearchParams(location.search);
-    return params.get('fullView') === 'true';
-  }, [location.search]);
+  const isFullView =
+    new URLSearchParams(location.search).get('fullView') === 'true';
 
-  const setFullView = (open: boolean) => {
-    const params = new URLSearchParams(location.search);
-    if (open) {
-      params.set('fullView', 'true');
-    } else {
-      params.delete('fullView');
-    }
-    navigate({ search: params.toString() }, { replace: true });
-  };
+  const setFullView = useCallback(
+    (open: boolean) => {
+      const params = new URLSearchParams(location.search);
+      if (open) {
+        params.set('fullView', 'true');
+      } else {
+        params.delete('fullView');
+      }
+      navigate({ search: params.toString() }, { replace: true });
+    },
+    [location.search, navigate],
+  );
 
   return [isFullView, setFullView];
 };

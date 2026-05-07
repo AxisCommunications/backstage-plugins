@@ -35,15 +35,15 @@ const _default: OverridableFrontendPlugin<
       ) => ExtensionBlueprintParams<AnyApiFactory>;
     }>;
     'entity-card:readme': OverridableExtensionDefinition<{
-      kind: 'entity-card';
-      name: undefined;
       config: {
+        hideIfNotFound: boolean;
         filter: FilterPredicate | undefined;
         type: 'content' | 'info' | undefined;
       };
       configInput: {
+        hideIfNotFound?: boolean | undefined;
         filter?: FilterPredicate | undefined;
-        type?: 'content' | 'info' | undefined;
+        type?: 'content' | 'info' | undefined | undefined;
       };
       output:
         | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
@@ -69,6 +69,8 @@ const _default: OverridableFrontendPlugin<
             }
           >;
       inputs: {};
+      kind: 'entity-card';
+      name: undefined;
       params: {
         loader: () => Promise<JSX.Element>;
         filter?: string | FilterPredicate | ((entity: Entity) => boolean);
