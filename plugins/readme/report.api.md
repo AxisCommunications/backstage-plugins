@@ -19,12 +19,19 @@ export const isReadmeAvailable: (
 ) => Promise<boolean>;
 
 // @public
-export const ReadmeCard: (props: ReadmeCardProps) => JSX_2.Element | null;
+export const ReadmeCard: (
+  props: ReadmeCardProps | ReadmeCardLegacyProps,
+) => JSX_2.Element;
+
+// @public @deprecated
+export type ReadmeCardLegacyProps = {
+  variant?: InfoCardVariants;
+  maxHeight?: string | number;
+  hideIfNotFound?: boolean;
+};
 
 // @public
 export type ReadmeCardProps = {
-  variant?: InfoCardVariants;
-  maxHeight?: string | number;
   hideIfNotFound?: boolean;
 };
 

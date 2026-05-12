@@ -5,5 +5,8 @@
  */
 
 export { readmePlugin, ReadmeCard } from './plugin';
-export type { ReadmeCardProps } from './components/ReadmeCard';
+export type {
+  ReadmeCardProps,
+  ReadmeCardLegacyProps,
+} from './components/ReadmeCard';
 export { isReadmeAvailable } from './api/ReadmeClient';
