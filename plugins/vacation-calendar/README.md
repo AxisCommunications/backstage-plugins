@@ -100,6 +100,45 @@ const userPage = (
 );
 ```
 
+## New Frontend System
+
+The plugin supports the [new Backstage frontend system](https://backstage.io/docs/frontend-system/) via the `./alpha` entry point.
+
+1. Install the plugin into your app:
+
+```bash
+# From your Backstage root directory
+yarn --cwd packages/app add @axis-backstage/plugin-vacation-calendar
+```
+
+2. Add the plugin to your app:
+
+```ts
+// packages/app/src/App.tsx (or wherever you configure your frontend features)
+import vacationCalendarPlugin from '@axis-backstage/plugin-vacation-calendar/alpha';
+
+export const app = createApp({
+  features: [
+    // ...
+    vacationCalendarPlugin,
+  ],
+});
+```
+
+The plugin will automatically add an "Out Of Office" tab to Group and User entity pages. No manual route or API setup is required — the plugin handles both the API factory and the entity content tab as extensions.
+
+### Overriding the entity filter
+
+By default the tab is shown on `Group` and `User` entities. You can override this in your `app-config.yaml`:
+
+```yaml
+app:
+  extensions:
+    - entity-content:vacation-calendar/entity:
+        config:
+          filter: 'kind: Component'
+```
+
 ## Development
 
 The plugin has been added to the example app in this repository, meaning you'll be able to access it by running `yarn start` in the root directory, and then navigating to [/vacation-calendar](http://localhost:3000/vacation-calendar).

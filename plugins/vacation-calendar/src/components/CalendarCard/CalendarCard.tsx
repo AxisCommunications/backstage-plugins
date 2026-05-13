@@ -1,3 +1,4 @@
+import 'react-calendar-timeline/lib/Timeline.css';
 import { ReactNode, useState } from 'react';
 import useAsync from 'react-use/lib/useAsync';
 import Timeline, {
