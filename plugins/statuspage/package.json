@@ -1,8 +1,23 @@
 {
   "name": "@axis-backstage/plugin-statuspage",
   "version": "0.10.2",
+  "exports": {
+    ".": "./src/index.ts",
+    "./alpha": "./src/alpha.tsx",
+    "./package.json": "./package.json"
+  },
   "main": "src/index.ts",
   "types": "src/index.ts",
+  "typesVersions": {
+    "*": {
+      "alpha": [
+        "src/alpha.tsx"
+      ],
+      "package.json": [
+        "package.json"
+      ]
+    }
+  },
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public",
@@ -34,10 +49,12 @@
     "@backstage/catalog-model": "^1.8.0",
     "@backstage/core-components": "^0.18.9",
     "@backstage/core-plugin-api": "^1.12.5",
+    "@backstage/frontend-plugin-api": "^0.16.2",
     "@backstage/plugin-catalog-react": "^2.1.4",
     "@mui/icons-material": "^5.15.7",
     "@mui/material": "^5.15.7",
-    "react-use": "^17.2.4"
+    "react-use": "^17.2.4",
+    "zod": "^4.3.6"
   },
   "peerDependencies": {
     "@types/react": "^17.0.0 || ^18.0.0",
