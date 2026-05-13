@@ -10,7 +10,6 @@ The plugin provides three extensions out of the box:
 - `page:statuspage` — mounts the full statuspage at `/statuspage`
 - `entity-card:statuspage` — renders the `StatuspageEntityCard` on entity pages
 
-
 Configure the instance name for the page extension in `app-config.yaml`:
 
 ```yaml

@@ -1,9 +1,6 @@
-import {
-  InfoCard,
-  Progress,
-  ResponseErrorPanel,
-} from '@backstage/core-components';
+import { Progress, ResponseErrorPanel } from '@backstage/core-components';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { EntityInfoCard } from '@backstage/plugin-catalog-react';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { ComponentsTable } from './ComponentsTable';
 import { ComponentGroupsList } from './ComponentGroupsList';
@@ -68,16 +65,16 @@ export const StatuspageEntityCard = () => {
 
   if (noComponents) {
     return (
-      <InfoCard title="Service Status" action={linkAction}>
+      <EntityInfoCard title="Service Status" headerActions={linkAction}>
         <Typography variant="body2" color="#FF5555">
           The specified statuspage.io components could not be found. Check your
           annotation.
         </Typography>
-      </InfoCard>
+      </EntityInfoCard>
     );
   }
   return (
-    <InfoCard title="Service Status" action={linkAction}>
+    <EntityInfoCard title="Service Status" headerActions={linkAction}>
       {filteredComponents && filteredComponents.length > 0 && (
         <ComponentsTable components={filteredComponents} />
       )}
@@ -88,6 +85,6 @@ export const StatuspageEntityCard = () => {
           expanded={!fullStatuspage}
         />
       )}
-    </InfoCard>
+    </EntityInfoCard>
   );
 };
