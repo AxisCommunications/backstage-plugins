@@ -33,6 +33,7 @@ export type ReadmeCardLegacyProps = {
 // @public
 export type ReadmeCardProps = {
   hideIfNotFound?: boolean;
+  maxHeight?: string | number;
 };
 
 // @public

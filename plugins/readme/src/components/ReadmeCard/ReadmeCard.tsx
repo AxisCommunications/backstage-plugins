@@ -15,6 +15,7 @@ import { ResponseError } from '@backstage/errors';
  */
 export type ReadmeCardProps = {
   hideIfNotFound?: boolean;
+  maxHeight?: string | number;
 };
 
 /**
@@ -33,7 +34,7 @@ export type ReadmeCardLegacyProps = {
 function isLegacyProps(
   props: ReadmeCardProps | ReadmeCardLegacyProps,
 ): props is ReadmeCardLegacyProps {
-  return 'variant' in props || 'maxHeight' in props;
+  return 'variant' in props;
 }
 
 function ReadmeCardLegacy(props: ReadmeCardLegacyProps) {
@@ -91,7 +92,7 @@ function ReadmeCardLegacy(props: ReadmeCardLegacyProps) {
 }
 
 function ReadmeCardNew(props: ReadmeCardProps) {
-  const { hideIfNotFound } = props;
+  const { hideIfNotFound, maxHeight = '235px' } = props;
   const [isFullViewOpen, setIsFullViewOpen] = useFullViewParam();
   const readmeContent = useReadmeContent();
 
@@ -118,7 +119,7 @@ function ReadmeCardNew(props: ReadmeCardProps) {
           </IconButton>
         }
       >
-        <div style={{ overflow: 'auto' }}>
+        <div style={{ overflow: 'auto', maxHeight }}>
           <ReadmeContent {...readmeContent} />
         </div>
       </EntityInfoCard>

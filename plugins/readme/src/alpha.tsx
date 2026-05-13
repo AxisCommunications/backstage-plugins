@@ -50,12 +50,33 @@ const readmeCard = EntityCardBlueprint.makeWithOverrides({
      * ```
      */
     hideIfNotFound: z.boolean().default(false),
+    /**
+     * Sets the maximum height of the README card content area. Accepts any
+     * valid CSS length value (e.g. `'235px'`, `'50vh'`) or `'none'` to show
+     * the full content without scrolling.
+     *
+     * Defaults to `'235px'`.
+     *
+     * @example
+     * ```yaml
+     * # app-config.yaml
+     * app:
+     *   extensions:
+     *     - entity-card:readme:
+     *         config:
+     *           maxHeight: 500px
+     * ```
+     */
+    maxHeight: z.string().default('235px'),
   },
   factory(originalFactory, { config }) {
     return originalFactory({
       loader: async () =>
         import('./components/ReadmeCard').then(m => (
-          <m.ReadmeCard hideIfNotFound={config.hideIfNotFound} />
+          <m.ReadmeCard
+            hideIfNotFound={config.hideIfNotFound}
+            maxHeight={config.maxHeight}
+          />
         )),
     });
   },

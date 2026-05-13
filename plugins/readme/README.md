@@ -106,7 +106,12 @@ const app = createApp({
 });
 ```
 
-3. If necessary, you can also customize the plugin. For example, to hide the card entirely when no README is found (instead of showing an informational message):
+3. If necessary, you can also customize the plugin using the following config options:
+
+| Config key       | Type      | Default   | Description                                                                                                                   |
+| ---------------- | --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `hideIfNotFound` | `boolean` | `false`   | When `true`, the card is hidden entirely if no README file is found, instead of showing an informational message.             |
+| `maxHeight`      | `string`  | `'235px'` | Maximum height of the card content area. Accepts any valid CSS length (e.g. `'500px'`, `'50vh'`) or `'none'` for full height. |
 
 ```yaml
 # app-config.yaml
@@ -115,6 +120,7 @@ app:
     - entity-card:readme:
         config:
           hideIfNotFound: true
+          maxHeight: 500px
 ```
 
 ## Layout
