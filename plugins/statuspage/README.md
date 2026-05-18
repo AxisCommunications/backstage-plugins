@@ -101,3 +101,39 @@ The `component_id` could be the id of either a component or a component group. T
 
 <Route path="/statuspage" element={<StatuspagePage name="myid" />} />
 ```
+
+## New Frontend System
+
+1. First, install the plugin into your app:
+
+```bash
+# From your Backstage root directory
+yarn --cwd packages/app add @axis-backstage/plugin-statuspage
+```
+
+2. If [feature discovery](https://backstage.io/docs/frontend-system/architecture/app/#feature-discovery) is enabled in your app, the plugin will be automatically discovered. If not, add it manually:
+
+```ts
+// packages/app/src/App.tsx
+import statuspagePlugin from '@axis-backstage/plugin-statuspage/alpha';
+
+const app = createApp({
+  features: [
+    // ...
+    statuspagePlugin,
+  ],
+});
+```
+
+3. Configure the statuspage instance name for the page extension in `app-config.yaml`:
+
+```yaml
+# app-config.yaml
+app:
+  extensions:
+    - page:statuspage:
+        config:
+          name: mystatuspageinstance
+```
+
+The `StatuspageEntityCard` is automatically added to entity pages via the `entity-card:statuspage` extension. No additional wiring in `EntityPage.tsx` is needed. The entity annotation setup remains the same — see [Integration with the Catalog](#integration-with-the-catalog) above.
