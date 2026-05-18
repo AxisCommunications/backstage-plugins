@@ -37,11 +37,13 @@ const _default: OverridableFrontendPlugin<
     'entity-card:readme': OverridableExtensionDefinition<{
       config: {
         hideIfNotFound: boolean;
+        maxHeight: string;
         filter: FilterPredicate | undefined;
         type: 'content' | 'info' | undefined;
       };
       configInput: {
         hideIfNotFound?: boolean | undefined;
+        maxHeight?: string | undefined;
         filter?: FilterPredicate | undefined;
         type?: 'content' | 'info' | undefined | undefined;
       };
