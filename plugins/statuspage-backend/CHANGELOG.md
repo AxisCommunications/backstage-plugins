@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-statuspage-backend
 
+## 0.10.3
+
+### Patch Changes
+
+- d29962b: Use native fetch instead of cross-fetch according to ADR14
+
 ## 0.10.2
 
 ### Patch Changes

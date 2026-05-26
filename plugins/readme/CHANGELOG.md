@@ -1,5 +1,43 @@
 # @axis-backstage/plugin-readme
 
+## 0.19.0
+
+### Minor Changes
+
+- b5e5411: Added a `hideIfNotFound` config option to the readme card extension for
+  the new frontend system. When set to `true`, the entire card is hidden
+  when no README.md file is found, instead of showing an error message.
+  This is the NFS equivalent of the `isReadmeAvailable` entity filter
+  available in the old frontend system.
+
+  Example app-config.yaml:
+
+  app:
+  extensions: - entity-card:readme:
+  config:
+  hideIfNotFound: true
+
+- bb83b10: Migrated `ReadmeCard` from the legacy MUI `InfoCard` to `EntityInfoCard` from `@backstage/plugin-catalog-react`.
+
+  The `variant` and `maxHeight` props have been removed from `ReadmeCardProps`. Users relying on these props should switch to `ReadmeCardLegacyProps`, which preserves the old behaviour and is accepted by `ReadmeCard` for backward compatibility. Both `variant` and `maxHeight` are deprecated and will be removed in a future release.
+
+### Patch Changes
+
+- 8a8e8da: NFS: Make the Readme entity card height configurable
+
+  The height of the entity card now defaults to the same height as
+  the legacy card. If used in NFS the height can be configured
+  using the config as follows:
+
+  ```yaml
+  app:
+    extensions:
+      - entity-card:readme:
+          config:
+            hideIfNotFound: true
+            maxHeight: 500px
+  ```
+
 ## 0.18.2
 
 ### Patch Changes

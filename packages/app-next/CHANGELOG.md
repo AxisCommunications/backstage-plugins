@@ -1,5 +1,18 @@
 # app-next
 
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [b5e5411]
+- Updated dependencies [798d79d]
+- Updated dependencies [bb83b10]
+- Updated dependencies [28e5257]
+- Updated dependencies [8a8e8da]
+  - @axis-backstage/plugin-readme@0.19.0
+  - @axis-backstage/plugin-jira-dashboard@2.3.4
+  - @axis-backstage/plugin-vacation-calendar@0.9.3
+
 ## 0.1.10
 
 ### Patch Changes
