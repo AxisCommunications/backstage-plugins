@@ -1,5 +1,13 @@
 # backend
 
+## 0.8.17
+
+### Patch Changes
+
+- Updated dependencies [d29962b]
+  - @axis-backstage/plugin-statuspage-backend@0.10.3
+  - app@0.12.8
+
 ## 0.8.16
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-vacation-calendar
 
+## 0.9.3
+
+### Patch Changes
+
+- 28e5257: Added new frontend system (NFS) support via a new `./alpha` entry point. The plugin exposes an `EntityContentBlueprint` that renders the Out of Office calendar as an entity content tab, and an `ApiBlueprint` for the vacation calendar API.
+
 ## 0.9.2
 
 ### Patch Changes

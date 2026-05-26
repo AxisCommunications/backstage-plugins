@@ -1,6 +1,6 @@
 {
   "name": "@axis-backstage/plugin-vacation-calendar",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "exports": {
     ".": "./src/index.ts",
     "./alpha": "./src/alpha.ts",
