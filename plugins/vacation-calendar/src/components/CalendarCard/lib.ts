@@ -28,6 +28,7 @@ const getUser = (users: UserEntity[], userId: string) => {
 
 export const getScheduleItems = (
   availablity: InfiniteData<ScheduleInformation[]> | undefined,
+  groupIndexMap?: Map<number, number>,
 ) => {
   return availablity
     ? availablity?.pages
@@ -41,7 +42,7 @@ export const getScheduleItems = (
             // @ts-ignore
             .map(s => ({
               id: Date.now().toString(36) + Math.random().toString(36).slice(2),
-              group: i,
+              group: groupIndexMap?.get(i) ?? i,
               start_time: DateTime.fromISO(s.start?.dateTime!),
               end_time: DateTime.fromISO(s.end?.dateTime!),
               canMove: false,
@@ -56,20 +57,54 @@ export const getGroups = (
   availablity: InfiniteData<ScheduleInformation[]> | undefined,
   isUserEntity: string | false,
   users: UserEntityV1alpha1[] | undefined,
-) => {
-  return availablity
-    ? availablity.pages
-        .flatMap(p => p)
-        .map((a, i) => ({
-          id: i,
-          // @ts-ignore
-          highlight:
-            isUserEntity &&
-            a.scheduleId &&
-            isUserEntity === head(a.scheduleId.split('@')),
-          title: getFullName(users || [], a.scheduleId || ''),
-          entity: getUser(users || [], a.scheduleId || ''),
-          height: 30,
-        }))
-    : [];
+): [
+  groups: Array<{
+    id: number;
+    highlight: boolean;
+    title: string;
+    entity?: UserEntity;
+    height: number;
+  }>,
+  groupIndexMap: Map<number, number>,
+] => {
+  if (!availablity) {
+    return [[], new Map()];
+  }
+
+  const flattenedSchedules = availablity.pages
+    .flatMap(p => p)
+    .map((a, originalIndex) => ({
+      originalIndex,
+      schedule: a,
+      title: getFullName(users || [], a.scheduleId || ''),
+    }));
+
+  // Sort by title (display name) alphabetically
+  const sortedSchedules = [...flattenedSchedules].sort((a, b) => {
+    const titleA = a.title || '';
+    const titleB = b.title || '';
+    return titleA.localeCompare(titleB);
+  });
+
+  // Create mapping from original index to new sorted index
+  const groupIndexMap = new Map(
+    sortedSchedules.map((item, newIndex) => [item.originalIndex, newIndex]),
+  );
+
+  const groups = sortedSchedules.map((item, newIndex) => {
+    const isHighlighted =
+      isUserEntity &&
+      item.schedule.scheduleId &&
+      isUserEntity === head(item.schedule.scheduleId.split('@'));
+
+    return {
+      id: newIndex,
+      highlight: !!isHighlighted,
+      title: item.title || '',
+      entity: getUser(users || [], item.schedule.scheduleId || ''),
+      height: 30,
+    };
+  });
+
+  return [groups, groupIndexMap];
 };
