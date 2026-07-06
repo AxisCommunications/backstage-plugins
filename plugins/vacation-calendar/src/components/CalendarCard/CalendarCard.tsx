@@ -93,8 +93,8 @@ export const CalendarCard = () => {
   const showLoader =
     isAvailabilityLoading || isAvailabilityFetching || !isInitialized;
 
-  const groups = getGroups(availablity, isUserEntity, users);
-  const scheduleItems = getScheduleItems(availablity);
+  const [groups, groupIndexMap] = getGroups(availablity, isUserEntity, users);
+  const scheduleItems = getScheduleItems(availablity, groupIndexMap);
 
   if (users?.length === 0) {
     return (
