@@ -1,5 +1,12 @@
 # app
 
+## 0.12.9
+
+### Patch Changes
+
+- Updated dependencies [38477a3]
+  - @axis-backstage/plugin-vacation-calendar@0.10.0
+
 ## 0.12.8
 
 ### Patch Changes
