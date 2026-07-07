@@ -1,5 +1,12 @@
 # app-next
 
+## 0.1.12
+
+### Patch Changes
+
+- Updated dependencies [38477a3]
+  - @axis-backstage/plugin-vacation-calendar@0.10.0
+
 ## 0.1.11
 
 ### Patch Changes

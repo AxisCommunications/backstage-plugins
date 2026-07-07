@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-vacation-calendar
 
+## 0.10.0
+
+### Minor Changes
+
+- 38477a3: Sort user calendars alphabetically by display name on the frontend, providing a consistent and predictable user experience. Includes comprehensive tests covering sorting, edge cases, and highlight logic.
+
 ## 0.9.3
 
 ### Patch Changes
