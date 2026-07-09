@@ -1,5 +1,15 @@
 # app
 
+## 0.12.10
+
+### Patch Changes
+
+- Updated dependencies [eb1c16f]
+- Updated dependencies [8ce6673]
+  - @axis-backstage/plugin-jira-dashboard@2.3.5
+  - @axis-backstage/plugin-vacation-calendar@0.10.1
+  - @axis-backstage/plugin-readme@0.19.1
+
 ## 0.12.9
 
 ### Patch Changes

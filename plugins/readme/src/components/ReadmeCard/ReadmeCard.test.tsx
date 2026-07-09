@@ -1,5 +1,5 @@
 import { ReadmeCard } from './ReadmeCard';
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { screen } from '@testing-library/react';
 import {
@@ -47,8 +47,8 @@ describe('ReadmeCard', () => {
     readmeClient = new ReadmeClient({ discoveryApi, fetchApi, identityApi });
     apis = TestApiRegistry.from([readmeApiRef, readmeClient]);
     server.use(
-      rest.get(`${mockBaseUrl}/:kind/:namespace/:name`, (_, res, ctx) =>
-        res(ctx.status(200), ctx.json(mockedReadmeContent)),
+      http.get(`${mockBaseUrl}/:kind/:namespace/:name`, () =>
+        HttpResponse.json(mockedReadmeContent, { status: 200 }),
       ),
     );
   });
