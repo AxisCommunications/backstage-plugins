@@ -1,5 +1,5 @@
 import { JiraDashboardContent } from './JiraDashboardContent';
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import {
@@ -27,14 +27,14 @@ describe('JiraDashboardContent', () => {
 
   const setupHandlers = () => {
     server.use(
-      rest.get(
+      http.get(
         `${mockBaseUrl}/dashboards/by-entity-ref/:kind/:namespace/:name`,
-        (req, res, ctx) => {
-          const { kind, namespace, name } = req.params;
+        ({ params }) => {
+          const { kind, namespace, name } = params;
           if (kind && namespace && name) {
-            return res(ctx.json(mockedJiraResponse));
+            return HttpResponse.json(mockedJiraResponse);
           }
-          return res(ctx.status(400));
+          return new HttpResponse(null, { status: 400 });
         },
       ),
     );
@@ -74,6 +74,7 @@ describe('JiraDashboardContent', () => {
     expect(getAllByTestId('issue-table')).toHaveLength(2);
   });
 });
+
 describe('JiraDashboardContent - Single Project View', () => {
   const server = setupServer();
   registerMswTestHooks(server);
@@ -86,10 +87,10 @@ describe('JiraDashboardContent - Single Project View', () => {
 
   const setupHandlers = () => {
     server.use(
-      rest.get(
+      http.get(
         `${mockBaseUrl}/dashboards/by-entity-ref/:kind/:namespace/:name`,
-        (_req, res, ctx) => {
-          return res(ctx.json(singleProjectResponse));
+        () => {
+          return HttpResponse.json(singleProjectResponse);
         },
       ),
     );
@@ -125,6 +126,7 @@ describe('JiraDashboardContent - Single Project View', () => {
     expect(getAllByTestId('issue-table')).toHaveLength(2); // Matches 2 filters in the JSON
   });
 });
+
 describe('JiraDashboardContent - Multi-project response', () => {
   const server = setupServer();
   registerMswTestHooks(server);
@@ -146,9 +148,9 @@ describe('JiraDashboardContent - Multi-project response', () => {
 
   beforeEach(() => {
     server.use(
-      rest.get(
+      http.get(
         `${mockBaseUrl}/dashboards/by-entity-ref/:kind/:namespace/:name`,
-        (_req, res, ctx) => res(ctx.json(mockedJiraResponse)),
+        () => HttpResponse.json(mockedJiraResponse),
       ),
     );
     jiraClient = new JiraDashboardClient({ discoveryApi, fetchApi });
