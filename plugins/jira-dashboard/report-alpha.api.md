@@ -24,9 +24,9 @@ const _default: OverridableFrontendPlugin<
   },
   {},
   {
-    'api:jira-dashboard': OverridableExtensionDefinition<{
+    'api:jira-dashboard/api': OverridableExtensionDefinition<{
       kind: 'api';
-      name: undefined;
+      name: 'api';
       config: {};
       configInput: {};
       output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
