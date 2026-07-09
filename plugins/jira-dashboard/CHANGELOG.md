@@ -1,5 +1,12 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 2.3.5
+
+### Patch Changes
+
+- eb1c16f: Fixed missing name on ApiBlueprint in alpha export, resolving crash when manually registering the plugin via createApp features array
+- 8ce6673: Updated lodash dependency, updated tests to use msw 2.
+
 ## 2.3.4
 
 ### Patch Changes
