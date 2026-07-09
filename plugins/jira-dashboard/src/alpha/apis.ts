@@ -9,6 +9,7 @@ import { jiraDashboardApiRef, JiraDashboardClient } from '../api';
  * @alpha
  */
 export const jiraApi = ApiBlueprint.make({
+  name: 'api',
   params: defineParams =>
     defineParams({
       api: jiraDashboardApiRef,
