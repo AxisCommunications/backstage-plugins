@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-vacation-calendar
 
+## 0.10.1
+
+### Patch Changes
+
+- 8ce6673: Updated lodash dependency, updated tests to use msw 2.
+
 ## 0.10.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme
 
+## 0.19.1
+
+### Patch Changes
+
+- 8ce6673: Updated lodash dependency, updated tests to use msw 2.
+
 ## 0.19.0
 
 ### Minor Changes
