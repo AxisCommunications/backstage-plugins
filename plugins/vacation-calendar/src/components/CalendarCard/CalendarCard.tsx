@@ -1,13 +1,12 @@
-import 'react-calendar-timeline/lib/Timeline.css';
-import { ReactNode, useState } from 'react';
+import './CalendarCard.css';
+import { useState } from 'react';
 import useAsync from 'react-use/lib/useAsync';
 import Timeline, {
   TimelineHeaders,
   SidebarHeader,
   DateHeader,
-  IntervalRenderer,
 } from 'react-calendar-timeline';
-import { DateTime } from 'luxon';
+import dayjs from 'dayjs';
 import { useApi } from '@backstage/core-plugin-api';
 import { useEntity, catalogApiRef } from '@backstage/plugin-catalog-react';
 import {
@@ -19,54 +18,28 @@ import {
   Progress,
   Avatar,
 } from '@backstage/core-components';
+import { Box, Button, Flex } from '@backstage/ui';
 import { DateSelector } from '../DateSelector';
 import { getGroups, getScheduleItems } from './lib';
 import { fetchGroupEntities, fetchUserEntities } from './fetch';
 import { useAvailability } from '../../hooks/useAvailibility';
 import { useSignIn } from '../../hooks';
 import { SignInContent } from '../SignInContent';
-import MuiLink from '@mui/material/Link';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-
-import { Theme } from '@mui/material/styles';
 
 const DEFAULT_NUM_DAYS = 60;
-
-const IntervalDateHeader = (props?: IntervalRenderer<object>): ReactNode => {
-  return (
-    <MuiLink
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%',
-        borderBottom: '1px solid #bbb',
-        cursor: 'pointer',
-        fontSize: '14px',
-        borderLeft: '2px solid #bbb',
-        color: (theme: Theme) => theme.palette.text.primary,
-        position: 'absolute',
-        width: props?.intervalContext.interval.labelWidth,
-        left: props?.intervalContext.interval.left,
-      }}
-      onClick={props?.getIntervalProps().onClick}
-    >
-      {props?.intervalContext.intervalText}
-    </MuiLink>
-  );
-};
+const DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
+const DAY_HEADER_MAX_ZOOM = DEFAULT_NUM_DAYS * DAY_IN_MILLISECONDS;
 
 export const CalendarCard = () => {
   const { entity } = useEntity();
   const catalogApi = useApi(catalogApiRef);
 
-  const [startDate, setStartDate] = useState(DateTime.now());
+  const [startDate, setStartDate] = useState(dayjs());
   const [endDate, setEndDate] = useState(
-    DateTime.now().endOf('day').plus({ days: DEFAULT_NUM_DAYS }),
+    dayjs().endOf('day').add(DEFAULT_NUM_DAYS, 'day'),
   );
+  const [headerUnit, setHeaderUnit] = useState<'day' | 'month'>('day');
 
   const { isSignedIn, isInitialized, signIn } = useSignIn();
 
@@ -82,7 +55,7 @@ export const CalendarCard = () => {
   }, [catalogApi, entity]);
 
   const {
-    availablity,
+    availability,
     error,
     isLoading: isAvailabilityLoading,
     isFetching: isAvailabilityFetching,
@@ -93,8 +66,8 @@ export const CalendarCard = () => {
   const showLoader =
     isAvailabilityLoading || isAvailabilityFetching || !isInitialized;
 
-  const [groups, groupIndexMap] = getGroups(availablity, isUserEntity, users);
-  const scheduleItems = getScheduleItems(availablity, groupIndexMap);
+  const [groups, groupIndexMap] = getGroups(availability, isUserEntity, users);
+  const scheduleItems = getScheduleItems(availability, groupIndexMap);
 
   if (users?.length === 0) {
     return (
@@ -136,66 +109,77 @@ export const CalendarCard = () => {
       </ContentHeader>
 
       <Box>
-        <Stack direction="row" gap={3} alignItems="center">
+        <Flex direction="row" gap="3" align="end">
           <Box>
             <DateSelector
               onDateChange={d => {
-                if (d instanceof DateTime) {
-                  const { days } = endDate.diff(d, 'days').toObject();
+                if (d) {
+                  const days = endDate.diff(d, 'day');
                   if (days && Math.abs(days) > DEFAULT_NUM_DAYS) {
-                    setEndDate(d.endOf('day').plus({ days: DEFAULT_NUM_DAYS }));
+                    setEndDate(d.endOf('day').add(DEFAULT_NUM_DAYS, 'day'));
                   }
+                  setHeaderUnit('day');
                   setStartDate(d);
                 }
               }}
-              initalDate={startDate}
+              initialDate={startDate}
               label="Start Date"
             />
           </Box>
           <Box>
             <DateSelector
               onDateChange={d => {
-                if (d instanceof DateTime) {
-                  const { days } = startDate.diff(d, 'days').toObject();
+                if (d) {
+                  const days = startDate.diff(d, 'day');
                   if (days && Math.abs(days) > DEFAULT_NUM_DAYS) {
                     setStartDate(
-                      d.endOf('day').minus({ days: DEFAULT_NUM_DAYS }),
+                      d.endOf('day').subtract(DEFAULT_NUM_DAYS, 'day'),
                     );
                   }
-                  setEndDate(d as DateTime);
+                  setHeaderUnit('day');
+                  setEndDate(d);
                 }
               }}
-              initalDate={endDate}
+              initialDate={endDate}
               label="End Date"
             />
           </Box>
-          <Box>
-            <Button
-              onClick={() => {
-                fetchNextPage();
-              }}
-              disabled={showLoader || !hasNextPage}
-              variant="contained"
-              color="primary"
-            >
-              Show more Users
-            </Button>
-          </Box>
-        </Stack>
-
+          <Button
+            onClick={() => {
+              fetchNextPage();
+            }}
+            isDisabled={showLoader || !hasNextPage}
+            variant="secondary"
+          >
+            Show more Users
+          </Button>
+        </Flex>
         {showLoader && (
-          <Box py={2}>
+          <Box py="2">
             <Progress variant="query" />
           </Box>
         )}
         {!isSignedIn && isInitialized && (
-          <Box p={1} pb={0} minHeight={200} maxHeight={602} overflow="auto">
+          <Box
+            p="1"
+            pb="0"
+            minHeight="200px"
+            maxHeight="602px"
+            style={{ overflow: 'auto' }}
+          >
             <SignInContent handleAuthClick={() => signIn(false)} />
           </Box>
         )}
         {!isAvailabilityLoading && isSignedIn && (
-          <Box mt={3} pb={0} minHeight={200} overflow="auto">
+          <div
+            style={{
+              marginTop: 'var(--bui-space-3)',
+              minHeight: '200px',
+              overflow: 'auto',
+            }}
+          >
             <Timeline
+              key={`${startDate.valueOf()}-${endDate.valueOf()}`}
               groups={groups}
               sidebarWidth={250}
               groupRenderer={({ group }) => {
@@ -203,66 +187,50 @@ export const CalendarCard = () => {
                   <Link
                     to={`/catalog/default/user/${group.entity?.metadata.name}`}
                   >
-                    <div
-                      className="custom-group"
-                      style={{
-                        background: group.highlight
-                          ? 'linear-gradient(90deg, #FFCC33A0, transparent 100%)'
-                          : '',
-                        marginLeft: '-4px',
-                        paddingLeft: '4px',
-                        display: 'flex',
-                        whiteSpace: 'nowrap',
-                        flexWrap: 'nowrap',
-                        flexDirection: 'row',
-                        gap: '5px',
-                      }}
-                    >
-                      <div>
-                        <Avatar
-                          displayName={
-                            group.entity?.metadata.displayName as string
-                          }
-                          picture={group.entity?.spec.profile?.picture}
-                          customStyles={{
-                            width: 30,
-                            height: 30,
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <span className="title">{group.title}</span>
-                      </div>
+                    <div className="custom-group">
+                      <Avatar
+                        displayName={
+                          group.entity?.metadata.displayName as string
+                        }
+                        picture={group.entity?.spec.profile?.picture}
+                        customStyles={{
+                          width: 30,
+                          height: 30,
+                        }}
+                      />
+                      <span className="title">{group.title}</span>
                     </div>
                   </Link>
                 );
               }}
               items={scheduleItems as any}
               itemTouchSendsClick={false}
-              defaultTimeStart={startDate.toJSDate()}
-              defaultTimeEnd={endDate.toJSDate()}
+              defaultTimeStart={startDate.valueOf()}
+              defaultTimeEnd={endDate.valueOf()}
+              onZoom={({ visibleTimeStart, visibleTimeEnd }) => {
+                setHeaderUnit(
+                  visibleTimeEnd - visibleTimeStart <= DAY_HEADER_MAX_ZOOM
+                    ? 'day'
+                    : 'month',
+                );
+              }}
             >
-              <TimelineHeaders
-                style={{
-                  backgroundColor: 'transparent',
-                  color: 'black',
-                  position: 'sticky',
-                  top: '-6px',
-                }}
-              >
+              <TimelineHeaders>
                 <SidebarHeader>
                   {({ getRootProps }) => {
-                    return <div {...getRootProps()} />;
+                    return (
+                      <div
+                        {...getRootProps()}
+                        className="timeline-sidebar-header"
+                      />
+                    );
                   }}
                 </SidebarHeader>
-                <DateHeader
-                  unit="primaryHeader"
-                  intervalRenderer={IntervalDateHeader}
-                />
-                <DateHeader intervalRenderer={IntervalDateHeader} />
+                <DateHeader unit={headerUnit === 'day' ? 'month' : 'year'} />
+                <DateHeader unit={headerUnit} />
               </TimelineHeaders>
             </Timeline>
-          </Box>
+          </div>
         )}
       </Box>
     </Content>

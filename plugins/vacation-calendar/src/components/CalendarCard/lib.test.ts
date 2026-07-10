@@ -5,9 +5,9 @@ import { getGroups, getScheduleItems } from './lib';
 
 const makeAvailability = (
   schedules: ScheduleInformation[],
-): InfiniteData<ScheduleInformation[]> => ({
+): InfiniteData<ScheduleInformation[], unknown> => ({
   pages: [schedules],
-  pageParams: [undefined],
+  pageParams: [0],
 });
 
 const makeUser = (name: string, displayName: string): UserEntityV1alpha1 => ({

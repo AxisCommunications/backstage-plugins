@@ -6,10 +6,10 @@
     "node": "20 || 22 || 24"
   },
   "scripts": {
-    "dev": "yarn workspaces foreach -A --include backend --include app --parallel -v -i run start",
-    "dev-next": "yarn workspaces foreach -A --include backend --include app-next --parallel -v -i run start",
+    "dev": "NODE_OPTIONS=--no-node-snapshot backstage-cli repo start",
+    "dev-next": "npx backstage-cli repo start backend app-next",
     "start": "yarn workspace app start",
-    "start-backend": "yarn workspace backend start",
+    "start-backend": "backstage-cli repo start packages/backend",
     "build:backend": "yarn workspace backend build",
     "build:all": "backstage-cli repo build",
     "build-image": "yarn workspace backend build-image",
@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@backstage/cli": "^0.36.3",
+    "@backstage/cli-defaults": "^0.1.3",
     "@backstage/e2e-test-utils": "^0.1.2",
     "@backstage/repo-tools": "^0.17.3",
     "@changesets/cli": "^2.28.1",

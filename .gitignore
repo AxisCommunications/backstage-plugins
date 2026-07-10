@@ -65,3 +65,4 @@ local_examples/
 # no npm _release-folders
 **/_release
 
+entities/*
