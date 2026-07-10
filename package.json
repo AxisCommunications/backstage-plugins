@@ -42,9 +42,9 @@
     "@useoptic/optic": "^1.0.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.36.1",
+    "@backstage/cli": "^0.36.3",
     "@backstage/e2e-test-utils": "^0.1.2",
-    "@backstage/repo-tools": "^0.17.1",
+    "@backstage/repo-tools": "^0.17.3",
     "@changesets/cli": "^2.28.1",
     "@jest/environment-jsdom-abstract": "^30",
     "@playwright/test": "^1.32.3",
