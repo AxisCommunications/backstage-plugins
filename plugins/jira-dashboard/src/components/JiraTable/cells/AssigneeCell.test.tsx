@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import { AssigneeCell } from './AssigneeCell';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { MemoryRouter } from 'react-router-dom';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 
@@ -11,11 +10,7 @@ jest.mock('@backstage/plugin-catalog-react', () => ({
 }));
 
 const renderWithProviders = (ui: React.ReactElement) =>
-  render(
-    <MemoryRouter>
-      <ThemeProvider theme={createTheme()}>{ui}</ThemeProvider>
-    </MemoryRouter>,
-  );
+  render(<MemoryRouter>{ui}</MemoryRouter>);
 
 describe('AssigneeCell', () => {
   const baseAssignee: Issue['fields']['assignee'] = {
