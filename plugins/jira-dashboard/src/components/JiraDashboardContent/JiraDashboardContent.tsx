@@ -4,18 +4,9 @@ import {
   TableFilter,
   TableOptions,
 } from '@backstage/core-components';
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Tab,
-  TabList,
-  TabPanel,
-  Tabs,
-  Text,
-} from '@backstage/ui';
+import { Tab, TabList, TabPanel, Tabs } from '@backstage/ui';
 import { useApi } from '@backstage/core-plugin-api';
-import { useEntity } from '@backstage/plugin-catalog-react';
+import { EntityInfoCard, useEntity } from '@backstage/plugin-catalog-react';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { jiraDashboardApiRef } from '../../api';
 import { useJira } from '../../hooks/useJira';
@@ -52,34 +43,27 @@ export const JiraDashboardContent = (props?: {
     : [];
 
   return projects.length > 1 ? (
-    <Card data-testid="tabbed-card">
-      <CardHeader>
-        <Text as="h3" variant="title-x-small" weight="bold">
-          Jira Projects
-        </Text>
-      </CardHeader>
-      <CardBody>
-        <Tabs>
-          <TabList aria-label="Jira Projects">
-            {projects.map(project => (
-              <Tab id={project.key} key={project.key}>
-                {project.name}
-              </Tab>
-            ))}
-          </TabList>
+    <EntityInfoCard title="Jira Projects">
+      <Tabs>
+        <TabList aria-label="Jira Projects">
           {projects.map(project => (
-            <TabPanel id={project.key} key={project.key}>
-              <JiraGrid
-                project={project}
-                tableData={jiraResponse.data}
-                showFilters={props?.showFilters}
-                tableOptions={props?.tableOptions}
-              />
-            </TabPanel>
+            <Tab id={project.key} key={project.key}>
+              {project.name}
+            </Tab>
           ))}
-        </Tabs>
-      </CardBody>
-    </Card>
+        </TabList>
+        {projects.map(project => (
+          <TabPanel id={project.key} key={project.key}>
+            <JiraGrid
+              project={project}
+              tableData={jiraResponse.data}
+              showFilters={props?.showFilters}
+              tableOptions={props?.tableOptions}
+            />
+          </TabPanel>
+        ))}
+      </Tabs>
+    </EntityInfoCard>
   ) : (
     <JiraGrid
       project={projects[0]}
