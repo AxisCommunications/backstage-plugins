@@ -1,8 +1,6 @@
-import {
-  BottomLinkProps,
-  InfoCard,
-  TableOptions,
-} from '@backstage/core-components';
+import { BottomLinkProps, TableOptions } from '@backstage/core-components';
+import { ButtonLink } from '@backstage/ui';
+import { EntityInfoCard } from '@backstage/plugin-catalog-react';
 
 import {
   JiraUserIssuesTable,
@@ -44,13 +42,22 @@ export const JiraUserIssuesCard = ({
   filterName,
 }: JiraUserIssuesCardProps) => {
   return (
-    <InfoCard title={title} variant="fullHeight" deepLink={bottomLinkProps}>
+    <EntityInfoCard
+      title={title}
+      footerActions={
+        bottomLinkProps && (
+          <ButtonLink variant="tertiary" href={bottomLinkProps.link}>
+            {bottomLinkProps.title}
+          </ButtonLink>
+        )
+      }
+    >
       <JiraUserIssuesTable
         maxResults={maxResults}
         tableOptions={tableOptions}
         tableStyle={tableStyle}
         filterName={filterName}
       />
-    </InfoCard>
+    </EntityInfoCard>
   );
 };
