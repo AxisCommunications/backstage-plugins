@@ -1,6 +1,7 @@
 import Divider from '@mui/material/Divider';
 import { ButtonLink, Flex, Text } from '@backstage/ui';
-import { Avatar, InfoCard, MarkdownContent } from '@backstage/core-components';
+import { Avatar, MarkdownContent } from '@backstage/core-components';
+import { EntityInfoCard } from '@backstage/plugin-catalog-react';
 import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 import { ProjectInfoLabel } from './ProjectInfoLabel';
 import { getProjectUrl } from '../../lib';
@@ -12,7 +13,7 @@ type JiraProjectCardProps = {
 
 export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
   return (
-    <InfoCard variant="fullHeight">
+    <EntityInfoCard>
       <Flex direction="row" gap="2" align="center" mb="2">
         <Avatar
           picture={project.avatarUrls['48x48']}
@@ -48,6 +49,6 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
       <ButtonLink variant="primary" href={getProjectUrl(project)}>
         Go to project
       </ButtonLink>
-    </InfoCard>
+    </EntityInfoCard>
   );
 };
