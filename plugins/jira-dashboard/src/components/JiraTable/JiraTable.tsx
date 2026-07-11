@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import { Flex, Text } from '@backstage/ui';
+import { Flex, Link, Text } from '@backstage/ui';
 import {
   Issue,
   JiraDataResponse,
@@ -7,7 +7,6 @@ import {
 } from '@axis-backstage/plugin-jira-dashboard-common';
 import {
   ErrorPanel,
-  Link,
   Table,
   TableColumn,
   TableFilter,
@@ -81,8 +80,10 @@ export const JiraTable = ({
   if (project && tableContent.query) {
     title = (
       <Link
-        to={`${getJiraBaseUrl(project.self)}/issues/?jql=${tableContent.query}`}
-        variant="h5"
+        href={`${getJiraBaseUrl(project.self)}/issues/?jql=${
+          tableContent.query
+        }`}
+        variant="title-small"
         data-testid="table-header"
       >
         {`${capitalize(tableContent.name)} (${nbrOfIssues})`}

@@ -1,5 +1,5 @@
-import { Avatar, Link } from '@backstage/core-components';
-import { Flex, Text } from '@backstage/ui';
+import { Avatar } from '@backstage/core-components';
+import { Flex, Link, Text } from '@backstage/ui';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { EntityPeekAheadPopover } from '@backstage/plugin-catalog-react';
 import { stringifyEntityRef } from '@backstage/catalog-model';
@@ -57,7 +57,7 @@ export const AssigneeCell = ({ assignee }: Props) => {
     return (
       <EntityPeekAheadPopover entityRef={stringifyEntityRef(entityRef)}>
         <Link
-          to={`/catalog/${entityRef.namespace}/${entityRef.kind}/${entityRef.name}`}
+          href={`/catalog/${entityRef.namespace}/${entityRef.kind}/${entityRef.name}`}
         >
           {avatar}
         </Link>

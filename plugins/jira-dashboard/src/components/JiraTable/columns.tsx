@@ -1,6 +1,6 @@
-import { Link, TableColumn } from '@backstage/core-components';
+import { TableColumn } from '@backstage/core-components';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
-import { Badge, Flex, Text } from '@backstage/ui';
+import { Badge, Flex, Link, Text } from '@backstage/ui';
 import { getIssueUrl } from '../../lib';
 import { DateTime } from 'luxon';
 import { AssigneeCell } from './cells/AssigneeCell';
@@ -19,7 +19,10 @@ export const columnKey: TableColumn<Issue> = {
       return null;
     }
     return (
-      <Link to={getIssueUrl(issue.self, issue.key)} title="Go to issue in Jira">
+      <Link
+        href={getIssueUrl(issue.self, issue.key)}
+        title="Go to issue in Jira"
+      >
         <Flex align="center">
           <img
             src={issue.fields?.issuetype.iconUrl}
@@ -52,7 +55,7 @@ export const columnSummary: TableColumn<Issue> = {
     return (
       <Link
         style={{ lineHeight: 1.5 }}
-        to={getIssueUrl(issue.self, issue.key)}
+        href={getIssueUrl(issue.self, issue.key)}
         title="Go to issue in Jira"
       >
         {issue.fields?.summary}
@@ -73,7 +76,10 @@ export const columnPriority: TableColumn<Issue> = {
       return null;
     }
     return (
-      <Link to={getIssueUrl(issue.self, issue.key)} title="Go to issue in Jira">
+      <Link
+        href={getIssueUrl(issue.self, issue.key)}
+        title="Go to issue in Jira"
+      >
         <img
           alt={issue.fields?.priority?.name}
           src={issue.fields?.priority?.iconUrl}
@@ -98,7 +104,10 @@ export const columnStatus: TableColumn<Issue> = {
       return null;
     }
     return (
-      <Link to={getIssueUrl(issue.self, issue.key)} title="Go to issue in Jira">
+      <Link
+        href={getIssueUrl(issue.self, issue.key)}
+        title="Go to issue in Jira"
+      >
         <Badge size="small">{issue.fields?.status.name}</Badge>
       </Link>
     );
