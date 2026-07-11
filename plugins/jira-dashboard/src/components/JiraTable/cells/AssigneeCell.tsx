@@ -58,6 +58,7 @@ export const AssigneeCell = ({ assignee }: Props) => {
       <EntityPeekAheadPopover entityRef={stringifyEntityRef(entityRef)}>
         <Link
           href={`/catalog/${entityRef.namespace}/${entityRef.kind}/${entityRef.name}`}
+          standalone
         >
           {avatar}
         </Link>

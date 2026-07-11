@@ -85,6 +85,7 @@ export const JiraTable = ({
         }`}
         variant="title-small"
         data-testid="table-header"
+        standalone
       >
         {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
       </Link>
