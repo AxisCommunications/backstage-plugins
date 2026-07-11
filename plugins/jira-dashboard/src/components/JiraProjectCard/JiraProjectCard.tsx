@@ -16,12 +16,12 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
       title={
         <Flex align="center" gap="2">
           <Avatar
-            size="small"
+            size="large"
             purpose="decoration"
             name={project.name}
             src={project.avatarUrls['48x48'] || ''}
           />
-          <Text as="span">
+          <Text as="span" variant="title-x-small" weight="bold">
             {project.projectTypeKey
               ? `${project.name} | ${project.projectTypeKey}`
               : project.name}
