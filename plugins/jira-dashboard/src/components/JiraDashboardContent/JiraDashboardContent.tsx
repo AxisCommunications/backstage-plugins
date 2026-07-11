@@ -54,7 +54,9 @@ export const JiraDashboardContent = (props?: {
   return projects.length > 1 ? (
     <Card data-testid="tabbed-card">
       <CardHeader>
-        <Text variant="title-small">Jira Projects</Text>
+        <Text as="h3" variant="title-x-small" weight="bold">
+          Jira Projects
+        </Text>
       </CardHeader>
       <CardBody>
         <Tabs>
