@@ -1,8 +1,7 @@
 import { Link, TableColumn } from '@backstage/core-components';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
-import { Flex, Text } from '@backstage/ui';
+import { Badge, Flex, Text } from '@backstage/ui';
 import { getIssueUrl } from '../../lib';
-import Chip from '@mui/material/Chip';
 import { DateTime } from 'luxon';
 import { AssigneeCell } from './cells/AssigneeCell';
 
@@ -100,15 +99,7 @@ export const columnStatus: TableColumn<Issue> = {
     }
     return (
       <Link to={getIssueUrl(issue.self, issue.key)} title="Go to issue in Jira">
-        <Chip
-          label={issue.fields?.status.name}
-          size="small"
-          sx={{
-            padding: '0',
-            margin: '0',
-            borderRadius: '5px 5px 5px 5px',
-          }}
-        />
+        <Badge size="small">{issue.fields?.status.name}</Badge>
       </Link>
     );
   },

@@ -1,11 +1,6 @@
 import Divider from '@mui/material/Divider';
-import { Flex, Text } from '@backstage/ui';
-import {
-  Avatar,
-  InfoCard,
-  MarkdownContent,
-  LinkButton,
-} from '@backstage/core-components';
+import { ButtonLink, Flex, Text } from '@backstage/ui';
+import { Avatar, InfoCard, MarkdownContent } from '@backstage/core-components';
 import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 import { ProjectInfoLabel } from './ProjectInfoLabel';
 import { getProjectUrl } from '../../lib';
@@ -50,13 +45,9 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
           />
         )}
       </Flex>
-      <LinkButton
-        color="primary"
-        variant="contained"
-        to={getProjectUrl(project)}
-      >
+      <ButtonLink variant="primary" href={getProjectUrl(project)}>
         Go to project
-      </LinkButton>
+      </ButtonLink>
     </InfoCard>
   );
 };
