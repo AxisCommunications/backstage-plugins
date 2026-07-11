@@ -22,7 +22,9 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
             src={project.avatarUrls['48x48'] || ''}
           />
           <Text as="span">
-            {`${project.name} | ${project.projectTypeKey ?? ''}`}
+            {project.projectTypeKey
+              ? `${project.name} | ${project.projectTypeKey}`
+              : project.name}
           </Text>
         </Flex>
       }
