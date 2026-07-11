@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid';
+import { Grid } from '@backstage/ui';
 import { JiraProjectCard } from '../JiraProjectCard';
 import { JiraTable } from '../JiraTable';
 import {
@@ -22,24 +22,18 @@ export const JiraGrid = ({
   tableOptions,
 }: JiraGridProps) => {
   return (
-    <Grid container spacing={3} style={{ width: '100%' }}>
-      <Grid
-        item
-        xs={12}
-        xl={6}
+    <Grid.Root columns="12" gap="6" style={{ width: '100%' }}>
+      <Grid.Item
+        colSpan={{ initial: '12', xl: '6' }}
         data-testid="project-card"
-        style={{ paddingTop: '24px', paddingLeft: '24px' }}
       >
         <JiraProjectCard project={project} />
-      </Grid>
+      </Grid.Item>
       {tableData.map((value: JiraDataResponse) => (
-        <Grid
-          item
-          xs={12}
-          xl={6}
+        <Grid.Item
+          colSpan={{ initial: '12', xl: '6' }}
           key={value.name}
           data-testid="issue-table"
-          style={{ paddingTop: '24px', paddingLeft: '24px' }}
         >
           <JiraTable
             tableContent={value}
@@ -54,8 +48,8 @@ export const JiraGrid = ({
               overflowY: 'auto',
             }}
           />
-        </Grid>
+        </Grid.Item>
       ))}
-    </Grid>
+    </Grid.Root>
   );
 };

@@ -1,11 +1,15 @@
 import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { Avatar, InfoCard } from '@backstage/core-components';
-import { LinkButton } from '@backstage/core-components';
+import { Flex, Text } from '@backstage/ui';
+import {
+  Avatar,
+  InfoCard,
+  MarkdownContent,
+  LinkButton,
+} from '@backstage/core-components';
 import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 import { ProjectInfoLabel } from './ProjectInfoLabel';
 import { getProjectUrl } from '../../lib';
+import styles from './JiraProjectCard.module.css';
 
 type JiraProjectCardProps = {
   project: Project;
@@ -14,7 +18,7 @@ type JiraProjectCardProps = {
 export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
   return (
     <InfoCard variant="fullHeight">
-      <Stack direction="row" gap={1} alignItems="center" mb={1}>
+      <Flex direction="row" gap="2" align="center" mb="2">
         <Avatar
           picture={project.avatarUrls['48x48']}
           customStyles={{
@@ -23,12 +27,12 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
           }}
         />
 
-        <Typography fontSize={20}>
+        <Text variant="title-x-small">
           {project.name} | {project.projectTypeKey ?? ''}
-        </Typography>
-      </Stack>
+        </Text>
+      </Flex>
       <Divider />
-      <Stack gap={2} ml={1} my={2}>
+      <Flex direction="column" gap="4" ml="2" my="4">
         <ProjectInfoLabel label="Project key" value={project.key} />
         {project.projectCategory?.name && (
           <ProjectInfoLabel
@@ -45,7 +49,7 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
             value={project?.lead?.displayName || project?.lead?.key}
           />
         )}
-      </Stack>
+      </Flex>
       <LinkButton
         color="primary"
         variant="contained"

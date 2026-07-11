@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import Typography from '@mui/material/Typography';
+import { Flex, Text } from '@backstage/ui';
 import {
   Issue,
   JiraDataResponse,
@@ -74,9 +74,9 @@ export const JiraTable = ({
     }
   }
   let title = (
-    <Typography component="div" variant="h5" data-testid="table-header">
+    <Text as="div" variant="title-small" data-testid="table-header">
       {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
-    </Typography>
+    </Text>
   );
 
   if (project && tableContent.query) {
@@ -114,9 +114,9 @@ export const JiraTable = ({
           }}
           filters={filters}
           emptyContent={
-            <Typography display="flex" justifyContent="center" pt={30}>
-              No issues found&nbsp;
-            </Typography>
+            <Flex justify="center" py="8">
+              <Text>No issues found&nbsp;</Text>
+            </Flex>
           }
           data={tableContent.issues || []}
           columns={tableColumns}
@@ -137,9 +137,9 @@ export const JiraTable = ({
       }}
       filters={filters}
       emptyContent={
-        <Typography display="flex" justifyContent="center" pt={30}>
-          No issues found&nbsp;
-        </Typography>
+        <Flex justify="center" py="8">
+          <Text>No issues found&nbsp;</Text>
+        </Flex>
       }
       data={tableContent.issues || []}
       columns={tableColumns}
