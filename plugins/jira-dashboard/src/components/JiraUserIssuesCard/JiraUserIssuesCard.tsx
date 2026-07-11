@@ -46,7 +46,12 @@ export const JiraUserIssuesCard = ({
       title={title}
       footerActions={
         bottomLinkProps && (
-          <ButtonLink variant="tertiary" href={bottomLinkProps.link}>
+          <ButtonLink
+            variant="tertiary"
+            href={bottomLinkProps.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {bottomLinkProps.title}
           </ButtonLink>
         )

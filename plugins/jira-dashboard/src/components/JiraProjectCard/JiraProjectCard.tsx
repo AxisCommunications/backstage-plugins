@@ -47,7 +47,12 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
           />
         )}
       </Flex>
-      <ButtonLink variant="primary" href={getProjectUrl(project)}>
+      <ButtonLink
+        variant="primary"
+        href={getProjectUrl(project)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Go to project
       </ButtonLink>
     </EntityInfoCard>

@@ -23,6 +23,8 @@ export const columnKey: TableColumn<Issue> = {
         href={getIssueUrl(issue.self, issue.key)}
         title="Go to issue in Jira"
         standalone
+        target="_blank"
+        rel="noopener noreferrer"
       >
         <Flex align="center">
           <img
@@ -59,6 +61,8 @@ export const columnSummary: TableColumn<Issue> = {
         href={getIssueUrl(issue.self, issue.key)}
         title="Go to issue in Jira"
         standalone
+        target="_blank"
+        rel="noopener noreferrer"
       >
         {issue.fields?.summary}
       </Link>
@@ -82,6 +86,8 @@ export const columnPriority: TableColumn<Issue> = {
         href={getIssueUrl(issue.self, issue.key)}
         title="Go to issue in Jira"
         standalone
+        target="_blank"
+        rel="noopener noreferrer"
       >
         <img
           alt={issue.fields?.priority?.name}
@@ -111,6 +117,8 @@ export const columnStatus: TableColumn<Issue> = {
         href={getIssueUrl(issue.self, issue.key)}
         title="Go to issue in Jira"
         standalone
+        target="_blank"
+        rel="noopener noreferrer"
       >
         <Badge size="small">{issue.fields?.status.name}</Badge>
       </Link>
