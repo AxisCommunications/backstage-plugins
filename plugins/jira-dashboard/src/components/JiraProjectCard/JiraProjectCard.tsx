@@ -1,6 +1,5 @@
-import Divider from '@mui/material/Divider';
-import { ButtonLink, Flex, Text } from '@backstage/ui';
-import { Avatar, MarkdownContent } from '@backstage/core-components';
+import { Avatar, ButtonLink, Flex, Text } from '@backstage/ui';
+import { MarkdownContent } from '@backstage/core-components';
 import { EntityInfoCard } from '@backstage/plugin-catalog-react';
 import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 import { ProjectInfoLabel } from './ProjectInfoLabel';
@@ -13,22 +12,22 @@ type JiraProjectCardProps = {
 
 export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
   return (
-    <EntityInfoCard>
-      <Flex direction="row" gap="2" align="center" mb="2">
-        <Avatar
-          picture={project.avatarUrls['48x48']}
-          customStyles={{
-            width: 50,
-            height: 50,
-          }}
-        />
-
-        <Text variant="title-x-small">
-          {project.name} | {project.projectTypeKey ?? ''}
-        </Text>
-      </Flex>
-      <Divider />
-      <Flex direction="column" gap="4" ml="2" my="4">
+    <EntityInfoCard
+      title={
+        <Flex align="center" gap="2">
+          <Avatar
+            size="small"
+            purpose="decoration"
+            name={project.name}
+            src={project.avatarUrls['48x48'] || ''}
+          />
+          <Text as="span">
+            {`${project.name} | ${project.projectTypeKey ?? ''}`}
+          </Text>
+        </Flex>
+      }
+    >
+      <Flex direction="column" gap="4" mb="4">
         <ProjectInfoLabel label="Project key" value={project.key} />
         {project.projectCategory?.name && (
           <ProjectInfoLabel
