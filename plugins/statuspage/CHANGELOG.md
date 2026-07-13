@@ -1,5 +1,13 @@
 # @axis-backstage/plugin-statuspage
 
+## 0.11.1
+
+### Patch Changes
+
+- 2569fb1: Updated to Backstage 1.52.1
+- Updated dependencies [2569fb1]
+  - @axis-backstage/plugin-statuspage-common@0.9.2
+
 ## 0.11.0
 
 ### Minor Changes
