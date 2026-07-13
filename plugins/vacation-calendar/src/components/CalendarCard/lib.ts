@@ -2,8 +2,7 @@ import { TimelineItemBase } from 'react-calendar-timeline';
 import { UserEntity, UserEntityV1alpha1 } from '@backstage/catalog-model';
 import { ScheduleInformation } from '@microsoft/microsoft-graph-types';
 import { InfiniteData } from '@tanstack/react-query';
-import { head } from 'lodash';
-import { DateTime } from 'luxon';
+import dayjs from 'dayjs';
 
 const isTimeLineItem = (
   item: TimelineItemBase<any> | undefined,
@@ -12,7 +11,7 @@ const isTimeLineItem = (
 };
 
 const getFullName = (users: UserEntity[], userId: string) => {
-  const name = head(userId.split('@'));
+  const [name] = userId.split('@');
   const user = users.find(u => u.metadata.name === name);
 
   if (user) return user.spec.profile?.displayName;
@@ -20,18 +19,17 @@ const getFullName = (users: UserEntity[], userId: string) => {
 };
 
 const getUser = (users: UserEntity[], userId: string) => {
-  const name = head(userId.split('@'));
-  const user = users.find(u => u.metadata.name === name);
+  const [name] = userId.split('@');
 
-  return user;
+  return users.find(u => u.metadata.name === name);
 };
 
 export const getScheduleItems = (
-  availablity: InfiniteData<ScheduleInformation[]> | undefined,
+  availability: InfiniteData<ScheduleInformation[], unknown> | undefined,
   groupIndexMap?: Map<number, number>,
 ) => {
-  return availablity
-    ? availablity?.pages
+  return availability
+    ? availability.pages
         .flatMap(p => p)
         // @ts-ignore
         .flatMap((a, i) =>
@@ -43,8 +41,8 @@ export const getScheduleItems = (
             .map(s => ({
               id: Date.now().toString(36) + Math.random().toString(36).slice(2),
               group: groupIndexMap?.get(i) ?? i,
-              start_time: DateTime.fromISO(s.start?.dateTime!),
-              end_time: DateTime.fromISO(s.end?.dateTime!),
+              start_time: dayjs(s.start?.dateTime!),
+              end_time: dayjs(s.end?.dateTime!),
               canMove: false,
               canResize: false,
             })),
@@ -54,7 +52,7 @@ export const getScheduleItems = (
 };
 
 export const getGroups = (
-  availablity: InfiniteData<ScheduleInformation[]> | undefined,
+  availability: InfiniteData<ScheduleInformation[], unknown> | undefined,
   isUserEntity: string | false,
   users: UserEntityV1alpha1[] | undefined,
 ): [
@@ -67,11 +65,11 @@ export const getGroups = (
   }>,
   groupIndexMap: Map<number, number>,
 ] => {
-  if (!availablity) {
+  if (!availability) {
     return [[], new Map()];
   }
 
-  const flattenedSchedules = availablity.pages
+  const flattenedSchedules = availability.pages
     .flatMap(p => p)
     .map((a, originalIndex) => ({
       originalIndex,
@@ -95,7 +93,7 @@ export const getGroups = (
     const isHighlighted =
       isUserEntity &&
       item.schedule.scheduleId &&
-      isUserEntity === head(item.schedule.scheduleId.split('@'));
+      isUserEntity === item.schedule.scheduleId?.split('@')[0];
 
     return {
       id: newIndex,

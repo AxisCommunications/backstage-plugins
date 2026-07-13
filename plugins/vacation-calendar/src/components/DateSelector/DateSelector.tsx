@@ -1,31 +1,35 @@
-import { DateTime } from 'luxon/src/datetime';
-import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
-import FormControl from '@mui/material/FormControl';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { DatePicker } from '@backstage/ui';
+import { parseDate, type DateValue } from '@internationalized/date';
+import dayjs, { type Dayjs } from 'dayjs';
 
 type DateSelectorProps = {
   label: string;
-  initalDate: DateTime;
-  onDateChange: (date: DateTime | null | string | undefined) => void;
+  initialDate: Dayjs;
+  onDateChange: (date: Dayjs | null) => void;
 };
+
+function toDateValue(date: Dayjs): DateValue {
+  return parseDate(date.format('YYYY-MM-DD'));
+}
 
 export const DateSelector = ({
   label,
-  initalDate,
+  initialDate,
   onDateChange,
 }: DateSelectorProps) => {
+  const handleChange = (value: DateValue | null) => {
+    if (value) {
+      onDateChange(dayjs(value.toString()));
+    } else {
+      onDateChange(null);
+    }
+  };
+
   return (
-    <FormControl variant="standard">
-      <LocalizationProvider dateAdapter={AdapterLuxon}>
-        <DesktopDatePicker
-          format="yyyy-MM-dd"
-          label={label}
-          value={initalDate}
-          defaultValue={initalDate}
-          onChange={onDateChange}
-        />
-      </LocalizationProvider>
-    </FormControl>
+    <DatePicker
+      label={label}
+      value={toDateValue(initialDate)}
+      onChange={handleChange}
+    />
   );
 };
