@@ -1,6 +1,6 @@
 {
   "name": "@axis-backstage/plugin-readme",
-  "version": "0.19.1",
+  "version": "0.19.2",
   "exports": {
     ".": "./src/index.ts",
     "./alpha": "./src/alpha.tsx",

@@ -1,5 +1,21 @@
 # @axis-backstage/plugin-vacation-calendar
 
+## 0.11.0
+
+### Minor Changes
+
+- 78d19b9: Migrate the vacation calendar to Backstage UI, TanStack Query v5, Day.js, and
+  react-calendar-timeline v0.30. The calendar now uses a Backstage UI date picker.
+
+  The migration removes a number of legacy Material UI, date-picker, and timeline
+  dependencies.
+
+  **Breaking:** Consumers must install and configure `@backstage/ui`.
+
+### Patch Changes
+
+- 2569fb1: Updated to Backstage 1.52.1
+
 ## 0.10.1
 
 ### Patch Changes
