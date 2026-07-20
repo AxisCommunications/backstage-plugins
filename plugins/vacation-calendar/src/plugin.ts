@@ -1,4 +1,3 @@
-import 'react-calendar-timeline/style.css';
 import {
   createApiFactory,
   createPlugin,

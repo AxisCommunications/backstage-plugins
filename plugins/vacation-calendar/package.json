@@ -33,7 +33,8 @@
     ]
   },
   "sideEffects": [
-    "**/*.css"
+    "**/*.css",
+    "**/*.css.esm.js"
   ],
   "scripts": {
     "start": "backstage-cli package start",
