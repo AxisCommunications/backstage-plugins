@@ -7,6 +7,28 @@ import {
 import { CatalogApi } from '@backstage/plugin-catalog-react';
 
 const MANAGER_ANNOTATION = 'manager';
+const CATALOG_PAGE_SIZE = 500;
+
+const fetchAllUserEntities = async (
+  catalogApi: CatalogApi,
+  filter: Record<string, string | string[]>,
+) => {
+  const users: UserEntity[] = [];
+  let cursor: string | undefined;
+
+  do {
+    const response = await catalogApi.queryEntities(
+      cursor
+        ? { cursor, limit: CATALOG_PAGE_SIZE }
+        : { filter, limit: CATALOG_PAGE_SIZE, totalItems: 'exclude' },
+    );
+
+    users.push(...(response.items as UserEntity[]));
+    cursor = response.pageInfo.nextCursor;
+  } while (cursor);
+
+  return users;
+};
 
 export const fetchUserEntities = async (
   catalogApi: CatalogApi,
@@ -22,8 +44,7 @@ export const fetchUserEntities = async (
       entity.metadata.annotations[MANAGER_ANNOTATION],
   };
 
-  const { items } = await catalogApi.getEntities({ filter });
-  return items as UserEntity[];
+  return fetchAllUserEntities(catalogApi, filter);
 };
 
 export const fetchGroupEntities = async (
@@ -45,5 +66,5 @@ export const fetchGroupEntities = async (
     ],
   };
 
-  return (await catalogApi.getEntities({ filter })).items as UserEntity[];
+  return fetchAllUserEntities(catalogApi, filter);
 };
