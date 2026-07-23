@@ -7,13 +7,17 @@ import Timeline, {
   DateHeader,
 } from 'react-calendar-timeline';
 import dayjs from 'dayjs';
+import { UserEntity } from '@backstage/catalog-model';
 import { useApi } from '@backstage/core-plugin-api';
-import { useEntity, catalogApiRef } from '@backstage/plugin-catalog-react';
+import {
+  useEntity,
+  catalogApiRef,
+  EntityRefLink,
+} from '@backstage/plugin-catalog-react';
 import {
   Content,
   ContentHeader,
   SupportButton,
-  Link,
   ErrorPanel,
   Progress,
   Avatar,
@@ -47,6 +51,8 @@ export const CalendarCard = () => {
 
   const isUserEntity =
     entity.kind.toLowerCase() === 'user' && entity.metadata.name;
+  const currentUserEmail =
+    (isUserEntity && (entity as UserEntity).spec?.profile?.email) || false;
 
   const { value: users } = useAsync(async () => {
     return isUserEntity
@@ -66,7 +72,11 @@ export const CalendarCard = () => {
   const showLoader =
     isAvailabilityLoading || isAvailabilityFetching || !isInitialized;
 
-  const [groups, groupIndexMap] = getGroups(availability, isUserEntity, users);
+  const [groups, groupIndexMap] = getGroups(
+    availability,
+    currentUserEmail,
+    users,
+  );
   const scheduleItems = getScheduleItems(availability, groupIndexMap);
 
   if (users?.length === 0) {
@@ -183,24 +193,26 @@ export const CalendarCard = () => {
               groups={groups}
               sidebarWidth={250}
               groupRenderer={({ group }) => {
-                return (
-                  <Link
-                    to={`/catalog/default/user/${group.entity?.metadata.name}`}
-                  >
-                    <div className="custom-group">
-                      <Avatar
-                        displayName={
-                          group.entity?.metadata.displayName as string
-                        }
-                        picture={group.entity?.spec.profile?.picture}
-                        customStyles={{
-                          width: 30,
-                          height: 30,
-                        }}
-                      />
-                      <span className="title">{group.title}</span>
-                    </div>
-                  </Link>
+                const groupContent = (
+                  <div className="custom-group">
+                    <Avatar
+                      displayName={group.entity?.metadata.displayName as string}
+                      picture={group.entity?.spec.profile?.picture}
+                      customStyles={{
+                        width: 30,
+                        height: 30,
+                      }}
+                    />
+                    <span className="title">{group.title}</span>
+                  </div>
+                );
+
+                return group.entity ? (
+                  <EntityRefLink entityRef={group.entity}>
+                    {groupContent}
+                  </EntityRefLink>
+                ) : (
+                  groupContent
                 );
               }}
               items={scheduleItems as any}

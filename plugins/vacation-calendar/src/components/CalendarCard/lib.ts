@@ -10,18 +10,26 @@ const isTimeLineItem = (
   return item !== undefined;
 };
 
-const getFullName = (users: UserEntity[], userId: string) => {
-  const [name] = userId.split('@');
-  const user = users.find(u => u.metadata.name === name);
+const createUsersByEmail = (users: UserEntity[]) => {
+  return users.reduce((usersByEmail, user) => {
+    const email = user.spec.profile?.email;
 
-  if (user) return user.spec.profile?.displayName;
-  return userId;
+    if (email) {
+      usersByEmail.set(email.toLowerCase(), user);
+    }
+
+    return usersByEmail;
+  }, new Map<string, UserEntity>());
 };
 
-const getUser = (users: UserEntity[], userId: string) => {
-  const [name] = userId.split('@');
+const getUser = (usersByEmail: Map<string, UserEntity>, userId: string) => {
+  return usersByEmail.get(userId.toLowerCase());
+};
 
-  return users.find(u => u.metadata.name === name);
+const getFullName = (usersByEmail: Map<string, UserEntity>, userId: string) => {
+  const user = getUser(usersByEmail, userId);
+
+  return user?.spec.profile?.displayName ?? userId;
 };
 
 export const getScheduleItems = (
@@ -53,7 +61,7 @@ export const getScheduleItems = (
 
 export const getGroups = (
   availability: InfiniteData<ScheduleInformation[], unknown> | undefined,
-  isUserEntity: string | false,
+  currentUserEmail: string | false,
   users: UserEntityV1alpha1[] | undefined,
 ): [
   groups: Array<{
@@ -69,12 +77,13 @@ export const getGroups = (
     return [[], new Map()];
   }
 
+  const usersByEmail = createUsersByEmail(users || []);
   const flattenedSchedules = availability.pages
     .flatMap(p => p)
     .map((a, originalIndex) => ({
       originalIndex,
       schedule: a,
-      title: getFullName(users || [], a.scheduleId || ''),
+      title: getFullName(usersByEmail, a.scheduleId || ''),
     }));
 
   // Sort by title (display name) alphabetically
@@ -91,15 +100,15 @@ export const getGroups = (
 
   const groups = sortedSchedules.map((item, newIndex) => {
     const isHighlighted =
-      isUserEntity &&
-      item.schedule.scheduleId &&
-      isUserEntity === item.schedule.scheduleId?.split('@')[0];
+      currentUserEmail &&
+      item.schedule.scheduleId?.toLowerCase() ===
+        currentUserEmail.toLowerCase();
 
     return {
       id: newIndex,
       highlight: !!isHighlighted,
       title: item.title || '',
-      entity: getUser(users || [], item.schedule.scheduleId || ''),
+      entity: getUser(usersByEmail, item.schedule.scheduleId || ''),
       height: 30,
     };
   });

@@ -10,11 +10,15 @@ const makeAvailability = (
   pageParams: [0],
 });
 
-const makeUser = (name: string, displayName: string): UserEntityV1alpha1 => ({
+const makeUser = (
+  name: string,
+  displayName: string,
+  email: string = `${name}@example.com`,
+): UserEntityV1alpha1 => ({
   apiVersion: 'backstage.io/v1alpha1',
   kind: 'User',
   metadata: { name },
-  spec: { profile: { displayName }, memberOf: [] },
+  spec: { profile: { displayName, email }, memberOf: [] },
 });
 
 describe('getGroups', () => {
@@ -93,6 +97,19 @@ describe('getGroups', () => {
       expect(groups[1].title).toBe('unknown@example.com');
     });
 
+    it('resolves the entity by email even when metadata.name differs from the email local part', () => {
+      const availability = makeAvailability([
+        { scheduleId: 'Niklas.Aronsson@axis.com' },
+      ]);
+      const users = [
+        makeUser('niklasar', 'Niklas Aronsson', 'Niklas.Aronsson@axis.com'),
+      ];
+
+      const [groups] = getGroups(availability, false, users);
+
+      expect(groups[0].entity?.metadata.name).toBe('niklasar');
+    });
+
     it('is case-insensitive when sorting', () => {
       const availability = makeAvailability([
         { scheduleId: 'bob@example.com' },
@@ -120,7 +137,7 @@ describe('getGroups', () => {
       ]);
       const users = [makeUser('alice', 'Alice'), makeUser('bob', 'Bob')];
 
-      const [groups] = getGroups(availability, 'alice', users);
+      const [groups] = getGroups(availability, 'alice@example.com', users);
 
       const alice = groups.find(g => g.title === 'Alice');
       const bob = groups.find(g => g.title === 'Bob');
