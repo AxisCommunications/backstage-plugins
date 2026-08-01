@@ -1,4 +1,4 @@
-import { Avatar, ButtonLink, Flex, Text } from '@backstage/ui';
+import { Avatar, ButtonLink, Flex } from '@backstage/ui';
 import { EntityInfoCard } from '@backstage/plugin-catalog-react';
 import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 import { ProjectInfoLabel } from './ProjectInfoLabel';
@@ -8,23 +8,27 @@ type JiraProjectCardProps = {
   project: Project;
 };
 
+const CardTitle = (props: { title: string; pictureSrc?: string }) => (
+  <Flex align="center" gap="2">
+    <Avatar
+      size="large"
+      purpose="decoration"
+      name={props.title}
+      src={props.pictureSrc || ''}
+    />
+    {props.title}
+  </Flex>
+);
+
 export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
+  const title = project.projectTypeKey
+    ? `${project.name} | ${project.projectTypeKey}`
+    : project.name;
+
   return (
     <EntityInfoCard
       title={
-        <Flex align="center" gap="2">
-          <Avatar
-            size="large"
-            purpose="decoration"
-            name={project.name}
-            src={project.avatarUrls['48x48'] || ''}
-          />
-          <Text as="span" variant="title-x-small" weight="bold">
-            {project.projectTypeKey
-              ? `${project.name} | ${project.projectTypeKey}`
-              : project.name}
-          </Text>
-        </Flex>
+        <CardTitle title={title} pictureSrc={project.avatarUrls['48x48']} />
       }
     >
       <Flex direction="column" gap="4" mb="4">
