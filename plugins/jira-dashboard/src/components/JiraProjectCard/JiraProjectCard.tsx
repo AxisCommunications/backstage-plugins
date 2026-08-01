@@ -1,10 +1,8 @@
 import { Avatar, ButtonLink, Flex, Text } from '@backstage/ui';
-import { MarkdownContent } from '@backstage/core-components';
 import { EntityInfoCard } from '@backstage/plugin-catalog-react';
 import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 import { ProjectInfoLabel } from './ProjectInfoLabel';
 import { getProjectUrl } from '../../lib';
-import styles from './JiraProjectCard.module.css';
 
 type JiraProjectCardProps = {
   project: Project;

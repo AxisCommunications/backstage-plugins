@@ -1,4 +1,0 @@
-/* Disable default paragraph margins inside the markdown description. */
-.markdown p {
-  margin: 0;
-}
