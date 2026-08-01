@@ -43,7 +43,7 @@ export const JiraDashboardContent = (props?: {
     : [];
 
   return projects.length > 1 ? (
-    <EntityInfoCard title="Jira Projects">
+    <EntityInfoCard>
       <Tabs>
         <TabList aria-label="Jira Projects">
           {projects.map(project => (
