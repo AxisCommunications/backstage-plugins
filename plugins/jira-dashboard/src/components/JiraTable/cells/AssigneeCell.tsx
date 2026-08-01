@@ -1,5 +1,4 @@
-import { Avatar } from '@backstage/core-components';
-import { Flex, Link, Text } from '@backstage/ui';
+import { Avatar, Flex, Link, Text } from '@backstage/ui';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 import { EntityPeekAheadPopover } from '@backstage/plugin-catalog-react';
 import { stringifyEntityRef } from '@backstage/catalog-model';
@@ -29,20 +28,23 @@ export const AssigneeCell = ({ assignee }: Props) => {
         align="center"
         data-testid="assignee-avatar"
       >
-        <Avatar picture="" customStyles={{ width: 25, height: 25 }} />
+        <Avatar size="small" purpose="decoration" name="Unassigned" src="" />
         <Text variant="body-medium">Unassigned</Text>
       </Flex>
     );
   }
 
+  const displayName = assignee.displayName || assignee.name || '';
   const avatar = (
     <Flex direction="row" gap="2" align="center" data-testid="assignee-avatar">
       <Avatar
-        picture={assignee.avatarUrls?.['48x48'] || ''}
-        customStyles={{ width: 25, height: 25 }}
+        size="small"
+        purpose="decoration"
+        name={displayName}
+        src={assignee.avatarUrls?.['48x48'] || ''}
       />
       <Text truncate variant="body-medium">
-        {assignee.displayName || assignee.name}
+        {displayName}
       </Text>
     </Flex>
   );
