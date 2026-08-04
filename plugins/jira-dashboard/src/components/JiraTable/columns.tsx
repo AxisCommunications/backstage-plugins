@@ -30,7 +30,7 @@ export const columnKey: TableColumn<Issue> = {
           <img
             src={issue.fields?.issuetype.iconUrl}
             alt={issue.fields?.issuetype.name}
-            style={{ paddingRight: '15px' }}
+            style={{ height: 16, width: 16 }}
           />
           {issue.key}
         </Flex>
