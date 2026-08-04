@@ -72,7 +72,7 @@ export const JiraTable = ({
     }
   }
   let title = (
-    <Text as="span" variant="title-small" data-testid="table-header">
+    <Text as="span" variant="title-x-small" weight="bold" data-testid="table-header">
       {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
     </Text>
   );
@@ -83,7 +83,8 @@ export const JiraTable = ({
         href={`${getJiraBaseUrl(project.self)}/issues/?jql=${
           tableContent.query
         }`}
-        variant="title-small"
+        variant="title-x-small"
+        weight="bold"
         data-testid="table-header"
         standalone
         target="_blank"
