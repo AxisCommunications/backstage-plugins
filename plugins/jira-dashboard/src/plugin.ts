@@ -8,6 +8,7 @@ import {
 } from '@backstage/core-plugin-api';
 import { rootRouteRef } from './routes';
 import { jiraDashboardApiRef, JiraDashboardClient } from './api';
+
 export { isJiraDashboardAvailable } from './availability';
 
 /**

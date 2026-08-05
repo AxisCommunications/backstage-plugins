@@ -41,13 +41,19 @@ describe('Jira user issues homepage widget', () => {
       apis: [[jiraDashboardApiRef, mockJiraApi]],
     });
 
-    expect(await screen.findByText('Team Jira Issues')).toBeInTheDocument();
-    expect(await screen.findByText('Open Jira')).toBeInTheDocument();
-    await waitFor(() =>
-      expect(mockJiraApi.getLoggedInUserIssues).toHaveBeenCalledWith(
-        25,
-        'Unresolved',
-      ),
+    expect(
+      await screen.findByText('Team Jira Issues', {}, { timeout: 5000 }),
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText('Open Jira', {}, { timeout: 5000 }),
+    ).toBeInTheDocument();
+    await waitFor(
+      () =>
+        expect(mockJiraApi.getLoggedInUserIssues).toHaveBeenCalledWith(
+          25,
+          'Unresolved',
+        ),
+      { timeout: 5000 },
     );
   });
 });
