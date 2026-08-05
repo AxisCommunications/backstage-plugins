@@ -10,6 +10,8 @@ import { Entity } from '@backstage/catalog-model';
 import { ExtensionBlueprintParams } from '@backstage/frontend-plugin-api';
 import { ExtensionDataRef } from '@backstage/frontend-plugin-api';
 import { FilterPredicate } from '@backstage/filter-predicates';
+import { HomePageWidgetBlueprintParams } from '@backstage/plugin-home-react/alpha';
+import { HomePageWidgetData } from '@backstage/plugin-home-react/alpha';
 import { JSX as JSX_2 } from 'react';
 import { JSXElementConstructor } from 'react';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
@@ -117,6 +119,61 @@ const _default: OverridableFrontendPlugin<
         routeRef?: RouteRef;
         filter?: string | FilterPredicate | ((entity: Entity) => boolean);
       };
+    }>;
+    'home-page-widget:jira-dashboard/user-issues': OverridableExtensionDefinition<{
+      config: {
+        title: string;
+        maxResults: number;
+        filterName: string;
+        bottomLink:
+          | {
+              link: string;
+              title: string;
+            }
+          | undefined;
+        tableOptions: {
+          toolbar: boolean;
+          search: boolean;
+          paging: boolean;
+          pageSize: number;
+        };
+        tableStyle: {
+          padding: string;
+          overflowY: 'auto' | 'hidden' | 'scroll' | 'visible';
+          width: string;
+        };
+      };
+      configInput: {
+        title?: string | undefined;
+        maxResults?: number | undefined;
+        filterName?: string | undefined;
+        bottomLink?:
+          | {
+              link: string;
+              title?: string | undefined;
+            }
+          | undefined;
+        tableOptions?:
+          | {
+              toolbar?: boolean | undefined;
+              search?: boolean | undefined;
+              paging?: boolean | undefined;
+              pageSize?: number | undefined;
+            }
+          | undefined;
+        tableStyle?:
+          | {
+              padding?: string | undefined;
+              overflowY?: 'auto' | 'hidden' | 'scroll' | 'visible' | undefined;
+              width?: string | undefined;
+            }
+          | undefined;
+      };
+      output: ExtensionDataRef<HomePageWidgetData, 'home.widget.data', {}>;
+      inputs: {};
+      kind: 'home-page-widget';
+      name: 'user-issues';
+      params: HomePageWidgetBlueprintParams;
     }>;
   }
 >;
