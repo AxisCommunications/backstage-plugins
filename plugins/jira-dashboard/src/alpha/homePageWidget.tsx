@@ -1,4 +1,3 @@
-import { BottomLink } from '@backstage/core-components';
 import { HomePageWidgetBlueprint } from '@backstage/plugin-home-react/alpha';
 import { z } from 'zod';
 
@@ -54,9 +53,10 @@ export const jiraUserIssuesWidget = HomePageWidgetBlueprint.makeWithOverrides({
       title: config.title,
       description: 'Shows Jira issues assigned to the signed-in user',
       components: async () => {
-        const { JiraUserIssuesTable } = await import(
-          '../components/JiraUserIssuesTable'
-        );
+        const [{ JiraUserIssuesTable }, { BottomLink }] = await Promise.all([
+          import('../components/JiraUserIssuesTable'),
+          import('@backstage/core-components'),
+        ]);
 
         return {
           Content: props => <JiraUserIssuesTable {...props} />,

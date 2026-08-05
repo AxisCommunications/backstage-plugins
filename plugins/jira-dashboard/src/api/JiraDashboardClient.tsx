@@ -1,9 +1,9 @@
-import { DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
+import type { DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
 import {
   Issue,
   JiraResponse,
 } from '@axis-backstage/plugin-jira-dashboard-common';
-import { JiraDashboardApi } from './JiraDashboardApi';
+import type { JiraDashboardApi } from './JiraDashboardApi';
 import { ResponseError } from '@backstage/errors';
 import { DEFAULT_NAMESPACE, parseEntityRef } from '@backstage/catalog-model';
 

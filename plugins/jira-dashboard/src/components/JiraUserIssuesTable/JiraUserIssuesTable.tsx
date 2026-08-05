@@ -7,7 +7,7 @@ import {
   Table,
   TableOptions,
 } from '@backstage/core-components';
-import { useApi } from '@backstage/core-plugin-api';
+import { useApi } from '@backstage/frontend-plugin-api';
 
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
 
