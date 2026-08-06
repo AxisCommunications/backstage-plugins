@@ -1,5 +1,17 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 2.4.0
+
+### Minor Changes
+
+- 1caa15e: Add a configurable Jira user issues homepage widget for the new frontend system and isolate the alpha entrypoint from legacy frontend APIs.
+
+### Patch Changes
+
+- b7492ab: Updated to Backstage 1.53.1
+- Updated dependencies [b7492ab]
+  - @axis-backstage/plugin-jira-dashboard-common@1.15.3
+
 ## 2.3.6
 
 ### Patch Changes

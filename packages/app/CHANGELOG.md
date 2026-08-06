@@ -1,5 +1,19 @@
 # app
 
+## 0.12.14
+
+### Patch Changes
+
+- b7492ab: Updated to Backstage 1.53.1
+- Updated dependencies [1caa15e]
+- Updated dependencies [b7492ab]
+  - @axis-backstage/plugin-jira-dashboard@2.4.0
+  - @axis-backstage/plugin-analytics-module-umami@0.11.4
+  - @axis-backstage/plugin-jira-dashboard-common@1.15.3
+  - @axis-backstage/plugin-vacation-calendar@0.11.3
+  - @axis-backstage/plugin-statuspage@0.11.2
+  - @axis-backstage/plugin-readme@0.19.3
+
 ## 0.12.13
 
 ### Patch Changes
