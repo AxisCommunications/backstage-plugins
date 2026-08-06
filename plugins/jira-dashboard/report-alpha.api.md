@@ -139,7 +139,7 @@ const _default: OverridableFrontendPlugin<
         };
         tableStyle: {
           padding: string;
-          overflowY: 'auto' | 'hidden' | 'scroll' | 'visible';
+          overflowY: 'auto' | 'hidden' | 'visible' | 'scroll';
           width: string;
         };
       };
@@ -164,7 +164,7 @@ const _default: OverridableFrontendPlugin<
         tableStyle?:
           | {
               padding?: string | undefined;
-              overflowY?: 'auto' | 'hidden' | 'scroll' | 'visible' | undefined;
+              overflowY?: 'auto' | 'hidden' | 'visible' | 'scroll' | undefined;
               width?: string | undefined;
             }
           | undefined;
