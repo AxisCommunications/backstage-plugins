@@ -234,6 +234,36 @@ app:
     - entity-content:jira-dashboard/entity
 ```
 
+The plugin also contributes a `home-page-widget:jira-dashboard/user-issues`
+extension to the new frontend system's Home plugin. With feature discovery it
+is available automatically. Its legacy card options can be configured in
+`app-config.yaml`:
+
+```yaml
+app:
+  extensions:
+    - home-page-widget:jira-dashboard/user-issues:
+        config:
+          title: My Jira Issues
+          maxResults: 30
+          filterName: Unresolved
+          bottomLink:
+            link: https://our-jira-server/issues
+            title: Open in Jira
+          tableOptions:
+            toolbar: true
+            search: true
+            paging: true
+            pageSize: 15
+          tableStyle:
+            padding: 5px
+            overflowY: auto
+            width: 95%
+```
+
+The Home plugin must be installed in the app for the widget to have a homepage
+attachment point.
+
 ## Layout
 
 The issue overview is located under the tab "Jira Dashboard" on the entity page. The overview displays information about the specific Jira project, and then renders one table for each type of issue view. In each view you can see the priority, assignee and status for that issue.
