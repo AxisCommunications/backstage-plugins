@@ -43,7 +43,7 @@ export const AssigneeCell = ({ assignee }: Props) => {
         name={displayName}
         src={assignee.avatarUrls?.['48x48'] || ''}
       />
-      <Text truncate variant="body-medium">
+      <Text as="div" truncate variant="body-medium" style={{ minWidth: 0 }}>
         {displayName}
       </Text>
     </Flex>
