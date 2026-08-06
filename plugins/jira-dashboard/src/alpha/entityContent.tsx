@@ -1,12 +1,7 @@
-import {
-  compatWrapper,
-  convertLegacyRouteRef,
-} from '@backstage/core-compat-api';
 import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
-import { rootRouteRef } from '../routes';
-
-import { configApiRef } from '@backstage/core-plugin-api';
-import { isJiraDashboardAvailable } from '..';
+import { configApiRef } from '@backstage/frontend-plugin-api';
+import { isJiraDashboardAvailable } from '../availability';
+import { rootRouteRef } from './routes';
 /**
  * @alpha
  */
@@ -21,11 +16,11 @@ export const entityJiraContent = EntityContentBlueprint.makeWithOverrides({
       path: '/jira',
       title: 'Jira Dashboard',
       filter: entity => isJiraDashboardAvailable(entity, annotationPrefix),
-      routeRef: convertLegacyRouteRef(rootRouteRef),
+      routeRef: rootRouteRef,
       loader: async () =>
-        import('../components/JiraDashboardContent').then(m =>
-          compatWrapper(<m.JiraDashboardContent />),
-        ),
+        import('../components/JiraDashboardContent').then(m => (
+          <m.JiraDashboardContent />
+        )),
     });
   },
 });

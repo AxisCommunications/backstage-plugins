@@ -1939,7 +1939,6 @@ __metadata:
     "@backstage/catalog-model": "npm:^1.9.0"
     "@backstage/cli": "npm:^0.36.4"
     "@backstage/core-app-api": "npm:^1.20.3"
-    "@backstage/core-compat-api": "npm:^0.5.13"
     "@backstage/core-components": "npm:^0.18.12"
     "@backstage/core-plugin-api": "npm:^1.12.8"
     "@backstage/dev-utils": "npm:^1.1.25"
@@ -1947,6 +1946,7 @@ __metadata:
     "@backstage/frontend-plugin-api": "npm:^0.17.3"
     "@backstage/frontend-test-utils": "npm:^0.6.2"
     "@backstage/plugin-catalog-react": "npm:^3.2.0"
+    "@backstage/plugin-home-react": "npm:^0.1.40"
     "@backstage/test-utils": "npm:^1.7.20"
     "@backstage/theme": "npm:^0.7.3"
     "@backstage/ui": "npm:^0.17.0"
@@ -1960,6 +1960,7 @@ __metadata:
     luxon: "npm:^3.5.0"
     msw: "npm:^2.7.3"
     react-use: "npm:^17.2.4"
+    zod: "npm:^4.3.6"
   peerDependencies:
     "@material-ui/core": ^4.12.2
     "@types/react": ^17.0.0 || ^18.0.0
