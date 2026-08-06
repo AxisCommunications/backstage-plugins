@@ -8,12 +8,17 @@ type JiraProjectCardProps = {
   project: Project;
 };
 
-const CardTitle = (props: { title: string; pictureSrc?: string }) => (
+const CardTitle = (props: {
+  title: string;
+  /** Bare project name: the initials source, so the composed title would yield junk like "B|". */
+  avatarName: string;
+  pictureSrc?: string;
+}) => (
   <Flex align="center" gap="2">
     <Avatar
       size="large"
       purpose="decoration"
-      name={props.title}
+      name={props.avatarName}
       src={props.pictureSrc || ''}
     />
     {props.title}
@@ -28,7 +33,11 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
   return (
     <EntityInfoCard
       title={
-        <CardTitle title={title} pictureSrc={project.avatarUrls['48x48']} />
+        <CardTitle
+          title={title}
+          avatarName={project.name}
+          pictureSrc={project.avatarUrls['48x48']}
+        />
       }
     >
       <Flex direction="column" gap="4" mb="4">
