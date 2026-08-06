@@ -1,4 +1,4 @@
-import { createApiRef, type ApiRef } from '@backstage/frontend-plugin-api';
+import { createApiRef } from '@backstage/core-plugin-api';
 import {
   Issue,
   JiraResponse,
@@ -9,11 +9,9 @@ import {
  *
  * @public
  */
-export const jiraDashboardApiRef: ApiRef<JiraDashboardApi> =
-  createApiRef<JiraDashboardApi>().with({
-    id: 'plugin.jira-dashboard',
-    pluginId: 'jira-dashboard',
-  });
+export const jiraDashboardApiRef = createApiRef<JiraDashboardApi>({
+  id: 'plugin.jira-dashboard',
+});
 
 /**
  * The Jira dashboard API.
