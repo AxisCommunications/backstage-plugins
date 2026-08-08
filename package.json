@@ -5,6 +5,10 @@
   "engines": {
     "node": "20 || 22 || 24"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AxisCommunications/backstage-plugins"
+  },
   "scripts": {
     "dev": "NODE_OPTIONS=--no-node-snapshot backstage-cli repo start",
     "dev-next": "npx backstage-cli repo start backend app-next",
@@ -22,7 +26,7 @@
     "test": "backstage-cli repo test",
     "test:all": "backstage-cli repo test --coverage",
     "test:e2e": "playwright test",
-    "fix": "backstage-cli repo fix",
+    "fix": "backstage-cli repo fix --publish",
     "lint": "backstage-cli repo lint --since origin/main",
     "lint:all": "backstage-cli repo lint",
     "pack": "yarn workspaces foreach -A -v pack",

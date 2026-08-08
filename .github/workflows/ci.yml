@@ -54,6 +54,9 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Repo fix
+        run: yarn fix --check
+
       - name: Prettier
         run: yarn prettier:check
 

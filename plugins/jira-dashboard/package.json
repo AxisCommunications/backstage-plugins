@@ -23,6 +23,11 @@
       ]
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AxisCommunications/backstage-plugins",
+    "directory": "plugins/jira-dashboard"
+  },
   "backstage": {
     "role": "frontend-plugin",
     "pluginId": "jira-dashboard",

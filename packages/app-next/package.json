@@ -3,6 +3,11 @@
   "version": "0.1.17",
   "private": true,
   "bundled": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AxisCommunications/backstage-plugins",
+    "directory": "packages/app-next"
+  },
   "backstage": {
     "role": "frontend"
   },
