@@ -10,6 +10,11 @@
     "types": "dist/index.d.ts",
     "directory": "_release/package"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AxisCommunications/backstage-plugins",
+    "directory": "plugins/readme-backend"
+  },
   "backstage": {
     "role": "backend-plugin",
     "pluginId": "readme",
