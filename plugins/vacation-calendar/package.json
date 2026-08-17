@@ -21,9 +21,12 @@
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public",
-    "main": "dist/index.esm.js",
-    "types": "dist/index.d.ts",
     "directory": "_release/package"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AxisCommunications/backstage-plugins",
+    "directory": "plugins/vacation-calendar"
   },
   "backstage": {
     "role": "frontend-plugin",

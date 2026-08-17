@@ -12,6 +12,11 @@
     "types": "dist/index.d.ts",
     "directory": "_release/package"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AxisCommunications/backstage-plugins",
+    "directory": "plugins/jira-dashboard-common"
+  },
   "backstage": {
     "role": "common-library",
     "pluginId": "jira-dashboard",
