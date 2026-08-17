@@ -1,9 +1,7 @@
-import { Link, TableColumn } from '@backstage/core-components';
+import { TableColumn } from '@backstage/core-components';
 import { Issue } from '@axis-backstage/plugin-jira-dashboard-common';
-import Typography from '@mui/material/Typography';
+import { Badge, Flex, Link, Text } from '@backstage/ui';
 import { getIssueUrl } from '../../lib';
-import Chip from '@mui/material/Chip';
-import Box from '@mui/material/Box';
 import { DateTime } from 'luxon';
 import { AssigneeCell } from './cells/AssigneeCell';
 
@@ -21,20 +19,21 @@ export const columnKey: TableColumn<Issue> = {
       return null;
     }
     return (
-      <Link to={getIssueUrl(issue.self, issue.key)} title="Go to issue in Jira">
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
+      <Link
+        href={getIssueUrl(issue.self, issue.key)}
+        title="Go to issue in Jira"
+        standalone
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Flex align="center">
           <img
             src={issue.fields?.issuetype.iconUrl}
             alt={issue.fields?.issuetype.name}
-            style={{ paddingRight: '15px' }}
+            style={{ height: 16, width: 16 }}
           />
           {issue.key}
-        </Box>
+        </Flex>
       </Link>
     );
   },
@@ -59,8 +58,11 @@ export const columnSummary: TableColumn<Issue> = {
     return (
       <Link
         style={{ lineHeight: 1.5 }}
-        to={getIssueUrl(issue.self, issue.key)}
+        href={getIssueUrl(issue.self, issue.key)}
         title="Go to issue in Jira"
+        standalone
+        target="_blank"
+        rel="noopener noreferrer"
       >
         {issue.fields?.summary}
       </Link>
@@ -80,7 +82,13 @@ export const columnPriority: TableColumn<Issue> = {
       return null;
     }
     return (
-      <Link to={getIssueUrl(issue.self, issue.key)} title="Go to issue in Jira">
+      <Link
+        href={getIssueUrl(issue.self, issue.key)}
+        title="Go to issue in Jira"
+        standalone
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <img
           alt={issue.fields?.priority?.name}
           src={issue.fields?.priority?.iconUrl}
@@ -105,16 +113,14 @@ export const columnStatus: TableColumn<Issue> = {
       return null;
     }
     return (
-      <Link to={getIssueUrl(issue.self, issue.key)} title="Go to issue in Jira">
-        <Chip
-          label={issue.fields?.status.name}
-          size="small"
-          sx={{
-            padding: '0',
-            margin: '0',
-            borderRadius: '5px 5px 5px 5px',
-          }}
-        />
+      <Link
+        href={getIssueUrl(issue.self, issue.key)}
+        title="Go to issue in Jira"
+        standalone
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Badge size="small">{issue.fields?.status.name}</Badge>
       </Link>
     );
   },
@@ -147,13 +153,9 @@ export const columnUpdated: TableColumn<Issue> = {
   render: (issue: Partial<Issue>) => {
     if (issue.fields?.updated) {
       return (
-        <Typography
-          sx={{ color: theme => theme.palette.text.secondary }}
-          color="divider"
-          variant="body2"
-        >
+        <Text color="secondary" variant="body-medium">
           {DateTime.fromISO(issue.fields.updated).toFormat('dd/MMM/yy')}
-        </Typography>
+        </Text>
       );
     }
     return null;

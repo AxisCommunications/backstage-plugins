@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import Typography from '@mui/material/Typography';
+import { Flex, Link, Text } from '@backstage/ui';
 import {
   Issue,
   JiraDataResponse,
@@ -7,13 +7,12 @@ import {
 } from '@axis-backstage/plugin-jira-dashboard-common';
 import {
   ErrorPanel,
-  InfoCard,
-  Link,
   Table,
   TableColumn,
   TableFilter,
   TableOptions,
 } from '@backstage/core-components';
+import { EntityInfoCard } from '@backstage/plugin-catalog-react';
 import { capitalize } from 'lodash';
 import { columns } from './columns';
 import { getJiraBaseUrl, transformAssignees } from '../../lib';
@@ -26,10 +25,9 @@ type Props = {
   tableColumns?: TableColumn<Issue>[];
   tableStyle?: TableComponentProps['style'];
   /**
-   * CSS styles to apply to the top-most element, being the table component or
-   * the wrapping InfoCard component if filters are shown.
-   * If no filters are shown, the style prop is merged with the tableStyle prop
-   * and used in the table component.
+   * CSS styles merged into the table component's style (after tableStyle).
+   * Only applied when filters are not shown; with filters the table is wrapped
+   * in an EntityInfoCard and this is ignored.
    */
   style?: CSSProperties;
   showFilters?: TableFilter[] | boolean;
@@ -74,17 +72,23 @@ export const JiraTable = ({
     }
   }
   let title = (
-    <Typography component="div" variant="h5" data-testid="table-header">
+    <Text as="span" variant="title-x-small" weight="bold" data-testid="table-header">
       {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
-    </Typography>
+    </Text>
   );
 
   if (project && tableContent.query) {
     title = (
       <Link
-        to={`${getJiraBaseUrl(project.self)}/issues/?jql=${tableContent.query}`}
-        variant="h5"
+        href={`${getJiraBaseUrl(project.self)}/issues/?jql=${
+          tableContent.query
+        }`}
+        variant="title-x-small"
+        weight="bold"
         data-testid="table-header"
+        standalone
+        target="_blank"
+        rel="noopener noreferrer"
       >
         {`${capitalize(tableContent.name)} (${nbrOfIssues})`}
       </Link>
@@ -104,7 +108,7 @@ export const JiraTable = ({
 
   if (showFilters) {
     return (
-      <InfoCard title={title} headerStyle={style}>
+      <EntityInfoCard title={title}>
         <Table<Issue>
           options={{
             paging: false,
@@ -114,15 +118,15 @@ export const JiraTable = ({
           }}
           filters={filters}
           emptyContent={
-            <Typography display="flex" justifyContent="center" pt={30}>
-              No issues found&nbsp;
-            </Typography>
+            <Flex justify="center" py="8">
+              <Text>No issues found&nbsp;</Text>
+            </Flex>
           }
           data={tableContent.issues || []}
           columns={tableColumns}
           style={baseTableStyle}
         />
-      </InfoCard>
+      </EntityInfoCard>
     );
   }
 
@@ -137,9 +141,9 @@ export const JiraTable = ({
       }}
       filters={filters}
       emptyContent={
-        <Typography display="flex" justifyContent="center" pt={30}>
-          No issues found&nbsp;
-        </Typography>
+        <Flex justify="center" py="8">
+          <Text>No issues found&nbsp;</Text>
+        </Flex>
       }
       data={tableContent.issues || []}
       columns={tableColumns}

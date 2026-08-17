@@ -1,8 +1,5 @@
-import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { Avatar, InfoCard } from '@backstage/core-components';
-import { LinkButton } from '@backstage/core-components';
+import { Avatar, ButtonLink, Flex } from '@backstage/ui';
+import { EntityInfoCard } from '@backstage/plugin-catalog-react';
 import { Project } from '@axis-backstage/plugin-jira-dashboard-common';
 import { ProjectInfoLabel } from './ProjectInfoLabel';
 import { getProjectUrl } from '../../lib';
@@ -11,24 +8,39 @@ type JiraProjectCardProps = {
   project: Project;
 };
 
-export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
-  return (
-    <InfoCard variant="fullHeight">
-      <Stack direction="row" gap={1} alignItems="center" mb={1}>
-        <Avatar
-          picture={project.avatarUrls['48x48']}
-          customStyles={{
-            width: 50,
-            height: 50,
-          }}
-        />
+const CardTitle = (props: {
+  title: string;
+  /** Bare project name: the initials source, so the composed title would yield junk like "B|". */
+  avatarName: string;
+  pictureSrc?: string;
+}) => (
+  <Flex align="center" gap="2">
+    <Avatar
+      size="large"
+      purpose="decoration"
+      name={props.avatarName}
+      src={props.pictureSrc || ''}
+    />
+    {props.title}
+  </Flex>
+);
 
-        <Typography fontSize={20}>
-          {project.name} | {project.projectTypeKey ?? ''}
-        </Typography>
-      </Stack>
-      <Divider />
-      <Stack gap={2} ml={1} my={2}>
+export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
+  const title = project.projectTypeKey
+    ? `${project.name} | ${project.projectTypeKey}`
+    : project.name;
+
+  return (
+    <EntityInfoCard
+      title={
+        <CardTitle
+          title={title}
+          avatarName={project.name}
+          pictureSrc={project.avatarUrls['48x48']}
+        />
+      }
+    >
+      <Flex direction="column" gap="4" mb="4">
         <ProjectInfoLabel label="Project key" value={project.key} />
         {project.projectCategory?.name && (
           <ProjectInfoLabel
@@ -45,14 +57,15 @@ export const JiraProjectCard = ({ project }: JiraProjectCardProps) => {
             value={project?.lead?.displayName || project?.lead?.key}
           />
         )}
-      </Stack>
-      <LinkButton
-        color="primary"
-        variant="contained"
-        to={getProjectUrl(project)}
+      </Flex>
+      <ButtonLink
+        variant="primary"
+        href={getProjectUrl(project)}
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Go to project
-      </LinkButton>
-    </InfoCard>
+      </ButtonLink>
+    </EntityInfoCard>
   );
 };

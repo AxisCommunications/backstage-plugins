@@ -3,11 +3,10 @@ import {
   ResponseErrorPanel,
   TableFilter,
   TableOptions,
-  TabbedCard,
-  CardTab,
 } from '@backstage/core-components';
+import { Tab, TabList, TabPanel, Tabs } from '@backstage/ui';
 import { useApi } from '@backstage/core-plugin-api';
-import { useEntity } from '@backstage/plugin-catalog-react';
+import { EntityInfoCard, useEntity } from '@backstage/plugin-catalog-react';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { jiraDashboardApiRef } from '../../api';
 import { useJira } from '../../hooks/useJira';
@@ -44,18 +43,27 @@ export const JiraDashboardContent = (props?: {
     : [];
 
   return projects.length > 1 ? (
-    <TabbedCard title="Jira Projects" data-testid="tabbed-card">
-      {projects.map(project => (
-        <CardTab key={project.key} label={project.name}>
-          <JiraGrid
-            project={project}
-            tableData={jiraResponse.data}
-            showFilters={props?.showFilters}
-            tableOptions={props?.tableOptions}
-          />
-        </CardTab>
-      ))}
-    </TabbedCard>
+    <EntityInfoCard>
+      <Tabs>
+        <TabList aria-label="Jira Projects">
+          {projects.map(project => (
+            <Tab id={project.key} key={project.key}>
+              {project.name}
+            </Tab>
+          ))}
+        </TabList>
+        {projects.map(project => (
+          <TabPanel id={project.key} key={project.key}>
+            <JiraGrid
+              project={project}
+              tableData={jiraResponse.data}
+              showFilters={props?.showFilters}
+              tableOptions={props?.tableOptions}
+            />
+          </TabPanel>
+        ))}
+      </Tabs>
+    </EntityInfoCard>
   ) : (
     <JiraGrid
       project={projects[0]}
