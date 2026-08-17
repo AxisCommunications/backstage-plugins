@@ -352,6 +352,11 @@ export async function createRouter(
       const val = avatar.headers.get('content-type');
 
       response.setHeader('content-type', val ?? '');
+      if (!avatar.body) {
+        response.sendStatus(502);
+        return;
+      }
+
       stream.pipeline(avatar.body, ps, err => {
         if (err) {
           logger.error(`${err}`);

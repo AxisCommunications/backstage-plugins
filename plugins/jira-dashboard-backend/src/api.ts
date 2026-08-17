@@ -1,4 +1,3 @@
-import fetch, { RequestInit } from 'node-fetch';
 import {
   Filter,
   Issue,

@@ -4,18 +4,16 @@
 
 ```ts
 import { BackendFeature } from '@backstage/backend-plugin-api';
-import { default as fetch_2 } from 'node-fetch';
 import { Filter } from '@axis-backstage/plugin-jira-dashboard-common';
 import { JiraQueryResults } from '@axis-backstage/plugin-jira-dashboard-common';
-import { RequestInit as RequestInit_2 } from 'node-fetch';
 import { RootConfigService } from '@backstage/backend-plugin-api';
 
 // @public
 export function callApi(
   instance: ConfigInstance,
   url: string,
-  init?: RequestInit_2,
-): Promise<fetch_2.Response>;
+  init?: RequestInit,
+): Promise<Response>;
 
 // @public
 export type ConfigInstance = {
