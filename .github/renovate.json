@@ -3,6 +3,14 @@
   "extends": ["config:best-practices", ":prHourlyLimitNone"],
   "labels": ["dependencies"],
   "packageRules": [
+     {
+      "matchManagers": ["npm"],
+      "enabled": false,
+      "vulnerabilityAlerts": {
+        "enabled": true
+      },
+      "matchPackageNames": ["/^@backstage//"]
+    },
     {
       "description": "Auto-merge non-breaking SemVer updates (minor and patch) for stable (>= 1.0.0) dependencies",
       "matchUpdateTypes": ["minor", "patch"],
