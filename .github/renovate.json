@@ -3,7 +3,7 @@
   "extends": ["config:best-practices", ":prHourlyLimitNone"],
   "labels": ["dependencies"],
   "packageRules": [
-     {
+    {
       "matchManagers": ["npm"],
       "enabled": false,
       "vulnerabilityAlerts": {
@@ -19,7 +19,14 @@
     },
     {
       "description": "Enforce a 14-day minimumReleaseAge for all update types, overriding any inherited preset configuration",
-      "matchUpdateTypes": ["major", "minor", "patch", "pin", "pinDigest", "digest"],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch",
+        "pin",
+        "pinDigest",
+        "digest"
+      ],
       "minimumReleaseAge": "14 days"
     }
   ],
