@@ -2,18 +2,27 @@ name: Basic workflow
 
 on: [push, pull_request, workflow_dispatch]
 
+# Least-privilege default; jobs only need read access to the repo contents.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22.x
+          node-version: 24.x
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
 
       - name: Type checking and generate .d.ts files before packaging
         run: yarn tsc
@@ -27,14 +36,15 @@ jobs:
   test:
     name: Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22.x
+          node-version: 24.x
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
 
       - name: Test
         run: yarn test
@@ -42,17 +52,18 @@ jobs:
   format:
     name: Formatting and linting
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: fetch branch main
         run: git fetch origin main
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22.x
+          node-version: 24.x
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
 
       - name: Repo fix
         run: yarn fix --check
