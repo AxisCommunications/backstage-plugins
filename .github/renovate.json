@@ -2,6 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:best-practices", ":prHourlyLimitNone"],
   "labels": ["dependencies"],
+  "postUpdateOptions": ["yarnDedupeHighest"],
   "packageRules": [
     {
       "matchManagers": ["npm"],
@@ -10,6 +11,20 @@
         "enabled": true
       },
       "matchPackageNames": ["/^@backstage//"]
+    },
+    {
+      "matchPackageNames": ["react-router", "react-router-dom"],
+      "allowedVersions": "<7.0.0"
+    },
+    {
+      "enabled": false,
+      "matchUpdateTypes": ["replacement"],
+      "matchPackageNames": ["/^@material-ui//"]
+    },
+    {
+      "enabled": false,
+      "matchUpdateTypes": ["replacement"],
+      "matchPackageNames": ["/^@mui//"]
     },
     {
       "description": "Auto-merge non-breaking SemVer updates (minor and patch) for stable (>= 1.0.0) dependencies",
