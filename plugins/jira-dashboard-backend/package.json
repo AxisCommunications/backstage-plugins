@@ -51,7 +51,7 @@
     "@backstage/plugin-auth-backend": "^0.29.2",
     "@backstage/plugin-auth-backend-module-guest-provider": "^0.2.21",
     "@types/express": "*",
-    "@types/supertest": "^2.0.12",
+    "@types/supertest": "^2.0.15",
     "msw": "^2.7.3",
     "supertest": "^6.2.4"
   },
