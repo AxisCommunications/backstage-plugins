@@ -53,7 +53,7 @@
     "@types/express": "*",
     "@types/supertest": "^2.0.15",
     "msw": "^2.7.3",
-    "supertest": "^6.2.4"
+    "supertest": "^6.3.3"
   },
   "files": [
     "dist",
