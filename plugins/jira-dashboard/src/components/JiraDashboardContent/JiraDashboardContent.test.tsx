@@ -42,7 +42,6 @@ describe('JiraDashboardContent', () => {
 
   beforeEach(() => {
     jiraClient = new JiraDashboardClient({ discoveryApi, fetchApi });
-    server.listen();
     apis = TestApiRegistry.from([jiraDashboardApiRef, jiraClient]);
 
     setupHandlers();
