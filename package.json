@@ -55,7 +55,7 @@
     "@types/jsdom": "^27",
     "@types/node": "^24.0.0",
     "jest": "^30.2.0",
-    "jsdom": "^27",
+    "jsdom": "^30.0.0",
     "node-gyp": "^10.0.0",
     "prettier": "^2.3.2",
     "typescript": "~5.9.0"
