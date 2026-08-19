@@ -1914,7 +1914,7 @@ __metadata:
     "@backstage/plugin-auth-backend-module-guest-provider": "npm:^0.2.21"
     "@backstage/types": "npm:^1.2.2"
     "@types/express": "npm:*"
-    "@types/supertest": "npm:^2.0.12"
+    "@types/supertest": "npm:^2.0.15"
     express: "npm:^4.17.1"
     express-promise-router: "npm:^4.1.0"
     msw: "npm:^2.7.3"
@@ -1986,7 +1986,7 @@ __metadata:
     "@backstage/plugin-catalog-node": "npm:^2.2.3"
     "@backstage/types": "npm:^1.2.2"
     "@types/express": "npm:*"
-    "@types/supertest": "npm:^2.0.12"
+    "@types/supertest": "npm:^2.0.15"
     express: "npm:^4.17.1"
     express-promise-router: "npm:^4.1.0"
     msw: "npm:^2.7.3"
@@ -13415,12 +13415,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/supertest@npm:^2.0.12":
-  version: 2.0.15
-  resolution: "@types/supertest@npm:2.0.15"
+"@types/supertest@npm:^2.0.15":
+  version: 2.0.16
+  resolution: "@types/supertest@npm:2.0.16"
   dependencies:
     "@types/superagent": "npm:*"
-  checksum: 10c0/bcb0df08b5278282ae02e0b5ce115cb672409918530b40f99f20f1b7d15208c7898d23559bc103a043be950d6e630588123f3c1e2ed10beb4e733993f7e917f1
+  checksum: 10c0/e1b4a4d788c19cd92a3f2e6d0979fb0f679c49aefae2011895a4d9c35aa960d43463aca8783a0b3382bbf0b4eb7ceaf8752d7dc80b8f5a9644fa14e1b1bdbc90
   languageName: node
   linkType: hard
 

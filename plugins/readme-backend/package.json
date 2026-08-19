@@ -49,7 +49,7 @@
     "@backstage/backend-defaults": "^0.17.6",
     "@backstage/backend-test-utils": "^1.11.5",
     "@backstage/cli": "^0.36.4",
-    "@types/supertest": "^2.0.12",
+    "@types/supertest": "^2.0.15",
     "msw": "^2.7.3",
     "supertest": "^6.2.4"
   },
