@@ -1955,7 +1955,7 @@ __metadata:
     "@testing-library/react": "npm:^16.0.0"
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/lodash": "npm:^4.17.13"
-    "@types/luxon": "npm:^3"
+    "@types/luxon": "npm:^3.4.2"
     lodash: "npm:^4.18.1"
     luxon: "npm:^3.5.0"
     msw: "npm:^2.7.3"
@@ -13055,14 +13055,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/luxon@npm:^2.0.4":
-  version: 2.4.0
-  resolution: "@types/luxon@npm:2.4.0"
-  checksum: 10c0/2686d03827a3799f0374923323148f4d0d07f9e4321551389b2ae285e5085e178cfe908806041ab32bf66534497702b4ae8459d1b4190258af133818d4b846c9
+"@types/luxon@npm:^3.0.0, @types/luxon@npm:^3.4.2":
+  version: 3.7.4
+  resolution: "@types/luxon@npm:3.7.4"
+  checksum: 10c0/f3cf9c0eccb81e8f0a3cf840927f2dac82fca31edc0888a99965ecd6ba4ba995ccdff34d6dd8e13aed9f57765defee5b3e41739f81a5c939ace6764156dff79a
   languageName: node
   linkType: hard
 
-"@types/luxon@npm:^3, @types/luxon@npm:^3.0.0, @types/luxon@npm:~3.4.0":
+"@types/luxon@npm:~3.4.0":
   version: 3.4.2
   resolution: "@types/luxon@npm:3.4.2"
   checksum: 10c0/d835467de3daf7e17ba78b50bb5a14efd94272439ca067990d71332a54b311544459c69623eddd243b511b28d70194c9591a9ee8cf9c038962c965f991affd7e
@@ -15091,7 +15091,7 @@ __metadata:
     "@types/dockerode": "npm:^3.3.0"
     "@types/express": "npm:^4.17.6"
     "@types/express-serve-static-core": "npm:^4.19.6"
-    "@types/luxon": "npm:^2.0.4"
+    "@types/luxon": "npm:^3.0.0"
     app: "workspace:^"
     dockerode: "npm:^3.3.1"
     express: "npm:^4.17.1"
