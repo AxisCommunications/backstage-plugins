@@ -58,7 +58,6 @@
     "@backstage/ui": "^0.17.1",
     "@internationalized/date": "^3.12.2",
     "@microsoft/microsoft-graph-types": "^2.40.0",
-    "@mui/material": "^5.15.20",
     "@tanstack/react-query": "^5.101.0",
     "dayjs": "^1.11.10",
     "interactjs": "^1.10.27",
