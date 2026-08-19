@@ -12962,10 +12962,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/js-cookie@npm:^2.2.6":
-  version: 2.2.7
-  resolution: "@types/js-cookie@npm:2.2.7"
-  checksum: 10c0/29196c6829982b5efa79117122a7d62cf4bc2f6397ce8eac1539319ff5dce3b44b2d86f2ac064f2ed3488fb24439358f24af6914fde5c5c4bab9a85728a13a6f
+"@types/js-cookie@npm:^3.0.0":
+  version: 3.0.6
+  resolution: "@types/js-cookie@npm:3.0.6"
+  checksum: 10c0/173afaf5ea9d86c22395b9d2a00b6adb0006dcfef165d6dcb0395cdc32f5a5dcf9c3c60f97194119963a15849b8f85121e1ae730b03e40bc0c29b84396ba22f9
   languageName: node
   linkType: hard
 
@@ -19383,13 +19383,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-loops@npm:^1.1.3":
-  version: 1.1.4
-  resolution: "fast-loops@npm:1.1.4"
-  checksum: 10c0/25e8a608fccc0d84c1d037efa715ab1e6f21576e1070931b3ed966657204c47ed2b1cba16e5c46ddde2d62aba0b4100d86616d995318b7367fa0a902a78ed885
-  languageName: node
-  linkType: hard
-
 "fast-memoize@npm:^2.5.2":
   version: 2.5.2
   resolution: "fast-memoize@npm:2.5.2"
@@ -21513,13 +21506,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inline-style-prefixer@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "inline-style-prefixer@npm:7.0.0"
+"inline-style-prefixer@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "inline-style-prefixer@npm:7.0.1"
   dependencies:
     css-in-js-utils: "npm:^3.1.0"
-    fast-loops: "npm:^1.1.3"
-  checksum: 10c0/d19eb485961854c5e00152b351a0d161b1a8d80d415bab2ba79ad10059d03843bc1e71415d265f1ec10857f5dd4a75c2491fced08eb0c5883cf42c8a9dccb473
+  checksum: 10c0/15da5a396b7f286b5b6742efe315218cd577bc96b43de08aeb76af7697d9f1ab3bfc66cf19fad2173957dd5d617a790240b9d51898bdcf4c2efb40d3f8bcb370
   languageName: node
   linkType: hard
 
@@ -22906,10 +22898,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-cookie@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "js-cookie@npm:2.2.1"
-  checksum: 10c0/ee67fc0f8495d0800b851910b5eb5bf49d3033adff6493d55b5c097ca6da46f7fe666b10e2ecb13cfcaf5b88d71c205ce00a7e646de791689bfd053bbb36a376
+"js-cookie@npm:^3.0.0":
+  version: 3.0.8
+  resolution: "js-cookie@npm:3.0.8"
+  checksum: 10c0/421912a4a55535bda32b3059835864e1182c3af5b4516df00a060edc1fa5a53d38bb8d5a91d5d305e396206f4fd11e829f17850aa5aa8164118c04d8ebf1ff5d
   languageName: node
   linkType: hard
 
@@ -25481,22 +25473,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nano-css@npm:^5.6.1":
-  version: 5.6.1
-  resolution: "nano-css@npm:5.6.1"
+"nano-css@npm:^5.6.2":
+  version: 5.6.2
+  resolution: "nano-css@npm:5.6.2"
   dependencies:
     "@jridgewell/sourcemap-codec": "npm:^1.4.15"
     css-tree: "npm:^1.1.2"
     csstype: "npm:^3.1.2"
     fastest-stable-stringify: "npm:^2.0.2"
-    inline-style-prefixer: "npm:^7.0.0"
+    inline-style-prefixer: "npm:^7.0.1"
     rtl-css-js: "npm:^1.16.1"
     stacktrace-js: "npm:^2.0.2"
     stylis: "npm:^4.3.0"
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: 10c0/7328c973852d2471bd154c61d21392a3d6357f276a7a090b8a179fb06d71ba58c987b04c0bd80efebd87aa4f433428a25e37820e65484b3c4c44b84339b99d87
+  checksum: 10c0/566fb9403815d78a110d68f011e1125cbeeb7299e2e6c60700f316ba0c48dc702c039163eae7a8f213a1390e45cedfdeccc203794d61a61116598adbb83029ec
   languageName: node
   linkType: hard
 
@@ -28902,16 +28894,16 @@ __metadata:
   linkType: hard
 
 "react-use@npm:^17.2.4, react-use@npm:^17.3.2, react-use@npm:^17.5.0":
-  version: 17.5.0
-  resolution: "react-use@npm:17.5.0"
+  version: 17.6.1
+  resolution: "react-use@npm:17.6.1"
   dependencies:
-    "@types/js-cookie": "npm:^2.2.6"
+    "@types/js-cookie": "npm:^3.0.0"
     "@xobotyi/scrollbar-width": "npm:^1.9.5"
     copy-to-clipboard: "npm:^3.3.1"
     fast-deep-equal: "npm:^3.1.3"
     fast-shallow-equal: "npm:^1.0.0"
-    js-cookie: "npm:^2.2.1"
-    nano-css: "npm:^5.6.1"
+    js-cookie: "npm:^3.0.0"
+    nano-css: "npm:^5.6.2"
     react-universal-interface: "npm:^0.6.2"
     resize-observer-polyfill: "npm:^1.5.1"
     screenfull: "npm:^5.1.0"
@@ -28922,7 +28914,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: 10c0/b2e606338f329f8f26bccbd1ae428cf63e1d9b4a940cb327823270955a2aae35972be745d333d1a1bd0276a3650038d1f7f6ae1077af5cccba8234a3e7376754
+  checksum: 10c0/8b3babd9f7db14624e172d22c2fb30f091d785e97d0aed84e47e52a3ca8dbdc0c094ab797bbd0e754ff2f92be82357c7a46e08dbc85244edfefa21475f760cdf
   languageName: node
   linkType: hard
 
