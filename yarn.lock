@@ -12860,6 +12860,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/express-serve-static-core@npm:^4.19.6":
+  version: 4.19.9
+  resolution: "@types/express-serve-static-core@npm:4.19.9"
+  dependencies:
+    "@types/node": "npm:*"
+    "@types/qs": "npm:*"
+    "@types/range-parser": "npm:*"
+    "@types/send": "npm:*"
+  checksum: 10c0/31d7afe63c4f0090159a869e4199aae38cbc222948bf9be5d7c257bfdc8e14c9dec46e9f50c08e0004565565acb7ecd95d5c0dbde6d9fdd45a5d0adfabbf00fe
+  languageName: node
+  linkType: hard
+
 "@types/express@npm:*, @types/express@npm:^4.17.21, @types/express@npm:^4.17.25, @types/express@npm:^4.17.6":
   version: 4.17.25
   resolution: "@types/express@npm:4.17.25"
@@ -15080,7 +15092,7 @@ __metadata:
     "@backstage/plugin-techdocs-backend": "npm:^2.2.2"
     "@types/dockerode": "npm:^3.3.0"
     "@types/express": "npm:^4.17.6"
-    "@types/express-serve-static-core": "npm:^4.17.5"
+    "@types/express-serve-static-core": "npm:^4.19.6"
     "@types/luxon": "npm:^2.0.4"
     app: "workspace:^"
     dockerode: "npm:^3.3.1"
