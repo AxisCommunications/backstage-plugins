@@ -58,7 +58,7 @@
     "jsdom": "^27",
     "node-gyp": "^10.0.0",
     "prettier": "^2.3.2",
-    "typescript": "~5.7.0"
+    "typescript": "~5.9.0"
   },
   "resolutions": {
     "@types/node": "^20.14.0",
