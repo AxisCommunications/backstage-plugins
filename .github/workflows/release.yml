@@ -7,16 +7,19 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
-# changesets/action needs to push commits/tags and open PRs; everything else defaults to read.
+# Least-privilege default; jobs only need read access to the repo contents.
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    # changesets/action needs to push commits/tags and open PRs.
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
