@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme-backend
 
+## 0.16.6
+
+### Patch Changes
+
+- 824ed5b: Remove inefficient regular expression when checking for symlinks.
+
 ## 0.16.5
 
 ### Patch Changes
