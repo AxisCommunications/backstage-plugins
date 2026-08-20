@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 6.1.6
+
+### Patch Changes
+
+- b59789b: Use native fetch instead of "node-fetch".
+
 ## 6.1.5
 
 ### Patch Changes
