@@ -28543,8 +28543,8 @@ __metadata:
   linkType: hard
 
 "react-calendar-timeline@npm:^0.30.0-beta.4":
-  version: 0.30.0-beta.18
-  resolution: "react-calendar-timeline@npm:0.30.0-beta.18"
+  version: 0.30.0-beta.19
+  resolution: "react-calendar-timeline@npm:0.30.0-beta.19"
   dependencies:
     classnames: "npm:^2.5.1"
     lodash: "npm:^4.17.21"
@@ -28554,7 +28554,7 @@ __metadata:
     interactjs: 1.10.27
     react: ^18 || ^19
     react-dom: ^18 || ^19
-  checksum: 10c0/faeb4398c51f068829e583210ffa544b0cc489bd541339d30065a19dbd55921b6a4d7baedf9f53aa7679102bd510c3a307c7988312440257f71d163ad44dfc83
+  checksum: 10c0/9438caf666e84bc6a0b118bc5eaf8f9a6d801b97a54f6cfe979324c1e613dd8f694ba60550dea1fbcdd21facd24a0a96e6defb9f3ce3d8f04aec61fcbb2546aa
   languageName: node
   linkType: hard
 
