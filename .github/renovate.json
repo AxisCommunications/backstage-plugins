@@ -22,8 +22,11 @@
       "matchPackageNames": ["/^@material-ui//"]
     },
     {
+      "matchManagers": ["npm"],
       "enabled": false,
-      "matchUpdateTypes": ["replacement"],
+      "vulnerabilityAlerts": {
+        "enabled": true
+      },
       "matchPackageNames": ["/^@mui//"]
     },
     {
