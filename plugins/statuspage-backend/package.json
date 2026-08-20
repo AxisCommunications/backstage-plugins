@@ -42,7 +42,6 @@
     "express-promise-router": "^4.1.0"
   },
   "devDependencies": {
-    "@backstage/backend-defaults": "^0.17.6",
     "@backstage/cli": "^0.36.4"
   },
   "files": [
