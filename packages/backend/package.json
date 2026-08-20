@@ -44,7 +44,7 @@
     "@backstage/plugin-search-backend-node": "^1.4.6",
     "@backstage/plugin-techdocs-backend": "^2.2.2",
     "app": "workspace:^",
-    "dockerode": "^3.3.1",
+    "dockerode": "^5.0.0",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
     "pg": "^8.3.0",
