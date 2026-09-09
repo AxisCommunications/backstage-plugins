@@ -243,13 +243,13 @@ describe('api', () => {
     mswServer.use(
       http.get('http://jira.com/rest/api/2/search', ({ request }) => {
         const url = new URL(request.url);
-  
+
         expect(request.url).toContain('A%26B');
-  
+
         expect(url.searchParams.get('jql')).toBe(
           "project in ('ppp') AND component in ('A&B') AND query",
         );
-  
+
         return HttpResponse.json({
           issues: [
             {
@@ -260,7 +260,7 @@ describe('api', () => {
         });
       }),
     );
-  
+
     const projects = [
       {
         instance,
@@ -268,9 +268,9 @@ describe('api', () => {
         projectKey: 'ppp',
       },
     ];
-  
+
     const issues = await getIssuesByFilter(projects, ['A&B'], 'query');
-  
+
     expect(issues).toEqual([
       {
         key: 'ppp-1',
