@@ -63,7 +63,9 @@ export const getQueryUrl = (instance: ConfigInstance, jql?: string): string => {
   if (instance.useApiV3) {
     const baseUrlWithEndpoint = `${baseUrl}search/jql`;
     if (jql) {
-      return `${baseUrlWithEndpoint}?jql=${encodeURIComponent(jql)}&fields=*all`;
+      return `${baseUrlWithEndpoint}?jql=${encodeURIComponent(
+        jql,
+      )}&fields=*all`;
     }
     return baseUrlWithEndpoint;
   }
