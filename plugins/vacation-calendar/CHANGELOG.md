@@ -1,5 +1,12 @@
 # @axis-backstage/plugin-vacation-calendar
 
+## 0.11.4
+
+### Patch Changes
+
+- 6a30651: Updated to Backstage 1.54.6
+- 3d6311e: Completed the BUI migration.
+
 ## 0.11.3
 
 ### Patch Changes

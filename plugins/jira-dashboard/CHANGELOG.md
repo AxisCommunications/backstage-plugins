@@ -1,5 +1,13 @@
 # @axis-backstage/plugin-jira-dashboard
 
+## 2.4.1
+
+### Patch Changes
+
+- 6a30651: Updated to Backstage 1.54.6
+- Updated dependencies [6a30651]
+  - @axis-backstage/plugin-jira-dashboard-common@1.15.4
+
 ## 2.4.0
 
 ### Minor Changes

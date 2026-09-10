@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-statuspage-common
 
+## 0.9.4
+
+### Patch Changes
+
+- 6a30651: Updated to Backstage 1.54.6
+
 ## 0.9.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @axis-backstage/plugin-readme
 
+## 0.19.4
+
+### Patch Changes
+
+- 6a30651: Updated to Backstage 1.54.6
+
 ## 0.19.3
 
 ### Patch Changes
