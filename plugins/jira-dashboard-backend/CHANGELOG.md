@@ -1,5 +1,15 @@
 # @axis-backstage/plugin-jira-dashboard-backend
 
+## 6.1.6
+
+### Patch Changes
+
+- 7d575b9: Fix URL encoding of JQL query parameters containing URL-reserved characters.
+- b59789b: Use native fetch instead of "node-fetch".
+- 6a30651: Updated to Backstage 1.54.6
+- Updated dependencies [6a30651]
+  - @axis-backstage/plugin-jira-dashboard-common@1.15.4
+
 ## 6.1.5
 
 ### Patch Changes
