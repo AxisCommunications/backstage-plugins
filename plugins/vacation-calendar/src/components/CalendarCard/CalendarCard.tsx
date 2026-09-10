@@ -22,14 +22,13 @@ import {
   Progress,
   Avatar,
 } from '@backstage/core-components';
-import { Box, Button, Flex } from '@backstage/ui';
+import { Box, Button, Flex, Text } from '@backstage/ui';
 import { DateSelector } from '../DateSelector';
 import { getGroups, getScheduleItems } from './lib';
 import { fetchGroupEntities, fetchUserEntities } from './fetch';
 import { useAvailability } from '../../hooks/useAvailibility';
 import { useSignIn } from '../../hooks';
 import { SignInContent } from '../SignInContent';
-import Typography from '@mui/material/Typography';
 
 const DEFAULT_NUM_DAYS = 60;
 const DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
@@ -103,17 +102,17 @@ export const CalendarCard = () => {
       <ContentHeader title="Out of Office Calendar">
         <SupportButton title="Backstage Out Of Office Calendar">
           <Box>
-            <Typography variant="h6">How it works</Typography>
-            <Typography>
+            <Text variant="title-medium">How it works</Text>
+            <Text>
               The "Out of Office"-calendar shows Away events. If you want your
               calendar events to be seen in the "Out of Office"-calendar, be
               sure to mark your presence as "Away" in outlook.
-            </Typography>
-            <Typography variant="h6">Limitations</Typography>
-            <Typography>
+            </Text>
+            <Text variant="title-medium">Limitations</Text>
+            <Text>
               Due to limitations in the Microsoft Graph API the maximum range of
               the dates is {DEFAULT_NUM_DAYS} days.
-            </Typography>
+            </Text>
           </Box>
         </SupportButton>
       </ContentHeader>

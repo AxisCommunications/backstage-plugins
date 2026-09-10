@@ -2087,7 +2087,6 @@ __metadata:
     "@backstage/ui": "npm:^0.17.1"
     "@internationalized/date": "npm:^3.12.2"
     "@microsoft/microsoft-graph-types": "npm:^2.40.0"
-    "@mui/material": "npm:^5.15.20"
     "@tanstack/react-query": "npm:^5.101.0"
     "@testing-library/jest-dom": "npm:^7.0.0"
     dayjs: "npm:^1.11.10"
@@ -7998,7 +7997,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:^5.12.2, @mui/material@npm:^5.15.20, @mui/material@npm:^5.15.7":
+"@mui/material@npm:^5.12.2, @mui/material@npm:^5.15.7":
   version: 5.18.0
   resolution: "@mui/material@npm:5.18.0"
   dependencies:
@@ -14587,6 +14586,7 @@ __metadata:
     "@backstage/plugin-user-settings": "npm:^0.9.6"
     "@backstage/test-utils": "npm:^1.7.21"
     "@backstage/theme": "npm:^0.7.3"
+    "@backstage/ui": "npm:^0.17.1"
     "@material-ui/core": "npm:^4.12.4"
     "@material-ui/icons": "npm:^4.11.3"
     "@mui/material": "npm:^5.15.7"

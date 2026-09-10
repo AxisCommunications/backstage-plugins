@@ -1,8 +1,7 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import { Box, Button } from '@backstage/ui';
 
 type Props = {
-  handleAuthClick: React.MouseEventHandler<HTMLElement>;
+  handleAuthClick: () => void;
 };
 
 export const SignInContent = ({ handleAuthClick }: Props) => {
@@ -12,19 +11,16 @@ export const SignInContent = ({ handleAuthClick }: Props) => {
         height="100%"
         width="80%"
         display="flex"
-        justifyContent="center"
-        alignItems="center"
         position="absolute"
-        p={10}
-        left={0}
-        top={0}
+        p="10"
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          left: 0,
+          top: 0,
+        }}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleAuthClick}
-          size="large"
-        >
+        <Button variant="primary" onClick={handleAuthClick} size="medium">
           Sign in
         </Button>
       </Box>
