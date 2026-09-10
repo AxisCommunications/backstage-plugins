@@ -8,10 +8,7 @@
 '@axis-backstage/plugin-jira-dashboard': patch
 '@axis-backstage/plugin-readme-backend': patch
 '@axis-backstage/plugin-statuspage': patch
-'app-next': patch
-'backend': patch
 '@axis-backstage/plugin-readme': patch
-'app': patch
 ---
 
 Updated to Backstage 1.54.6
