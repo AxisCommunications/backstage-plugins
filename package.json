@@ -54,7 +54,7 @@
     "@spotify/prettier-config": "^15.0.0",
     "@types/jest": "^30",
     "@types/jsdom": "^27",
-    "@types/node": "^24.0.0",
+    "@types/node": "^24.13.3",
     "jest": "^30.5.0",
     "jsdom": "^27",
     "node-gyp": "^13.0.1",
@@ -62,7 +62,7 @@
     "typescript": "~5.9.0"
   },
   "resolutions": {
-    "@types/node": "^24.0.0",
+    "@types/node": "^24.13.3",
     "@types/react": "^18.3",
     "@types/react-dom": "^18.3",
     "qs": "^6.14.1"
