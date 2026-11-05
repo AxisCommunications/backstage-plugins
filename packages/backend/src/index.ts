@@ -13,5 +13,6 @@ backend.add(import('@backstage/plugin-app-backend'));
 backend.add(import('@backstage/plugin-devtools-backend'));
 backend.add(import('@axis-backstage/plugin-jira-dashboard-backend'));
 backend.add(import('@axis-backstage/plugin-readme-backend'));
+backend.add(import('@axis-backstage/plugin-readme-backend-module-mcp'));
 backend.add(import('@axis-backstage/plugin-statuspage-backend'));
 backend.start();
