@@ -8,7 +8,10 @@ import { BackstagePlugin } from '@backstage/core-plugin-api';
 import { Entity } from '@backstage/catalog-model';
 import { InfoCardVariants } from '@backstage/core-components';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
+import { ReactNode } from 'react';
 import { RouteRef } from '@backstage/core-plugin-api';
+import type { SearchDocument } from '@backstage/plugin-search-common';
+import type { SearchResult } from '@backstage/plugin-search-common';
 
 // @public
 export const isReadmeAvailable: (
@@ -37,6 +40,16 @@ export type ReadmeCardProps = {
 };
 
 // @public
+export const ReadmeEntityContent: (
+  input: ReadmeEntityContentProps,
+) => JSX_2.Element;
+
+// @public
+export type ReadmeEntityContentProps = {
+  maxHeight?: string;
+};
+
+// @public
 export const readmePlugin: BackstagePlugin<
   {
     root: RouteRef<undefined>;
@@ -44,4 +57,28 @@ export const readmePlugin: BackstagePlugin<
   {},
   {}
 >;
+
+// @public
+export interface ReadmeSearchResult extends SearchDocument {
+  entityRef?: string;
+  kind?: string;
+  name?: string;
+  namespace?: string;
+}
+
+// @public
+export const ReadmeSearchResultListItem: (
+  props: ReadmeSearchResultListItemProps,
+) => JSX_2.Element | null;
+
+// @public
+export interface ReadmeSearchResultListItemProps {
+  asLink?: boolean;
+  asListItem?: boolean;
+  highlight?: SearchResult['highlight'];
+  icon?: ReactNode;
+  lineClamp?: number;
+  rank?: number;
+  result?: ReadmeSearchResult;
+}
 ```

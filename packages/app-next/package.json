@@ -42,6 +42,7 @@
     "@backstage/plugin-catalog-import": "^0.13.17",
     "@backstage/plugin-catalog-react": "^3.2.2",
     "@backstage/plugin-org": "^0.7.8",
+    "@backstage/plugin-search": "^1.7.7",
     "@backstage/plugin-user-settings": "^0.9.6",
     "@backstage/theme": "^0.7.3",
     "@backstage/ui": "^0.17.1",

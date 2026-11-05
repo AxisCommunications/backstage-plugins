@@ -15,6 +15,13 @@ import { readmeApiRef } from './api/ReadmeApi';
 import { ReadmeClient } from './api/ReadmeClient';
 import { EntityCardBlueprint } from '@backstage/plugin-catalog-react/alpha';
 import { z } from 'zod';
+import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
+import {
+  SearchFilterResultTypeBlueprint,
+  SearchResultListItemBlueprint,
+} from '@backstage/plugin-search-react/alpha';
+import DescriptionIcon from '@mui/icons-material/Description';
+import type { Entity } from '@backstage/catalog-model';
 
 const readmeApi = ApiBlueprint.make({
   params: defineParams =>
@@ -82,7 +89,76 @@ const readmeCard = EntityCardBlueprint.makeWithOverrides({
   },
 });
 
+const readmeEntityContent = EntityContentBlueprint.make({
+  params: {
+    path: 'readme',
+    title: 'README',
+    group: 'documentation',
+    filter: (entity: Entity) =>
+      Boolean(entity.metadata.annotations?.['backstage.io/source-location']),
+    loader: async () =>
+      import('./components/ReadmeEntityContent').then(m => (
+        <m.ReadmeEntityContent />
+      )),
+  },
+});
+
+const readmeSearchResultListItem =
+  SearchResultListItemBlueprint.makeWithOverrides({
+    configSchema: {
+      /**
+       * The number of lines of the content preview to show.
+       *
+       * @default 3
+       */
+      lineClamp: z.number().default(3),
+      /**
+       * Whether to wrap the result in a link to the entity page.
+       *
+       * @default true
+       */
+      asLink: z.boolean().default(true),
+      /**
+       * Whether to render the result as a list item.
+       *
+       * @default true
+       */
+      asListItem: z.boolean().default(true),
+    },
+    factory(originalFactory, { config }) {
+      return originalFactory({
+        icon: <DescriptionIcon />,
+        predicate: result => result.type === 'readme',
+        component: async () => {
+          const { ReadmeSearchResultListItem } = await import(
+            './components/ReadmeSearchResultListItem'
+          );
+          return props => <ReadmeSearchResultListItem {...props} {...config} />;
+        },
+      });
+    },
+  });
+
+const readmeSearchFilterResultType = SearchFilterResultTypeBlueprint.make({
+  params: {
+    value: 'readme',
+    name: 'README',
+    icon: <DescriptionIcon />,
+  },
+});
+
+/**
+ * The readme plugin instance for the new frontend system, providing the
+ * README entity card, a README entity content tab, and search result
+ * rendering for README documents.
+ */
 export default createFrontendPlugin({
   pluginId: 'readme',
-  extensions: [readmeApi, readmeCard],
+  extensions: [
+    readmeApi,
+    readmeCard,
+    readmeEntityContent,
+    readmeSearchResultListItem,
+    readmeSearchFilterResultType,
+  ],
 });

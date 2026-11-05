@@ -10,6 +10,7 @@ import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import catalogImportPlugin from '@backstage/plugin-catalog-import/alpha';
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
 import readmePlugin from '@axis-backstage/plugin-readme/alpha';
+import searchPlugin from '@backstage/plugin-search/alpha';
 import { Navigate } from 'react-router';
 // if app.packages is not set in the app config, could manually add features like this
 // See documentation for details: https://backstage.io/docs/frontend-system/architecture/app#feature-discovery
@@ -58,6 +59,7 @@ const app = createApp({
     catalogImportPlugin,
     userSettingsPlugin,
     readmePlugin,
+    searchPlugin,
   ],
 });
 
