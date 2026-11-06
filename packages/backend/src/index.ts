@@ -8,6 +8,7 @@ backend.add(import('@backstage/plugin-auth-backend-module-microsoft-provider'));
 backend.add(import('@backstage/plugin-mcp-actions-backend'));
 backend.add(import('@backstage/plugin-techdocs-backend'));
 backend.add(import('@backstage/plugin-search-backend'));
+backend.add(import('@axis-backstage/plugin-search-backend-module-readme'));
 backend.add(import('@backstage/plugin-app-backend'));
 backend.add(import('@backstage/plugin-devtools-backend'));
 backend.add(import('@axis-backstage/plugin-jira-dashboard-backend'));
