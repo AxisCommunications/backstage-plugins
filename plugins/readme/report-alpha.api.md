@@ -4,15 +4,23 @@
 
 ```ts
 import { AnyApiFactory } from '@backstage/frontend-plugin-api';
+import { AnyRouteRefParams } from '@backstage/frontend-plugin-api';
 import { ApiFactory } from '@backstage/frontend-plugin-api';
-import { Entity } from '@backstage/catalog-model';
+import type { Entity } from '@backstage/catalog-model';
 import { EntityCardType } from '@backstage/plugin-catalog-react/alpha';
 import { ExtensionBlueprintParams } from '@backstage/frontend-plugin-api';
 import { ExtensionDataRef } from '@backstage/frontend-plugin-api';
 import { FilterPredicate } from '@backstage/filter-predicates';
 import { JSX as JSX_2 } from 'react';
+import { JSXElementConstructor } from 'react';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
+import { ReactElement } from 'react';
+import { RouteRef } from '@backstage/frontend-plugin-api';
+import { SearchFilterResultTypeBlueprintParams } from '@backstage/plugin-search-react/alpha';
+import { SearchResultItemExtensionComponent } from '@backstage/plugin-search-react/alpha';
+import { SearchResultItemExtensionPredicate } from '@backstage/plugin-search-react/alpha';
+import { SearchResultListItemBlueprintParams } from '@backstage/plugin-search-react/alpha';
 
 // @public
 const _default: OverridableFrontendPlugin<
@@ -78,6 +86,129 @@ const _default: OverridableFrontendPlugin<
         filter?: string | FilterPredicate | ((entity: Entity) => boolean);
         type?: EntityCardType;
       };
+    }>;
+    'entity-content:readme': OverridableExtensionDefinition<{
+      kind: 'entity-content';
+      name: undefined;
+      config: {
+        path: string | undefined;
+        title: string | undefined;
+        filter: FilterPredicate | undefined;
+        group: string | false | undefined;
+        icon: string | undefined;
+      };
+      configInput: {
+        path?: string | undefined;
+        title?: string | undefined;
+        filter?: FilterPredicate | undefined;
+        group?: string | false | undefined;
+        icon?: string | undefined;
+      };
+      output:
+        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+        | ExtensionDataRef<string, 'core.routing.path', {}>
+        | ExtensionDataRef<
+            RouteRef<AnyRouteRefParams>,
+            'core.routing.ref',
+            {
+              optional: true;
+            }
+          >
+        | ExtensionDataRef<
+            (entity: Entity) => boolean,
+            'catalog.entity-filter-function',
+            {
+              optional: true;
+            }
+          >
+        | ExtensionDataRef<
+            string,
+            'catalog.entity-filter-expression',
+            {
+              optional: true;
+            }
+          >
+        | ExtensionDataRef<string, 'catalog.entity-content-title', {}>
+        | ExtensionDataRef<
+            string,
+            'catalog.entity-content-group',
+            {
+              optional: true;
+            }
+          >
+        | ExtensionDataRef<
+            string | ReactElement<any, string | JSXElementConstructor<any>>,
+            'catalog.entity-content-icon',
+            {
+              optional: true;
+            }
+          >;
+      inputs: {};
+      params: {
+        defaultPath?: [Error: `Use the 'path' param instead`];
+        path: string;
+        defaultTitle?: [Error: `Use the 'title' param instead`];
+        title: string;
+        defaultGroup?: [Error: `Use the 'group' param instead`];
+        group?:
+          | (
+              | 'development'
+              | 'deployment'
+              | 'overview'
+              | 'documentation'
+              | 'operation'
+              | 'observability'
+            )
+          | (string & {});
+        icon?: string | ReactElement;
+        loader: () => Promise<JSX.Element>;
+        routeRef?: RouteRef;
+        filter?: string | FilterPredicate | ((entity: Entity) => boolean);
+      };
+    }>;
+    'search-filter-result-type:readme': OverridableExtensionDefinition<{
+      kind: 'search-filter-result-type';
+      name: undefined;
+      config: {};
+      configInput: {};
+      output: ExtensionDataRef<
+        {
+          value: string;
+          name: string;
+          icon: JSX_2.Element;
+        },
+        'search.filters.result-types.type',
+        {}
+      >;
+      inputs: {};
+      params: SearchFilterResultTypeBlueprintParams;
+    }>;
+    'search-result-list-item:readme': OverridableExtensionDefinition<{
+      config: {
+        lineClamp: number;
+        asLink: boolean;
+        asListItem: boolean;
+        noTrack: boolean;
+      };
+      configInput: {
+        lineClamp?: number | undefined;
+        asLink?: boolean | undefined;
+        asListItem?: boolean | undefined;
+        noTrack?: boolean | undefined | undefined;
+      };
+      output: ExtensionDataRef<
+        {
+          predicate?: SearchResultItemExtensionPredicate;
+          component: SearchResultItemExtensionComponent;
+          icon?: JSX_2.Element;
+        },
+        'search.search-result-list-item.item',
+        {}
+      >;
+      inputs: {};
+      kind: 'search-result-list-item';
+      name: undefined;
+      params: SearchResultListItemBlueprintParams;
     }>;
   }
 >;

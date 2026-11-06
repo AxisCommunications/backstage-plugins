@@ -61,7 +61,7 @@ export async function createRouter(
       throw new NotFoundError('Readme could not be found');
     }
     if (cacheDoc) {
-      logger.info(`Loading README for ${entityRef} from cache.`);
+      logger.debug(`Loading README for ${entityRef} from cache.`);
       response.type(cacheDoc.type);
       response.send(cacheDoc.content);
       return;
@@ -126,7 +126,7 @@ export async function createRouter(
           },
           { ttl: cacheTtl },
         );
-        logger.info(
+        logger.debug(
           `Found README for ${entityRef}: ${url} type ${fileType.type}`,
         );
         response.send(content);
@@ -142,7 +142,7 @@ export async function createRouter(
         }
       }
     }
-    logger.info(`Readme not found for ${entityRef}`);
+    logger.debug(`Readme not found for ${entityRef}`);
     await cache.set(
       entityRef,
       {
