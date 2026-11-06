@@ -24,6 +24,7 @@ import {
   ReadmeCollatorFactoryOptions,
   readCollatorConfigOptions,
 } from './config';
+import { markdownToText } from './markdownToText';
 
 /**
  * A search document for the README file of a catalog entity.
@@ -75,7 +76,10 @@ export class DefaultReadmeCollatorFactory implements DocumentCollatorFactory {
   /**
    * Creates a collator factory from configuration.
    */
-  static fromConfig(configRoot: Config, options: ReadmeCollatorFactoryOptions) {
+  static fromConfig(
+    configRoot: Config,
+    options: ReadmeCollatorFactoryOptions,
+  ): DefaultReadmeCollatorFactory {
     const configOptions = readCollatorConfigOptions(configRoot);
     return new DefaultReadmeCollatorFactory({
       ...options,
@@ -113,10 +117,6 @@ export class DefaultReadmeCollatorFactory implements DocumentCollatorFactory {
   private async *execute(): AsyncGenerator<ReadmeDocument, void, undefined> {
     const limit = pLimit(this.parallelismLimit);
     const readmeBaseUrl = await this.discovery.getBaseUrl('readme');
-    const { token } = await this.auth.getPluginRequestToken({
-      onBehalfOf: await this.auth.getOwnServiceCredentials(),
-      targetPluginId: 'readme',
-    });
 
     const batchSize = this.parallelismLimit * 50;
     let cursor: string | undefined;
@@ -131,11 +131,19 @@ export class DefaultReadmeCollatorFactory implements DocumentCollatorFactory {
     };
 
     do {
+      const credentials = await this.auth.getOwnServiceCredentials();
       const response = await this.catalog.queryEntities(
         cursor ? { cursor, limit: batchSize } : initialRequest,
-        { credentials: await this.auth.getOwnServiceCredentials() },
+        { credentials },
       );
       cursor = response.pageInfo.nextCursor;
+
+      // Fetch a fresh plugin token for each page, since tokens are short
+      // lived and a full collation run may take longer than their lifetime
+      const { token } = await this.auth.getPluginRequestToken({
+        onBehalfOf: credentials,
+        targetPluginId: 'readme',
+      });
 
       const docPromises = response.items.map((entity: Entity) =>
         limit(async (): Promise<ReadmeDocument[]> => {
@@ -163,7 +171,7 @@ export class DefaultReadmeCollatorFactory implements DocumentCollatorFactory {
   private async fetchReadmeDocument(
     entity: Entity,
     readmeBaseUrl: string,
-    token: string | undefined,
+    token: string,
   ): Promise<ReadmeDocument | undefined> {
     let source;
     try {
@@ -199,13 +207,18 @@ export class DefaultReadmeCollatorFactory implements DocumentCollatorFactory {
     }
 
     const content = await response.text();
+    const contentType = response.headers.get('content-type') ?? 'text/plain';
     const title = entity.metadata.title ?? entity.metadata.name;
 
     this.logger.debug(`Indexed README for ${entityRef}`);
 
     return {
       title: `${title} - README`,
-      text: DefaultReadmeCollatorFactory.stripMarkdown(content),
+      // Only markdown content is converted to plain text, plain text and
+      // reStructuredText readmes are indexed as they are
+      text: contentType.includes('text/markdown')
+        ? markdownToText(content)
+        : content,
       location: this.applyArgsToFormat(this.locationTemplate, {
         namespace: encodeURIComponent(entity.metadata.namespace || 'default'),
         kind: encodeURIComponent(entity.kind),
@@ -216,25 +229,6 @@ export class DefaultReadmeCollatorFactory implements DocumentCollatorFactory {
       namespace: entity.metadata.namespace || 'default',
       name: entity.metadata.name,
     };
-  }
-
-  /**
-   * Strips markdown formatting from README content for cleaner indexing.
-   */
-  private static stripMarkdown(content: string): string {
-    return content
-      .replace(/```[\s\S]*?```/g, ' ') // Code blocks
-      .replace(/`([^`]+)`/g, '$1') // Inline code
-      .replace(/!\[([^\]]*)\]\([^)]+\)/g, ' ') // Images
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Links, keep text
-      .replace(/^#{1,6}\s+/gm, '') // Headers
-      .replace(/^\s{0,3}([-*_]\s*){3,}$/gm, ' ') // Horizontal rules
-      .replace(/[*_]{1,3}([^*_]+)[*_]{1,3}/g, '$1') // Emphasis
-      .replace(/^\s*[-*+]\s+/gm, '') // Unordered list markers
-      .replace(/^\s*\d+\.\s+/gm, '') // Ordered list markers
-      .replace(/^\s*>\s?/gm, '') // Block quotes
-      .replace(/\s+/g, ' ')
-      .trim();
   }
 
   private applyArgsToFormat(

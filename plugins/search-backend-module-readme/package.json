@@ -44,11 +44,13 @@
     "@backstage/plugin-permission-common": "^0.9.9",
     "@backstage/plugin-search-backend-node": "^1.4.7",
     "@backstage/plugin-search-common": "^1.2.24",
+    "markdown-it": "^14.1.0",
     "p-limit": "^3.1.0"
   },
   "devDependencies": {
     "@backstage/backend-test-utils": "^1.11.6",
-    "@backstage/cli": "^0.36.5"
+    "@backstage/cli": "^0.36.5",
+    "@types/markdown-it": "^14.1.1"
   },
   "files": [
     "dist",

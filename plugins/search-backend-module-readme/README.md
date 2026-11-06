@@ -60,8 +60,8 @@ For the legacy frontend system, see the
 
 ## Configuration
 
-The module has a default schedule that runs every hour. To override it, or to
-limit which entities are indexed, add configuration under
+The module has a default schedule that runs every 10 minutes. To override it,
+or to limit which entities are indexed, add configuration under
 `search.collators.readme`:
 
 ```yaml
@@ -81,12 +81,22 @@ search:
 The location template is used to generate the URL that search results link to
 and accepts the `:namespace`, `:kind`, and `:name` arguments.
 
+### Interaction with the readme backend cache
+
+The collator fetches README content through the readme backend plugin, whose
+content cache is controlled by `readme.cacheTtl` (default one hour). If the
+collator schedule frequency equals the cache TTL, entries will typically have
+expired by the time the collator runs, so every run refetches each README from
+its source. For rate limited SCM providers, keep the collator schedule shorter
+than the cache TTL (as the default does) so that most collator requests are
+served from the backend's cache.
+
 ## Search Document Format
 
 Each indexed README document includes:
 
 - `title`: entity title with a `- README` suffix
-- `text`: the README content with markdown formatting stripped
+- `text`: the README content, converted to plain text for markdown readmes and indexed as-is for plain text and reStructuredText readmes
 - `location`: link to the entity page in the catalog
 - `entityRef`: the full entity reference, e.g. `component:default/my-service`
 - `kind`, `namespace`, `name`: the entity triplet

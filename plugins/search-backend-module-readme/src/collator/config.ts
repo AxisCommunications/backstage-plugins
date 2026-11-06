@@ -15,8 +15,14 @@ import { CatalogService } from '@backstage/plugin-catalog-node';
 const configKey = 'search.collators.readme';
 
 const defaults = {
+  // The readme backend's cache TTL (`readme.cacheTtl`) also defaults to one
+  // hour. A schedule frequency that matches the cache TTL would mean that
+  // entries have typically expired by the time the collator runs, so the
+  // collator would refetch every README from its source on every run. A
+  // shorter frequency than the cache TTL means that most collator requests
+  // are served from the backend's cache.
   schedule: {
-    frequency: { hours: 1 },
+    frequency: { minutes: 10 },
     timeout: { minutes: 15 },
     initialDelay: { seconds: 3 },
   },

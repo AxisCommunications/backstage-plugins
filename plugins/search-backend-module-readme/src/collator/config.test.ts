@@ -7,7 +7,7 @@ describe('readScheduleConfigOptions', () => {
     const schedule = readScheduleConfigOptions(config);
 
     expect(schedule).toEqual({
-      frequency: { hours: 1 },
+      frequency: { minutes: 10 },
       timeout: { minutes: 15 },
       initialDelay: { seconds: 3 },
     });

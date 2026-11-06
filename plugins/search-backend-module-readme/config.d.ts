@@ -13,7 +13,14 @@ export interface Config {
          * Schedule for the README collator, see
          * https://backstage.io/docs/features/utility-functions/#taskschedule-definition.
          *
-         * @default { frequency: { hours: 1 }, timeout: { minutes: 15 }, initialDelay: { seconds: 3 } }
+         * The collator fetches README content through the readme backend
+         * plugin, whose cache TTL (`readme.cacheTtl`) also defaults to one
+         * hour. Keep the schedule frequency shorter than the cache TTL so
+         * that most collator requests are served from the backend's cache
+         * instead of refetching every README from its source. This matters
+         * in particular for rate limited SCM providers.
+         *
+         * @default { frequency: { minutes: 10 }, timeout: { minutes: 15 }, initialDelay: { seconds: 3 } }
          */
         schedule?: SchedulerServiceTaskScheduleDefinitionConfig;
         /**

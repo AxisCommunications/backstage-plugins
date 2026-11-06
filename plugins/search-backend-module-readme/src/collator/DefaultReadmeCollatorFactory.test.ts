@@ -94,6 +94,7 @@ describe('DefaultReadmeCollatorFactory', () => {
 
   beforeEach(() => {
     (catalog.queryEntities as jest.Mock).mockClear();
+    (auth.getPluginRequestToken as jest.Mock).mockClear();
     fetchMock.mockReset();
     fetchMock.mockImplementation(async (input: any) => {
       const url = String(input).toLowerCase();
@@ -125,7 +126,7 @@ describe('DefaultReadmeCollatorFactory', () => {
     expect(factory.type).toBe('readme');
   });
 
-  it('yields documents for entities with a README, stripping markdown', async () => {
+  it('yields documents for entities with a README, converting markdown to text', async () => {
     const factory = DefaultReadmeCollatorFactory.fromConfig(
       mockServices.rootConfig(),
       { auth, catalog, discovery, logger },
@@ -139,13 +140,43 @@ describe('DefaultReadmeCollatorFactory', () => {
     expect(docs).toHaveLength(1);
     expect(docs[0]).toEqual({
       title: 'My Service - README',
-      text: 'My Service A service that does things. See the docs for more info. Bold item',
+      text: "My Service A service that does things. See the docs for more info. echo 'hidden code block' Bold item",
       location: '/catalog/default/component/my-service',
       entityRef: 'component:default/my-service',
       kind: 'Component',
       namespace: 'default',
       name: 'my-service',
     });
+  });
+
+  it('indexes plain text readmes as they are, including underscores', async () => {
+    const catalogWithPlainText = catalogServiceMock.mock({
+      queryEntities: async () => ({
+        items: [entityWithSourceLocation],
+        pageInfo: { nextCursor: undefined },
+        totalItems: 1,
+      }),
+    });
+    const factory = DefaultReadmeCollatorFactory.fromConfig(
+      mockServices.rootConfig(),
+      { auth, catalog: catalogWithPlainText, discovery, logger },
+    );
+
+    fetchMock.mockImplementation(
+      async () =>
+        new Response('plain readme for my_service_name', {
+          status: 200,
+          headers: { 'Content-Type': 'text/plain' },
+        }),
+    );
+
+    const docs: any[] = [];
+    for await (const doc of await factory.getCollator()) {
+      docs.push(doc);
+    }
+
+    expect(docs).toHaveLength(1);
+    expect(docs[0].text).toBe('plain readme for my_service_name');
   });
 
   it('skips entities whose README is not found and entities that fail', async () => {
@@ -194,6 +225,40 @@ describe('DefaultReadmeCollatorFactory', () => {
     expect(myServiceCalls).not.toHaveLength(0);
     for (const call of myServiceCalls) {
       expect((call[1] as any).headers.Authorization).toContain('Bearer ');
+    }
+  });
+
+  it('renews the plugin token for each page of entities', async () => {
+    const paginatedCatalog = catalogServiceMock.mock({
+      queryEntities: async (request: any) =>
+        request.cursor
+          ? {
+              items: [entityWithoutReadme],
+              pageInfo: { nextCursor: undefined },
+              totalItems: 1,
+            }
+          : {
+              items: [entityWithSourceLocation],
+              pageInfo: { nextCursor: 'page-2' },
+              totalItems: 2,
+            },
+    });
+    const factory = DefaultReadmeCollatorFactory.fromConfig(
+      mockServices.rootConfig(),
+      { auth, catalog: paginatedCatalog, discovery, logger },
+    );
+
+    const docs: any[] = [];
+    for await (const doc of await factory.getCollator()) {
+      docs.push(doc);
+    }
+
+    expect(docs.map((d: any) => d.name)).toEqual(['my-service']);
+    expect(auth.getPluginRequestToken).toHaveBeenCalledTimes(2);
+    for (const call of (auth.getPluginRequestToken as jest.Mock).mock.calls) {
+      expect(call[0]).toEqual(
+        expect.objectContaining({ targetPluginId: 'readme' }),
+      );
     }
   });
 
