@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: axis-backstage-plugin-search-backend-module-readme
+  title: '@axis-backstage/plugin-search-backend-module-readme'
+spec:
+  lifecycle: experimental
+  type: backstage-backend-plugin-module
+  owner: backstage-plugins-maintainers
