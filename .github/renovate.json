@@ -54,5 +54,7 @@
   },
   "minimumReleaseAge": "14 days",
   "prCreation": "not-pending",
-  "dependencyDashboard": true
+  "dependencyDashboard": {
+    "enabled": true
+  }
 }
