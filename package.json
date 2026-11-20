@@ -53,7 +53,7 @@
     "@playwright/test": "^1.63.0",
     "@spotify/prettier-config": "^15.0.0",
     "@types/jest": "^30",
-    "@types/jsdom": "^27",
+    "@types/jsdom": "^30.0.0",
     "@types/node": "^24.19.0",
     "jest": "^30.5.1",
     "jsdom": "^27",
