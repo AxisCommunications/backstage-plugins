@@ -13179,14 +13179,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jsdom@npm:^27":
-  version: 27.0.0
-  resolution: "@types/jsdom@npm:27.0.0"
+"@types/jsdom@npm:^30.0.0":
+  version: 30.0.0
+  resolution: "@types/jsdom@npm:30.0.0"
   dependencies:
     "@types/node": "npm:*"
     "@types/tough-cookie": "npm:*"
-    parse5: "npm:^7.0.0"
-  checksum: 10c0/1ec7ff7177e1f7266e51279f07f3cd013e1713766b01eebceac783061675b31c672a47b0a508dcbaf040f7f22d90405858378c6c5358991989fbe8b95adde354
+    parse5: "npm:^8.0.0"
+    undici-types: "npm:^8.9.0"
+  checksum: 10c0/5489ff43ccaaaa473c1a0f10f623e6329a57234454203f557d0ff3bff28e51423b20219ff5c1c8f3d3552c862b36576c25340724b6e93d283c759b8db6868422
   languageName: node
   linkType: hard
 
@@ -26849,7 +26850,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse5@npm:^7.0.0, parse5@npm:^7.2.1":
+"parse5@npm:^7.2.1":
   version: 7.3.0
   resolution: "parse5@npm:7.3.0"
   dependencies:
@@ -29993,7 +29994,7 @@ __metadata:
     "@playwright/test": "npm:^1.63.0"
     "@spotify/prettier-config": "npm:^15.0.0"
     "@types/jest": "npm:^30"
-    "@types/jsdom": "npm:^27"
+    "@types/jsdom": "npm:^30.0.0"
     "@types/node": "npm:^24.19.0"
     jest: "npm:^30.5.1"
     jsdom: "npm:^27"
@@ -32694,6 +32695,13 @@ __metadata:
   version: 7.24.6
   resolution: "undici-types@npm:7.24.6"
   checksum: 10c0/d9cd8befb643ac904615c280a095ba4240531f6bb4a5e75a22a7483630ca8d3f1016d2ab6ace6ceda1f63b3a2db2fe037fafe121d6917a0187573aa548ff78ca
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:^8.9.0":
+  version: 8.13.1
+  resolution: "undici-types@npm:8.13.1"
+  checksum: 10c0/a3a9d9396b52b3ec0c8de31a950cfaeabb6e91783838452abe5055fd8ce020b6eef4212904de3ba0462ed1d33401bd93d7972263b031fea2bf0c18570c4d5d83
   languageName: node
   linkType: hard
 
