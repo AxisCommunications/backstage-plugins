@@ -123,6 +123,55 @@ app:
           maxHeight: 500px
 ```
 
+In addition to the card, the alpha plugin provides a `README` tab on entity
+pages, placed in the `documentation` group. The tab is only shown for
+entities that have a `backstage.io/source-location` annotation.
+
+## Search Integration
+
+The plugin provides rendering of search results for README documents. To
+index README files, install the
+[search backend module](../search-backend-module-readme) in your backend.
+
+### New Frontend System
+
+With the new frontend system, README search results are rendered automatically
+when the plugin is installed, using a `SearchResultListItemBlueprint` extension
+that matches documents of type `readme`. A `README` result type filter is also
+registered for the search page.
+
+The result rendering can be customized with the following config options:
+
+| Config key   | Type      | Default | Description                                         |
+| ------------ | --------- | ------- | --------------------------------------------------- |
+| `lineClamp`  | `number`  | `3`     | The number of lines of the content preview to show. |
+| `asLink`     | `boolean` | `true`  | When `true`, the result links to the entity page.   |
+| `asListItem` | `boolean` | `true`  | When `true`, the result is rendered as a list item. |
+
+```yaml
+# app-config.yaml
+app:
+  extensions:
+    - search-result-list-item:readme:
+        config:
+          lineClamp: 5
+```
+
+### Legacy Frontend System
+
+For the legacy frontend system, use the `ReadmeSearchResultListItem` component
+in your search page:
+
+```tsx
+// packages/app/src/components/search/SearchPage.tsx
+import { ReadmeSearchResultListItem } from '@axis-backstage/plugin-readme';
+
+// In your search result switch
+<SearchType.Accordion name="README" types={['readme']}>
+  <ReadmeSearchResultListItem />
+</SearchType.Accordion>;
+```
+
 ## Layout
 
 The readme card is located in the overview page on the entity page. From the card header it is also possible to open a dialog displaying the full README.md.
@@ -130,6 +179,21 @@ The readme card is located in the overview page on the entity page. From the car
 ![readme-card](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/media/readme-card.png)
 
 ![readme-dialog](https://github.com/AxisCommunications/backstage-plugins/blob/main/plugins/readme/media/readme-dialog.png)
+
+With the new frontend system, the README is also available as a dedicated tab
+in the `documentation` group on the entity page, providing a full-page view of
+the README content. The `ReadmeEntityContent` component can be used for the
+same purpose in the legacy frontend system:
+
+```tsx
+// packages/app/src/components/catalog/EntityPage.tsx
+import { ReadmeEntityContent } from '@axis-backstage/plugin-readme';
+
+// In your entity layout
+<EntityLayout.Route path="/readme" title="README">
+  <ReadmeEntityContent />
+</EntityLayout.Route>;
+```
 
 ### Troubleshooting
 
